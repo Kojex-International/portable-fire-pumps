@@ -3,6 +3,8 @@
 :root {
   --brand-1: #be123c;
   --brand-2: #b85c35;
+  --brand-1-10: color-mix(in srgb, var(--brand-1) 10%, white);
+  --brand-1-20: color-mix(in srgb, var(--brand-1) 20%, white);
   --brand-accent: #9f1239;
 }
 

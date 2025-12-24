@@ -17,7 +17,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button
-          className="lg:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+          className="lg:hidden p-2 text-slate-700 hover:bg-[var(--brand-1-10)] rounded-lg transition-colors"
           aria-label="Toggle menu"
         >
           <Menu className="h-6 w-6" />
@@ -33,7 +33,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
               <Dialog.Close asChild key={item.href}>
                 <a
                   href={item.href}
-                  className="block px-4 py-3 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 active:bg-blue-100 active:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-lg transition-all"
+                  className="block px-4 py-3 text-lg font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
                 >
                   {item.name}
                 </a>
@@ -41,13 +41,13 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
             ))}
             <div className="pt-4 flex items-center justify-center gap-3 text-xl sm:text-2xl font-semibold uppercase tracking-wide text-slate-600">
               <Dialog.Close asChild>
-                <a href={enHref} className="px-1.5 py-0.5 rounded-md border border-transparent hover:text-[#E11D48] active:text-[#BE123C] active:bg-[#FFF1F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] focus-visible:ring-offset-2 transition-colors">
+                <a href={enHref} className="px-1.5 py-0.5 rounded-md border border-transparent hover:text-[var(--brand-1)] active:text-[var(--brand-accent)] active:bg-[var(--brand-1-10)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 transition-colors">
                   EN
                 </a>
               </Dialog.Close>
               <span className="text-slate-300 text-lg sm:text-xl">/</span>
               <Dialog.Close asChild>
-                <a href={frHref} className="px-1.5 py-0.5 rounded-md border border-transparent hover:text-[#E11D48] active:text-[#BE123C] active:bg-[#FFF1F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] focus-visible:ring-offset-2 transition-colors">
+                <a href={frHref} className="px-1.5 py-0.5 rounded-md border border-transparent hover:text-[var(--brand-1)] active:text-[var(--brand-accent)] active:bg-[var(--brand-1-10)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 transition-colors">
                   FR
                 </a>
               </Dialog.Close>
@@ -56,7 +56,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
               <Dialog.Close asChild>
                 <a
                   href={rfqHref}
-                  className="block text-center px-6 py-3 text-sm font-semibold text-white bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:from-blue-800 active:to-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-lg shadow-md transition-all"
+                  className="block text-center px-6 py-3 text-sm font-semibold text-white brand-gradient-bg hover:brightness-95 active:brightness-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg shadow-md transition-all"
                 >
                   Request Quote
                 </a>
