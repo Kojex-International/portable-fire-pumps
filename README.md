@@ -1,4 +1,4 @@
-# AstroFlow - Logistics & Manufacturing Website Template
+# Portable Fire Pumps - High-performance portable fire pumps Website Template
 
 A modern, professional Astro.js template for logistics, manufacturing, and supply chain companies. Built with React, Tailwind CSS, and TypeScript.
 
@@ -10,7 +10,7 @@ A modern, professional Astro.js template for logistics, manufacturing, and suppl
 ## 🖼️ Preview
 
 ### Website Screenshot
-<img alt="AstroFlow Website Preview" src="./public/AstroFlow - Astrojs Logistics & Manufacturing Website Template.png" />
+<img alt="Portable Fire Pumps Website Preview" src="./public/Portable Fire Pumps - Astrojs High-performance portable fire pumps Website Template.png" />
 
 ### Performance & Speed
 <img alt="Performance Metrics" src="./public/speed-metrics.png" />

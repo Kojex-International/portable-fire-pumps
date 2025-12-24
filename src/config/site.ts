@@ -1,9 +1,9 @@
 // Site configuration
 export const SITE = {
-  title: 'AstroFlow',
-  description: 'Leading provider of optimized logistics and manufacturing solutions with state-of-the-art facilities and industry expertise.',
-  url: 'https://yourdomain.com',
-  author: 'AstroFlow',
+  title: 'Portable Fire Pumps',
+  description: 'High-performance portable fire pumps for fire prevention and disaster relief sectors',
+  url: 'https://www.portable-fire-pumps.com',
+  author: 'Kojex International',
 } as const;
 
 export const NAVIGATION = [
