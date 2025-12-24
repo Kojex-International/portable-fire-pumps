@@ -1,5 +1,10 @@
 ---
 import Button from '../ui/Button.astro';
+import { getLocaleFromPathname, localizePath } from '@config/site';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const requestQuoteHref = localizePath('/request-a-quote', locale);
+const distributorsHref = localizePath('/distributors', locale);
 ---
 
 <section class="relative overflow-hidden bg-linear-to-r from-primary-800 to-secondary-700 text-white py-20">
@@ -19,10 +24,10 @@ import Button from '../ui/Button.astro';
       </p>
       
       <div class="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-        <Button href="/rfq" size="lg" class="bg-white! text-primary-800! hover:bg-gray-100!">
+        <Button href={requestQuoteHref} size="lg" class="bg-white! text-primary-800! hover:bg-gray-100!">
           Request a Quote
         </Button>
-        <Button href="/facilities" size="lg" variant="outline" class="border-white! text-white! hover:bg-white/10!">
+        <Button href={distributorsHref} size="lg" variant="outline" class="border-white! text-white! hover:bg-white/10!">
           View Our Facilities
         </Button>
       </div>
@@ -49,4 +54,3 @@ import Button from '../ui/Button.astro';
     </div>
   </div>
 </section>
-

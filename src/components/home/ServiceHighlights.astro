@@ -1,5 +1,9 @@
 ---
 import FeatureShowcase from '../react/FeatureShowcase';
+import { getLocaleFromPathname, localizePath } from '@config/site';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const productsHref = localizePath('/products', locale);
 ---
 
 <section class="py-24 bg-slate-50">
@@ -22,10 +26,10 @@ import FeatureShowcase from '../react/FeatureShowcase';
     <!-- Bottom CTA -->
     <div class="text-center mt-16">
       <a 
-        href="/capabilities" 
+        href={productsHref} 
         class="inline-flex items-center px-8 py-4 text-base font-semibold text-white bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-lg hover:shadow-xl transition-all group"
       >
-        Explore All Capabilities
+        Explore Products
         <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
@@ -33,4 +37,3 @@ import FeatureShowcase from '../react/FeatureShowcase';
     </div>
   </div>
 </section>
-

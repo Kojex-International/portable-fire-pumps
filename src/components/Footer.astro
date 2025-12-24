@@ -1,6 +1,13 @@
 ---
-import { NAVIGATION, SOCIAL_LINKS, SITE } from '@config/site';
+import { getLocaleFromPathname, getNavigation, localizePath, SOCIAL_LINKS, SITE } from '@config/site';
 import { Package, Linkedin, Twitter, Facebook } from 'lucide-react';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const navigation = getNavigation(locale);
+const productsHref = localizePath('/products', locale);
+const requestQuoteHref = localizePath('/request-a-quote', locale);
+const distributorsHref = localizePath('/distributors', locale);
+const resourcesHref = localizePath('/resources', locale);
 ---
 
 <footer class="bg-slate-900 text-slate-300">
@@ -8,7 +15,7 @@ import { Package, Linkedin, Twitter, Facebook } from 'lucide-react';
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-4">
       <!-- Company Info -->
       <div class="lg:col-span-1 space-y-6">
-        <a href="/" class="flex items-center space-x-3 group">
+        <a href={localizePath('/', locale)} class="flex items-center space-x-3 group">
           <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-linear-to-br from-blue-600 to-teal-600">
             <Package className="w-7 h-7 text-white" />
           </div>
@@ -50,7 +57,7 @@ import { Package, Linkedin, Twitter, Facebook } from 'lucide-react';
           Quick Links
         </h3>
         <ul class="space-y-3">
-          {NAVIGATION.map((item) => (
+          {navigation.map((item) => (
             <li>
               <a
                 href={item.href}
@@ -71,25 +78,25 @@ import { Package, Linkedin, Twitter, Facebook } from 'lucide-react';
         </h3>
         <ul class="space-y-3">
           <li>
-            <a href="/capabilities" class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href={productsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
               Warehousing & Storage
             </a>
           </li>
           <li>
-            <a href="/capabilities" class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href={productsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
               Transportation
             </a>
           </li>
           <li>
-            <a href="/capabilities" class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href={productsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
               Manufacturing
             </a>
           </li>
           <li>
-            <a href="/capabilities" class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href={productsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
               Supply Chain Management
             </a>
@@ -104,19 +111,19 @@ import { Package, Linkedin, Twitter, Facebook } from 'lucide-react';
         </h3>
         <ul class="space-y-3 text-sm">
           <li>
-            <a href="/rfq" class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href={requestQuoteHref} class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
               Request a Quote
             </a>
           </li>
           <li>
-            <a href="/facilities" class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href={distributorsHref} class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
               Find a Facility
             </a>
           </li>
           <li>
-            <a href="/documentation" class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href={resourcesHref} class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
               Documentation
             </a>
@@ -125,7 +132,7 @@ import { Package, Linkedin, Twitter, Facebook } from 'lucide-react';
         
         <div class="mt-8">
           <a
-            href="/rfq"
+            href={requestQuoteHref}
             class="inline-flex items-center px-6 py-3 text-sm font-semibold text-white bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-lg hover:shadow-xl transition-all"
           >
             Get Started
@@ -141,15 +148,15 @@ import { Package, Linkedin, Twitter, Facebook } from 'lucide-react';
           &copy; {new Date().getFullYear()} {SITE.author}. All rights reserved.
         </p>
         <div class="flex items-center space-x-6 text-sm">
-          <a href="/" class="text-slate-400 hover:text-blue-400 transition-colors">
+          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-blue-400 transition-colors">
             Privacy Policy
           </a>
           <span class="text-slate-700">•</span>
-          <a href="/" class="text-slate-400 hover:text-blue-400 transition-colors">
+          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-blue-400 transition-colors">
             Terms of Service
           </a>
           <span class="text-slate-700">•</span>
-          <a href="/" class="text-slate-400 hover:text-blue-400 transition-colors">
+          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-blue-400 transition-colors">
             Cookie Policy
           </a>
         </div>

@@ -2,6 +2,11 @@
 import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import warehouseBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
+import { getLocaleFromPathname, localizePath } from '@config/site';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const requestQuoteHref = localizePath('/request-a-quote', locale);
+const distributorsHref = localizePath('/distributors', locale);
 ---
 
 <section class="relative py-32 overflow-hidden">
@@ -33,7 +38,7 @@ import warehouseBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
       
       <div class="flex flex-col sm:flex-row gap-6 justify-center mb-16">
         <a 
-          href="/rfq"
+          href={requestQuoteHref}
           class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-blue-900 bg-white hover:bg-slate-100 rounded-lg shadow-2xl hover:shadow-3xl transition-all group"
         >
           Request a Quote
@@ -42,7 +47,7 @@ import warehouseBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
           </svg>
         </a>
         <a 
-          href="/facilities"
+          href={distributorsHref}
           class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white hover:bg-white/10 rounded-lg shadow-2xl hover:shadow-3xl transition-all group"
         >
           Tour Our Facilities
@@ -74,4 +79,3 @@ import warehouseBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
     </div>
   </div>
 </section>
-

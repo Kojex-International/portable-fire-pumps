@@ -1,12 +1,52 @@
 @import "tailwindcss";
 
+:root {
+  --brand-1: #be123c;
+  --brand-2: #b85c35;
+  --brand-accent: #9f1239;
+}
+
+.brand-gradient-bg {
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  transition: background 0.3s ease;
+}
+
+.brand-gradient-text {
+  background: linear-gradient(to right, var(--brand-1), var(--brand-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-accent-hover {
+  transition: color 0.2s ease;
+}
+
+.brand-accent-hover:hover {
+  color: var(--brand-1);
+}
+
+.group:hover .brand-accent-hover {
+  color: var(--brand-1);
+}
+
+.brand-cta {
+  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white shadow-2xl transition focus-visible:ring-2 focus-visible:ring-offset-2;
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+}
+
+.brand-cta:hover {
+  filter: brightness(0.95);
+}
+
 /* Smooth scrolling */
 html {
   @apply scroll-smooth;
 }
 
 .nav-active {
-  @apply after:content-[""] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:bg-blue-300 hover:after:bg-transparent after:rounded-full;
+  @apply after:content-[""] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:bg-[#FCA5A5] hover:after:bg-transparent after:rounded-full;
 }
 
 /* Animations */
@@ -39,8 +79,9 @@ html {
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #2563eb, #0d9488);
+  background: linear-gradient(to right, var(--brand-1), var(--brand-2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  color: transparent;
 }

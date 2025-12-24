@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import techDashboardImg from '@assets/photo-1551288049-bebda4e38f71.jpg';
+import { getLocaleFromPathname, localizePath } from '@config/site';
 
 interface Technology {
   title: string;
@@ -35,6 +36,9 @@ const technologies: Technology[] = [
     iconPath: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
   }
 ];
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const resourcesHref = localizePath('/resources', locale);
 ---
 
 <section class="py-24 bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
@@ -79,7 +83,7 @@ const technologies: Technology[] = [
         <!-- CTA -->
         <div class="mt-10">
           <a 
-            href="/documentation" 
+            href={resourcesHref} 
             class="inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-linear-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 rounded-lg shadow-lg hover:shadow-xl transition-all group"
           >
             Explore Our Technology
@@ -131,5 +135,4 @@ const technologies: Technology[] = [
     </div>
   </div>
 </section>
-
 

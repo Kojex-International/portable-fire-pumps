@@ -2,6 +2,11 @@
 import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
+import { getLocaleFromPathname, localizePath } from '@config/site';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const requestQuoteHref = localizePath('/request-a-quote', locale);
+const productsHref = localizePath('/products', locale);
 ---
 
 <section class="relative h-screen min-h-[600px] flex items-center overflow-hidden">
@@ -22,7 +27,7 @@ import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
   <!-- Content -->
   <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl">
-      <div class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-[#E11D48] to-[#F97316] text-white text-sm font-semibold rounded-full shadow-lg">
+      <div class="inline-flex items-center px-4 py-2 mb-6 brand-gradient-bg text-white text-sm font-semibold rounded-full shadow-lg">
         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
         </svg>
@@ -31,7 +36,7 @@ import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
       
       <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
         High-Performance
-        <span class="block text-transparent bg-clip-text bg-linear-to-r from-[#E11D48] to-[#F97316] mt-2">
+        <span class="block brand-gradient-text mt-2">
           Portable Fire Pumps
         </span>
       </h1>
@@ -42,10 +47,10 @@ import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
       </p>
       
       <div class="flex flex-col sm:flex-row gap-4 mb-12">
-        <Button href="/rfq" size="lg" class="bg-[#E11D48]! hover:bg-[#BE123C]! text-white! shadow-2xl!">
+        <Button href={requestQuoteHref} size="lg" class="brand-cta">
           Request a Quote
         </Button>
-        <Button href="/capabilities" size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
+        <Button href={productsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
           View Products
         </Button>
       </div>
@@ -53,20 +58,20 @@ import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
       <!-- Quick Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20">
         <div class="group">
-          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[#F97316] mb-1">500+</div>
-          <div class="text-sm text-slate-300 group-hover:text-[#E11D48] transition-colors">Global Clients</div>
+          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">500+</div>
+          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Global Clients</div>
         </div>
         <div class="group">
-          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[#F97316] mb-1">50M+</div>
-          <div class="text-sm text-slate-300 group-hover:text-[#E11D48] transition-colors">Units Shipped</div>
+          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">50M+</div>
+          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Units Shipped</div>
         </div>
         <div class="group">
-          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[#F97316] mb-1">99.9%</div>
-          <div class="text-sm text-slate-300 group-hover:text-[#E11D48] transition-colors">On-Time</div>
+          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">99.9%</div>
+          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">On-Time</div>
         </div>
         <div class="group">
-          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[#F97316] mb-1">15+</div>
-          <div class="text-sm text-slate-300 group-hover:text-[#E11D48] transition-colors">Facilities</div>
+          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">15+</div>
+          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Facilities</div>
         </div>
       </div>
     </div>
