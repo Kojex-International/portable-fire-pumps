@@ -39,7 +39,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
                 </a>
               </Dialog.Close>
             ))}
-            <div className="pt-4 flex items-center justify-center gap-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <div className="pt-4 flex items-center justify-center gap-3 text-base sm:text-lg font-semibold uppercase tracking-wide text-slate-500">
               <Dialog.Close asChild>
                 <a href={enHref} className="hover:text-[#E11D48] transition-colors">
                   EN
