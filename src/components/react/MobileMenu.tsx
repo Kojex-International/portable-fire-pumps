@@ -8,9 +8,11 @@ type NavItem = {
 type MobileMenuProps = {
   items: NavItem[];
   rfqHref: string;
+  enHref: string;
+  frHref: string;
 };
 
-export default function MobileMenu({ items, rfqHref }: MobileMenuProps) {
+export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMenuProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -37,6 +39,19 @@ export default function MobileMenu({ items, rfqHref }: MobileMenuProps) {
                 </a>
               </Dialog.Close>
             ))}
+            <div className="pt-4 flex items-center justify-center gap-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <Dialog.Close asChild>
+                <a href={enHref} className="hover:text-[#E11D48] transition-colors">
+                  EN
+                </a>
+              </Dialog.Close>
+              <span className="text-slate-300">/</span>
+              <Dialog.Close asChild>
+                <a href={frHref} className="hover:text-[#E11D48] transition-colors">
+                  FR
+                </a>
+              </Dialog.Close>
+            </div>
             <div className="pt-4">
               <Dialog.Close asChild>
                 <a
