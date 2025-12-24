@@ -1,6 +1,7 @@
 ---
 import { NAVIGATION } from '@config/site';
-import { Package } from 'lucide-react';
+import { Image } from 'astro:assets';
+import logoMark from '@assets/shibaura-logo-mark.svg';
 import MobileMenu from '@components/react/MobileMenu';
 
 const { currentPathname } = Astro.props;
@@ -13,12 +14,12 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
     <!-- Logo -->
     <div class="flex items-center">
       <a href="/" class="flex items-center space-x-3 group">
-        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-linear-to-br from-blue-600 to-teal-600 group-hover:scale-110 transition-transform">
-          <Package className="w-6 h-6 text-white" />
-        </div>
-        <span class="text-2xl font-bold bg-linear-to-r from-blue-800 to-teal-600 bg-clip-text text-transparent">
-          Portable Fire Pumps
-        </span>
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-linear-to-br from-[#E11D48] to-[#F97316] group-hover:scale-110 transition-transform">
+      <Image src={logoMark} alt="Shibaura logo" class="w-11 h-11" />
+    </div>
+    <span class="text-2xl font-bold bg-linear-to-r from-[#E11D48] to-[#F97316] bg-clip-text text-transparent">
+      Portable Fire Pumps
+    </span>
       </a>
     </div>
 
@@ -29,7 +30,7 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
         return (
         <a
           href={item.href}
-          class={`px-4 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
+          class={`px-4 py-2 text-sm font-medium text-slate-700 hover:text-[#E11D48] hover:bg-[#FFF1F2] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
         >
           {item.name}
         </a>
@@ -41,7 +42,7 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
     <div class="hidden lg:flex lg:items-center lg:space-x-4">
       <a
         href="/rfq"
-        class="inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-md hover:shadow-lg transition-all"
+        class="inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-linear-to-r from-[#E11D48] to-[#F97316] hover:from-[#BE123C] hover:to-[#EA580C] rounded-lg shadow-md hover:shadow-lg transition-all"
       >
         Request Quote
       </a>
