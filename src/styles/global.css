@@ -89,7 +89,7 @@ html {
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 640px) {
     .safari-hero-offset {
-      padding-top: 5rem;
+      padding-top: 3rem;
       height: auto;
       min-height: calc(100vh + 5rem);
     }
