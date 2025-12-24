@@ -89,9 +89,10 @@ html {
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 640px) {
     .safari-hero-offset {
-      padding-top: 3rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
       height: auto;
-      min-height: calc(100vh + 5rem);
+      min-height: calc(100vh + 4rem);
     }
   }
 }
