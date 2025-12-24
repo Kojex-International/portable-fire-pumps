@@ -33,7 +33,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
               <Dialog.Close asChild key={item.href}>
                 <a
                   href={item.href}
-                  className="block px-4 py-3 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                  className="block px-4 py-3 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 active:bg-blue-100 active:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-lg transition-all"
                 >
                   {item.name}
                 </a>
@@ -56,7 +56,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
               <Dialog.Close asChild>
                 <a
                   href={rfqHref}
-                  className="block text-center px-6 py-3 text-sm font-semibold text-white bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-md transition-all"
+                  className="block text-center px-6 py-3 text-sm font-semibold text-white bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:from-blue-800 active:to-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-lg shadow-md transition-all"
                 >
                   Request Quote
                 </a>
