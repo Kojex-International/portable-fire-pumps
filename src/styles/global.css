@@ -90,6 +90,8 @@ html {
   @media (max-width: 640px) {
     .safari-hero-offset {
       padding-top: 5rem;
+      height: auto;
+      min-height: calc(100vh + 5rem);
     }
   }
 }
