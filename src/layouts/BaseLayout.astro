@@ -40,13 +40,11 @@ const {
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
   </head>
-  <body class="bg-white font-sans text-neutral-900 antialiased">
-    <div class="flex min-h-screen flex-col">
-      <Header currentPathname={currentPathname} />
-      <main class="flex-1 pt-20 lg:pt-0">
-        <slot />
-      </main>
-      <Footer />
-    </div>
+  <body class="flex min-h-screen flex-col bg-white font-sans text-neutral-900 antialiased">
+    <Header currentPathname={currentPathname} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
