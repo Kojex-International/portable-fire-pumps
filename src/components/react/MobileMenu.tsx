@@ -41,13 +41,13 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
             ))}
             <div className="pt-4 flex items-center justify-center gap-3 text-base sm:text-lg font-semibold uppercase tracking-wide text-slate-500">
               <Dialog.Close asChild>
-                <a href={enHref} className="hover:text-[#E11D48] transition-colors">
+                <a href={enHref} className="hover:text-[#E11D48] active:text-[#BE123C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] focus-visible:ring-offset-2 rounded-sm transition-colors">
                   EN
                 </a>
               </Dialog.Close>
               <span className="text-slate-300">/</span>
               <Dialog.Close asChild>
-                <a href={frHref} className="hover:text-[#E11D48] transition-colors">
+                <a href={frHref} className="hover:text-[#E11D48] active:text-[#BE123C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] focus-visible:ring-offset-2 rounded-sm transition-colors">
                   FR
                 </a>
               </Dialog.Close>
