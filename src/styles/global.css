@@ -85,3 +85,11 @@ html {
   background-clip: text;
   color: transparent;
 }
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 640px) {
+    .safari-hero-offset {
+      padding-top: 5rem;
+    }
+  }
+}
