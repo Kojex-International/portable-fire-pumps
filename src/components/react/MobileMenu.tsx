@@ -39,15 +39,15 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
                 </a>
               </Dialog.Close>
             ))}
-            <div className="pt-5 flex items-center justify-center gap-4 text-2xl sm:text-3xl font-semibold uppercase tracking-wide text-slate-600">
+            <div className="pt-4 flex items-center justify-center gap-3 text-xl sm:text-2xl font-semibold uppercase tracking-wide text-slate-600">
               <Dialog.Close asChild>
-                <a href={enHref} className="px-2 py-1 rounded-md border border-transparent hover:text-[#E11D48] active:text-[#BE123C] active:bg-[#FFF1F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] focus-visible:ring-offset-2 transition-colors">
+                <a href={enHref} className="px-1.5 py-0.5 rounded-md border border-transparent hover:text-[#E11D48] active:text-[#BE123C] active:bg-[#FFF1F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] focus-visible:ring-offset-2 transition-colors">
                   EN
                 </a>
               </Dialog.Close>
-              <span className="text-slate-300 text-xl sm:text-2xl">/</span>
+              <span className="text-slate-300 text-lg sm:text-xl">/</span>
               <Dialog.Close asChild>
-                <a href={frHref} className="px-2 py-1 rounded-md border border-transparent hover:text-[#E11D48] active:text-[#BE123C] active:bg-[#FFF1F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] focus-visible:ring-offset-2 transition-colors">
+                <a href={frHref} className="px-1.5 py-0.5 rounded-md border border-transparent hover:text-[#E11D48] active:text-[#BE123C] active:bg-[#FFF1F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] focus-visible:ring-offset-2 transition-colors">
                   FR
                 </a>
               </Dialog.Close>
