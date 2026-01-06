@@ -3,10 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/ui/Section.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
-import CapabilityAccordion from '../../components/react/CapabilityAccordion';
+import FirepumpAccordion from '../../components/react/FirepumpAccordion';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
 
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import checkIcon from '@assets/icons/check.svg?url';
 import warehouseImg from '@assets/photo-1566576721346-d4a3b4eaeb55.jpg';
 import manufacturingImg from '@assets/photo-1581091226825-a6a2a5aee158.jpg';
 import transportationImg from '@assets/photo-1601584115197-04ecc0da31d7.jpg';
@@ -16,95 +18,91 @@ import technologyIntegrationImg from '@assets/photo-1558494949-ef010cbdcc31.jpg'
 import heroBgImg from '@assets/photo-1586528116311-ad8dd3c8310d.jpg';
 import ctaBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
 
-const capabilities = [
+const shibauraLogoIcon = shibauraLogoMark;
+
+const firepumps = [
   {
     title: 'Warehousing & Storage',
+    subtitle: 'subtitle',
     description: 'State-of-the-art warehousing facilities equipped with advanced inventory management systems, climate control, and 24/7 security.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-    </svg>`,
+    icon: shibauraLogoIcon,
     image: warehouseImg,
     features: [
-      'Climate-controlled storage',
-      'Automated inventory tracking',
-      'Cross-docking capabilities',
-      'Hazmat certified facilities',
-      'Real-time stock visibility'
+      { label: 'Climate-controlled storage', icon: checkIcon },
+      { label: 'Automated inventory tracking', icon: checkIcon },
+      { label: 'Cross-docking capabilities', icon: checkIcon },
+      { label: 'Hazmat certified facilities', icon: checkIcon },
+      { label: 'Real-time stock visibility', icon: checkIcon }
     ]
   },
   {
     title: 'Manufacturing Services',
+    subtitle: 'subtitle',
     description: 'ISO 9001 certified manufacturing with precision engineering, quality control, and flexible production capabilities.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-    </svg>`,
+    icon: shibauraLogoIcon,
     image: manufacturingImg,
     features: [
-      'CNC machining & fabrication',
-      'Assembly & kitting',
-      'Quality inspection',
-      'Prototype development',
-      'Custom tooling & fixtures'
+      { label: 'CNC machining & fabrication', icon: checkIcon },
+      { label: 'Assembly & kitting', icon: checkIcon },
+      { label: 'Quality inspection', icon: checkIcon },
+      { label: 'Prototype development', icon: checkIcon },
+      { label: 'Custom tooling & fixtures', icon: checkIcon }
     ]
   },
   {
     title: 'Transportation & Distribution',
+    subtitle: 'subtitle',
     description: 'Comprehensive multi-modal transportation network ensuring efficient, reliable delivery across all regions.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-    </svg>`,
+    icon: shibauraLogoIcon,
     image: transportationImg,
     features: [
-      'Ground transportation (LTL/FTL)',
-      'Air freight services',
-      'Ocean freight',
-      'Last-mile delivery',
-      'Route optimization'
+      { label: 'Ground transportation (LTL/FTL)', icon: checkIcon },
+      { label: 'Air freight services', icon: checkIcon },
+      { label: 'Ocean freight', icon: checkIcon },
+      { label: 'Last-mile delivery', icon: checkIcon },
+      { label: 'Route optimization', icon: checkIcon }
     ]
   },
   {
     title: 'Supply Chain Management',
+    subtitle: 'subtitle',
     description: 'End-to-end supply chain solutions with advanced analytics, forecasting, and optimization capabilities.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-    </svg>`,
+    icon: shibauraLogoIcon,
     image: supplyChainImg,
     features: [
-      'Demand forecasting',
-      'Inventory optimization',
-      'Network design',
-      'Risk management',
-      'Performance analytics'
+      { label: 'Demand forecasting', icon: checkIcon },
+      { label: 'Inventory optimization', icon: checkIcon },
+      { label: 'Network design', icon: checkIcon },
+      { label: 'Risk management', icon: checkIcon },
+      { label: 'Performance analytics', icon: checkIcon }
     ]
   },
   {
     title: 'Value-Added Services',
+    subtitle: 'subtitle',
     description: 'Comprehensive value-added services to enhance your product offerings and streamline operations.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-    </svg>`,
+    icon: shibauraLogoIcon,
     image: valueAddedServicesImg,
     features: [
-      'Product labeling & packaging',
-      'Returns management',
-      'Quality inspection',
-      'Kit assembly',
-      'Custom packaging design'
+      { label: 'Product labeling & packaging', icon: checkIcon },
+      { label: 'Returns management', icon: checkIcon },
+      { label: 'Quality inspection', icon: checkIcon },
+      { label: 'Kit assembly', icon: checkIcon },
+      { label: 'Custom packaging design', icon: checkIcon }
     ]
   },
   {
     title: 'Technology & Integration',
+    subtitle: 'subtitle',
     description: 'Advanced technology platform with seamless integration capabilities for complete visibility and control.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>`,
+    icon: shibauraLogoIcon,
     image: technologyIntegrationImg,
     features: [
-      'WMS & TMS integration',
-      'EDI & API connectivity',
-      'Real-time tracking',
-      'Automated reporting',
-      'Mobile applications'
+      { label: 'WMS & TMS integration', icon: checkIcon },
+      { label: 'EDI & API connectivity', icon: checkIcon },
+      { label: 'Real-time tracking', icon: checkIcon },
+      { label: 'Automated reporting', icon: checkIcon },
+      { label: 'Mobile applications', icon: checkIcon }
     ]
   }
 ];
@@ -153,30 +151,42 @@ const capabilities = [
   <Section background="gray">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
-      <CapabilityAccordion capabilities={capabilities} client:load />
+      <FirepumpAccordion capabilities={firepumps} client:load />
     </div>
     
     <!-- Grid View for Desktop -->
     <div class="hidden lg:block space-y-24">
-      {capabilities.map((capability, index) => (
+      {firepumps.map((capability, index) => (
         <div class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
           <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} animate-fadeInUp`}>
-            <div class="flex items-center justify-center w-16 h-16 rounded-xl bg-linear-to-br from-blue-500 to-teal-500 text-white mb-6 shadow-lg">
-              <div class="w-8 h-8" set:html={capability.icon.replace('w-12 h-12', 'w-8 h-8').replace('currentColor', 'white')} />
+            <div class="flex items-center gap-4 mb-4">
+              <div class="flex items-center justify-center w-[3.125rem] h-[3.125rem] rounded-xl brand-gradient-bg text-white shadow-lg">
+                <img src={capability.icon} alt="" class="w-9 h-9" aria-hidden="true" />
+              </div>
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+                {capability.title}
+              </h2>
             </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {capability.title}
-            </h2>
+            <h3 class="text-lg md:text-xl font-semibold text-gray-700 mb-2">
+              {capability.subtitle}
+            </h3>
             <p class="text-lg text-gray-600 mb-6 leading-relaxed">
               {capability.description}
             </p>
             <ul class="space-y-3">
-              {capability.features.map((feature) => (
+              {capability.features.map((feature, featureIndex) => (
                 <li class="flex items-center space-x-3">
-                  <svg class="w-5 h-5 text-teal-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span class="text-gray-700">{feature}</span>
+                  <div class="flex items-center justify-center shrink-0 w-5 h-5">
+                    <img
+                      src={feature.icon}
+                      alt=""
+                      class="block object-contain w-5 h-5"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <span class={`text-gray-700 whitespace-pre-line ${featureIndex === 0 ? 'font-semibold' : ''}`}>
+                    {feature.label}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -191,8 +201,9 @@ const capabilities = [
                   width={1200}
                   height={800}
                 />
-                <div class="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <div class="absolute inset-0 bg-black/2"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/10 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8 text-white drop-shadow-lg">
                   <h3 class="text-2xl font-bold mb-2">{capability.title}</h3>
                   <p class="text-gray-200">{capability.description}</p>
                 </div>
@@ -276,7 +287,7 @@ const capabilities = [
         width={2070}
         height={1380}
       />
-      <div class="absolute inset-0 bg-linear-to-r from-blue-900/95 to-teal-900/95"></div>
+      <div class="absolute inset-0 cta-overlay-gradient"></div>
     </div>
 
     <!-- Content -->
@@ -286,19 +297,19 @@ const capabilities = [
           Get Started Today
         </div>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Ready to Optimize with <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-teal-400">Portable Fire Pumps</span>?
+          Ready to Optimize with <span class="brand-gradient-text">Portable Fire Pumps</span>?
       </h2>
         <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
           Let's discuss how our capabilities can transform your business and accelerate your growth.
       </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <Button href="/fr/request-a-quote" size="lg" class="bg-blue-600! hover:bg-blue-700! text-white! shadow-2xl!">
-          Request a Quote
-        </Button>
+          <Button href="/fr/request-a-quote" size="lg" class="brand-cta">
+            Request a Quote
+          </Button>
           <Button href="/fr/distributors" size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
-          View Distributors
-        </Button>
+            View Distributors
+          </Button>
         </div>
       </div>
     </div>

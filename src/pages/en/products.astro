@@ -3,108 +3,115 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/ui/Section.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
-import CapabilityAccordion from '../../components/react/CapabilityAccordion';
+import FirepumpAccordion from '../../components/react/FirepumpAccordion';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
 
-import warehouseImg from '@assets/photo-1566576721346-d4a3b4eaeb55.jpg';
-import manufacturingImg from '@assets/photo-1581091226825-a6a2a5aee158.jpg';
-import transportationImg from '@assets/photo-1601584115197-04ecc0da31d7.jpg';
-import supplyChainImg from '@assets/photo-1460925895917-afdab827c52f.jpg';
-import valueAddedServicesImg from '@assets/photo-1558618666-fcd25c85cd64.jpg';
-import technologyIntegrationImg from '@assets/photo-1558494949-ef010cbdcc31.jpg';
-import heroBgImg from '@assets/photo-1586528116311-ad8dd3c8310d.jpg';
-import ctaBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
+import ft510Img from '@assets/ft510.jpg';
+import ft400Img from '@assets/ft400.jpg';
+import tf516mhImg from '@assets/tf516mh.jpg';
+import p572sImg from '@assets/p572s.jpg';
+import fk500Img from '@assets/fk500.jpg';
+import ff500arImg from '@assets/ff500ar.jpg';
 
-const capabilities = [
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import aircooledIcon from '@assets/icons/aircooled.svg?url';
+import watercooledIcon from '@assets/icons/watercooled.svg?url';
+import engineIcon from '@assets/icons/engine.svg?url';
+import carburatorIcon from '@assets/icons/carburator.svg?url';
+
+import timerIcon from '@assets/icons/timer.svg?url';
+import checkIcon from '@assets/icons/check.svg?url';
+import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
+import ctaBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
+import { time } from 'motion';
+
+
+const shibauraLogoIcon = shibauraLogoMark;
+
+const firepumps = [
   {
-    title: 'Warehousing & Storage',
-    description: 'State-of-the-art warehousing facilities equipped with advanced inventory management systems, climate control, and 24/7 security.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-    </svg>`,
-    image: warehouseImg,
+    title: 'P510-A',
+    subtitle: 'Powerful performance with Shibaura\'s air-cooled engine',
+    description: 'Delivers powerful performance, providing reliable output without affecting water quality.',
+    icon: shibauraLogoIcon,
+    image: ft510Img,
     features: [
-      'Climate-controlled storage',
-      'Automated inventory tracking',
-      'Cross-docking capabilities',
-      'Hazmat certified facilities',
-      'Real-time stock visibility'
+      { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
+      { label: '2-Stroke gasoline engine', icon: engineIcon },
+      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
+      { label: 'Discharge performance: 0.5MPa: 1,450L/min, 1.0MPa: 830L/min', icon: watercooledIcon },
+      { label: 'Priming performance, 1m suction head: 3.5sec', icon: timerIcon }
     ]
   },
   {
-    title: 'Manufacturing Services',
-    description: 'ISO 9001 certified manufacturing with precision engineering, quality control, and flexible production capabilities.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-    </svg>`,
-    image: manufacturingImg,
+    title: 'FT300-A / FT400-A1',
+    subtitle: 'Compact and light weight',
+    description: 'A compact, lightweight pump delivering class-leading performance. The newly installed 5.3 L fuel tank supports extended operating time.',
+    icon: shibauraLogoIcon,
+    image: ft400Img,
     features: [
-      'CNC machining & fabrication',
-      'Assembly & kitting',
-      'Quality inspection',
-      'Prototype development',
-      'Custom tooling & fixtures'
+      { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
+      { label: '2-Stroke gasoline engine', icon: engineIcon },
+      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
+      { label: 'Discharge performance:\nFT300-A 0.5MPa: 568L/min, 0.8MPa: 318L/min\nFT400-A1 0.5MPa: 568L/min, 0.8MPa: 330L/min', icon: watercooledIcon },
+      { label: 'Priming performance, 1m suction head:\nFT300-A 2.2sec\nFT400-A1 3.5sec', icon: timerIcon }
     ]
   },
   {
-    title: 'Transportation & Distribution',
-    description: 'Comprehensive multi-modal transportation network ensuring efficient, reliable delivery across all regions.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-    </svg>`,
-    image: transportationImg,
+    title: 'TF516MH-AB',
+    subtitle: 'The smallest pump in its class, offering superior mobility',
+    description: 'Its compact, lightweight design with Shibaura\'s proprietary air-cooled engine allows for simple installation on small vehicles.',
+    icon: shibauraLogoIcon,
+    image: tf516mhImg,
     features: [
-      'Ground transportation (LTL/FTL)',
-      'Air freight services',
-      'Ocean freight',
-      'Last-mile delivery',
-      'Route optimization'
+      { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
+      { label: '2-Stroke gasoline engine', icon: engineIcon },
+      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
+      { label: 'Discharge performance: 0.5MPa: 560L/min, 1.0MPa: 280L/min', icon: watercooledIcon },
+      { label: 'Priming performance, 1m suction head: 3.6sec', icon: timerIcon }
     ]
   },
   {
-    title: 'Supply Chain Management',
-    description: 'End-to-end supply chain solutions with advanced analytics, forecasting, and optimization capabilities.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-    </svg>`,
-    image: supplyChainImg,
+    title: 'P572S-A',
+    subtitle: 'Highest discharge performance of our lineup',
+    description: 'Delivers the highest discharge performance. A large oil-less vacuum pump combined with a high-output engine enables faster priming and a greater volume of water discharge within its class.',
+    icon: shibauraLogoIcon,
+    image: p572sImg,
     features: [
-      'Demand forecasting',
-      'Inventory optimization',
-      'Network design',
-      'Risk management',
-      'Performance analytics'
+      { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
+      { label: '2-Stroke gasoline engine', icon: engineIcon },
+      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
+      { label: 'Discharge performance: 0.5MPa: 1,650L/min, 1.0MPa: 1,100L/min', icon: watercooledIcon },
+      { label: 'Priming performance, 1m suction head: 2.1sec', icon: timerIcon }
     ]
   },
   {
-    title: 'Value-Added Services',
-    description: 'Comprehensive value-added services to enhance your product offerings and streamline operations.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-    </svg>`,
-    image: valueAddedServicesImg,
+    title: 'FK500-A',
+    subtitle: 'Durable, well-balanced performance',
+    description: 'A well-balanced, durable pump featuring Shibaura\'s proprietary engine-cooling system. The fully water-cooled radiator ensures reliable operation and extended service life, even in dirty-water environments.',
+    icon: shibauraLogoIcon,
+    image: fk500Img,
     features: [
-      'Product labeling & packaging',
-      'Returns management',
-      'Quality inspection',
-      'Kit assembly',
-      'Custom packaging design'
+      { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
+      { label: '2-Stroke gasoline engine', icon: engineIcon },
+      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
+      { label: 'Discharge performance: 0.5MPa: 1,595L/min, 1.0MPa: 1,020L/min', icon: watercooledIcon },
+      { label: 'Priming performance, 1m suction head: 2.2sec', icon: timerIcon }
     ]
   },
   {
-    title: 'Technology & Integration',
-    description: 'Advanced technology platform with seamless integration capabilities for complete visibility and control.',
-    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>`,
-    image: technologyIntegrationImg,
+    title: 'FF500AR-A',
+    subtitle: 'Auto Relay for long-distance water delivery',
+    description: 'Enables long-distance water delivery by automatically relaying flow between pumps without operator intervention. Electronic fuel injection ensures easy starting and efficient fuel consumption.',
+    icon: shibauraLogoIcon,
+    image: ff500arImg,
     features: [
-      'WMS & TMS integration',
-      'EDI & API connectivity',
-      'Real-time tracking',
-      'Automated reporting',
-      'Mobile applications'
+      { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
+      { label: '2-Stroke gasoline engine', icon: engineIcon },
+      { label: 'Fuel Injection System', icon: carburatorIcon },
+      { label: 'Discharge performance: 0.5MPa: 1,550L/min, 1.0MPa: 980L/min', icon: watercooledIcon },
+      { label: 'Priming performance, 1m suction head: 2.2sec', icon: timerIcon }
     ]
   }
 ];
@@ -128,22 +135,21 @@ const capabilities = [
     <!-- Content -->
     <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-blue-600 to-teal-600 text-white text-sm font-semibold rounded-full shadow-lg">
+        <div class="inline-flex items-center px-4 py-2 mb-6 brand-gradient-bg text-white text-sm font-semibold rounded-full shadow-lg">
           <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
           </svg>
-          Comprehensive Solutions
+          Products
         </div>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-          <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-teal-400 to-blue-400">
-            Products
+          <span class="brand-gradient-text">
+            Portable Fire Pumps
           </span>
       </h1>
         
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed">
-        Comprehensive logistics and manufacturing solutions designed to optimize your operations 
-        and drive sustainable growth.
+        Engineered for reliable performance and rapid deployment in critical firefighting situations.
       </p>
       </div>
     </div>
@@ -153,46 +159,59 @@ const capabilities = [
   <Section background="gray">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
-      <CapabilityAccordion capabilities={capabilities} client:load />
+      <FirepumpAccordion capabilities={firepumps} client:load />
     </div>
     
     <!-- Grid View for Desktop -->
     <div class="hidden lg:block space-y-24">
-      {capabilities.map((capability, index) => (
+      {firepumps.map((capability, index) => (
         <div class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
           <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} animate-fadeInUp`}>
-            <div class="flex items-center justify-center w-16 h-16 rounded-xl bg-linear-to-br from-blue-500 to-teal-500 text-white mb-6 shadow-lg">
-              <div class="w-8 h-8" set:html={capability.icon.replace('w-12 h-12', 'w-8 h-8').replace('currentColor', 'white')} />
+            <div class="flex items-center gap-4 mb-4">
+              <div class="flex items-center justify-center w-[3.125rem] h-[3.125rem] rounded-xl brand-gradient-bg text-white shadow-lg">
+                <img src={capability.icon} alt="" class="w-9 h-9" aria-hidden="true" />
+              </div>
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+                {capability.title}
+              </h2>
             </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {capability.title}
-            </h2>
+            <h3 class="text-lg md:text-xl font-semibold text-gray-700 mb-2">
+              {capability.subtitle}
+            </h3>
             <p class="text-lg text-gray-600 mb-6 leading-relaxed">
               {capability.description}
             </p>
             <ul class="space-y-3">
-              {capability.features.map((feature) => (
+              {capability.features.map((feature, featureIndex) => (
                 <li class="flex items-center space-x-3">
-                  <svg class="w-5 h-5 text-teal-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span class="text-gray-700">{feature}</span>
+                  <div class="flex items-center justify-center shrink-0 w-5 h-5">
+                    <img
+                      src={feature.icon}
+                      alt=""
+                      class="block object-contain w-5 h-5"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <span class={`text-gray-700 whitespace-pre-line ${featureIndex === 0 ? 'font-semibold' : ''}`}>
+                    {feature.label}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
           <div class={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
             <ImageReveal client:load delay={index * 0.1}>
-              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-2xl">
+              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image 
                   src={capability.image}
                   alt={capability.title}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                   width={1200}
                   height={800}
                 />
-                <div class="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <div class="absolute inset-0 bg-black/2"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/10 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8 text-white drop-shadow-lg">
                   <h3 class="text-2xl font-bold mb-2">{capability.title}</h3>
                   <p class="text-gray-200">{capability.description}</p>
                 </div>
@@ -205,7 +224,7 @@ const capabilities = [
   </Section>
 
   <!-- Process Section -->
-  <Section background="white">
+  <!-- <Section background="white">
     <div class="text-center mb-16">
       <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
         Our Approach
@@ -263,42 +282,42 @@ const capabilities = [
         </Card>
       ))}
     </div>
-  </Section>
+  </Section> -->
 
   <!-- CTA Section -->
   <section class="relative py-32 overflow-hidden">
     <!-- Background Image -->
     <div class="absolute inset-0">
       <Image 
-        src={ctaBgImg}
+        src={heroBgImg}
         alt="Modern warehouse operations"
         class="w-full h-full object-cover"
         width={2070}
         height={1380}
       />
-      <div class="absolute inset-0 bg-linear-to-r from-blue-900/95 to-teal-900/95"></div>
+      <div class="absolute inset-0 cta-overlay-gradient"></div>
     </div>
 
     <!-- Content -->
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-4xl mx-auto text-center text-white">
         <div class="inline-block px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
-          Get Started Today
+          Fire Pump Readiness
         </div>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Ready to Optimize with <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-teal-400">Portable Fire Pumps</span>?
+          Outfit Your Site with <span class="brand-gradient-text">Portable Fire Pumps</span>
       </h2>
         <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Let's discuss how our capabilities can transform your business and accelerate your growth.
+          High-flow, rapid-deploy pumps built for emergency response and rugged field use.
       </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <Button href="/en/request-a-quote" size="lg" class="bg-blue-600! hover:bg-blue-700! text-white! shadow-2xl!">
-          Request a Quote
-        </Button>
+          <Button href="/en/request-a-quote" size="lg" class="brand-cta">
+            Get a Fire Pump Quote
+          </Button>
           <Button href="/en/distributors" size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
-          View Distributors
-        </Button>
+            Find a Distributor
+          </Button>
         </div>
       </div>
     </div>

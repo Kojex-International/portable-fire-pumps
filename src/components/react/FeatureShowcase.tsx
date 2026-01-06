@@ -1,49 +1,49 @@
 import { motion } from 'motion/react';
-import { Warehouse, Truck, Package, BarChart3, Shield, Headphones } from 'lucide-react';
+import { Droplet, Flame, Gauge, Wind, Shield, Repeat } from 'lucide-react';
 
-import warehouseImg from '@assets/photo-1553413077-190dd305871c.jpg';
-import truckImg from '@assets/photo-1601584115197-04ecc0da31d7.jpg';
-import packageImg from '@assets/photo-1581091226825-a6a2a5aee158.jpg';
-import barChart3Img from '@assets/photo-1551288049-bebda4e38f71.jpg';
-import shieldImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
-import headphonesImg from '@assets/photo-1486312338219-ce68d2c6f44d.jpg';
+import ft510Img from '@assets/ft510.jpg';
+import ft400Img from '@assets/ft400.jpg';
+import tf516mhImg from '@assets/tf516mh.jpg';
+import p572sImg from '@assets/p572s.jpg';
+import fk500Img from '@assets/fk500.jpg';
+import ff500arImg from '@assets/ff500ar.jpg';
 
 const features = [
   {
-    icon: Warehouse,
-    title: 'Advanced Warehousing',
-    description: 'Climate-controlled facilities with automated inventory systems and 24/7 security.',
-    image: warehouseImg,
+    icon: Flame,
+    title: 'P510-A',
+    description: 'High-output air-cooled pump for rapid response and reliable flow.',
+    image: ft510Img,
   },
   {
-    icon: Truck,
-    title: 'Fast Transportation',
-    description: 'Multi-modal logistics network ensuring rapid delivery across all destinations.',
-    image: truckImg,
+    icon: Droplet,
+    title: 'FT300-A / FT400-A1',
+    description: 'Compact, lightweight models for quick deployment and transport.',
+    image: ft400Img,
   },
   {
-    icon: Package,
-    title: 'Quality Manufacturing',
-    description: 'ISO-certified production with precision engineering and quality control.',
-    image: packageImg,
+    icon: Wind,
+    title: 'TF516MH-AB',
+    description: 'Smallest-in-class pump built for mobility and vehicle mounting.',
+    image: tf516mhImg,
   },
   {
-    icon: BarChart3,
-    title: 'Real-Time Analytics',
-    description: 'Complete supply chain visibility with advanced tracking and reporting.',
-    image: barChart3Img,
+    icon: Gauge,
+    title: 'P572S-A',
+    description: 'Highest discharge performance for demanding operations.',
+    image: p572sImg,
   },
   {
     icon: Shield,
-    title: 'Secure Operations',
-    description: 'Industry-leading security protocols protecting your valuable assets.',
-    image: shieldImg,
+    title: 'FK500-A',
+    description: 'Durable, balanced performance with water-cooled reliability.',
+    image: fk500Img,
   },
   {
-    icon: Headphones,
-    title: '24/7 Support',
-    description: 'Dedicated teams available around the clock to ensure seamless operations.',
-    image: headphonesImg,
+    icon: Repeat,
+    title: 'FF500AR-A',
+    description: 'Auto-relay system for long-distance water delivery.',
+    image: ff500arImg,
   },
 ];
 
@@ -95,4 +95,3 @@ export default function FeatureShowcase() {
     </div>
   );
 }
-

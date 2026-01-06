@@ -5,12 +5,201 @@
   --brand-2: #b85c35;
   --brand-1-10: color-mix(in srgb, var(--brand-1) 10%, white);
   --brand-1-20: color-mix(in srgb, var(--brand-1) 20%, white);
+  --brand-2-10: color-mix(in srgb, var(--brand-2) 10%, white);
+  --brand-2-20: color-mix(in srgb, var(--brand-2) 20%, white);
   --brand-accent: #9f1239;
 }
 
+/* Theme overrides: map legacy blue/teal utilities to brand palette */
+.text-blue-400 { color: color-mix(in srgb, var(--brand-1) 85%, white) !important; }
+.text-blue-500 { color: color-mix(in srgb, var(--brand-1) 92%, white) !important; }
+.text-blue-600 { color: var(--brand-1) !important; }
+.text-blue-700 { color: color-mix(in srgb, var(--brand-1) 85%, black) !important; }
+.text-blue-800 { color: color-mix(in srgb, var(--brand-1) 90%, black) !important; }
+.text-blue-900 { color: color-mix(in srgb, var(--brand-1) 95%, black) !important; }
+
+.text-teal-300 { color: color-mix(in srgb, var(--brand-2) 82%, white) !important; }
+.text-teal-400 { color: color-mix(in srgb, var(--brand-2) 88%, white) !important; }
+.text-teal-500 { color: color-mix(in srgb, var(--brand-2) 94%, white) !important; }
+.text-teal-600 { color: var(--brand-2) !important; }
+.text-teal-700 { color: color-mix(in srgb, var(--brand-2) 85%, black) !important; }
+.text-teal-800 { color: color-mix(in srgb, var(--brand-2) 90%, black) !important; }
+
+.bg-blue-50 { background-color: color-mix(in srgb, var(--brand-1) 5%, white) !important; }
+.bg-blue-100 { background-color: var(--brand-1-10) !important; }
+.bg-blue-200 { background-color: color-mix(in srgb, var(--brand-1) 20%, white) !important; }
+.bg-blue-500 { background-color: color-mix(in srgb, var(--brand-1) 85%, white) !important; }
+.bg-blue-600 { background-color: var(--brand-1) !important; }
+.bg-blue-700 { background-color: color-mix(in srgb, var(--brand-1) 85%, black) !important; }
+.bg-blue-800 { background-color: color-mix(in srgb, var(--brand-1) 90%, black) !important; }
+.bg-teal-50 { background-color: color-mix(in srgb, var(--brand-2) 5%, white) !important; }
+.bg-teal-100 { background-color: var(--brand-2-10) !important; }
+.bg-teal-200 { background-color: color-mix(in srgb, var(--brand-2) 20%, white) !important; }
+.bg-teal-500 { background-color: color-mix(in srgb, var(--brand-2) 85%, white) !important; }
+.bg-teal-600 { background-color: var(--brand-2) !important; }
+.bg-teal-700 { background-color: color-mix(in srgb, var(--brand-2) 85%, black) !important; }
+.bg-teal-800 { background-color: color-mix(in srgb, var(--brand-2) 90%, black) !important; }
+
+.border-blue-200 { border-color: var(--brand-1-20) !important; }
+.border-blue-300 { border-color: color-mix(in srgb, var(--brand-1) 30%, white) !important; }
+.border-blue-500 { border-color: var(--brand-1) !important; }
+.border-teal-200 { border-color: var(--brand-2-20) !important; }
+.border-teal-300 { border-color: color-mix(in srgb, var(--brand-2) 30%, white) !important; }
+.border-teal-500 { border-color: var(--brand-2) !important; }
+
+.ring-blue-200 { --tw-ring-color: color-mix(in srgb, var(--brand-1) 30%, white) !important; }
+.ring-blue-500 { --tw-ring-color: var(--brand-1) !important; }
+.ring-teal-200 { --tw-ring-color: color-mix(in srgb, var(--brand-2) 30%, white) !important; }
+
+.text-primary-800 { color: color-mix(in srgb, var(--brand-1) 90%, black) !important; }
+.border-primary-200 { border-color: var(--brand-1-20) !important; }
+
+.from-primary-50 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-1) 5%, white) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-primary-100 {
+  --tw-gradient-from: var(--brand-1-10) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-primary-600 {
+  --tw-gradient-from: var(--brand-1) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-primary-800 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-1) 88%, black) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-primary-900 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-1) 92%, black) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.via-primary-800 {
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), color-mix(in srgb, var(--brand-1) 88%, black) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.to-secondary-50 { --tw-gradient-to: color-mix(in srgb, var(--brand-2) 5%, white) var(--tw-gradient-to-position); }
+.to-secondary-100 { --tw-gradient-to: var(--brand-2-10) var(--tw-gradient-to-position); }
+.to-secondary-700 { --tw-gradient-to: color-mix(in srgb, var(--brand-2) 85%, black) var(--tw-gradient-to-position); }
+.to-secondary-900 { --tw-gradient-to: color-mix(in srgb, var(--brand-2) 92%, black) var(--tw-gradient-to-position); }
+.from-blue-400 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-1) 85%, white) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-blue-500 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-1) 92%, white) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-blue-600 {
+  --tw-gradient-from: var(--brand-1) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-blue-700 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-1) 85%, black) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-blue-900 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-1) 75%, black) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-indigo-500 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-1) 92%, white) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-teal-500 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-2) 92%, white) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-2) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-teal-600 {
+  --tw-gradient-from: var(--brand-2) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-2) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-teal-700 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-2) 85%, black) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-2) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-teal-900 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand-2) 75%, black) var(--tw-gradient-from-position);
+  --tw-gradient-to: color-mix(in srgb, var(--brand-2) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.via-teal-400 {
+  --tw-gradient-to: color-mix(in srgb, var(--brand-2) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), color-mix(in srgb, var(--brand-2) 88%, white) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-teal-900 {
+  --tw-gradient-to: color-mix(in srgb, var(--brand-2) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), color-mix(in srgb, var(--brand-2) 75%, black) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-blue-900 {
+  --tw-gradient-to: color-mix(in srgb, var(--brand-1) 0%, transparent) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), color-mix(in srgb, var(--brand-1) 75%, black) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.to-blue-400 { --tw-gradient-to: color-mix(in srgb, var(--brand-1) 85%, white) var(--tw-gradient-to-position); }
+.to-blue-600 { --tw-gradient-to: var(--brand-1) var(--tw-gradient-to-position); }
+.to-blue-700 { --tw-gradient-to: color-mix(in srgb, var(--brand-1) 85%, black) var(--tw-gradient-to-position); }
+.to-blue-800 { --tw-gradient-to: color-mix(in srgb, var(--brand-1) 90%, black) var(--tw-gradient-to-position); }
+.to-blue-900 { --tw-gradient-to: color-mix(in srgb, var(--brand-1) 75%, black) var(--tw-gradient-to-position); }
+.to-cyan-500 { --tw-gradient-to: color-mix(in srgb, var(--brand-2) 92%, white) var(--tw-gradient-to-position); }
+.to-teal-500 { --tw-gradient-to: color-mix(in srgb, var(--brand-2) 92%, white) var(--tw-gradient-to-position); }
+.to-teal-600 { --tw-gradient-to: var(--brand-2) var(--tw-gradient-to-position); }
+.to-teal-700 { --tw-gradient-to: color-mix(in srgb, var(--brand-2) 85%, black) var(--tw-gradient-to-position); }
+.to-teal-800 { --tw-gradient-to: color-mix(in srgb, var(--brand-2) 90%, black) var(--tw-gradient-to-position); }
+.to-teal-900 { --tw-gradient-to: color-mix(in srgb, var(--brand-2) 75%, black) var(--tw-gradient-to-position); }
+
+.from-blue-600\/90 {
+  --tw-gradient-from: rgba(190, 18, 60, 0.9) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgba(190, 18, 60, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-teal-600\/90 {
+  --tw-gradient-from: rgba(184, 92, 53, 0.9) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgba(184, 92, 53, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-blue-900\/95 {
+  --tw-gradient-from: rgba(190, 18, 60, 0.95) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgba(190, 18, 60, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.to-teal-900\/95 { --tw-gradient-to: rgba(184, 92, 53, 0.95) var(--tw-gradient-to-position); }
+.via-blue-900\/90 {
+  --tw-gradient-to: rgba(190, 18, 60, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(190, 18, 60, 0.9) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-blue-900\/80 {
+  --tw-gradient-to: rgba(190, 18, 60, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(190, 18, 60, 0.8) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-teal-900\/60 {
+  --tw-gradient-to: rgba(184, 92, 53, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(184, 92, 53, 0.6) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.to-blue-900\/80 { --tw-gradient-to: rgba(190, 18, 60, 0.8) var(--tw-gradient-to-position); }
 .brand-gradient-bg {
   background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
   transition: background 0.3s ease;
+}
+
+.cta-overlay-gradient {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(127, 29, 29, 0.85));
 }
 
 .brand-gradient-text {
