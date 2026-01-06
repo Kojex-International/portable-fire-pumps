@@ -28,8 +28,9 @@ const productsHref = localizePath('/products', locale);
 
   <!-- Content -->
   <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl">
-      <div class="inline-flex items-center px-4 py-2 mb-6 brand-gradient-bg text-white text-sm font-semibold rounded-full shadow-lg">
+    <div class="max-w-4xl relative">
+      <div class="relative z-10">
+        <div class="inline-flex items-center px-4 py-2 mb-6 brand-gradient-bg text-white text-sm font-semibold rounded-full shadow-lg">
         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
         </svg>
@@ -76,15 +77,34 @@ const productsHref = localizePath('/products', locale);
           <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Fastest Priming</div>
         </div>
       </div>
+      </div>
+
+      <!-- Pump Image (Mobile, Behind Content) -->
+      <div class="pointer-events-none absolute left-1/2 top-[30rem] z-0 -translate-x-1/2 lg:hidden">
+        <div class="relative w-72 max-w-[78vw]">
+          <div
+            class="absolute inset-0 -z-10"
+            style="background: radial-gradient(circle at 55% 75%, rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.35) 50%, transparent 85%);"
+          ></div>
+          <div class="absolute -bottom-4 left-1/2 h-6 w-3/4 -translate-x-1/2 rounded-full bg-black/35 blur-xl"></div>
+          <Image
+            src={ft510Img}
+            alt="FT510 fire pump"
+            class="w-full h-auto brightness-85 drop-shadow-[0_26px_70px_rgba(0,0,0,0.55)]"
+            width={800}
+            height={600}
+          />
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Foreground Pump Image -->
   <div class="pointer-events-none absolute inset-0 z-0 hidden lg:block">
-    <div class="absolute bottom-14 right-10 w-[30rem] max-w-[36vw] opacity-100">
+    <div class="absolute bottom-32 right-10 w-[30rem] max-w-[36vw] opacity-100">
       <div
         class="absolute inset-0 -z-10"
-        style="background: radial-gradient(circle at 60% 70%, rgba(0, 0, 0, 0.45), transparent 70%);"
+        style="background: radial-gradient(circle at 55% 75%, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.35) 50%, transparent 85%);"
       ></div>
       <div class="absolute -bottom-6 left-1/2 h-8 w-3/4 -translate-x-1/2 rounded-full bg-black/40 blur-2xl"></div>
       <Image
