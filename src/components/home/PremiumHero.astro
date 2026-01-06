@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
+import heroBgImgAi from '@assets/forestfire.png';
+import ft510Img from '@assets/ft510-removebg-preview.png';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
@@ -13,7 +15,7 @@ const productsHref = localizePath('/products', locale);
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
     <Image 
-      src={heroBgImg}
+      src={heroBgImgAi}
       alt="Modern logistics warehouse with advanced automation"
       class="w-full h-full object-cover"
       width={2070}
@@ -21,7 +23,7 @@ const productsHref = localizePath('/products', locale);
       decoding="async"
       fetchpriority="high"
     />
-    <div class="absolute inset-0 bg-linear-to-r from-black/25 via-black/12 to-black/3"></div>
+    <div class="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/25"></div>
   </div>
 
   <!-- Content -->
@@ -58,22 +60,40 @@ const productsHref = localizePath('/products', locale);
       <!-- Quick Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20">
         <div class="group">
-          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">500+</div>
-          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Global Clients</div>
+          <div class="text-xl md:text-2xl lg:text-3xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">500+</div>
+          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Pumps Deployed</div>
         </div>
         <div class="group">
-          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">50M+</div>
-          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Units Shipped</div>
+          <div class="text-xl md:text-2xl lg:text-3xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">1,650 L/min</div>
+          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Max Flow Rate</div>
         </div>
         <div class="group">
-          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">99.9%</div>
-          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">On-Time</div>
+          <div class="text-xl md:text-2xl lg:text-3xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">1.0 MPa</div>
+          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Max Pressure</div>
         </div>
         <div class="group">
-          <div class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">15+</div>
-          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Facilities</div>
+          <div class="text-xl md:text-2xl lg:text-3xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1">2.1 sec</div>
+          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Fastest Priming</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Foreground Pump Image -->
+  <div class="pointer-events-none absolute inset-0 z-0 hidden lg:block">
+    <div class="absolute bottom-14 right-10 w-[30rem] max-w-[36vw] opacity-100">
+      <div
+        class="absolute inset-0 -z-10"
+        style="background: radial-gradient(circle at 60% 70%, rgba(0, 0, 0, 0.45), transparent 70%);"
+      ></div>
+      <div class="absolute -bottom-6 left-1/2 h-8 w-3/4 -translate-x-1/2 rounded-full bg-black/40 blur-2xl"></div>
+      <Image
+        src={ft510Img}
+        alt="FT510 fire pump"
+        class="w-full h-auto brightness-85 drop-shadow-[0_40px_110px_rgba(0,0,0,0.6)]"
+        width={1200}
+        height={800}
+      />
     </div>
   </div>
 
