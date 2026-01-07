@@ -13,45 +13,56 @@ const features = [
     title: 'P510-A',
     description: 'High-output air-cooled pump for rapid response and reliable flow.',
     image: ft510Img,
+    slug: 'p510-a',
   },
   {
     title: 'FT300-A / FT400-A1',
     description: 'Compact, lightweight models for quick deployment and transport.',
     image: ft400Img,
+    slug: 'ft300-a-ft400-a1',
   },
   {
     title: 'TF516MH-AB',
     description: 'Smallest-in-class pump built for mobility and vehicle mounting.',
     image: tf516mhImg,
+    slug: 'tf516mh-ab',
   },
   {
     title: 'P572S-A',
     description: 'Highest discharge performance for demanding operations.',
     image: p572sImg,
+    slug: 'p572s-a',
   },
   {
     title: 'FK500-A',
     description: 'Durable, balanced performance with water-cooled reliability.',
     image: fk500Img,
+    slug: 'fk500-a',
   },
   {
     title: 'FF500AR-A',
     description: 'Auto-relay system for long-distance water delivery.',
     image: ff500arImg,
+    slug: 'ff500ar-a',
   },
 ];
 
-export default function FeatureShowcase() {
+type FeatureShowcaseProps = {
+  detailsBaseHref?: string;
+};
+
+export default function FeatureShowcase({ detailsBaseHref = '/products' }: FeatureShowcaseProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature, index) => (
-        <motion.div
+        <motion.a
           key={feature.title}
+          href={`${detailsBaseHref}/${feature.slug}`}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
-          className="group cursor-pointer"
+          className="group block"
         >
           <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
             {/* Image */}
@@ -97,7 +108,7 @@ export default function FeatureShowcase() {
               <p className="text-base font-medium text-white/90">{feature.description}</p>
             </div>
           </div>
-        </motion.div>
+        </motion.a>
       ))}
     </div>
   );

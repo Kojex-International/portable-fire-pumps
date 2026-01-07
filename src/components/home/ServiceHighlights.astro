@@ -20,7 +20,7 @@ const productsHref = localizePath('/products', locale);
       </p>
     </div>
 
-    <FeatureShowcase client:load />
+    <FeatureShowcase detailsBaseHref={productsHref} client:load />
     
     <!-- Bottom CTA -->
     <div class="text-center mt-16">

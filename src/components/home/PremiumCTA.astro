@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import warehouseBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
+import wildernessImg from '@assets/wilderness.png';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
@@ -13,7 +14,7 @@ const distributorsHref = localizePath('/distributors', locale);
   <!-- Background Image -->
   <div class="absolute inset-0">
     <Image 
-      src={warehouseBgImg}
+      src={wildernessImg}
       alt="Modern warehouse operations"
       class="w-full h-full object-cover"
       width={2070}
@@ -59,19 +60,19 @@ const distributorsHref = localizePath('/distributors', locale);
       <!-- Trust indicators -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
         <div class="backdrop-blur-sm bg-white/10 rounded-xl p-6 hover:bg-white/20 transition-all border border-white/10 hover:border-white/30 group">
-          <div class="text-3xl md:text-4xl font-bold mb-2 brand-gradient-text">High-Flow</div>
+          <div class="text-xl md:text-2xl font-bold mb-2 brand-gradient-text leading-tight break-words">High-Flow</div>
           <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Performance</div>
         </div>
         <div class="backdrop-blur-sm bg-white/10 rounded-xl p-6 hover:bg-white/20 transition-all border border-white/10 hover:border-white/30 group">
-          <div class="text-3xl md:text-4xl font-bold mb-2 brand-gradient-text">Rapid</div>
+          <div class="text-xl md:text-2xl font-bold mb-2 brand-gradient-text leading-tight break-words">Rapid</div>
           <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Priming</div>
         </div>
         <div class="backdrop-blur-sm bg-white/10 rounded-xl p-6 hover:bg-white/20 transition-all border border-white/10 hover:border-white/30 group">
-          <div class="text-3xl md:text-4xl font-bold mb-2 brand-gradient-text">Field</div>
+          <div class="text-xl md:text-2xl font-bold mb-2 brand-gradient-text leading-tight break-words">Field</div>
           <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Ready</div>
         </div>
         <div class="backdrop-blur-sm bg-white/10 rounded-xl p-6 hover:bg-white/20 transition-all border border-white/10 hover:border-white/30 group">
-          <div class="text-3xl md:text-4xl font-bold mb-2 brand-gradient-text">Nationwide</div>
+          <div class="text-xl md:text-2xl font-bold mb-2 brand-gradient-text leading-tight break-words">Nationwide</div>
           <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Support</div>
         </div>
       </div>

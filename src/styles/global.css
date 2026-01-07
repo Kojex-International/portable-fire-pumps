@@ -222,6 +222,30 @@
   color: var(--brand-1);
 }
 
+.brand-gradient-hover {
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.brand-gradient-hover::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--brand-1), var(--brand-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.group:hover .brand-gradient-hover::after {
+  opacity: 1;
+}
+
 .brand-cta {
   @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white shadow-2xl transition focus-visible:ring-2 focus-visible:ring-offset-2;
   background: linear-gradient(135deg, var(--brand-1), var(--brand-2));

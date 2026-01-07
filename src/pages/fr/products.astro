@@ -7,105 +7,15 @@ import FirepumpAccordion from '../../components/react/FirepumpAccordion';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
 
-import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
-import checkIcon from '@assets/icons/check.svg?url';
-import warehouseImg from '@assets/photo-1566576721346-d4a3b4eaeb55.jpg';
-import manufacturingImg from '@assets/photo-1581091226825-a6a2a5aee158.jpg';
-import transportationImg from '@assets/photo-1601584115197-04ecc0da31d7.jpg';
-import supplyChainImg from '@assets/photo-1460925895917-afdab827c52f.jpg';
-import valueAddedServicesImg from '@assets/photo-1558618666-fcd25c85cd64.jpg';
-import technologyIntegrationImg from '@assets/photo-1558494949-ef010cbdcc31.jpg';
-import heroBgImg from '@assets/photo-1586528116311-ad8dd3c8310d.jpg';
-import ctaBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
+import { firepumps } from '../../data/firepumps';
+import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
+import logoMark from '@assets/shibaura-logo-mark.svg';
+import { getLocaleFromPathname, localizePath } from '@config/site';
 
-const shibauraLogoIcon = shibauraLogoMark;
-
-const firepumps = [
-  {
-    title: 'Warehousing & Storage',
-    subtitle: 'subtitle',
-    description: 'State-of-the-art warehousing facilities equipped with advanced inventory management systems, climate control, and 24/7 security.',
-    icon: shibauraLogoIcon,
-    image: warehouseImg,
-    features: [
-      { label: 'Climate-controlled storage', icon: checkIcon },
-      { label: 'Automated inventory tracking', icon: checkIcon },
-      { label: 'Cross-docking capabilities', icon: checkIcon },
-      { label: 'Hazmat certified facilities', icon: checkIcon },
-      { label: 'Real-time stock visibility', icon: checkIcon }
-    ]
-  },
-  {
-    title: 'Manufacturing Services',
-    subtitle: 'subtitle',
-    description: 'ISO 9001 certified manufacturing with precision engineering, quality control, and flexible production capabilities.',
-    icon: shibauraLogoIcon,
-    image: manufacturingImg,
-    features: [
-      { label: 'CNC machining & fabrication', icon: checkIcon },
-      { label: 'Assembly & kitting', icon: checkIcon },
-      { label: 'Quality inspection', icon: checkIcon },
-      { label: 'Prototype development', icon: checkIcon },
-      { label: 'Custom tooling & fixtures', icon: checkIcon }
-    ]
-  },
-  {
-    title: 'Transportation & Distribution',
-    subtitle: 'subtitle',
-    description: 'Comprehensive multi-modal transportation network ensuring efficient, reliable delivery across all regions.',
-    icon: shibauraLogoIcon,
-    image: transportationImg,
-    features: [
-      { label: 'Ground transportation (LTL/FTL)', icon: checkIcon },
-      { label: 'Air freight services', icon: checkIcon },
-      { label: 'Ocean freight', icon: checkIcon },
-      { label: 'Last-mile delivery', icon: checkIcon },
-      { label: 'Route optimization', icon: checkIcon }
-    ]
-  },
-  {
-    title: 'Supply Chain Management',
-    subtitle: 'subtitle',
-    description: 'End-to-end supply chain solutions with advanced analytics, forecasting, and optimization capabilities.',
-    icon: shibauraLogoIcon,
-    image: supplyChainImg,
-    features: [
-      { label: 'Demand forecasting', icon: checkIcon },
-      { label: 'Inventory optimization', icon: checkIcon },
-      { label: 'Network design', icon: checkIcon },
-      { label: 'Risk management', icon: checkIcon },
-      { label: 'Performance analytics', icon: checkIcon }
-    ]
-  },
-  {
-    title: 'Value-Added Services',
-    subtitle: 'subtitle',
-    description: 'Comprehensive value-added services to enhance your product offerings and streamline operations.',
-    icon: shibauraLogoIcon,
-    image: valueAddedServicesImg,
-    features: [
-      { label: 'Product labeling & packaging', icon: checkIcon },
-      { label: 'Returns management', icon: checkIcon },
-      { label: 'Quality inspection', icon: checkIcon },
-      { label: 'Kit assembly', icon: checkIcon },
-      { label: 'Custom packaging design', icon: checkIcon }
-    ]
-  },
-  {
-    title: 'Technology & Integration',
-    subtitle: 'subtitle',
-    description: 'Advanced technology platform with seamless integration capabilities for complete visibility and control.',
-    icon: shibauraLogoIcon,
-    image: technologyIntegrationImg,
-    features: [
-      { label: 'WMS & TMS integration', icon: checkIcon },
-      { label: 'EDI & API connectivity', icon: checkIcon },
-      { label: 'Real-time tracking', icon: checkIcon },
-      { label: 'Automated reporting', icon: checkIcon },
-      { label: 'Mobile applications', icon: checkIcon }
-    ]
-  }
-];
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const productsBaseHref = localizePath('/products', locale);
+const requestQuoteHref = localizePath('/request-a-quote', locale);
+const distributorsHref = localizePath('/distributors', locale);
 ---
 
 <BaseLayout title="Products - Portable Fire Pumps">
@@ -133,17 +43,24 @@ const firepumps = [
           Comprehensive Solutions
         </div>
         
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
           <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-teal-400 to-blue-400">
             Products
           </span>
       </h1>
         
-        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
         Comprehensive logistics and manufacturing solutions designed to optimize your operations 
         and drive sustainable growth.
       </p>
       </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
     </div>
   </section>
 
@@ -151,19 +68,33 @@ const firepumps = [
   <Section background="gray">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
-      <FirepumpAccordion capabilities={firepumps} client:load />
+      <FirepumpAccordion capabilities={firepumps} detailsBaseHref={productsBaseHref} client:load />
     </div>
     
     <!-- Grid View for Desktop -->
     <div class="hidden lg:block space-y-24">
       {firepumps.map((capability, index) => (
-        <div class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
+        <div
+          class={`group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center cursor-pointer transition-all duration-300 hover:-translate-y-1 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
+          role="link"
+          tabindex="0"
+          aria-label={`Voir les détails pour ${capability.title}`}
+          onclick={`if (event.target.closest('a,button')) return; window.location.href='${productsBaseHref}/${capability.slug}';`}
+          onkeydown={`if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('a,button')) { event.preventDefault(); window.location.href='${productsBaseHref}/${capability.slug}'; }`}
+        >
           <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} animate-fadeInUp`}>
             <div class="flex items-center gap-4 mb-4">
-              <div class="flex items-center justify-center w-[3.125rem] h-[3.125rem] rounded-xl brand-gradient-bg text-white shadow-lg">
-                <img src={capability.icon} alt="" class="w-9 h-9" aria-hidden="true" />
+              <div class="flex items-center justify-center w-[52px] h-[52px] rounded-lg group-hover:scale-110 transition-transform">
+                <span
+                  aria-hidden="true"
+                  class="w-[52px] h-[52px] brand-gradient-bg"
+                  style={`-webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+                ></span>
               </div>
-              <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+              <h2
+                class="text-3xl md:text-4xl font-bold text-gray-900 brand-gradient-hover"
+                data-text={capability.title}
+              >
                 {capability.title}
               </h2>
             </div>
@@ -193,11 +124,11 @@ const firepumps = [
           </div>
           <div class={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
             <ImageReveal client:load delay={index * 0.1}>
-              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-2xl">
+              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
                 <Image 
                   src={capability.image}
                   alt={capability.title}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   width={1200}
                   height={800}
                 />
@@ -304,10 +235,10 @@ const firepumps = [
       </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <Button href="/fr/request-a-quote" size="lg" class="brand-cta">
+          <Button href={requestQuoteHref} size="lg" class="brand-cta">
             Request a Quote
           </Button>
-          <Button href="/fr/distributors" size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
+          <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
             View Distributors
           </Button>
         </div>

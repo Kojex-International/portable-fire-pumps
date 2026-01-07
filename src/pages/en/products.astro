@@ -7,114 +7,15 @@ import FirepumpAccordion from '../../components/react/FirepumpAccordion';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
 
-import ft510Img from '@assets/ft510.jpg';
-import ft400Img from '@assets/ft400.jpg';
-import tf516mhImg from '@assets/tf516mh.jpg';
-import p572sImg from '@assets/p572s.jpg';
-import fk500Img from '@assets/fk500.jpg';
-import ff500arImg from '@assets/ff500ar.jpg';
-
-import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
-import aircooledIcon from '@assets/icons/aircooled.svg?url';
-import watercooledIcon from '@assets/icons/watercooled.svg?url';
-import engineIcon from '@assets/icons/engine.svg?url';
-import carburatorIcon from '@assets/icons/carburator.svg?url';
-
-import timerIcon from '@assets/icons/timer.svg?url';
-import checkIcon from '@assets/icons/check.svg?url';
+import { firepumps } from '../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
-import ctaBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
-import { time } from 'motion';
+import logoMark from '@assets/shibaura-logo-mark.svg';
+import { getLocaleFromPathname, localizePath } from '@config/site';
 
-
-const shibauraLogoIcon = shibauraLogoMark;
-
-const firepumps = [
-  {
-    title: 'P510-A',
-    subtitle: 'Powerful performance with Shibaura\'s air-cooled engine',
-    description: 'Delivers powerful performance, providing reliable output without affecting water quality.',
-    icon: shibauraLogoIcon,
-    image: ft510Img,
-    features: [
-      { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
-      { label: '2-Stroke gasoline engine', icon: engineIcon },
-      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
-      { label: 'Discharge performance: 0.5MPa: 1,450L/min, 1.0MPa: 830L/min', icon: watercooledIcon },
-      { label: 'Priming performance, 1m suction head: 3.5sec', icon: timerIcon }
-    ]
-  },
-  {
-    title: 'FT300-A / FT400-A1',
-    subtitle: 'Compact and light weight',
-    description: 'A compact, lightweight pump delivering class-leading performance. The newly installed 5.3 L fuel tank supports extended operating time.',
-    icon: shibauraLogoIcon,
-    image: ft400Img,
-    features: [
-      { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
-      { label: '2-Stroke gasoline engine', icon: engineIcon },
-      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
-      { label: 'Discharge performance:\nFT300-A 0.5MPa: 568L/min, 0.8MPa: 318L/min\nFT400-A1 0.5MPa: 568L/min, 0.8MPa: 330L/min', icon: watercooledIcon },
-      { label: 'Priming performance, 1m suction head:\nFT300-A 2.2sec\nFT400-A1 3.5sec', icon: timerIcon }
-    ]
-  },
-  {
-    title: 'TF516MH-AB',
-    subtitle: 'The smallest pump in its class, offering superior mobility',
-    description: 'Its compact, lightweight design with Shibaura\'s proprietary air-cooled engine allows for simple installation on small vehicles.',
-    icon: shibauraLogoIcon,
-    image: tf516mhImg,
-    features: [
-      { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
-      { label: '2-Stroke gasoline engine', icon: engineIcon },
-      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
-      { label: 'Discharge performance: 0.5MPa: 560L/min, 1.0MPa: 280L/min', icon: watercooledIcon },
-      { label: 'Priming performance, 1m suction head: 3.6sec', icon: timerIcon }
-    ]
-  },
-  {
-    title: 'P572S-A',
-    subtitle: 'Highest discharge performance of our lineup',
-    description: 'Delivers the highest discharge performance. A large oil-less vacuum pump combined with a high-output engine enables faster priming and a greater volume of water discharge within its class.',
-    icon: shibauraLogoIcon,
-    image: p572sImg,
-    features: [
-      { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
-      { label: '2-Stroke gasoline engine', icon: engineIcon },
-      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
-      { label: 'Discharge performance: 0.5MPa: 1,650L/min, 1.0MPa: 1,100L/min', icon: watercooledIcon },
-      { label: 'Priming performance, 1m suction head: 2.1sec', icon: timerIcon }
-    ]
-  },
-  {
-    title: 'FK500-A',
-    subtitle: 'Durable, well-balanced performance',
-    description: 'A well-balanced, durable pump featuring Shibaura\'s proprietary engine-cooling system. The fully water-cooled radiator ensures reliable operation and extended service life, even in dirty-water environments.',
-    icon: shibauraLogoIcon,
-    image: fk500Img,
-    features: [
-      { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
-      { label: '2-Stroke gasoline engine', icon: engineIcon },
-      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
-      { label: 'Discharge performance: 0.5MPa: 1,595L/min, 1.0MPa: 1,020L/min', icon: watercooledIcon },
-      { label: 'Priming performance, 1m suction head: 2.2sec', icon: timerIcon }
-    ]
-  },
-  {
-    title: 'FF500AR-A',
-    subtitle: 'Auto Relay for long-distance water delivery',
-    description: 'Enables long-distance water delivery by automatically relaying flow between pumps without operator intervention. Electronic fuel injection ensures easy starting and efficient fuel consumption.',
-    icon: shibauraLogoIcon,
-    image: ff500arImg,
-    features: [
-      { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
-      { label: '2-Stroke gasoline engine', icon: engineIcon },
-      { label: 'Fuel Injection System', icon: carburatorIcon },
-      { label: 'Discharge performance: 0.5MPa: 1,550L/min, 1.0MPa: 980L/min', icon: watercooledIcon },
-      { label: 'Priming performance, 1m suction head: 2.2sec', icon: timerIcon }
-    ]
-  }
-];
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const productsBaseHref = localizePath('/products', locale);
+const requestQuoteHref = localizePath('/request-a-quote', locale);
+const distributorsHref = localizePath('/distributors', locale);
 ---
 
 <BaseLayout title="Products - Portable Fire Pumps">
@@ -142,16 +43,23 @@ const firepumps = [
           Products
         </div>
         
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
           <span class="brand-gradient-text">
             Portable Fire Pumps
           </span>
       </h1>
         
-        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
         Engineered for reliable performance and rapid deployment in critical firefighting situations.
       </p>
       </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
     </div>
   </section>
 
@@ -159,19 +67,33 @@ const firepumps = [
   <Section background="gray">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
-      <FirepumpAccordion capabilities={firepumps} client:load />
+      <FirepumpAccordion capabilities={firepumps} detailsBaseHref={productsBaseHref} client:load />
     </div>
     
     <!-- Grid View for Desktop -->
     <div class="hidden lg:block space-y-24">
       {firepumps.map((capability, index) => (
-        <div class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
+        <div
+          class={`group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center cursor-pointer transition-all duration-300 hover:-translate-y-1 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
+          role="link"
+          tabindex="0"
+          aria-label={`View details for ${capability.title}`}
+          onclick={`if (event.target.closest('a,button')) return; window.location.href='${productsBaseHref}/${capability.slug}';`}
+          onkeydown={`if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('a,button')) { event.preventDefault(); window.location.href='${productsBaseHref}/${capability.slug}'; }`}
+        >
           <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} animate-fadeInUp`}>
             <div class="flex items-center gap-4 mb-4">
-              <div class="flex items-center justify-center w-[3.125rem] h-[3.125rem] rounded-xl brand-gradient-bg text-white shadow-lg">
-                <img src={capability.icon} alt="" class="w-9 h-9" aria-hidden="true" />
+              <div class="flex items-center justify-center w-[52px] h-[52px] rounded-lg group-hover:scale-110 transition-transform">
+                <span
+                  aria-hidden="true"
+                  class="w-[52px] h-[52px] brand-gradient-bg"
+                  style={`-webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+                ></span>
               </div>
-              <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+              <h2
+                class="text-3xl md:text-4xl font-bold text-gray-900 brand-gradient-hover"
+                data-text={capability.title}
+              >
                 {capability.title}
               </h2>
             </div>
@@ -201,11 +123,11 @@ const firepumps = [
           </div>
           <div class={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
             <ImageReveal client:load delay={index * 0.1}>
-              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-2xl bg-white">
+              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-xl bg-white transition-shadow duration-300 group-hover:shadow-2xl">
                 <Image 
                   src={capability.image}
                   alt={capability.title}
-                  class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                  class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
                   width={1200}
                   height={800}
                 />
@@ -312,10 +234,10 @@ const firepumps = [
       </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <Button href="/en/request-a-quote" size="lg" class="brand-cta">
+          <Button href={requestQuoteHref} size="lg" class="brand-cta">
             Get a Fire Pump Quote
           </Button>
-          <Button href="/en/distributors" size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
+          <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
             Find a Distributor
           </Button>
         </div>
