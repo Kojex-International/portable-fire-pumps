@@ -1,9 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
-import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
 import heroBgImgAi from '@assets/forestfire.png';
-import ft510Img from '@assets/ft510-removebg-preview.png';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
@@ -75,41 +73,65 @@ const productsHref = localizePath('/products', locale);
       <!-- Quick Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20 animate-fadeInUp" style="animation-delay: 0.3s">
         <div class="group">
-          <div class="text-xl md:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1 leading-tight">500+</div>
-          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Pumps Deployed</div>
+          <div class="text-xl md:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1 leading-tight">FF500AR-A</div>
+          <div class="flex items-center gap-2 text-sm text-slate-300 transition-colors brand-accent-hover">
+            <svg class="w-5 h-5 text-[var(--brand-2)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M3 11l8.586 8.586a2 2 0 002.828 0l6.586-6.586a2 2 0 000-2.828L12.414 3H5a2 2 0 00-2 2v6z" />
+            </svg>
+            <span>Pump model</span>
+          </div>
         </div>
         <div class="group">
-          <div class="text-xl md:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1 leading-tight">1,650 L/min</div>
-          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Max Flow Rate</div>
+          <div class="text-xl md:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1 leading-tight">1,550 L/min</div>
+          <div class="flex items-center gap-2 text-sm text-slate-300 transition-colors brand-accent-hover">
+            <svg
+              class="w-5 h-5 text-[var(--brand-2)]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 2v8" />
+              <path d="M2 15c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+              <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+              <path d="m8 6 4-4 4 4" />
+            </svg>
+            <span>Max discharge @ 0.5 MPa</span>
+          </div>
         </div>
         <div class="group">
           <div class="text-xl md:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1 leading-tight">1.0 MPa</div>
-          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Max Pressure</div>
+          <div class="flex items-center gap-2 text-sm text-slate-300 transition-colors brand-accent-hover">
+            <svg
+              class="w-5 h-5 text-[var(--brand-2)]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m12 14 4-4" />
+              <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+            </svg>
+            <span>Max Pressure</span>
+          </div>
         </div>
         <div class="group">
-          <div class="text-xl md:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1 leading-tight">2.1 sec</div>
-          <div class="text-sm text-slate-300 transition-colors brand-accent-hover">Fastest Priming</div>
+          <div class="text-xl md:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-[var(--brand-2)] mb-1 leading-tight">2.2 sec</div>
+          <div class="flex items-center gap-2 text-sm text-slate-300 transition-colors brand-accent-hover">
+            <svg class="w-5 h-5 text-[var(--brand-2)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l3 3M12 21a9 9 0 100-18 9 9 0 000 18z" />
+            </svg>
+            <span>Priming performance</span>
+          </div>
         </div>
       </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Foreground Pump Image -->
-  <div class="pointer-events-none absolute inset-0 z-0 hidden lg:block">
-    <div class="absolute bottom-32 right-10 w-[30rem] max-w-[36vw] opacity-100">
-      <div
-        class="absolute inset-0 -z-10"
-        style="background: radial-gradient(circle at 55% 75%, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.35) 50%, transparent 85%);"
-      ></div>
-      <div class="absolute -bottom-6 left-1/2 h-8 w-3/4 -translate-x-1/2 rounded-full bg-black/40 blur-2xl"></div>
-      <Image
-        src={ft510Img}
-        alt="FT510 fire pump"
-        class="w-full h-auto brightness-85 drop-shadow-[0_40px_110px_rgba(0,0,0,0.6)]"
-        width={1200}
-        height={800}
-      />
     </div>
   </div>
 
