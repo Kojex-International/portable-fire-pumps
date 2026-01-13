@@ -14,10 +14,23 @@ const productsHref = localizePath('/products', locale);
 <section class="relative h-screen min-h-[600px] flex items-center overflow-hidden safari-hero-offset">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
+    <video
+      class="w-full h-full object-cover object-[35%_20%] sm:object-center motion-reduce:hidden"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster={heroBgImgAi.src}
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      <source src="/hero-firepump-loop.mp4" type="video/mp4" />
+    </video>
     <Image 
       src={heroBgImgAi}
-      alt="Modern logistics warehouse with advanced automation"
-      class="w-full h-full object-cover object-[35%_20%] sm:object-center"
+      alt=""
+      class="hidden w-full h-full object-cover object-[35%_20%] sm:object-center motion-reduce:block"
       width={2070}
       height={1380}
       decoding="async"

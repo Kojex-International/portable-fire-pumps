@@ -42,8 +42,8 @@ const shibauraLogoIcon = shibauraLogoMark;
 
 export const firepumps: Firepump[] = [
   {
-    slug: 'p510-a',
-    title: 'P510-A',
+    slug: 'ft510-a',
+    title: 'FT510-A',
     subtitle: "Powerful performance with Shibaura's air-cooled engine",
     description: 'Delivers powerful performance, providing reliable output without affecting water quality.',
     valueProp: 'Compact, high-performance portable fire pump for rapid deployment in remote environments.',
