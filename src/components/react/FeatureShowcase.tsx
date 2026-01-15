@@ -13,13 +13,13 @@ const features = [
     title: 'P510-A',
     description: 'High-output air-cooled pump for rapid response and reliable flow.',
     image: ft510Img,
-    slug: 'p510-a',
+    slug: 'ft510-a',
   },
   {
     title: 'FT300-A / FT400-A1',
     description: 'Compact, lightweight models for quick deployment and transport.',
     image: ft400Img,
-    slug: 'ft300-a-ft400-a1',
+    slug: 'ft300-400-a',
   },
   {
     title: 'TF516MH-AB',

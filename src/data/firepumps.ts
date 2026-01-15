@@ -6,6 +6,12 @@ import tf516mhImg from '@assets/tf516mh.jpg';
 import p572sImg from '@assets/p572s.jpg';
 import fk500Img from '@assets/fk500.jpg';
 import ff500arImg from '@assets/ff500ar.jpg';
+import ft510GraphImg from '@assets/ft510Graph.png';
+import ft300400GraphImg from '@assets/ft300-400Graph.png';
+import tf516mhGraphImg from '@assets/tf516mhGraph.png';
+import p572sGraphImg from '@assets/p572sGraph.png';
+import fk500GraphImg from '@assets/fk500aGraph.png';
+import ff500arGraphImg from '@assets/ff500arGraph.png';
 
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
 import aircooledIcon from '@assets/icons/aircooled.svg?url';
@@ -31,6 +37,7 @@ export interface Firepump {
   valueProp: string;
   icon: string;
   image: ImageMetadata;
+  graphImage: ImageMetadata;
   features: FirepumpFeature[];
   keySpecs: { label: string; value: string; icon: string }[];
   benefits: { title: string; description: string }[];
@@ -49,12 +56,13 @@ export const firepumps: Firepump[] = [
     valueProp: 'Compact, high-performance portable fire pump for rapid deployment in remote environments.',
     icon: shibauraLogoIcon,
     image: ft510Img,
+    graphImage: ft510GraphImg,
     features: [
       { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
       { label: 'Carburetor with automatic choke', icon: carburatorIcon },
       { label: 'Discharge performance: 0.5MPa: 1,450L/min, 1.0MPa: 830L/min', icon: dischargeIcon },
-      { label: 'Priming performance, 1m suction head: 3.5sec', icon: timerIcon }
+      { label: 'Priming performance, 1 m suction head: 3.5sec', icon: timerIcon }
     ],
     keySpecs: [
       { label: 'Pump model', value: 'Shibaura B612B', icon: modelIcon },
@@ -99,31 +107,32 @@ export const firepumps: Firepump[] = [
       { label: 'Blade type', value: 'High strength carbon' }
     ],
     performance: [
-      { label: 'Discharge performance (0.5MPa, 1m suction head)', value: '1,450 L/min' },
-      { label: 'Discharge performance (1.0MPa, 1m suction head)', value: '830 L/min' },
-      { label: 'Priming performance (1m suction head)', value: '3.5 sec' }
+      { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,450 L/min' },
+      { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '830 L/min' },
+      { label: 'Priming performance (1 m suction head)', value: '3.5 sec' }
     ]
   },
   {
-    slug: 'ft300-a-ft400-a1',
-    title: 'FT300-A / FT400-A1',
+    slug: 'ft300-400-a',
+    title: 'FT300/400-A',
     subtitle: 'Compact and light weight',
     description: 'A compact, lightweight pump delivering class-leading performance. The newly installed 5.3 L fuel tank supports extended operating time.',
     valueProp: 'Lightweight portable fire pump designed for fast setup and reliable output.',
     icon: shibauraLogoIcon,
     image: ft400Img,
+    graphImage: ft300400GraphImg,
     features: [
       { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
       { label: 'Carburetor with automatic choke', icon: carburatorIcon },
       { label: 'Discharge performance:\nFT300-A 0.5MPa: 568L/min, 0.8MPa: 318L/min\nFT400-A1 0.5MPa: 568L/min, 0.8MPa: 330L/min', icon: dischargeIcon },
-      { label: 'Priming performance, 1m suction head:\nFT300-A 2.2sec\nFT400-A1 3.5sec', icon: timerIcon }
+      { label: 'Priming performance, 1 m suction head:\nFT300-A 2.2sec\nFT400-A1 3.5sec', icon: timerIcon }
     ],
     keySpecs: [
       { label: 'Pump model', value: 'Shibaura C505', icon: modelIcon },
       { label: 'Cooling system', value: 'Air-cooled', icon: aircooledIcon },
       { label: 'Discharge performance', value: '0.5 MPa @ 568 L/min\n0.8 MPa @ 318/330 L/min', icon: dischargeIcon },
-      { label: 'Priming performance', value: '1 m suction head: 2.2 sec (FT300-A), 3.5 sec (FT400-A1)', icon: timerIcon },
+      { label: 'Priming performance', value: '1m SH: 2.2 sec (FT300-A)\n1m SH: 3.5 sec (FT400-A1)', icon: timerIcon },
       { label: 'Max pressure', value: '0.8 MPa', icon: pressureIcon },
       { label: 'Engine type', value: '2-stroke gasoline engine', icon: engineIcon }
     ],
@@ -162,9 +171,9 @@ export const firepumps: Firepump[] = [
       { label: 'Blade type', value: 'High strength carbon' }
     ],
     performance: [
-      { label: 'Discharge performance (0.5MPa, 1m suction head)', value: '568 L/min' },
-      { label: 'Discharge performance (0.8MPa, 1m suction head)', value: '318 L/min (FT300-A), 330 L/min (FT400-A1)' },
-      { label: 'Priming performance (1m suction head)', value: '2.2 sec (FT300-A), 3.5 sec (FT400-A1)' }
+      { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '568 L/min' },
+      { label: 'Discharge performance (0.8MPa, 1 m suction head)', value: '318 L/min (FT300-A), 330 L/min (FT400-A1)' },
+      { label: 'Priming performance (1 m suction head)', value: '2.2 sec (FT300-A), 3.5 sec (FT400-A1)' }
     ]
   },
   {
@@ -175,12 +184,13 @@ export const firepumps: Firepump[] = [
     valueProp: 'Smallest-in-class pump for rapid deployment and easy vehicle mounting.',
     icon: shibauraLogoIcon,
     image: tf516mhImg,
+    graphImage: tf516mhGraphImg,
     features: [
       { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
       { label: 'Carburetor with automatic choke', icon: carburatorIcon },
       { label: 'Discharge performance: 0.5MPa: 560L/min, 1.0MPa: 280L/min', icon: dischargeIcon },
-      { label: 'Priming performance, 1m suction head: 3.6sec', icon: timerIcon }
+      { label: 'Priming performance, 1 m suction head: 3.6sec', icon: timerIcon }
     ],
     keySpecs: [
       { label: 'Pump model', value: 'Not specified', icon: modelIcon },
@@ -225,9 +235,9 @@ export const firepumps: Firepump[] = [
       { label: 'Blade type', value: 'High strength carbon' }
     ],
     performance: [
-      { label: 'Discharge performance (0.5MPa, 1m suction head)', value: '560 L/min' },
-      { label: 'Discharge performance (0.8MPa, 1m suction head)', value: '280 L/min' },
-      { label: 'Priming performance (1m suction head)', value: '3.6 sec' }
+      { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '560 L/min' },
+      { label: 'Discharge performance (0.8MPa, 1 m suction head)', value: '280 L/min' },
+      { label: 'Priming performance (1 m suction head)', value: '3.6 sec' }
     ]
   },
   {
@@ -238,12 +248,13 @@ export const firepumps: Firepump[] = [
     valueProp: 'High-output fire pump built for demanding operations and rapid priming.',
     icon: shibauraLogoIcon,
     image: p572sImg,
+    graphImage: p572sGraphImg,
     features: [
       { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
       { label: 'Carburetor with automatic choke', icon: carburatorIcon },
       { label: 'Discharge performance: 0.5MPa: 1,650L/min, 1.0MPa: 1,100L/min', icon: dischargeIcon },
-      { label: 'Priming performance, 1m suction head: 2.1sec', icon: timerIcon }
+      { label: 'Priming performance, 1 m suction head: 2.1sec', icon: timerIcon }
     ],
     keySpecs: [
       { label: 'Pump model', value: 'Shibaura P572', icon: modelIcon },
@@ -288,9 +299,9 @@ export const firepumps: Firepump[] = [
       { label: 'Blade type', value: 'High strength carbon' }
     ],
     performance: [
-      { label: 'Discharge performance (0.5MPa, 1m suction head)', value: '1,650 L/min' },
-      { label: 'Discharge performance (1.0MPa, 1m suction head)', value: '1,100 L/min' },
-      { label: 'Priming performance (1m suction head)', value: '2.1 sec' }
+      { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,650 L/min' },
+      { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '1,100 L/min' },
+      { label: 'Priming performance (1 m suction head)', value: '2.1 sec' }
     ]
   },
   {
@@ -301,12 +312,13 @@ export const firepumps: Firepump[] = [
     valueProp: 'Balanced, durable pump engineered for long service life in harsh conditions.',
     icon: shibauraLogoIcon,
     image: fk500Img,
+    graphImage: fk500GraphImg,
     features: [
       { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
       { label: 'Carburetor with automatic choke', icon: carburatorIcon },
       { label: 'Discharge performance: 0.5MPa: 1,595L/min, 1.0MPa: 1,020L/min', icon: dischargeIcon },
-      { label: 'Priming performance, 1m suction head: 2.2sec', icon: timerIcon }
+      { label: 'Priming performance, 1 m suction head: 2.2sec', icon: timerIcon }
     ],
     keySpecs: [
       { label: 'Pump model', value: 'Shibaura B716', icon: modelIcon },
@@ -351,9 +363,9 @@ export const firepumps: Firepump[] = [
       { label: 'Blade type', value: 'High strength carbon' }
     ],
     performance: [
-      { label: 'Discharge performance (0.5MPa, 1m suction head)', value: '1,595 L/min' },
-      { label: 'Discharge performance (1.0MPa, 1m suction head)', value: '1,020 L/min' },
-      { label: 'Priming performance (1m suction head)', value: '2.2 sec' }
+      { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,595 L/min' },
+      { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '1,020 L/min' },
+      { label: 'Priming performance (1 m suction head)', value: '2.2 sec' }
     ]
   },
   {
@@ -364,12 +376,13 @@ export const firepumps: Firepump[] = [
     valueProp: 'Auto-relay pump for long-distance water delivery and efficient operations.',
     icon: shibauraLogoIcon,
     image: ff500arImg,
+    graphImage: ff500arGraphImg,
     features: [
       { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
       { label: 'Fuel Injection System', icon: carburatorIcon },
       { label: 'Discharge performance: 0.5MPa: 1,550L/min, 1.0MPa: 980L/min', icon: dischargeIcon },
-      { label: 'Priming performance, 1m suction head: 2.2sec', icon: timerIcon }
+      { label: 'Priming performance, 1 m suction head: 2.2sec', icon: timerIcon }
     ],
     keySpecs: [
       { label: 'Pump model', value: 'Shibaura PS556', icon: modelIcon },
@@ -414,9 +427,9 @@ export const firepumps: Firepump[] = [
       { label: 'Blade type', value: 'High strength carbon' }
     ],
     performance: [
-      { label: 'Discharge performance (0.5MPa, 1m suction head)', value: '1,550 L/min' },
-      { label: 'Discharge performance (1.0MPa, 1m suction head)', value: '980 L/min' },
-      { label: 'Priming performance (1m suction head)', value: '2.2 sec' }
+      { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,550 L/min' },
+      { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '980 L/min' },
+      { label: 'Priming performance (1 m suction head)', value: '2.2 sec' }
     ]
   }
 ];

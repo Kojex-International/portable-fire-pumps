@@ -9,7 +9,6 @@ import { getLocaleFromPathname, localizePath } from '@config/site';
 import { firepumps, type Firepump } from '../../../data/firepumps';
 import checkIcon from '@assets/icons/check.svg?url';
 import catalogPdf from '../../../data/Shibaura_Catalog2024_9 (1).pdf';
-import p510GraphImg from '@assets/p510-aGraphImg.png';
 
 export async function getStaticPaths() {
   return firepumps.map((pump) => ({
@@ -108,15 +107,17 @@ const rightSpecs = rightSpecLabels.map((label) => keySpecByLabel.get(label)).fil
                     {spec.label === 'Discharge performance' && (
                       <div class="pl-0">
                         <p class="text-xs uppercase tracking-wide text-white/80 mb-2 ml-9">Performance Curve</p>
-                        <div class="w-full rounded-xl">
-                          <Image
-                            src={p510GraphImg}
-                            alt="Pump performance graph"
-                            class="w-full h-auto brightness-0 invert"
-                            width={640}
-                            height={456}
-                          />
-                        </div>
+                        {pump.graphImage && (
+                          <div class="w-full rounded-xl overflow-hidden">
+                            <Image
+                              src={pump.graphImage}
+                              alt={`${pump.title} performance graph`}
+                              class={`w-full h-auto brightness-0 invert origin-center ${pump.slug === 'tf516mh-ab' ? 'scale-[1.15]' : ''}`}
+                              width={640}
+                              height={456}
+                            />
+                          </div>
+                        )}
                       </div>
                     )}
                   </>
