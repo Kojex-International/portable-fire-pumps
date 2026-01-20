@@ -12,6 +12,12 @@ import tf516mhGraphImg from '@assets/tf516mhGraph.png';
 import p572sGraphImg from '@assets/p572sGraph.png';
 import fk500GraphImg from '@assets/fk500aGraph.png';
 import ff500arGraphImg from '@assets/ff500arGraph.png';
+import ft300400ManualPdf from './manuals/aircooled/ft300-400Manual.pdf';
+import ft450500ManualPdf from './manuals/aircooled/ft450-500Manual.pdf';
+import tf516mhManualPdf from './manuals/aircooled/tf516mhManual.pdf';
+import p572sManualPdf from './manuals/watercooled/p572sManual.pdf';
+import fk500ManualPdf from './manuals/watercooled/fk500Manual.pdf';
+import ff500ManualPdf from './manuals/watercooled/ff500Manual.pdf';
 
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
 import aircooledIcon from '@assets/icons/aircooled.svg?url';
@@ -38,6 +44,7 @@ export interface Firepump {
   icon: string;
   image: ImageMetadata;
   graphImage: ImageMetadata;
+  manualPdf?: string;
   features: FirepumpFeature[];
   keySpecs: { label: string; value: string; icon: string }[];
   benefits: { title: string; description: string }[];
@@ -57,6 +64,7 @@ export const firepumps: Firepump[] = [
     icon: shibauraLogoIcon,
     image: ft510Img,
     graphImage: ft510GraphImg,
+    manualPdf: ft450500ManualPdf,
     features: [
       { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
@@ -121,6 +129,7 @@ export const firepumps: Firepump[] = [
     icon: shibauraLogoIcon,
     image: ft400Img,
     graphImage: ft300400GraphImg,
+    manualPdf: ft300400ManualPdf,
     features: [
       { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
@@ -185,6 +194,7 @@ export const firepumps: Firepump[] = [
     icon: shibauraLogoIcon,
     image: tf516mhImg,
     graphImage: tf516mhGraphImg,
+    manualPdf: tf516mhManualPdf,
     features: [
       { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
@@ -249,6 +259,7 @@ export const firepumps: Firepump[] = [
     icon: shibauraLogoIcon,
     image: p572sImg,
     graphImage: p572sGraphImg,
+    manualPdf: p572sManualPdf,
     features: [
       { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
@@ -313,6 +324,7 @@ export const firepumps: Firepump[] = [
     icon: shibauraLogoIcon,
     image: fk500Img,
     graphImage: fk500GraphImg,
+    manualPdf: fk500ManualPdf,
     features: [
       { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },
@@ -377,6 +389,7 @@ export const firepumps: Firepump[] = [
     icon: shibauraLogoIcon,
     image: ff500arImg,
     graphImage: ff500arGraphImg,
+    manualPdf: ff500ManualPdf,
     features: [
       { label: 'Water-cooled Shibaura engine', icon: watercooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },

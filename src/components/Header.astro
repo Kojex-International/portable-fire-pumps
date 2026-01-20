@@ -36,14 +36,40 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
     <div class="hidden lg:flex lg:items-center lg:space-x-1">
       {navigation.map((item) => {
         const isActive = isActiveLink(item.href);
+        const hasChildren = item.children && item.children.length > 0;
+        if (!hasChildren) {
+          return (
+            <a
+              href={item.href}
+              class={`px-4 py-2 text-sm font-medium text-slate-700 hover:text-[#E11D48] hover:bg-[#FFF1F2] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
+            >
+              {item.name}
+            </a>
+          );
+        }
+
         return (
-        <a
-          href={item.href}
-          class={`px-4 py-2 text-sm font-medium text-slate-700 hover:text-[#E11D48] hover:bg-[#FFF1F2] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
-        >
-          {item.name}
-        </a>
-      );
+          <div class="relative group">
+            <a
+              href={item.href}
+              class={`px-4 py-2 text-sm font-medium text-slate-700 hover:text-[#E11D48] hover:bg-[#FFF1F2] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
+            >
+              {item.name}
+            </a>
+            <div class="absolute left-0 top-full pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-200">
+              <div class="w-56 rounded-xl border border-slate-200 bg-white shadow-xl p-2">
+                {item.children?.map((child) => (
+                  <a
+                    href={child.href}
+                    class="block px-3 py-2 text-sm font-medium text-slate-700 hover:text-[#E11D48] hover:bg-[#FFF1F2] rounded-lg transition-colors"
+                  >
+                    {child.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
       })}
     </div>
 

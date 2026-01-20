@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react';
 type NavItem = {
   name: string;
   href: string;
+  children?: NavItem[];
 };
 
 type MobileMenuProps = {
@@ -30,14 +31,30 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
           <Dialog.Description className="sr-only">Main navigation menu</Dialog.Description>
           <div className="container mx-auto px-4 py-6 space-y-2">
             {items.map((item) => (
-              <Dialog.Close asChild key={item.href}>
-                <a
-                  href={item.href}
-                  className="block px-4 py-3 text-lg font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
-                >
-                  {item.name}
-                </a>
-              </Dialog.Close>
+              <div key={item.href} className="space-y-1">
+                <Dialog.Close asChild>
+                  <a
+                    href={item.href}
+                    className="block px-4 py-3 text-lg font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
+                  >
+                    {item.name}
+                  </a>
+                </Dialog.Close>
+                {item.children?.length ? (
+                  <div className="ml-4 space-y-1">
+                    {item.children.map((child) => (
+                      <Dialog.Close asChild key={child.href}>
+                        <a
+                          href={child.href}
+                          className="block px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
+                        >
+                          {child.name}
+                        </a>
+                      </Dialog.Close>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             ))}
             <div className="pt-4 flex items-center justify-center gap-3 text-xl sm:text-2xl font-semibold uppercase tracking-wide text-slate-600">
               <Dialog.Close asChild>

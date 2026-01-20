@@ -1,0 +1,191 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Section from '../../../components/ui/Section.astro';
+import Button from '../../../components/ui/Button.astro';
+import FirepumpAccordion from '../../../components/react/FirepumpAccordion';
+import { Image } from 'astro:assets';
+import ImageReveal from '../../../components/react/ImageReveal';
+
+import { firepumps } from '../../../data/firepumps';
+import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
+import logoMark from '@assets/shibaura-logo-mark.svg';
+import { getLocaleFromPathname, localizePath } from '@config/site';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const productsBaseHref = localizePath('/products', locale);
+const requestQuoteHref = localizePath('/request-a-quote', locale);
+const distributorsHref = localizePath('/distributors', locale);
+
+const waterCooledPumps = firepumps.filter((pump) =>
+  pump.keySpecs.some(
+    (spec) => spec.label === 'Cooling system' && spec.value.toLowerCase().includes('water')
+  )
+);
+---
+
+<BaseLayout title="Water-Cooled Portable Fire Pumps - Portable Fire Pumps">
+  <!-- Hero Section -->
+  <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0">
+      <Image
+        src={heroBgImg}
+        alt="Water-cooled portable fire pumps"
+        class="w-full h-full object-cover"
+        width={2070}
+        height={1380}
+      />
+      <div class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center px-4 py-2 mb-6 brand-gradient-bg text-white text-sm font-semibold rounded-full shadow-lg">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+          </svg>
+          Products
+        </div>
+
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
+          <span class="brand-gradient-text">
+            Water-Cooled Portable Fire Pumps
+          </span>
+        </h1>
+
+        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
+          High-output, duty-ready pumps built for sustained flow and extended operations.
+        </p>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Main Capabilities -->
+  <Section background="gray">
+    <!-- Accordion View for Mobile/Compact -->
+    <div class="lg:hidden mb-12">
+      <FirepumpAccordion capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} client:load />
+    </div>
+
+    <!-- Grid View for Desktop -->
+    <div class="hidden lg:block space-y-24">
+      {waterCooledPumps.map((capability, index) => (
+        <div
+          class={`group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center cursor-pointer transition-all duration-300 hover:-translate-y-1 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
+          role="link"
+          tabindex="0"
+          aria-label={`View details for ${capability.title}`}
+          onclick={`if (event.target.closest('a,button')) return; window.location.href='${productsBaseHref}/${capability.slug}';`}
+          onkeydown={`if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('a,button')) { event.preventDefault(); window.location.href='${productsBaseHref}/${capability.slug}'; }`}
+        >
+          <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} animate-fadeInUp`}>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="flex items-center justify-center w-[52px] h-[52px] rounded-lg group-hover:scale-110 transition-transform">
+                <span
+                  aria-hidden="true"
+                  class="w-[52px] h-[52px] brand-gradient-bg"
+                  style={`-webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+                ></span>
+              </div>
+              <h2
+                class="text-3xl md:text-4xl font-bold text-gray-900 brand-gradient-hover"
+                data-text={capability.title}
+              >
+                {capability.title}
+              </h2>
+            </div>
+            <h3 class="text-lg md:text-xl font-semibold text-gray-700 mb-2">
+              {capability.subtitle}
+            </h3>
+            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+              {capability.description}
+            </p>
+            <ul class="space-y-3">
+              {capability.features.map((feature, featureIndex) => (
+                <li class="flex items-center space-x-3">
+                  <div class="flex items-center justify-center shrink-0 w-5 h-5">
+                    <img
+                      src={feature.icon}
+                      alt=""
+                      class="block object-contain w-5 h-5"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <span class={`text-gray-700 whitespace-pre-line ${featureIndex === 0 ? 'font-semibold' : ''}`}>
+                    {feature.label}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+            <ImageReveal client:load delay={index * 0.1}>
+              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-xl bg-white transition-shadow duration-300 group-hover:shadow-2xl">
+                <Image
+                  src={capability.image}
+                  alt={capability.title}
+                  class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
+                  width={1200}
+                  height={800}
+                />
+                <div class="absolute inset-0 bg-black/2"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/10 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8 text-white drop-shadow-lg">
+                  <h3 class="text-2xl font-bold mb-2">{capability.title}</h3>
+                  <p class="text-gray-200">{capability.description}</p>
+                </div>
+              </div>
+            </ImageReveal>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <section class="relative py-32 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image
+        src={heroBgImg}
+        alt="Modern warehouse operations"
+        class="w-full h-full object-cover"
+        width={2070}
+        height={1380}
+      />
+      <div class="absolute inset-0 cta-overlay-gradient"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-4xl mx-auto text-center text-white">
+        <div class="inline-block px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
+          Fire Pump Readiness
+        </div>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          Outfit Your Site with <span class="brand-gradient-text">Portable Fire Pumps</span>
+        </h2>
+        <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
+          High-flow, rapid-deploy pumps built for emergency response and rugged field use.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <Button href={requestQuoteHref} size="lg" class="brand-cta">
+            Get a Fire Pump Quote
+          </Button>
+          <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
+            Find a Distributor
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

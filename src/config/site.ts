@@ -11,11 +11,18 @@ export type Locale = (typeof LOCALES)[number] | 'default';
 
 const NAV_ITEMS = [
   { name: 'Home', path: '/' },
-  { name: 'Products', path: '/products' },
+  {
+    name: 'Products',
+    path: '/products',
+    children: [
+      { name: 'Air cooled', path: '/products/air-cooled' },
+      { name: 'Water cooled', path: '/products/water-cooled' },
+    ],
+  },
   { name: 'Applications', path: '/applications' },
   { name: 'Distributors', path: '/distributors' },
   { name: 'Resources', path: '/resources' },
-  { name: 'Request a Quote', path: '/request-a-quote' },
+  { name: 'About Us', path: '/about-us' },
 ] as const;
 
 const stripLocalePrefix = (pathname: string) =>
@@ -46,6 +53,10 @@ export const getNavigation = (locale: Locale) =>
   NAV_ITEMS.map((item) => ({
     name: item.name,
     href: localizePath(item.path, locale),
+    children: item.children?.map((child) => ({
+      name: child.name,
+      href: localizePath(child.path, locale),
+    })),
   }));
 
 export const SOCIAL_LINKS = {

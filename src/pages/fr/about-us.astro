@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/ui/Section.astro';
+import { Image } from 'astro:assets';
+
+import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
+---
+
+<BaseLayout title="À propos de nous - Portable Fire Pumps">
+  <!-- Hero Section -->
+  <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
+    <div class="absolute inset-0">
+      <Image
+        src={heroBgImg}
+        alt="À propos de Kojex International"
+        class="w-full h-full object-cover"
+        width={2070}
+        height={1380}
+      />
+      <div class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"></div>
+    </div>
+
+    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center px-4 py-2 mb-6 brand-gradient-bg text-white text-sm font-semibold rounded-full shadow-lg">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+          </svg>
+          À propos de nous
+        </div>
+
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
+          <span class="brand-gradient-text">Kojex International</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
+          Un partenaire de confiance pour l’équipement de lutte contre les incendies et le service mondial.
+        </p>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </section>
+
+  <Section background="white" class="!py-12 lg:!py-16">
+    <div class="text-center mb-8 px-2">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        À propos de <span class="brand-gradient-text">nous</span>
+      </h2>
+    </div>
+    <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6 px-4">
+      <p>
+        Depuis 1990, Kojex International a offert et fourni les produits et le service dont les clients ont besoin pour être à LA fine pointe du marché. Situé à Montréal, Canada, nous offrons plusieurs technologies et produits tel que l’équipement pour sapeurs-pompiers en Amérique du Nord. Être à l’écoute de nos clients et leur donner satisfaction nous ont assuré le succès par le passé.
+      </p>
+      <p>
+        Nous avons comme objectif d’offrir des produits de qualité et un excellent service. La philosophie de Kojex International est sans compromis et se reflète dans la qualité de nos produits et services.
+      </p>
+      <p>
+        Par le passé, être à l’écoute des besoins de nos clients et leur donner satisfaction nous ont assuré le succès. Nous espérons pouvoir bientôt mieux vous servir et vous procurer tous les produits et services qui vous donneront satisfaction.
+      </p>
+    </div>
+  </Section>
+
+  <Section background="gray" class="!py-12 lg:!py-16">
+    <div class="text-center mb-8 px-2">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        À propos de la <span class="brand-gradient-text">pompe à incendie Shibaura Rabbit</span> et des industries Kojex International
+      </h2>
+    </div>
+    <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6 px-4">
+      <p>
+        Depuis plus de 25 ans, Kojex International inc. a été le seul distributeur de pompes à incendie portables Shibaura Rabbit et le seul à desservir l’Amérique du Nord. Nous sommes fiers d’offrir un service personnalisé et une valeur inégalée sur le marché des pompes à incendie portables.
+      </p>
+      <p>
+        Nous offrons une gamme complète de pompes à incendie portables refroidies à l’air ou à l’eau, soit 8 modèles de haute performance.
+      </p>
+      <p>
+        Afin d’assurer la qualité, les pompes portables Shibaura Rabbit sont soumises à une série de tests avant de quitter les ateliers de production. Elles offrent une méthode fiable de combattre les incendies lorsqu’elles se présentent, spécialement dans les endroits où les infrastructures appropriées sont inexistantes.
+      </p>
+      <p>
+        Nous sommes à la recherche de distributeurs. Si vous souhaitez offrir les pompes portables Shibaura Rabbit à haute performance, veuillez nous contacter pour plus de renseignements.
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

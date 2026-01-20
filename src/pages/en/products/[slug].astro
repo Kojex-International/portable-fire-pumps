@@ -21,6 +21,8 @@ const { pump } = Astro.props as { pump: Firepump };
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/request-a-quote', locale);
 const productsHref = localizePath('/products', locale);
+const manualPdf = pump.manualPdf ?? catalogPdf;
+const manualLabel = pump.manualPdf ? 'Download Operations Manual (PDF)' : 'Download Specifications (PDF)';
 
 const relatedPumps = firepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
 const keySpecByLabel = new Map(pump.keySpecs.map((spec) => [spec.label, spec]));
@@ -128,11 +130,11 @@ const rightSpecs = rightSpecLabels.map((label) => keySpecByLabel.get(label)).fil
 
           <div class="flex flex-col sm:flex-row gap-4 animate-fadeInUp" style="animation-delay: 0.4s">
             <a
-              href={catalogPdf}
+              href={manualPdf}
               class="brand-cta px-6 py-3 text-base"
               download
             >
-              Download Specifications (PDF)
+              {manualLabel}
             </a>
             <Button href={requestQuoteHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
               Request a Quote
