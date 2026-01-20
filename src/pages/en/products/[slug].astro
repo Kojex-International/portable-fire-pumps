@@ -30,6 +30,50 @@ const leftSpecLabels = ['Cooling system', 'Pump model', 'Engine type', 'Max pres
 const rightSpecLabels = ['Discharge performance'];
 const leftSpecs = leftSpecLabels.map((label) => keySpecByLabel.get(label)).filter(Boolean);
 const rightSpecs = rightSpecLabels.map((label) => keySpecByLabel.get(label)).filter(Boolean);
+const operationVideo =
+  pump.slug === 'ft300-400-a'
+    ? {
+        model: 'FT300-A',
+        title: 'FT300-A Pump Operation',
+        description: 'See the FT300-A in action with a full operation walkthrough.',
+        url: 'https://www.youtube.com/embed/zQEbmyU3i28'
+      }
+    : pump.slug === 'fk500-a'
+      ? {
+          model: 'FK500-A',
+          title: 'FK500-A Pump Operation',
+          description: 'Watch the FK500-A running through a full pump operation demo.',
+          url: 'https://www.youtube.com/embed/_pmvc3Xizew'
+        }
+      : pump.slug === 'ft510-a'
+        ? {
+            model: 'FT510-A',
+            title: 'FT510-A Pump Operation',
+            description: 'See the FT510-A in action with a full pump operation walkthrough.',
+            url: 'https://www.youtube.com/embed/wUKDQSCwxiA'
+          }
+        : pump.slug === 'ff500ar-a'
+          ? {
+              model: 'FF500-AR',
+              title: 'FF500-AR Pump Operation',
+              description: 'Watch the FF500-AR running through a complete pump operation demo.',
+              url: 'https://www.youtube.com/embed/yuKw3f8MA3g'
+            }
+          : pump.slug === 'p572s-a'
+            ? {
+                model: 'P572S-A',
+                title: 'P572S-A Pump Operation',
+                description: 'See the P572S-A in action with a full pump operation walkthrough.',
+                url: 'https://www.youtube.com/embed/AOhStVKJxqE'
+              }
+            : pump.slug === 'tf516mh-ab'
+              ? {
+                  model: 'TF516MH-AB',
+                  title: 'TF516MH-AB Pump Operation',
+                  description: 'See the TF516MH-AB pump operating in the field.',
+                  url: 'https://www.youtube.com/embed/pn0K14dIxho'
+                }
+      : null;
 ---
 
 <BaseLayout title={`${pump.title} - Portable Fire Pumps`}>
@@ -151,6 +195,34 @@ const rightSpecs = rightSpecLabels.map((label) => keySpecByLabel.get(label)).fil
       </svg>
     </div>
   </section>
+
+  {operationVideo && (
+    <Section background="white" class="!pt-12 !pb-4">
+      <div class="text-center mb-8 px-2">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+          {operationVideo.model}{' '}
+          <span class="brand-gradient-text">Pump Operation</span>
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          {operationVideo.description}
+        </p>
+      </div>
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-black">
+          <iframe
+            src={operationVideo.url}
+            title={`${operationVideo.title} video`}
+            class="absolute inset-0 w-full h-full"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
+      </div>
+    </Section>
+  )}
 
   <!-- Key Benefits -->
   <Section background="white" class="!py-12 lg:!py-16">
