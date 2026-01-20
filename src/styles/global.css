@@ -255,6 +255,14 @@
   filter: brightness(0.95);
 }
 
+.doc-card-title {
+  transition: color 0.2s ease;
+}
+
+.group:hover .doc-card-title {
+  color: var(--doc-hover-color, #2563eb);
+}
+
 /* Smooth scrolling */
 html {
   @apply scroll-smooth;

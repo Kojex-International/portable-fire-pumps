@@ -19,7 +19,6 @@ const NAV_ITEMS = [
       { name: 'Water cooled', path: '/products/water-cooled' },
     ],
   },
-  { name: 'Applications', path: '/applications' },
   { name: 'Distributors', path: '/distributors' },
   { name: 'Resources', path: '/resources' },
   { name: 'About Us', path: '/about-us' },

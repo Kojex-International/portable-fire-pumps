@@ -1,9 +1,12 @@
 ---
 import { getLocaleFromPathname, getNavigation, localizePath, SOCIAL_LINKS, SITE } from '@config/site';
-import { Package, Linkedin, Twitter, Facebook } from 'lucide-react';
+import { Linkedin, Twitter, Facebook } from 'lucide-react';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const navigation = getNavigation(locale);
+const footerLinks = navigation.filter(
+  (item) => !['Applications', 'Distributors', 'Resources'].includes(item.name)
+);
 const productsHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/request-a-quote', locale);
 const distributorsHref = localizePath('/distributors', locale);
@@ -17,10 +20,24 @@ const resourcesHref = localizePath('/resources', locale);
       <div class="lg:col-span-1 space-y-6">
         <a href={localizePath('/', locale)} class="flex items-center space-x-3 group">
           <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-linear-to-br from-blue-600 to-teal-600">
-            <Package className="w-7 h-7 text-white" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-7 h-7 text-white"
+              aria-hidden="true"
+            >
+              <path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" />
+            </svg>
           </div>
           <span class="text-2xl font-bold text-white">
-            Portable Fire Pumps
+            Kojex International
           </span>
         </a>
         <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
@@ -57,7 +74,7 @@ const resourcesHref = localizePath('/resources', locale);
           Quick Links
         </h3>
         <ul class="space-y-3">
-          {navigation.map((item) => (
+          {footerLinks.map((item) => (
             <li>
               <a
                 href={item.href}
@@ -78,27 +95,15 @@ const resourcesHref = localizePath('/resources', locale);
         </h3>
         <ul class="space-y-3">
           <li>
-            <a href={productsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href={distributorsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Warehousing & Storage
+              Distributors
             </a>
           </li>
           <li>
-            <a href={productsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
+            <a href="#" class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Transportation
-            </a>
-          </li>
-          <li>
-            <a href={productsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Manufacturing
-            </a>
-          </li>
-          <li>
-            <a href={productsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Supply Chain Management
+              Repairs
             </a>
           </li>
         </ul>
@@ -117,26 +122,14 @@ const resourcesHref = localizePath('/resources', locale);
             </a>
           </li>
           <li>
-            <a href={distributorsHref} class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Find a Facility
-            </a>
-          </li>
-          <li>
             <a href={resourcesHref} class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Documentation
+              Resources
             </a>
           </li>
         </ul>
         
         <div class="mt-8">
-          <a
-            href={requestQuoteHref}
-            class="inline-flex items-center px-6 py-3 text-sm font-semibold text-white bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-lg hover:shadow-xl transition-all"
-          >
-            Get Started
-          </a>
         </div>
       </div>
     </div>
