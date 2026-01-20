@@ -6,154 +6,59 @@ import Button from '../../components/ui/Button.astro';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
 import FacilityStats from '../../components/react/FacilityStats';
+import { getLocaleFromPathname, localizePath } from '@config/site';
 
-import northAmericanHubImg from '@assets/photo-1566576721346-d4a3b4eaeb55.jpg';
-import westCoastDistributionImg from '@assets/photo-1586528116311-ad8dd3c8310d.jpg';
-import eastCoastOperationsImg from '@assets/photo-1553413077-190dd305871c.jpg';
-import southernManufacturingCenterImg from '@assets/photo-1581091226825-a6a2a5aee158.jpg';
-import midwestColdStorageImg from '@assets/photo-1601584115197-04ecc0da31d7.jpg';
-import southeastDistributionImg from '@assets/photo-1558618666-fcd25c85cd64.jpg';
+import easternCanadaDistributorImg from '@assets/distributors/logo-larsenal.svg';
+import westernCanadaDistributorImg from '@assets/distributors/Flash_Wildfire_Services_Logo_Transparent_Background.avif';
 
-import ctaBgImg from '@assets/photo-1565043589221-1a6fd9ae45c7.jpg';
+import distributorsHeroImg from '@assets/distributorsHeroImg.png';
+import distributorsCtaImg from '@assets/distributorsCtaImg.png';
 
-const facilities = [
+const distributors = [
   {
-    name: 'North American Hub',
-    location: 'Chicago, Illinois',
-    address: '1234 Industrial Boulevard, Chicago, IL 60609',
-    type: 'Distribution & Manufacturing',
-    size: '500,000 sq ft',
-    image: northAmericanHubImg,
+    name: "L'Arsenal",
+    location: 'Drummondville, Quebec',
+    address: '2250, rue Andre-C.-Hamel, Drummondville, QC J2C 8B1',
+    type: 'Fire apparatus and emergency equipment',
+    image: easternCanadaDistributorImg,
     icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
     </svg>`,
-    phone: '+1 (312) 555-0100',
-    email: 'chicago@astroflow.com',
-    manager: 'Sarah Johnson',
-    hours: '24/7 Operations',
-    features: [
-      'Automated warehouse systems',
-      'Climate-controlled storage',
-      'CNC machining center',
-      'Rail and truck access',
-      '24/7 operations'
-    ],
-    certifications: ['ISO 9001', 'ISO 14001', 'OSHA Compliant']
+    phone: '819 474-2111',
+    phoneAlt: '1 800 266-7610',
+    email: 'info@larsenal.ca',
+    website: 'https://larsenal.ca/',
+    description:
+      "Founded in 1998, L'Arsenal offers emergency-response products and services, including fire truck and equipment sales, maintenance, repairs, and parts service.",
+    focus:
+      'Based in Drummondville, serving Quebec fire services plus industrial, government, and institutional organizations.',
+    services: [
+      'Fire trucks and emergency equipment',
+      'Maintenance and repair services',
+      'Parts support and service'
+    ]
   },
   {
-    name: 'West Coast Distribution',
-    location: 'Los Angeles, California',
-    address: '5678 Portside Drive, Los Angeles, CA 90040',
-    type: 'Port Logistics & Warehousing',
-    size: '350,000 sq ft',
-    image: westCoastDistributionImg,
+    name: 'Flash Wildfire Services',
+    location: 'Sherwood Park, Alberta',
+    address: '2899 Broadmoor Boulevard, 150, Sherwood Park, AB T8H 1B5',
+    type: 'Wildfire protection equipment',
+    image: westernCanadaDistributorImg,
     icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
     </svg>`,
-    phone: '+1 (323) 555-0200',
-    email: 'losangeles@astroflow.com',
-    manager: 'Michael Chen',
-    hours: 'Mon-Sun: 6:00 AM - 10:00 PM',
-    features: [
-      'Port-adjacent location',
-      'Cross-docking capabilities',
-      'Bonded warehouse',
-      'Container storage',
-      'LTL/FTL consolidation'
-    ],
-    certifications: ['C-TPAT', 'ISO 9001', 'FDA Registered']
-  },
-  {
-    name: 'East Coast Operations',
-    location: 'Newark, New Jersey',
-    address: '9012 Commerce Way, Newark, NJ 07114',
-    type: 'Distribution & Value-Added Services',
-    size: '400,000 sq ft',
-    image: eastCoastOperationsImg,
-    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-    </svg>`,
-    phone: '+1 (973) 555-0300',
-    email: 'newark@astroflow.com',
-    manager: 'David Rodriguez',
-    hours: 'Mon-Fri: 7:00 AM - 8:00 PM, Sat: 8:00 AM - 4:00 PM',
-    features: [
-      'E-commerce fulfillment',
-      'Kitting and assembly',
-      'Returns processing',
-      'Same-day shipping',
-      'Multi-client operations'
-    ],
-    certifications: ['ISO 9001', 'ISTA Certified', 'TSA Approved']
-  },
-  {
-    name: 'Southern Manufacturing Center',
-    location: 'Houston, Texas',
-    address: '3456 Manufacturing Parkway, Houston, TX 77001',
-    type: 'Manufacturing & Assembly',
-    size: '300,000 sq ft',
-    image: southernManufacturingCenterImg,
-    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-    </svg>`,
-    phone: '+1 (713) 555-0400',
-    email: 'houston@astroflow.com',
-    manager: 'Jennifer Martinez',
-    hours: 'Mon-Fri: 6:00 AM - 6:00 PM',
-    features: [
-      'Precision manufacturing',
-      'Quality control lab',
-      'Assembly lines',
-      'Prototype development',
-      'Tool & die shop'
-    ],
-    certifications: ['ISO 9001', 'AS9100', 'ITAR Registered']
-  },
-  {
-    name: 'Midwest Cold Storage',
-    location: 'Minneapolis, Minnesota',
-    address: '7890 Cold Chain Avenue, Minneapolis, MN 55401',
-    type: 'Refrigerated & Frozen Storage',
-    size: '250,000 sq ft',
-    image: midwestColdStorageImg,
-    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-    </svg>`,
-    phone: '+1 (612) 555-0500',
-    email: 'minneapolis@astroflow.com',
-    manager: 'Robert Anderson',
-    hours: '24/7 Operations',
-    features: [
-      'Temperature zones: -20°F to 60°F',
-      'HACCP compliant',
-      'Blast freezing',
-      'Food-grade facility',
-      'Lot tracking systems'
-    ],
-    certifications: ['FSMA', 'SQF Level 3', 'FDA Registered']
-  },
-  {
-    name: 'Southeast Distribution',
-    location: 'Atlanta, Georgia',
-    address: '2345 Logistics Boulevard, Atlanta, GA 30301',
-    type: 'Distribution & Transportation Hub',
-    size: '450,000 sq ft',
-    image: southeastDistributionImg,
-    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-    </svg>`,
-    phone: '+1 (404) 555-0600',
-    email: 'atlanta@astroflow.com',
-    manager: 'Amanda Williams',
-    hours: 'Mon-Sun: 5:00 AM - 11:00 PM',
-    features: [
-      'Strategic location',
-      'Cross-docking',
-      'Regional distribution',
-      'Parcel integration',
-      'Transloading services'
-    ],
-    certifications: ['ISO 9001', 'C-TPAT', 'OSHA Compliant']
+    phone: '780 467 7234',
+    email: 'info@flashwildfireservices.ca',
+    website: 'https://www.flashwildfireservices.ca/',
+    description:
+      'Supplier of wildfire pumps, sprinkler systems, WATERAX components, fire hose, and hardware for wildfire defense.',
+    focus:
+      'Supports WUI properties, homeowners, utilities, municipalities, and commercial fire-protection applications.',
+    services: [
+      'Wildfire pumps and WATERAX components',
+      'Sprinkler systems and protection kits',
+      'Fire hose, fittings, and hardware'
+    ]
   }
 ];
 
@@ -207,6 +112,10 @@ const facilityStandards = [
     color: 'from-pink-500 to-pink-600'
   }
 ];
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const requestQuoteHref = localizePath('/request-a-quote', locale);
+const distributorsHref = localizePath('/distributors', locale);
 ---
 
 <BaseLayout title="Distributors - Portable Fire Pumps">
@@ -215,7 +124,7 @@ const facilityStandards = [
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0">
       <Image 
-        src= {ctaBgImg}
+        src= {distributorsHeroImg}
         alt="Modern facilities and infrastructure"
         class="w-full h-full object-cover"
       />
@@ -247,7 +156,7 @@ const facilityStandards = [
   </section>
 
   <!-- Quick Stats -->
-  <Section background="white">
+  <Section background="white" class="relative z-20 -mt-20 lg:-mt-28 pt-0!">
     <FacilityStats client:load />
   </Section>
 
@@ -255,91 +164,104 @@ const facilityStandards = [
   <Section background="gray">
     <div class="text-center mb-16">
       <div class="inline-block px-4 py-2 mb-4 bg-primary-100 text-primary-800 text-sm font-semibold rounded-full">
-        Our Locations
+        Our Distributors
       </div>
       <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        Strategic <span class="gradient-text">Facilities</span>
+        Trusted <span class="gradient-text">Distributor Network</span>
       </h2>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-        Each facility is designed to meet specific industry needs with cutting-edge infrastructure and capabilities.
+        Verified partners with proven expertise in emergency response and wildfire protection equipment.
       </p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {facilities.map((facility, index) => (
+      {distributors.map((distributor, index) => (
         <ImageReveal client:load delay={index * 0.1}>
           <Card hover class="overflow-hidden animate-fadeInUp group" style={`animation-delay: ${index * 0.1}s`}>
-            <!-- Facility Image -->
-            <div class="relative h-64 overflow-hidden">
+            <!-- Distributor Image -->
+            <div class="relative h-64 overflow-hidden bg-black">
               <Image 
-                src={facility.image}
-                alt={facility.name}
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                src={distributor.image}
+                alt={distributor.name}
+                class="w-full h-full object-contain p-6"
               />
               <div class="absolute inset-0 bg-linear-to-t from-gray-900/80 via-gray-900/40 to-transparent"></div>
               <div class="absolute top-4 right-4">
-                <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30" set:html={facility.icon}></div>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 class="text-2xl font-bold mb-1">{facility.name}</h3>
-                <p class="text-sm text-gray-200">{facility.type}</p>
+                <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30" set:html={distributor.icon}></div>
               </div>
             </div>
 
             <div class="p-6 space-y-5">
-              <!-- Location & Size -->
-              <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600">
-                <span class="flex items-center gap-1.5">
+              <div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-1">{distributor.name}</h3>
+                <p class="text-sm text-gray-500">{distributor.type}</p>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">
+                {distributor.description}
+              </p>
+
+              <!-- Contact -->
+              <div>
+                <h4 class="text-sm font-semibold text-gray-700 uppercase mb-3 tracking-wide flex items-center gap-2">
                   <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16h6M12 14a4 4 0 100-8 4 4 0 000 8z" />
                   </svg>
-                  {facility.location}
-                </span>
-                <span class="text-gray-300">•</span>
-                <span class="flex items-center gap-1.5">
-                  <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
-                  </svg>
-                  {facility.size}
-                </span>
+                  Contact
+                </h4>
+                <div class="space-y-2 text-sm text-gray-600">
+                  <p class="flex items-start gap-2">
+                    <svg class="w-4 h-4 text-primary-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>{distributor.address}</span>
+                  </p>
+                  <p class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <span>{distributor.phone}{distributor.phoneAlt ? ` | ${distributor.phoneAlt}` : ''}</span>
+                  </p>
+                  <p class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m8 0l-8-5m8 5l-8 5" />
+                    </svg>
+                    <a href={`mailto:${distributor.email}`} class="text-primary-700 hover:text-primary-900 underline-offset-4 hover:underline">
+                      {distributor.email}
+                    </a>
+                  </p>
+                  <p class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 010 5.656M15 7a7 7 0 010 10M9 13a3 3 0 010-2m3-6a9 9 0 010 14" />
+                    </svg>
+                    <a href={distributor.website} class="text-primary-700 hover:text-primary-900 underline-offset-4 hover:underline" target="_blank" rel="noreferrer">
+                      {distributor.website.replace('https://', '').replace('http://', '')}
+                    </a>
+                  </p>
+                </div>
               </div>
 
-              <!-- Features -->
-              <div>
+              <!-- Focus -->
+              <div class="border-t border-gray-200 pt-4">
                 <h4 class="text-sm font-semibold text-gray-700 uppercase mb-3 tracking-wide flex items-center gap-2">
                   <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>
-                  Key Features
+                  Coverage & Offerings
                 </h4>
+                <p class="text-sm text-gray-600 mb-3">
+                  {distributor.focus}
+                </p>
                 <ul class="grid grid-cols-1 gap-2.5">
-                  {facility.features.map((feature) => (
+                  {distributor.services.map((service) => (
                     <li class="flex items-start space-x-2.5 text-sm">
                       <svg class="w-4 h-4 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                       </svg>
-                      <span class="text-gray-600">{feature}</span>
+                      <span class="text-gray-600">{service}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
-
-              <!-- Certifications -->
-              <div class="border-t border-gray-200 pt-4">
-                <h4 class="text-sm font-semibold text-gray-700 uppercase mb-3 tracking-wide flex items-center gap-2">
-                  <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                  </svg>
-                  Certifications
-                </h4>
-                <div class="flex flex-wrap gap-2">
-                  {facility.certifications.map((cert) => (
-                    <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-linear-to-r from-primary-100 to-secondary-100 text-primary-800 border border-primary-200">
-                      {cert}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </Card>
@@ -418,34 +340,34 @@ const facilityStandards = [
     <!-- Background Image -->
     <div class="absolute inset-0">
       <Image 
-        src={ctaBgImg}
-        alt="Modern facilities and infrastructure"
+        src={distributorsCtaImg}
+        alt="Modern warehouse operations"
         class="w-full h-full object-cover"
         width={2070}
         height={1380}
       />
-      <div class="absolute inset-0 bg-linear-to-r from-blue-900/95 to-teal-900/95"></div>
+      <div class="absolute inset-0 cta-overlay-gradient"></div>
     </div>
 
     <!-- Content -->
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-4xl mx-auto text-center text-white">
         <div class="inline-block px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
-          Get Started Today
+          Fire Pump Readiness
         </div>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Ready to Visit Our <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-teal-400">Facilities</span>?
+          Outfit Your Site with <span class="brand-gradient-text">Portable Fire Pumps</span>
         </h2>
         <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Schedule a tour to see our operations firsthand and discuss how we can meet your needs.
+          High-flow, rapid-deploy pumps built for emergency response and rugged field use.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <Button href="/fr/request-a-quote" size="lg" class="bg-blue-600! hover:bg-blue-700! text-white! shadow-2xl!">
-            Request a Quote
+          <Button href={requestQuoteHref} size="lg" class="brand-cta">
+            Get a Fire Pump Quote
           </Button>
-          <Button href="/fr/products" size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
-            View Products
+          <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
+            Find a Distributor
           </Button>
         </div>
       </div>
