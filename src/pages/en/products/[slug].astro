@@ -11,10 +11,13 @@ import checkIcon from '@assets/icons/check.svg?url';
 import catalogPdf from '../../../data/Shibaura_Catalog2024_9.pdf';
 
 export async function getStaticPaths() {
-  return firepumps.map((pump) => ({
-    params: { slug: pump.slug },
-    props: { pump }
-  }));
+  return firepumps.flatMap((pump) => {
+    const slugs = [pump.slug, ...(pump.aliases ?? [])];
+    return slugs.map((slug) => ({
+      params: { slug },
+      props: { pump }
+    }));
+  });
 }
 
 const { pump } = Astro.props as { pump: Firepump };
@@ -261,21 +264,134 @@ const operationVideo =
         The specifications procurement teams need to evaluate the {pump.title}.
       </p>
     </div>
-    <div class="overflow-x-auto bg-white rounded-2xl shadow-xl border border-gray-200">
-      <table class="w-full text-left">
-        <tbody>
-          {pump.specs.map((spec, index) => (
-            <tr class={`border-b last:border-b-0 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-              <th class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide w-1/2">
-                {spec.label}
-              </th>
-              <td class="px-5 py-3 text-gray-900 font-semibold whitespace-pre-line">
-                {spec.value}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div class="space-y-6">
+      {pump.specsTable.groups.map((group) => (
+        <div class="overflow-x-auto bg-white rounded-2xl shadow-xl border border-gray-200">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="bg-gray-200 border-b border-gray-100">
+                <th
+                  colSpan={pump.specsTable.columns.length + 2}
+                  class="px-5 py-3 text-sm font-bold text-gray-700 uppercase tracking-wide text-center"
+                >
+                  {group.title}
+                </th>
+              </tr>
+              {pump.specsTable.columns.length > 2 && (
+                <tr class="border-b bg-gray-50">
+                  <th
+                    colSpan={2}
+                    class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide w-1/3 border-r border-gray-200 text-center"
+                  >
+                    Specification
+                  </th>
+                  {pump.specsTable.columns.map((column) => (
+                    <th class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide border-r border-gray-200 last:border-r-0 text-center">
+                      {column}
+                    </th>
+                  ))}
+                </tr>
+              )}
+            </thead>
+            <tbody>
+              {(() => {
+                const rows = group.rows;
+                const rendered: {
+                  type: 'row' | 'discharge';
+                  row?: typeof rows[number];
+                  items?: typeof rows;
+                }[] = [];
+
+                for (let i = 0; i < rows.length; i += 1) {
+                  const row = rows[i];
+                  if (row.label.startsWith('Discharge performance')) {
+                    const items = [];
+                    while (i < rows.length && rows[i].label.startsWith('Discharge performance')) {
+                      items.push(rows[i]);
+                      i += 1;
+                    }
+                    i -= 1;
+                    rendered.push({ type: 'discharge', items });
+                  } else {
+                    rendered.push({ type: 'row', row });
+                  }
+                }
+
+                const renderValueCells = (values: string[]) => {
+                  const cells: { value: string; span: number }[] = [];
+                  for (let i = 0; i < values.length; i += 1) {
+                    const value = values[i];
+                    let span = 1;
+                    while (i + span < values.length && values[i + span] === value) {
+                      span += 1;
+                    }
+                    cells.push({ value, span });
+                    i += span - 1;
+                  }
+                  return cells.map((cell) => (
+                    <td
+                      colSpan={cell.span}
+                      class="px-5 py-3 text-gray-900 font-semibold whitespace-pre-line border-r border-gray-200 last:border-r-0 text-center"
+                    >
+                      {cell.value}
+                    </td>
+                  ));
+                };
+
+                const rowsOutput = [];
+                rendered.forEach((entry, entryIndex) => {
+                  if (entry.type === 'row' && entry.row) {
+                    const rowIndex = entryIndex;
+                    rowsOutput.push(
+                      <tr class="border-b border-gray-100 last:border-b-0 bg-white">
+                        <th
+                          colSpan={2}
+                          class={`px-5 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide w-1/3 border-r border-gray-200 bg-gray-50 text-center ${
+                            rowIndex === group.rows.length - 1 ? 'border-b-0' : 'border-b border-black'
+                          }`}
+                        >
+                          {entry.row.label}
+                        </th>
+                        {renderValueCells(entry.row.values)}
+                      </tr>
+                    );
+                  }
+
+                  if (entry.type === 'discharge' && entry.items) {
+                    const dischargeRows = entry.items;
+                    dischargeRows.forEach((row, dischargeIndex) => {
+                      let subLabel = row.label.replace(/Discharge performance/i, '').trim();
+                      if (subLabel.startsWith('(') && subLabel.endsWith(')')) {
+                        subLabel = subLabel.slice(1, -1);
+                      }
+                      rowsOutput.push(
+                        <tr class="border-b border-gray-100 last:border-b-0 bg-white">
+                          {dischargeIndex === 0 && (
+                            <th
+                              rowSpan={dischargeRows.length}
+                              class={`px-5 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide border-r border-gray-200 bg-gray-50 text-center ${
+                                entryIndex === rendered.length - 1 ? 'border-b-0' : 'border-b border-black'
+                              }`}
+                            >
+                              Discharge performance
+                            </th>
+                          )}
+                          <th class="px-5 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide border-r border-gray-200 bg-gray-50 text-center">
+                            {subLabel}
+                          </th>
+                          {renderValueCells(row.values)}
+                        </tr>
+                      );
+                    });
+                  }
+                });
+
+                return rowsOutput;
+              })()}
+            </tbody>
+          </table>
+        </div>
+      ))}
     </div>
   </Section>
 

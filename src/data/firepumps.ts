@@ -45,10 +45,17 @@ export interface Firepump {
   image: ImageMetadata;
   graphImage: ImageMetadata;
   manualPdf?: string;
+  aliases?: string[];
   features: FirepumpFeature[];
   keySpecs: { label: string; value: string; icon: string }[];
   benefits: { title: string; description: string }[];
-  specs: { label: string; value: string }[];
+  specsTable: {
+    columns: string[];
+    groups: {
+      title: string;
+      rows: { label: string; values: string[] }[];
+    }[];
+  };
   performance: { label: string; value: string }[];
 }
 
@@ -58,19 +65,22 @@ export const firepumps: Firepump[] = [
   {
     slug: 'ft510-a',
     title: 'FT510-A',
-    subtitle: "Powerful performance with Shibaura's air-cooled engine",
-    description: 'Delivers powerful performance, providing reliable output without affecting water quality.',
-    valueProp: 'Compact, high-performance portable fire pump for rapid deployment in remote environments.',
+    subtitle: "Strong power with Shibaura's original air-cooled engine",
+    description:
+      "Shibaura's largest air-cooled engine delivers strong power without influencing water quality.",
+    valueProp:
+      'Big-bore air-cooled performance with fast starting and quick valve control for demanding field use.',
     icon: shibauraLogoIcon,
     image: ft510Img,
     graphImage: ft510GraphImg,
     manualPdf: ft450500ManualPdf,
     features: [
-      { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
-      { label: '2-Stroke gasoline engine', icon: engineIcon },
-      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
-      { label: 'Discharge performance: 0.5MPa: 1,450L/min, 1.0MPa: 830L/min', icon: dischargeIcon },
-      { label: 'Priming performance, 1 m suction head: 3.5sec', icon: timerIcon }
+      { label: 'Automatic choke system for quick starting', icon: carburatorIcon },
+      { label: 'Separate fuel feeding system for optimum mixing', icon: engineIcon },
+      { label: "Shibaura's unique water shut-off valve", icon: dischargeIcon },
+      { label: 'Quick valve lever for fast operation', icon: dischargeIcon },
+      { label: 'Oilless vacuum pump with carbon blades', icon: timerIcon },
+      { label: 'Auto coolant circulation system (NICE valve)', icon: dischargeIcon }
     ],
     keySpecs: [
       { label: 'Pump model', value: 'Shibaura B612B', icon: modelIcon },
@@ -81,42 +91,77 @@ export const firepumps: Firepump[] = [
       { label: 'Engine type', value: '2-stroke gasoline engine', icon: engineIcon }
     ],
     benefits: [
-      { title: 'Rapid Deployment', description: 'Compact frame and strong output for quick response in the field.' },
-      { title: 'Air-Cooled Reliability', description: 'Simplified cooling for dependable operation in rugged conditions.' },
-      { title: 'Clean Output', description: 'Engine design preserves water quality during extended use.' },
+      { title: 'Quick Starting', description: 'Automatic choke starts the engine without warm-up.' },
+      { title: 'Fast Valve Control', description: 'Quick valve lever enables rapid discharge control.' },
+      { title: 'Clean Operation', description: 'Oilless vacuum pump avoids oily discharge.' },
       { title: 'High Discharge', description: 'Delivers 1,450 L/min at 0.5 MPa for demanding operations.' }
     ],
-    specs: [
-      { label: 'Pump model', value: 'Shibaura B612B' },
-      { label: 'Max discharge', value: '1,450 L/min (0.5 MPa, 1 m suction head)' },
-      { label: 'Max pressure', value: '1.0 MPa' },
-      { label: 'Suction height (test condition)', value: '1 m' },
-      { label: 'Dimensions (LxWxH)', value: '737 x 572 x 765 mm' },
-      { label: 'Weight (dry)', value: '90 kg' },
-      { label: 'Engine model', value: 'Shibaura E440C' },
-      { label: 'Engine type', value: '2-stroke gasoline engine' },
-      { label: 'Cooling system', value: 'Air-cooled' },
-      { label: 'Discharge diameter', value: 'JIS 65 mm' },
-      { label: 'Suction diameter', value: 'JIS 75 mm' },
-      { label: 'Discharge (0.5 MPa, 3 m suction head)', value: '1,436 L/min' },
-      { label: 'Discharge (1.0 MPa, 3 m suction head)', value: '790 L/min' },
-      { label: 'Priming performance (1 m suction head)', value: '3.5 sec' },
-      { label: 'Pump type', value: 'High pressure, single stage centrifugal pump' },
-      { label: 'Cylinders', value: '2' },
-      { label: 'Fuel system', value: 'Auto choke carburetor' },
-      { label: 'Displacement', value: '436 cc' },
-      { label: 'Bore x stroke', value: '68 mm x 60 mm' },
-      { label: 'Rated output', value: '22.8 kW / 31 PS' },
-      { label: 'Starting', value: 'Electric starter & manual starter' },
-      { label: 'Fuel tank capacity', value: '14.5 L' },
-      { label: 'Fuel consumption', value: '14 L/h' },
-      { label: 'Fuel type', value: 'Regular unleaded gasoline' },
-      { label: 'Vacuum pump type', value: '4-vane eccentric rotary type' },
-      { label: 'Blade type', value: 'High strength carbon' }
-    ],
+    specsTable: {
+      columns: ['Metric', 'Imperial'],
+      groups: [
+        {
+          title: 'Model',
+          rows: [
+            { label: 'Dimensions LxWxH (mm)', values: ['737 x 572 x 740', '29.0 x 22.5 x 29.1 in'] },
+            { label: 'Dry Weight', values: ['90 kg', '198 lb'] }
+          ]
+        },
+        {
+          title: 'Pump',
+          rows: [
+            { label: 'Model', values: ['SHIBAURA B612B', 'SHIBAURA B612B'] },
+            { label: 'Type', values: ['High pressure, single stage centrifugal pump', 'High pressure, single stage centrifugal pump'] },
+            { label: 'Discharge performance (0.5MPa, 1m suction head)', values: ['1,450 L/min', '383 gpm @ 72.5 psi, 3.3 ft'] },
+            { label: 'Discharge performance (0.5MPa, 3m suction head)', values: ['1,435 L/min', '379 gpm @ 72.5 psi, 9.8 ft'] },
+            { label: 'Discharge performance (1.0MPa, 1m suction head)', values: ['830 L/min', '219 gpm @ 145 psi, 3.3 ft'] },
+            { label: 'Discharge performance (1.0MPa, 3m suction head)', values: ['790 L/min', '209 gpm @ 145 psi, 9.8 ft'] },
+            { label: 'Priming performance at 1m suction head', values: ['3.5 Seconds', '3.5 Seconds (3.3 ft suction head)'] },
+            { label: 'Discharge Diameter JIS', values: ['65 mm', '2.6 in'] },
+            { label: 'Suction Diameter JIS', values: ['75 mm', '3.0 in'] }
+          ]
+        },
+        {
+          title: 'Engine',
+          rows: [
+            { label: 'Model', values: ['SHIBAURA E440C', 'SHIBAURA E440C'] },
+            { label: 'Type', values: ['Air cooled 2-stroke gasoline engine', 'Air cooled 2-stroke gasoline engine'] },
+            { label: 'Cooling system', values: ['Air cooled type', 'Air cooled type'] },
+            { label: 'No of cylinder', values: ['2 cylinder', '2 cylinder'] },
+            { label: 'Fuel system', values: ['Auto choke carburetor', 'Auto choke carburetor'] },
+            { label: 'Displacement', values: ['436 cc', '26.6 cu in'] },
+            { label: 'Bore x Stroke', values: ['68 mm x 60 mm', '2.68 x 2.36 in'] },
+            { label: 'Rated output', values: ['22.8 kW / 31 PS', '30.6 hp'] },
+            { label: 'Starting', values: ['Electric starter & manual starter', 'Electric starter & manual starter'] },
+            { label: 'Fuel tank capacity', values: ['14.5 L', '3.83 gal'] },
+            { label: 'Fuel consumption', values: ['14.0 L/h', '3.7 gal/h'] },
+            { label: 'Fuel type', values: ['Regular unleaded gasoline', 'Regular unleaded gasoline'] }
+          ]
+        },
+        {
+          title: 'Vacuum Pump',
+          rows: [
+            { label: 'Type', values: ['4-Vane eccentric rotary type', '4-Vane eccentric rotary type'] },
+            { label: 'Blade type', values: ['High strength carbon', 'High strength carbon'] },
+            { label: 'Maximum suction height', values: ['9 m', '29.5 ft'] }
+          ]
+        },
+        {
+          title: 'Features',
+          rows: [
+            { label: 'Shibaura Original 2 cycle Gasoline Engine', values: ['Yes', 'Yes'] },
+            { label: 'Shibaura Original Centrifugal Pump', values: ['Yes', 'Yes'] },
+            { label: 'Shibaura Original Vacuum Pump', values: ['Yes', 'Yes'] },
+            { label: 'Alert Monitoring System', values: ['Yes', 'Yes'] },
+            { label: 'Quick Discharge Valve', values: ['Yes', 'Yes'] }
+          ]
+        }
+      ]
+    },
     performance: [
       { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,450 L/min' },
+      { label: 'Discharge performance (0.5MPa, 3 m suction head)', value: '1,435 L/min' },
       { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '830 L/min' },
+      { label: 'Discharge performance (1.0MPa, 3 m suction head)', value: '790 L/min' },
       { label: 'Priming performance (1 m suction head)', value: '3.5 sec' }
     ]
   },
@@ -151,34 +196,192 @@ export const firepumps: Firepump[] = [
       { title: 'Extended Runtime', description: 'Fuel tank supports longer operation windows.' },
       { title: 'Fast Priming', description: '2.2–3.5 sec priming at 1 m suction head.' }
     ],
-    specs: [
-      { label: 'Pump model', value: 'Shibaura C505' },
-      { label: 'Max discharge', value: '568 L/min (0.5 MPa, 1 m suction head)' },
-      { label: 'Max pressure', value: '0.8 MPa' },
-      { label: 'Suction height (test condition)', value: '1 m' },
-      { label: 'Dimensions (LxWxH)', value: '601 x 463 x 559 mm' },
-      { label: 'Weight (dry)', value: '48 kg' },
-      { label: 'Engine model', value: 'Shibaura E200' },
-      { label: 'Engine type', value: '2-stroke gasoline engine' },
-      { label: 'Cooling system', value: 'Air-cooled' },
-      { label: 'Discharge diameter', value: 'JIS 65 mm' },
-      { label: 'Suction diameter', value: 'JIS 65 mm' },
-      { label: 'Discharge (0.5 MPa, 3 m suction head)', value: '550 L/min (FT300-A), 556 L/min (FT400-A1)' },
-      { label: 'Discharge (1.0 MPa, 3 m suction head)', value: '300 L/min (FT300-A), 309 L/min (FT400-A1)' },
-      { label: 'Priming performance (1 m suction head)', value: '2.2 sec (FT300-A), 3.5 sec (FT400-A1)' },
-      { label: 'Pump type', value: 'High pressure, single stage centrifugal pump' },
-      { label: 'Cylinders', value: '1' },
-      { label: 'Fuel system', value: 'Auto choke carburetor' },
-      { label: 'Displacement', value: '200 cc' },
-      { label: 'Bore x stroke', value: '68 mm x 55 mm' },
-      { label: 'Rated output', value: '8.8 kW / 12 PS' },
-      { label: 'Starting', value: 'Electric starter & manual starter' },
-      { label: 'Fuel tank capacity', value: '6.3 L' },
-      { label: 'Fuel consumption', value: '5.4 L/h' },
-      { label: 'Fuel type', value: 'Regular unleaded gasoline' },
-      { label: 'Vacuum pump type', value: '4-vane eccentric rotary type' },
-      { label: 'Blade type', value: 'High strength carbon' }
-    ],
+    specsTable: {
+      columns: ['FT300-A (Metric)', 'FT300-A (Imperial)', 'FT400-A1 (Metric)', 'FT400-A1 (Imperial)'],
+      groups: [
+        {
+          title: 'Model',
+          rows: [
+            {
+              label: 'Dimensions LxWxH (mm)',
+              values: ['601 x 463 x 515', '23.7 x 18.2 x 20.3 in', '601 x 463 x 515', '23.7 x 18.2 x 20.3 in']
+            },
+            { label: 'Dry Weight', values: ['44 kg', '97 lb', '45 kg', '99 lb'] }
+          ]
+        },
+        {
+          title: 'Pump',
+          rows: [
+            {
+              label: 'Model',
+              values: ['SHIBAURA C505', 'SHIBAURA C505', 'SHIBAURA C505', 'SHIBAURA C505']
+            },
+            {
+              label: 'Type',
+              values: [
+                'High pressure, single stage centrifugal pump',
+                'High pressure, single stage centrifugal pump',
+                'High pressure, single stage centrifugal pump',
+                'High pressure, single stage centrifugal pump'
+              ]
+            },
+            {
+              label: 'Discharge performance (0.5MPa, 1m suction head)',
+              values: [
+                '568 L/min',
+                '150 gpm @ 72.5 psi, 3.3 ft',
+                '568 L/min',
+                '150 gpm @ 72.5 psi, 3.3 ft'
+              ]
+            },
+            {
+              label: 'Discharge performance (0.5MPa, 3m suction head)',
+              values: [
+                '550 L/min',
+                '145 gpm @ 72.5 psi, 9.8 ft',
+                '556 L/min',
+                '147 gpm @ 72.5 psi, 9.8 ft'
+              ]
+            },
+            {
+              label: 'Discharge performance (0.8MPa, 1m suction head)',
+              values: [
+                '318 L/min',
+                '84 gpm @ 116 psi, 3.3 ft',
+                '330 L/min',
+                '87 gpm @ 116 psi, 3.3 ft'
+              ]
+            },
+            {
+              label: 'Discharge performance (0.8MPa, 3m suction head)',
+              values: [
+                '300 L/min',
+                '79 gpm @ 116 psi, 9.8 ft',
+                '309 L/min',
+                '82 gpm @ 116 psi, 9.8 ft'
+              ]
+            },
+            {
+              label: 'Priming performance at 1m suction head',
+              values: [
+                '2.2 Seconds',
+                '2.2 Seconds (3.3 ft suction head)',
+                '3.5 Seconds',
+                '3.5 Seconds (3.3 ft suction head)'
+              ]
+            },
+            {
+              label: 'Discharge Diameter JIS',
+              values: ['65 mm', '2.6 in', '65 mm', '2.6 in']
+            },
+            {
+              label: 'Suction Diameter JIS',
+              values: ['65 mm', '2.6 in', '65 mm', '2.6 in']
+            }
+          ]
+        },
+        {
+          title: 'Engine',
+          rows: [
+            {
+              label: 'Model',
+              values: ['SHIBAURA E200', 'SHIBAURA E200', 'SHIBAURA E200', 'SHIBAURA E200']
+            },
+            {
+              label: 'Type',
+              values: [
+                'Air cooled 2-stroke gasoline engine',
+                'Air cooled 2-stroke gasoline engine',
+                'Air cooled 2-stroke gasoline engine',
+                'Air cooled 2-stroke gasoline engine'
+              ]
+            },
+            {
+              label: 'Cooling system',
+              values: ['Air cooled type', 'Air cooled type', 'Air cooled type', 'Air cooled type']
+            },
+            {
+              label: 'No of cylinder',
+              values: ['1 cylinder', '1 cylinder', '1 cylinder', '1 cylinder']
+            },
+            {
+              label: 'Fuel system',
+              values: ['Auto choke carburetor', 'Auto choke carburetor', 'Auto choke carburetor', 'Auto choke carburetor']
+            },
+            {
+              label: 'Displacement',
+              values: ['200 cc', '12.2 cu in', '200 cc', '12.2 cu in']
+            },
+            {
+              label: 'Bore x Stroke',
+              values: ['68 mm x 55 mm', '2.68 x 2.17 in', '68 mm x 55 mm', '2.68 x 2.17 in']
+            },
+            {
+              label: 'Rated output',
+              values: ['8.8 kW / 12 PS', '11.8 hp', '8.8 kW / 12 PS', '11.8 hp']
+            },
+            {
+              label: 'Starting',
+              values: [
+                'Electric starter & manual starter',
+                'Electric starter & manual starter',
+                'Electric starter & manual starter',
+                'Electric starter & manual starter'
+              ]
+            },
+            {
+              label: 'Fuel tank capacity',
+              values: ['4.0 L', '1.06 gal', '4.0 L', '1.06 gal']
+            },
+            {
+              label: 'Fuel consumption',
+              values: ['5.4 L/h', '1.43 gal/h', '5.6 L/h', '1.48 gal/h']
+            },
+            {
+              label: 'Fuel type',
+              values: [
+                'Regular unleaded gasoline',
+                'Regular unleaded gasoline',
+                'Regular unleaded gasoline',
+                'Regular unleaded gasoline'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Vacuum Pump',
+          rows: [
+            {
+              label: 'Type',
+              values: [
+                '4-Vane eccentric rotary type',
+                '4-Vane eccentric rotary type',
+                '4-Vane eccentric rotary type',
+                '4-Vane eccentric rotary type'
+              ]
+            },
+            {
+              label: 'Blade type',
+              values: ['High strength carbon', 'High strength carbon', 'High strength carbon', 'High strength carbon']
+            },
+            {
+              label: 'Maximum suction height',
+              values: ['9 m', '29.5 ft', '9 m', '29.5 ft']
+            }
+          ]
+        },
+        {
+          title: 'Features',
+          rows: [
+            { label: 'Shibaura Original 2 cycle Gasoline Engine', values: ['Yes', 'Yes', 'Yes', 'Yes'] },
+            { label: 'Shibaura Original Centrifugal Pump', values: ['Yes', 'Yes', 'Yes', 'Yes'] },
+            { label: 'Shibaura Original Vacuum Pump', values: ['Yes', 'Yes', 'Yes', 'Yes'] },
+            { label: 'Alert Monitoring System', values: ['-', '-', '-', '-'] },
+            { label: 'Quick Discharge Valve', values: ['Yes', 'Yes', 'Yes', 'Yes'] }
+          ]
+        }
+      ]
+    },
     performance: [
       { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '568 L/min' },
       { label: 'Discharge performance (0.8MPa, 1 m suction head)', value: '318 L/min (FT300-A), 330 L/min (FT400-A1)' },
@@ -203,7 +406,7 @@ export const firepumps: Firepump[] = [
       { label: 'Priming performance, 1 m suction head: 3.6sec', icon: timerIcon }
     ],
     keySpecs: [
-      { label: 'Pump model', value: 'Not specified', icon: modelIcon },
+      { label: 'Pump model', value: 'Shibaura C505', icon: modelIcon },
       { label: 'Cooling system', value: 'Air-cooled', icon: aircooledIcon },
       { label: 'Discharge performance', value: '0.5 MPa @ 560 L/min\n1.0 MPa @ 280 L/min', icon: dischargeIcon },
       { label: 'Priming performance', value: '1 m suction head: 3.6 sec', icon: timerIcon },
@@ -216,34 +419,67 @@ export const firepumps: Firepump[] = [
       { title: 'Solid Discharge', description: '560 L/min at 0.5 MPa for consistent output.' },
       { title: 'Fast Priming', description: '3.6 sec priming at 1 m suction head.' }
     ],
-    specs: [
-      { label: 'Pump model', value: 'SHIBAURA C505' },
-      { label: 'Max discharge', value: '560 L/min (0.5 MPa, 1 m suction head)' },
-      { label: 'Max pressure', value: '1.0 MPa' },
-      { label: 'Suction height (test condition)', value: '1 m' },
-      { label: 'Dimensions (LxWxH)', value: '555 x 466 x 520 mm' },
-      { label: 'Weight (dry)', value: '41 kg' },
-      { label: 'Engine model', value: 'Shibaura E180A' },
-      { label: 'Engine type', value: '2-stroke gasoline engine' },
-      { label: 'Cooling system', value: 'Air-cooled' },
-      { label: 'Discharge diameter', value: 'JIS 65 mm' },
-      { label: 'Suction diameter', value: 'JIS 75 mm' },
-      { label: 'Discharge (0.5 MPa, 3 m suction head)', value: '533 L/min' },
-      { label: 'Discharge (1.0 MPa, 3 m suction head)', value: '257 L/min' },
-      { label: 'Priming performance (1 m suction head)', value: '3.6 sec' },
-      { label: 'Pump type', value: 'High pressure, single stage centrifugal pump' },
-      { label: 'Cylinders', value: '1' },
-      { label: 'Fuel system', value: 'Auto choke carburetor' },
-      { label: 'Displacement', value: '182 cc' },
-      { label: 'Bore x stroke', value: '65 mm x 55 mm' },
-      { label: 'Rated output', value: '8.1 kW / 11 PS' },
-      { label: 'Starting', value: 'Electric starter & manual starter' },
-      { label: 'Fuel tank capacity', value: '4.2 L' },
-      { label: 'Fuel consumption', value: '4.6 L/h' },
-      { label: 'Fuel type', value: 'Regular unleaded gasoline' },
-      { label: 'Vacuum pump type', value: '4-vane eccentric rotary type' },
-      { label: 'Blade type', value: 'High strength carbon' }
-    ],
+    specsTable: {
+      columns: ['Metric', 'Imperial'],
+      groups: [
+        {
+          title: 'Model',
+          rows: [
+            { label: 'Dimensions LxWxH (mm)', values: ['555 x 466 x 520', '21.9 x 18.3 x 20.5 in'] },
+            { label: 'Dry Weight', values: ['41 kg', '90 lb'] }
+          ]
+        },
+        {
+          title: 'Pump',
+          rows: [
+            { label: 'Model', values: ['SHIBAURA C505', 'SHIBAURA C505'] },
+            { label: 'Type', values: ['High pressure, single stage centrifugal pump', 'High pressure, single stage centrifugal pump'] },
+            { label: 'Discharge performance (0.5MPa, 1m suction head)', values: ['560 L/min', '148 gpm @ 72.5 psi, 3.3 ft'] },
+            { label: 'Discharge performance (0.5MPa, 3m suction head)', values: ['533 L/min', '141 gpm @ 72.5 psi, 9.8 ft'] },
+            { label: 'Discharge performance (1.0MPa, 1m suction head)', values: ['280 L/min (0.8MPa)', '74 gpm @ 116 psi, 3.3 ft'] },
+            { label: 'Discharge performance (1.0MPa, 3m suction head)', values: ['257 L/min (0.8MPa)', '68 gpm @ 116 psi, 9.8 ft'] },
+            { label: 'Priming performance at 1m suction head', values: ['3.6 Seconds', '3.6 Seconds (3.3 ft suction head)'] },
+            { label: 'Discharge Diameter JIS', values: ['65 mm', '2.6 in'] },
+            { label: 'Suction Diameter JIS', values: ['65 mm', '2.6 in'] }
+          ]
+        },
+        {
+          title: 'Engine',
+          rows: [
+            { label: 'Model', values: ['SHIBAURA E180A', 'SHIBAURA E180A'] },
+            { label: 'Type', values: ['Air cooled 2-stroke gasoline engine', 'Air cooled 2-stroke gasoline engine'] },
+            { label: 'Cooling system', values: ['Air cooled type', 'Air cooled type'] },
+            { label: 'No of cylinder', values: ['1 cylinder', '1 cylinder'] },
+            { label: 'Fuel system', values: ['Auto choke carburetor', 'Auto choke carburetor'] },
+            { label: 'Displacement', values: ['182 cc', '11.1 cu in'] },
+            { label: 'Bore x Stroke', values: ['65 mm x 55 mm', '2.56 x 2.17 in'] },
+            { label: 'Rated output', values: ['8.1 kW / 11 PS', '10.8 hp'] },
+            { label: 'Starting', values: ['Electric starter & manual starter', 'Electric starter & manual starter'] },
+            { label: 'Fuel tank capacity', values: ['4.2 L', '1.11 gal'] },
+            { label: 'Fuel consumption', values: ['4.6 L/h', '1.22 gal/h'] },
+            { label: 'Fuel type', values: ['Regular unleaded gasoline', 'Regular unleaded gasoline'] }
+          ]
+        },
+        {
+          title: 'Vacuum Pump',
+          rows: [
+            { label: 'Type', values: ['4-Vane eccentric rotary type', '4-Vane eccentric rotary type'] },
+            { label: 'Blade type', values: ['High strength carbon', 'High strength carbon'] },
+            { label: 'Maximum suction height', values: ['9 m', '29.5 ft'] }
+          ]
+        },
+        {
+          title: 'Features',
+          rows: [
+            { label: 'Shibaura Original 2 cycle Gasoline Engine', values: ['Yes', 'Yes'] },
+            { label: 'Shibaura Original Centrifugal Pump', values: ['Yes', 'Yes'] },
+            { label: 'Shibaura Original Vacuum Pump', values: ['Yes', 'Yes'] },
+            { label: 'Alert Monitoring System', values: ['Yes', 'Yes'] },
+            { label: 'Quick Discharge Valve', values: ['Yes', 'Yes'] }
+          ]
+        }
+      ]
+    },
     performance: [
       { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '560 L/min' },
       { label: 'Discharge performance (0.8MPa, 1 m suction head)', value: '280 L/min' },
@@ -267,6 +503,7 @@ export const firepumps: Firepump[] = [
       { label: 'Discharge performance: 0.5MPa: 1,650L/min, 1.0MPa: 1,100L/min', icon: dischargeIcon },
       { label: 'Priming performance, 1 m suction head: 2.1sec', icon: timerIcon }
     ],
+    aliases: ['p572sw-a'],
     keySpecs: [
       { label: 'Pump model', value: 'Shibaura P572', icon: modelIcon },
       { label: 'Cooling system', value: 'Water-cooled', icon: watercooledIcon },
@@ -281,34 +518,67 @@ export const firepumps: Firepump[] = [
       { title: 'Water-Cooled Durability', description: 'Stable operation during longer duty cycles.' },
       { title: 'High Pressure', description: '1.0 MPa performance for challenging scenarios.' }
     ],
-    specs: [
-      { label: 'Pump model', value: 'Shibaura P572' },
-      { label: 'Max discharge', value: '1,650 L/min (0.5 MPa, 1 m suction head)' },
-      { label: 'Max pressure', value: '1.0 MPa' },
-      { label: 'Suction height (test condition)', value: '1 m' },
-      { label: 'Dimensions (LxWxH)', value: '657 x 584 x 720 mm' },
-      { label: 'Weight (dry)', value: '94 kg' },
-      { label: 'Engine model', value: 'Shibaura EPS72' },
-      { label: 'Engine type', value: '2-stroke gasoline engine' },
-      { label: 'Cooling system', value: 'Water-cooled' },
-      { label: 'Discharge diameter', value: 'JIS 65 mm' },
-      { label: 'Suction diameter', value: 'JIS 75 mm' },
-      { label: 'Discharge (0.5 MPa, 3 m suction head)', value: '1,530 L/min (0.7 MPa)' },
-      { label: 'Discharge (1.0 MPa, 3 m suction head)', value: '1,070 L/min' },
-      { label: 'Priming performance (1 m suction head)', value: '2.1 sec' },
-      { label: 'Pump type', value: 'Single stage, high pressure turbine pump' },
-      { label: 'Cylinders', value: '2' },
-      { label: 'Fuel system', value: 'Auto choke carburetor' },
-      { label: 'Displacement', value: '723 cc' },
-      { label: 'Bore x stroke', value: '80 mm x 72 mm' },
-      { label: 'Rated output', value: '34.3 kW / 46 PS' },
-      { label: 'Starting', value: 'Electric starter & manual starter' },
-      { label: 'Fuel tank capacity', value: '12.0 L' },
-      { label: 'Fuel consumption', value: '17.5 L/h' },
-      { label: 'Fuel type', value: 'Regular unleaded gasoline' },
-      { label: 'Vacuum pump type', value: '4-vane eccentric rotary type' },
-      { label: 'Blade type', value: 'High strength carbon' }
-    ],
+    specsTable: {
+      columns: ['Metric', 'Imperial'],
+      groups: [
+        {
+          title: 'Model',
+          rows: [
+            { label: 'Dimensions LxWxH (mm)', values: ['657 x 584 x 720', '25.9 x 23.0 x 28.3 in'] },
+            { label: 'Dry Weight', values: ['94 kg', '207 lb'] }
+          ]
+        },
+        {
+          title: 'Pump',
+          rows: [
+            { label: 'Model', values: ['SHIBAURA P572', 'SHIBAURA P572'] },
+            { label: 'Type', values: ['High pressure, single stage centrifugal pump', 'High pressure, single stage centrifugal pump'] },
+            { label: 'Discharge performance (0.5MPa, 1m suction head)', values: ['1,650 L/min', '436 gpm @ 72.5 psi, 3.3 ft'] },
+            { label: 'Discharge performance (0.7MPa, 1m suction head)', values: ['1,600 L/min', '423 gpm @ 101.5 psi, 3.3 ft'] },
+            { label: 'Discharge performance (1.0MPa, 1m suction head)', values: ['1,100 L/min', '291 gpm @ 145 psi, 3.3 ft'] },
+            { label: 'Discharge performance (1.0MPa, 3m suction head)', values: ['1,070 L/min', '283 gpm @ 145 psi, 9.8 ft'] },
+            { label: 'Priming performance at 1m suction head', values: ['2.1 Seconds', '2.1 Seconds (3.3 ft suction head)'] },
+            { label: 'Discharge Diameter JIS', values: ['65 mm', '2.6 in'] },
+            { label: 'Suction Diameter JIS', values: ['75 mm', '3.0 in'] }
+          ]
+        },
+        {
+          title: 'Engine',
+          rows: [
+            { label: 'Model', values: ['SHIBAURA EP572', 'SHIBAURA EP572'] },
+            { label: 'Type', values: ['Water cooled 2-stroke gasoline engine', 'Water cooled 2-stroke gasoline engine'] },
+            { label: 'Cooling system', values: ['Water cooled type', 'Water cooled type'] },
+            { label: 'No of cylinder', values: ['2 cylinder', '2 cylinder'] },
+            { label: 'Fuel system', values: ['Auto choke carburetor', 'Auto choke carburetor'] },
+            { label: 'Displacement', values: ['723 cc', '44.1 cu in'] },
+            { label: 'Bore x Stroke', values: ['80 mm x 72 mm', '3.15 x 2.83 in'] },
+            { label: 'Rated output', values: ['34.3 kW / 46 PS', '45.3 hp'] },
+            { label: 'Starting', values: ['Electric starter & manual starter', 'Electric starter & manual starter'] },
+            { label: 'Fuel tank capacity', values: ['12.0 L', '3.17 gal'] },
+            { label: 'Fuel consumption', values: ['17.5 L/h', '4.62 gal/h'] },
+            { label: 'Fuel type', values: ['Regular unleaded gasoline', 'Regular unleaded gasoline'] }
+          ]
+        },
+        {
+          title: 'Vacuum Pump',
+          rows: [
+            { label: 'Type', values: ['4-Vane eccentric rotary type', '4-Vane eccentric rotary type'] },
+            { label: 'Blade type', values: ['High strength carbon', 'High strength carbon'] },
+            { label: 'Maximum suction height', values: ['9 m', '29.5 ft'] }
+          ]
+        },
+        {
+          title: 'Features',
+          rows: [
+            { label: 'Shibaura Original 2 cycle Gasoline Engine', values: ['Yes', 'Yes'] },
+            { label: 'Shibaura Original Centrifugal Pump', values: ['Yes', 'Yes'] },
+            { label: 'Shibaura Original Vacuum Pump', values: ['Yes', 'Yes'] },
+            { label: 'Alert Monitoring System', values: ['Yes', 'Yes'] },
+            { label: 'Quick Discharge Valve', values: ['Yes', 'Yes'] }
+          ]
+        }
+      ]
+    },
     performance: [
       { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,650 L/min' },
       { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '1,100 L/min' },
@@ -346,34 +616,188 @@ export const firepumps: Firepump[] = [
       { title: 'Fast Priming', description: '2.2 sec priming at 1 m suction head.' },
       { title: 'Durable Build', description: 'Designed for extended service life.' }
     ],
-    specs: [
-      { label: 'Pump model', value: 'Shibaura B716' },
-      { label: 'Max discharge', value: '1,595 L/min (0.5 MPa, 1 m suction head)' },
-      { label: 'Max pressure', value: '1.0 MPa' },
-      { label: 'Suction height (test condition)', value: '1 m' },
-      { label: 'Dimensions (LxWxH)', value: '701 x 652 x 709 mm' },
-      { label: 'Weight (dry)', value: '85 kg' },
-      { label: 'Engine model', value: 'Shibaura L618Z' },
-      { label: 'Engine type', value: '2-stroke gasoline engine' },
-      { label: 'Cooling system', value: 'Water-cooled' },
-      { label: 'Discharge diameter', value: 'JIS 65 mm' },
-      { label: 'Suction diameter', value: 'JIS 75 mm' },
-      { label: 'Discharge (0.5 MPa, 3 m suction head)', value: '1,580 L/min' },
-      { label: 'Discharge (1.0 MPa, 3 m suction head)', value: '975 L/min' },
-      { label: 'Priming performance (1 m suction head)', value: '2.2 sec' },
-      { label: 'Pump type', value: 'Single stage, high pressure turbine pump' },
-      { label: 'Cylinders', value: '2' },
-      { label: 'Fuel system', value: 'Auto choke carburetor' },
-      { label: 'Displacement', value: '618 cc' },
-      { label: 'Bore x stroke', value: '75 mm x 70 mm' },
-      { label: 'Rated output', value: '33.1 kW / 45 PS' },
-      { label: 'Starting', value: 'Electric starter & manual starter' },
-      { label: 'Fuel tank capacity', value: '14.5 L' },
-      { label: 'Fuel consumption', value: '14.0 L/h' },
-      { label: 'Fuel type', value: 'Regular unleaded gasoline' },
-      { label: 'Vacuum pump type', value: '4-vane eccentric rotary type' },
-      { label: 'Blade type', value: 'High strength carbon' }
-    ],
+    specsTable: {
+      columns: ['FK500-A (Metric)', 'FK500-A (Imperial)', 'FK450-A (Metric)', 'FK450-A (Imperial)'],
+      groups: [
+        {
+          title: 'Model',
+          rows: [
+            {
+              label: 'Dimensions LxWxH (mm)',
+              values: ['701 x 652 x 709', '27.6 x 25.7 x 27.9 in', '701 x 652 x 709', '27.6 x 25.7 x 27.9 in']
+            },
+            { label: 'Dry Weight', values: ['85 kg', '187 lb', '85 kg', '187 lb'] }
+          ]
+        },
+        {
+          title: 'Pump',
+          rows: [
+            {
+              label: 'Model',
+              values: ['SHIBAURA B716', 'SHIBAURA B716', 'SHIBAURA B716', 'SHIBAURA B716']
+            },
+            {
+              label: 'Type',
+              values: [
+                'High pressure, single stage centrifugal pump',
+                'High pressure, single stage centrifugal pump',
+                'High pressure, single stage centrifugal pump',
+                'High pressure, single stage centrifugal pump'
+              ]
+            },
+            {
+              label: 'Discharge performance (0.5MPa, 1m suction head)',
+              values: [
+                '1,595 L/min',
+                '421 gpm @ 72.5 psi, 3.3 ft',
+                '1,560 L/min',
+                '412 gpm @ 72.5 psi, 3.3 ft'
+              ]
+            },
+            {
+              label: 'Discharge performance (0.5MPa, 3m suction head)',
+              values: [
+                '1,580 L/min',
+                '417 gpm @ 72.5 psi, 9.8 ft',
+                '1,550 L/min',
+                '409 gpm @ 72.5 psi, 9.8 ft'
+              ]
+            },
+            {
+              label: 'Discharge performance (1.0MPa, 1m suction head)',
+              values: [
+                '1,020 L/min',
+                '269 gpm @ 145 psi, 3.3 ft',
+                '1,000 L/min',
+                '264 gpm @ 145 psi, 3.3 ft'
+              ]
+            },
+            {
+              label: 'Discharge performance (1.0MPa, 3m suction head)',
+              values: [
+                '975 L/min',
+                '258 gpm @ 145 psi, 9.8 ft',
+                '950 L/min',
+                '251 gpm @ 145 psi, 9.8 ft'
+              ]
+            },
+            {
+              label: 'Priming performance at 1m suction head',
+              values: [
+                '2.2 Seconds',
+                '2.2 Seconds (3.3 ft suction head)',
+                '2.2 Seconds',
+                '2.2 Seconds (3.3 ft suction head)'
+              ]
+            },
+            {
+              label: 'Discharge Diameter JIS',
+              values: ['65 mm', '2.6 in', '65 mm', '2.6 in']
+            },
+            {
+              label: 'Suction Diameter JIS',
+              values: ['75 mm', '3.0 in', '75 mm', '3.0 in']
+            }
+          ]
+        },
+        {
+          title: 'Engine',
+          rows: [
+            {
+              label: 'Model',
+              values: ['SHIBAURA L618Z', 'SHIBAURA L618Z', 'SHIBAURA L618Z', 'SHIBAURA L618Z']
+            },
+            {
+              label: 'Type',
+              values: [
+                'Water cooled 2-stroke gasoline engine',
+                'Water cooled 2-stroke gasoline engine',
+                'Water cooled 2-stroke gasoline engine',
+                'Water cooled 2-stroke gasoline engine'
+              ]
+            },
+            {
+              label: 'Cooling system',
+              values: ['Water cooled type', 'Water cooled type', 'Water cooled type', 'Water cooled type']
+            },
+            {
+              label: 'No of cylinder',
+              values: ['2 cylinder', '2 cylinder', '2 cylinder', '2 cylinder']
+            },
+            {
+              label: 'Fuel system',
+              values: ['Auto choke carburetor', 'Auto choke carburetor', 'Auto choke carburetor', 'Auto choke carburetor']
+            },
+            {
+              label: 'Displacement',
+              values: ['618 cc', '37.7 cu in', '618 cc', '37.7 cu in']
+            },
+            {
+              label: 'Bore x Stroke',
+              values: ['75 mm x 70 mm', '2.95 x 2.76 in', '75 mm x 70 mm', '2.95 x 2.76 in']
+            },
+            {
+              label: 'Rated output',
+              values: ['33.1 kW / 45 PS', '44.3 hp', '33.1 kW / 45 PS', '44.3 hp']
+            },
+            {
+              label: 'Starting',
+              values: [
+                'Electric starter & manual starter',
+                'Electric starter & manual starter',
+                'Electric starter & manual starter',
+                'Electric starter & manual starter'
+              ]
+            },
+            {
+              label: 'Fuel tank capacity',
+              values: ['14.5 L', '3.83 gal', '14.5 L', '3.83 gal']
+            },
+            {
+              label: 'Fuel type',
+              values: [
+                'Regular unleaded gasoline',
+                'Regular unleaded gasoline',
+                'Regular unleaded gasoline',
+                'Regular unleaded gasoline'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Vacuum Pump',
+          rows: [
+            {
+              label: 'Type',
+              values: [
+                '4-Vane eccentric rotary type',
+                '4-Vane eccentric rotary type',
+                '4-Vane eccentric rotary type',
+                '4-Vane eccentric rotary type'
+              ]
+            },
+            {
+              label: 'Blade type',
+              values: ['High strength carbon', 'High strength carbon', 'High strength carbon', 'High strength carbon']
+            },
+            {
+              label: 'Maximum suction height',
+              values: ['9 m', '29.5 ft', '9 m', '29.5 ft']
+            }
+          ]
+        },
+        {
+          title: 'Features',
+          rows: [
+            { label: 'Shibaura Original 2 cycle Gasoline Engine', values: ['Yes', 'Yes', 'Yes', 'Yes'] },
+            { label: 'Shibaura Original Centrifugal Pump', values: ['Yes', 'Yes', 'Yes', 'Yes'] },
+            { label: 'Shibaura Original Vacuum Pump', values: ['Yes', 'Yes', 'Yes', 'Yes'] },
+            { label: 'Alert Monitoring System', values: ['Yes', 'Yes', 'Yes', 'Yes'] },
+            { label: 'Quick Discharge Valve', values: ['Yes', 'Yes', 'Yes', 'Yes'] }
+          ]
+        }
+      ]
+    },
     performance: [
       { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,595 L/min' },
       { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '1,020 L/min' },
@@ -398,7 +822,7 @@ export const firepumps: Firepump[] = [
       { label: 'Priming performance, 1 m suction head: 2.2sec', icon: timerIcon }
     ],
     keySpecs: [
-      { label: 'Pump model', value: 'Shibaura PS556', icon: modelIcon },
+      { label: 'Pump model', value: 'Shibaura P556', icon: modelIcon },
       { label: 'Cooling system', value: 'Water-cooled', icon: watercooledIcon },
       { label: 'Discharge performance', value: '0.5 MPa @ 1,550 L/min\n1.0 MPa @ 980 L/min', icon: dischargeIcon },
       { label: 'Priming performance', value: '1 m suction head: 2.2 sec', icon: timerIcon },
@@ -411,34 +835,67 @@ export const firepumps: Firepump[] = [
       { title: 'High Output', description: '1,550 L/min at 0.5 MPa for sustained flow.' },
       { title: 'Fast Priming', description: '2.2 sec priming at 1 m suction head.' }
     ],
-    specs: [
-      { label: 'Pump model', value: 'Shibaura PS556' },
-      { label: 'Max discharge', value: '1,550 L/min (0.5 MPa, 1 m suction head)' },
-      { label: 'Max pressure', value: '1.0 MPa' },
-      { label: 'Suction height (test condition)', value: '1 m' },
-      { label: 'Dimensions (LxWxH)', value: '681 x 639 x 774 mm' },
-      { label: 'Weight (dry)', value: '98 kg' },
-      { label: 'Engine model', value: 'Shibaura EPS56' },
-      { label: 'Engine type', value: '2-stroke gasoline engine' },
-      { label: 'Cooling system', value: 'Water-cooled' },
-      { label: 'Discharge diameter', value: 'JIS 65 mm' },
-      { label: 'Suction diameter', value: 'JIS 75 mm' },
-      { label: 'Discharge (0.5 MPa, 3 m suction head)', value: '1,320 L/min (0.7 MPa)' },
-      { label: 'Discharge (1.0 MPa, 3 m suction head)', value: '960 L/min' },
-      { label: 'Priming performance (1 m suction head)', value: '2.2 sec' },
-      { label: 'Pump type', value: 'Single stage, high pressure turbine pump' },
-      { label: 'Cylinders', value: '2' },
-      { label: 'Fuel system', value: 'Electronic fuel injection' },
-      { label: 'Displacement', value: '635 cc' },
-      { label: 'Bore x stroke', value: '76 mm x 70 mm' },
-      { label: 'Rated output', value: '32.0 kW / 43 PS' },
-      { label: 'Starting', value: 'Electric starter & manual starter' },
-      { label: 'Fuel tank capacity', value: '11.0 L' },
-      { label: 'Fuel consumption', value: '16 L/h' },
-      { label: 'Fuel type', value: 'Regular unleaded gasoline' },
-      { label: 'Vacuum pump type', value: '4-vane eccentric rotary type' },
-      { label: 'Blade type', value: 'High strength carbon' }
-    ],
+    specsTable: {
+      columns: ['Metric', 'Imperial'],
+      groups: [
+        {
+          title: 'Model',
+          rows: [
+            { label: 'Dimensions LxWxH (mm)', values: ['681 x 639 x 774', '26.8 x 25.2 x 30.5 in'] },
+            { label: 'Dry Weight', values: ['98 kg', '216 lb'] }
+          ]
+        },
+        {
+          title: 'Pump',
+          rows: [
+            { label: 'Model', values: ['SHIBAURA P556', 'SHIBAURA P556'] },
+            { label: 'Type', values: ['High pressure, single stage centrifugal pump', 'High pressure, single stage centrifugal pump'] },
+            { label: 'Discharge performance (0.5MPa, 1m suction head)', values: ['1,550 L/min', '409 gpm @ 72.5 psi, 3.3 ft'] },
+            { label: 'Discharge performance (0.5MPa, 3m suction head)', values: ['1,320 L/min (0.7MPa)', '349 gpm @ 101.5 psi, 9.8 ft'] },
+            { label: 'Discharge performance (1.0MPa, 1m suction head)', values: ['980 L/min', '259 gpm @ 145 psi, 3.3 ft'] },
+            { label: 'Discharge performance (1.0MPa, 3m suction head)', values: ['960 L/min', '254 gpm @ 145 psi, 9.8 ft'] },
+            { label: 'Priming performance at 1m suction head', values: ['2.2 Seconds', '2.2 Seconds (3.3 ft suction head)'] },
+            { label: 'Discharge Diameter JIS', values: ['65 mm', '2.6 in'] },
+            { label: 'Suction Diameter JIS', values: ['75 mm', '3.0 in'] }
+          ]
+        },
+        {
+          title: 'Engine',
+          rows: [
+            { label: 'Model', values: ['SHIBAURA EP556', 'SHIBAURA EP556'] },
+            { label: 'Type', values: ['Water cooled 2-stroke gasoline engine', 'Water cooled 2-stroke gasoline engine'] },
+            { label: 'Cooling system', values: ['Water cooled type', 'Water cooled type'] },
+            { label: 'No of cylinder', values: ['2 cylinder', '2 cylinder'] },
+            { label: 'Fuel system', values: ['Electronic control fuel injection', 'Electronic control fuel injection'] },
+            { label: 'Displacement', values: ['635 cc', '38.8 cu in'] },
+            { label: 'Bore x Stroke', values: ['76 mm x 70 mm', '2.99 x 2.76 in'] },
+            { label: 'Rated output', values: ['32.0 kW / 43 PS', '42.4 hp'] },
+            { label: 'Starting', values: ['Electric starter & manual starter', 'Electric starter & manual starter'] },
+            { label: 'Fuel tank capacity', values: ['11.0 L', '2.91 gal'] },
+            { label: 'Fuel consumption', values: ['17.0 L/h', '4.49 gal/h'] },
+            { label: 'Fuel type', values: ['Regular unleaded gasoline', 'Regular unleaded gasoline'] }
+          ]
+        },
+        {
+          title: 'Vacuum Pump',
+          rows: [
+            { label: 'Type', values: ['4-Vane eccentric rotary type', '4-Vane eccentric rotary type'] },
+            { label: 'Blade type', values: ['High strength carbon', 'High strength carbon'] },
+            { label: 'Maximum suction height', values: ['9 m', '29.5 ft'] }
+          ]
+        },
+        {
+          title: 'Features',
+          rows: [
+            { label: 'Shibaura Original 2 cycle Gasoline Engine', values: ['Yes', 'Yes'] },
+            { label: 'Shibaura Original Centrifugal Pump', values: ['Yes', 'Yes'] },
+            { label: 'Shibaura Original Vacuum Pump', values: ['Yes', 'Yes'] },
+            { label: 'Alert Monitoring System', values: ['Yes', 'Yes'] },
+            { label: 'Quick Discharge Valve', values: ['Yes', 'Yes'] }
+          ]
+        }
+      ]
+    },
     performance: [
       { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,550 L/min' },
       { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '980 L/min' },
