@@ -1,6 +1,5 @@
 import * as Label from '@radix-ui/react-label';
-import * as Checkbox from '@radix-ui/react-checkbox';
-import { Check, User, Building2, Briefcase, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText } from 'lucide-react';
+import { User, Building2, Briefcase, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText } from 'lucide-react';
 
 interface RFQFormProps {
   action?: string;
@@ -177,16 +176,13 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
                     key={service.id}
                     className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer group"
                   >
-                    <Checkbox.Root
+                    <input
                       id={service.id}
+                      type="checkbox"
                       name="services"
                       value={service.id}
-                      className="w-5 h-5 flex items-center justify-center border-2 border-gray-300 rounded data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 transition-colors shrink-0"
-                    >
-                      <Checkbox.Indicator>
-                        <Check className="w-4 h-4 text-white" />
-                      </Checkbox.Indicator>
-                    </Checkbox.Root>
+                      className="w-5 h-5 border-2 border-gray-300 rounded text-blue-600 focus:ring-blue-500 shrink-0"
+                    />
                     <div className="w-8 h-8 rounded-lg bg-gray-100 group-hover:bg-blue-100 flex items-center justify-center shrink-0 transition-colors">
                       <IconComponent className="w-4 h-4 text-gray-600 group-hover:text-blue-600 transition-colors" />
                     </div>
