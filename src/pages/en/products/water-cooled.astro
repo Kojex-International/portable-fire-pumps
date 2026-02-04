@@ -69,7 +69,7 @@ const waterCooledPumps = firepumps.filter((pump) =>
   </section>
 
   <!-- Main Capabilities -->
-  <Section background="gray">
+  <Section background="white">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <FirepumpAccordion capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} client:load />
@@ -136,12 +136,8 @@ const waterCooledPumps = firepumps.filter((pump) =>
                   width={1200}
                   height={800}
                 />
-                <div class="absolute inset-0 bg-black/2"></div>
-                <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/10 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-8 text-white drop-shadow-lg">
-                  <h3 class="text-2xl font-bold mb-2">{capability.title}</h3>
-                  <p class="text-gray-200">{capability.description}</p>
-                </div>
+                <div class="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-slate-900/12 via-slate-900/4 to-transparent"></div>
+                <!-- Title/Subtitle overlay hidden -->
               </div>
             </ImageReveal>
           </div>

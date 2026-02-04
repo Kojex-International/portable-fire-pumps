@@ -62,7 +62,8 @@ export default function FeatureShowcase({ detailsBaseHref = '/products' }: Featu
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
-          className="group block"
+          className="group block animate-fadeInUp transition-transform duration-300 hover:-translate-y-1"
+          style={{ animationDelay: `${index * 0.1}s` }}
         >
           <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
             {/* Image */}
@@ -75,7 +76,7 @@ export default function FeatureShowcase({ detailsBaseHref = '/products' }: Featu
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.4 }}
               />
-              <div className="absolute inset-0 bg-linear-to-t from-slate-900 via-slate-900/50 to-transparent opacity-75" />
+              <div className="absolute bottom-0 left-0 right-0 h-52 bg-linear-to-t from-slate-900/90 via-slate-900/60 via-slate-900/30 to-transparent opacity-90 pointer-events-none" />
               
               {/* Icon overlay */}
               <motion.div
@@ -103,9 +104,9 @@ export default function FeatureShowcase({ detailsBaseHref = '/products' }: Featu
             </div>
 
             {/* Content */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white drop-shadow-lg">
-              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-              <p className="text-base font-medium text-white/90">{feature.description}</p>
+            <div className="absolute bottom-0 left-0 right-0 px-6 pb-4 pt-6 text-white drop-shadow-lg">
+              <h3 className="text-lg font-semibold leading-tight">{feature.title}</h3>
+              <p className="text-sm text-white/85 mt-0.5 leading-snug">{feature.description}</p>
             </div>
           </div>
         </motion.a>
