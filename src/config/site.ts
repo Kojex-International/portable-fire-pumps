@@ -15,6 +15,7 @@ const NAV_ITEMS = [
     name: 'Products',
     path: '/products',
     children: [
+      { name: 'Product Features', path: '/products#product-features' },
       { name: 'Air cooled', path: '/products/air-cooled' },
       { name: 'Water cooled', path: '/products/water-cooled' },
     ],

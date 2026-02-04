@@ -3,7 +3,7 @@ import Button from '../ui/Button.astro';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
-const requestQuoteHref = localizePath('/request-a-quote', locale);
+const requestQuoteHref = localizePath('/contact-us', locale);
 const productsHref = localizePath('/products', locale);
 ---
 
@@ -33,7 +33,7 @@ const productsHref = localizePath('/products', locale);
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
           <Button href={requestQuoteHref} size="lg" variant="secondary">
-            Request a Quote
+            Contact Us
           </Button>
           <Button href={productsHref} size="lg" variant="outline" class="bg-white/10! border-white! text-white! hover:bg-white/20!">
             Explore Products

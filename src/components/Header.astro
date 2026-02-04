@@ -7,7 +7,7 @@ import MobileMenu from '@components/react/MobileMenu';
 const { currentPathname } = Astro.props;
 const locale = getLocaleFromPathname(currentPathname);
 const navigation = getNavigation(locale);
-const rfqHref = localizePath('/request-a-quote', locale);
+const rfqHref = localizePath('/contact-us', locale);
 const enHref = localizePath(currentPathname, 'en');
 const frHref = localizePath(currentPathname, 'fr');
 const isActiveLink = (href: string) : boolean => { return href === currentPathname; }
@@ -88,7 +88,7 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
         href={rfqHref}
         class="inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-linear-to-r from-[#E11D48] to-[#F59E7E] hover:from-[#BE123C] hover:to-[#F8BFA8] rounded-lg shadow-md hover:shadow-lg transition-all"
       >
-        Request Quote
+        Contact Us
       </a>
     </div>
 

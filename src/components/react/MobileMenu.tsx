@@ -75,7 +75,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
                   href={rfqHref}
                   className="block text-center px-6 py-3 text-sm font-semibold text-white brand-gradient-bg hover:brightness-95 active:brightness-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg shadow-md transition-all"
                 >
-                  Request Quote
+                  Contact Us
                 </a>
               </Dialog.Close>
             </div>

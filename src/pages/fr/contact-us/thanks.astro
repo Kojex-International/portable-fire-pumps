@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Section from '@components/ui/Section.astro';
+import Button from '@components/ui/Button.astro';
+import { CheckCircle2 } from 'lucide-react';
+---
+
+<BaseLayout title="Merci - Portable Fire Pumps">
+  <Section background="white">
+    <div class="max-w-3xl mx-auto text-center py-16">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-6">
+        <CheckCircle2 className="w-8 h-8" />
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Merci de nous avoir contactés
+      </h1>
+      <p class="text-lg text-gray-600 mb-8">
+        Nous avons bien reçu votre message et nous vous répondrons sous peu.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="/fr" size="lg" class="brand-cta">
+          Retour à l’accueil
+        </Button>
+        <Button href="/fr/products" size="lg" variant="outline">
+          Voir les produits
+        </Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

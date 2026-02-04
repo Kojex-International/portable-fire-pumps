@@ -3,13 +3,17 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Section from '@components/ui/Section.astro';
 import Card from '@components/ui/Card.astro';
 import RFQForm from '@components/react/RFQForm';
+import { getLocaleFromPathname, localizePath } from '@config/site';
 import { Image } from 'astro:assets';
 import { FileText, Clock, Shield, CheckCircle2, Phone, Mail, MessageCircle, Award, TrendingUp, Users } from 'lucide-react';
 import rfqBgImg from '@assets/photo-1558618666-fcd25c85cd64.jpg';
 import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const thanksHref = localizePath('/contact-us/thanks', locale);
 ---
 
-<BaseLayout title="Request a Quote - Portable Fire Pumps">
+<BaseLayout title="Contact Us - Portable Fire Pumps">
   <!-- Hero Section with Professional Image -->
   <section class="relative h-[500px] md:h-[600px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
@@ -29,35 +33,35 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
       <div class="max-w-4xl mx-auto text-center">
         <div class="inline-flex items-center px-4 py-2 mb-6 brand-gradient-bg text-white text-sm font-semibold rounded-full shadow-lg animate-fadeInUp">
           <FileText className="w-4 h-4 mr-2" />
-          Get Your Custom Quote Today
+          Contact Sales & Support
         </div>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp" style="animation-delay: 0.1s">
-          Request a <span class="brand-gradient-text">Quote</span>
+          <span class="brand-gradient-text">Contact Us</span>
         </h1>
         
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">
-          Get a customized quote tailored to your specific logistics and manufacturing needs. 
-          We typically respond within 24 hours with a comprehensive proposal.
+          Contact us for a quote or to discuss your fire pump requirements, deployment environment, and parts/service support needs.
+          We typically respond within 24 hours with next steps and the information you need.
         </p>
 
         <!-- Quick Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20 animate-fadeInUp" style="animation-delay: 0.3s">
           <div class="group">
             <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">24hr</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Response Time</div>
+            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Typical Response</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">500+</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Happy Clients</div>
+            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">25+ yrs</div>
+            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Pump Expertise</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">99.9%</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">On-Time Rate</div>
+            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">Field</div>
+            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Proven Reliability</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">15+</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Facilities</div>
+            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">Support</div>
+            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Parts & Service</div>
           </div>
         </div>
       </div>
@@ -77,7 +81,7 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
       <!-- Form -->
       <div class="lg:col-span-2">
         <Card>
-          <RFQForm client:load />
+          <RFQForm client:load action={thanksHref} />
         </Card>
       </div>
 
@@ -98,7 +102,7 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
               </div>
               <div>
                 <div class="font-semibold text-gray-900">Phone</div>
-                <div class="text-gray-600 font-medium">1-800-LOGI-MANUF</div>
+                <div class="text-gray-600 font-medium">438 377 6729</div>
                 <div class="text-gray-500 text-xs">Mon-Fri, 8am-6pm EST</div>
               </div>
             </div>
@@ -109,59 +113,50 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
               </div>
               <div>
                 <div class="font-semibold text-gray-900">Email</div>
-                <div class="text-gray-600 font-medium">quotes@astroflow.com</div>
+                <div class="text-gray-600 font-medium">info@portable-fire-pumps.com</div>
                 <div class="text-gray-500 text-xs">24-hour response time</div>
               </div>
             </div>
 
-            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-                <MessageCircle className="w-5 h-5 text-green-600" />
-              </div>
-              <div>
-                <div class="font-semibold text-gray-900">Live Chat</div>
-                <div class="text-gray-600 font-medium">Available on website</div>
-                <div class="text-gray-500 text-xs">Instant support</div>
-              </div>
-            </div>
+            <!-- Live Chat hidden for now -->
           </div>
         </Card>
 
         <!-- What to Expect Card -->
         <Card class="bg-linear-to-br from-primary-50 via-blue-50 to-secondary-50 border-primary-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-linear-to-br from-primary-600 to-blue-600 flex items-center justify-center mr-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
               <Clock className="w-5 h-5 text-white" />
             </div>
             <h3 class="text-xl font-bold text-gray-900">What to Expect</h3>
           </div>
           <ol class="space-y-4 text-sm">
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center font-bold text-sm shadow-md">1</span>
+              <span class="shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-md">1</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Response</span>
                 <span class="text-gray-600">We'll review your request within 24 hours</span>
               </div>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-teal-600 to-teal-700 text-white flex items-center justify-center font-bold text-sm shadow-md">2</span>
+              <span class="shrink-0 w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-sm shadow-md">2</span>
               <div>
-                <span class="text-gray-900 font-semibold block">Consultation</span>
-                <span class="text-gray-600">Schedule a call to discuss your needs</span>
+                <span class="text-gray-900 font-semibold block">Fit Review</span>
+                <span class="text-gray-600">Confirm flow, head, suction, and deployment needs</span>
               </div>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-green-600 to-green-700 text-white flex items-center justify-center font-bold text-sm shadow-md">3</span>
+              <span class="shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm shadow-md">3</span>
               <div>
-                <span class="text-gray-900 font-semibold block">Proposal</span>
-                <span class="text-gray-600">Receive a detailed quote and timeline</span>
+                <span class="text-gray-900 font-semibold block">Recommendation</span>
+                <span class="text-gray-600">Receive a pump model + accessories + delivery timeline</span>
               </div>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-purple-600 to-purple-700 text-white flex items-center justify-center font-bold text-sm shadow-md">4</span>
+              <span class="shrink-0 w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-md">4</span>
               <div>
-                <span class="text-gray-900 font-semibold block">Partnership</span>
-                <span class="text-gray-600">Begin your logistics journey with us</span>
+                <span class="text-gray-900 font-semibold block">Delivery & Support</span>
+                <span class="text-gray-600">Order fulfillment, parts access, and service support</span>
               </div>
             </li>
           </ol>
@@ -180,25 +175,25 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
               <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
                 <TrendingUp className="w-4 h-4 text-green-600" />
               </div>
-              <span class="text-gray-700 pt-1">25+ years of industry experience</span>
+              <span class="text-gray-700 pt-1">25+ years in portable fire pumps</span>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
               <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
                 <CheckCircle2 className="w-4 h-4 text-blue-600" />
               </div>
-              <span class="text-gray-700 pt-1">99.9% on-time delivery rate</span>
+              <span class="text-gray-700 pt-1">Field-tested reliability and rugged design</span>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
               <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center shrink-0">
                 <Shield className="w-4 h-4 text-purple-600" />
               </div>
-              <span class="text-gray-700 pt-1">ISO 9001 certified facilities</span>
+              <span class="text-gray-700 pt-1">Serviceable parts and dealer support</span>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
               <div class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center shrink-0">
                 <Users className="w-4 h-4 text-teal-600" />
               </div>
-              <span class="text-gray-700 pt-1">24/7 customer support</span>
+              <span class="text-gray-700 pt-1">Support for municipal, industrial, and wildfire use</span>
             </li>
           </ul>
         </Card>
@@ -210,13 +205,13 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
   <Section background="white">
     <div class="text-center mb-12">
       <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
-        Trusted by Industry Leaders
+        Trusted by Emergency Response Teams
       </div>
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-        Join Hundreds of <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-600">Successful Companies</span>
+        Equip Teams with <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-600">Portable Fire Pumps</span>
       </h2>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        We've helped companies of all sizes streamline their logistics and manufacturing operations.
+        We support wildfire protection, municipal response, industrial safety, and remote sites with reliable portable pumps.
       </p>
     </div>
 

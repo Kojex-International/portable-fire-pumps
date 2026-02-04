@@ -8,7 +8,7 @@ const footerLinks = navigation.filter(
   (item) => !['Applications', 'Distributors', 'Resources'].includes(item.name)
 );
 const productsHref = localizePath('/products', locale);
-const requestQuoteHref = localizePath('/request-a-quote', locale);
+const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 const resourcesHref = localizePath('/resources', locale);
 ---
@@ -118,7 +118,7 @@ const resourcesHref = localizePath('/resources', locale);
           <li>
             <a href={requestQuoteHref} class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Request a Quote
+              Contact Us
             </a>
           </li>
           <li>

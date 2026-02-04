@@ -3,13 +3,17 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Section from '@components/ui/Section.astro';
 import Card from '@components/ui/Card.astro';
 import RFQForm from '@components/react/RFQForm';
+import { getLocaleFromPathname, localizePath } from '@config/site';
 import { Image } from 'astro:assets';
 import { FileText, Clock, Shield, CheckCircle2, Phone, Mail, MessageCircle, Award, TrendingUp, Users } from 'lucide-react';
 import rfqBgImg from '@assets/photo-1558618666-fcd25c85cd64.jpg';
 import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const thanksHref = localizePath('/contact-us/thanks', locale);
 ---
 
-<BaseLayout title="Request a Quote - Portable Fire Pumps">
+<BaseLayout title="Contact Us - Portable Fire Pumps">
   <!-- Hero Section with Professional Image -->
   <section class="relative h-[500px] md:h-[600px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
@@ -77,7 +81,7 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
       <!-- Form -->
       <div class="lg:col-span-2">
         <Card>
-          <RFQForm client:load />
+          <RFQForm client:load action={thanksHref} />
         </Card>
       </div>
 
@@ -114,23 +118,14 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
               </div>
             </div>
 
-            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-                <MessageCircle className="w-5 h-5 text-green-600" />
-              </div>
-              <div>
-                <div class="font-semibold text-gray-900">Live Chat</div>
-                <div class="text-gray-600 font-medium">Available on website</div>
-                <div class="text-gray-500 text-xs">Instant support</div>
-              </div>
-            </div>
+            <!-- Live Chat hidden for now -->
           </div>
         </Card>
 
         <!-- What to Expect Card -->
         <Card class="bg-linear-to-br from-primary-50 via-blue-50 to-secondary-50 border-primary-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-linear-to-br from-primary-600 to-blue-600 flex items-center justify-center mr-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
               <Clock className="w-5 h-5 text-white" />
             </div>
             <h3 class="text-xl font-bold text-gray-900">What to Expect</h3>

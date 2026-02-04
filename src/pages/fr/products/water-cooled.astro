@@ -13,7 +13,7 @@ import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
-const requestQuoteHref = localizePath('/request-a-quote', locale);
+const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 
 const waterCooledPumps = firepumps.filter((pump) =>

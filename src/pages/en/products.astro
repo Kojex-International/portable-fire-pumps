@@ -10,12 +10,84 @@ import ImageReveal from '../../components/react/ImageReveal';
 import { firepumps } from '../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
 import logoMark from '@assets/shibaura-logo-mark.svg';
+import feature2StrokeEngineImg from '@assets/features/2StrokeEngine.png';
+import featureCentrifugalPumpImg from '@assets/features/CentrifugalPump.png';
+import featureVacuumPumpImg from '@assets/features/VacuumPump.png';
+import featureDischargeValveImg from '@assets/features/DischargeValve.png';
+import featureMonitoringSystemImg from '@assets/features/MonitoringSystem.png';
+import featureImpellerImg from '@assets/features/Impeller.png';
+import featureChokeSystemImg from '@assets/features/ChokeSystem.png';
+import featureFuelFeedingSystemImg from '@assets/features/FuelFeedingSystem.png';
+import featureWaterShutoffValveImg from '@assets/features/WaterShutoffValve.png';
+import featureAutoCoolantImg from '@assets/features/AutoCoolant.png';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
-const requestQuoteHref = localizePath('/request-a-quote', locale);
+const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+
+const productFeatures = [
+  {
+    title: '2-Stroke Gasoline Engine',
+    description:
+      'Shibaura original small, lightweight, high-power engine purpose-built for fire pumps. The high-speed 2-stroke design delivers strong performance and long service life in demanding duty cycles.',
+    image: feature2StrokeEngineImg
+  },
+  {
+    title: 'Centrifugal Pump',
+    description:
+      'Shibaura original engine and single-stage centrifugal pump are integrated into one compact unit, improving efficiency and delivering high-volume, long-distance discharge performance.',
+    image: featureCentrifugalPumpImg
+  },
+  {
+    title: 'Vacuum Pump',
+    description:
+      'Shibaura original lightweight, compact vacuum pump removes air in the suction line quickly, enabling rapid priming and fast discharge. High efficiency and low wear with short suction procedures and straightforward maintenance. High-performance carbon fiber blades eliminate oily discharge for cleaner operation.',
+    image: featureVacuumPumpImg
+  },
+  {
+    title: 'Quick Discharge Valve',
+    description:
+      'Lever-type discharge valve enables quick, accurate discharge operation and swivels 180 degrees to improve firefighting capability. A short-stroke 45-degree lever makes valve operation faster and easier.',
+    image: featureDischargeValveImg
+  },
+  {
+    title: 'Alert Monitoring System',
+    description:
+      'Warning lamps indicate issues such as low oil, and the engine automatically shuts down to protect itself in emergencies.',
+    image: featureMonitoringSystemImg
+  },
+  {
+    title: 'Impeller',
+    description:
+      'Originally designed Shibaura impeller supports high-volume, long-distance discharge. Special surface treatment helps prevent corrosion.',
+    image: featureImpellerImg
+  },
+  {
+    title: 'Auto Coolant Circulation (Nice Valve)',
+    description:
+      'Closed-loop coolant circulation reduces water waste in low-supply conditions, while preventing slippery, wet, muddy, or icy surfaces during operations.',
+    image: featureAutoCoolantImg
+  },
+  {
+    title: 'Advanced Fuel Feeding System',
+    description:
+      'Automotive-style separate fuel feeding delivers an optimal gasoline/oil mix in any conditions. An oil-level sensor displays status on the OK monitor, making quick checks easy.',
+    image: featureFuelFeedingSystemImg
+  },
+  {
+    title: 'Automatic Choke System',
+    description:
+      'Air and engine temperature sensors adjust the choke automatically for easy starts, fast warm-up, and immediate full-throttle operation. A high-output coil rapidly heats the bimetal element, and the downward diaphragm rod helps prevent dust or wastewater ingress.',
+    image: featureChokeSystemImg
+  }
+];
+
+const sortedProductFeatures = [...productFeatures].sort(
+  (a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image))
+);
+const hasMoreProductFeatures = sortedProductFeatures.length > 3;
 ---
 
 <BaseLayout title="Products - Portable Fire Pumps">
@@ -62,6 +134,109 @@ const distributorsHref = localizePath('/distributors', locale);
       </svg>
     </div>
   </section>
+
+  <!-- Product Features -->
+  <Section background="white" id="product-features">
+    <div class="text-center mb-12">
+      <div class="inline-block px-4 py-2 mb-4 bg-primary-100 text-primary-800 text-sm font-semibold rounded-full">
+        Product Features
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Performance and Design Highlights
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        Built for fast response, reliable priming, and rugged field use.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedProductFeatures.slice(0, 3).map((feature, index) => (
+        <ImageReveal client:load delay={index * 0.05} className="overflow-visible rounded-xl">
+          <Card hover class="h-full overflow-hidden border-slate-200/60">
+            {feature.image ? (
+              <div class="mb-4 flex justify-center">
+                <div class="inline-block overflow-hidden rounded-lg bg-white">
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    class="block h-40 w-auto object-contain"
+                    width={800}
+                    height={600}
+                  />
+                </div>
+              </div>
+            ) : null}
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 rounded-xl bg-primary-100 text-primary-700 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
+              </div>
+            </div>
+          </Card>
+        </ImageReveal>
+      ))}
+    </div>
+
+    {hasMoreProductFeatures ? (
+      <div class="mt-10">
+        <div
+          id="product-features-more"
+          class="overflow-hidden max-h-0 opacity-0 transition-[max-height,opacity] duration-500 ease-in-out"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sortedProductFeatures.slice(3).map((feature, index) => (
+              <ImageReveal client:load delay={0.05 + index * 0.05} className="overflow-visible rounded-xl">
+                <Card hover class="h-full overflow-hidden border-slate-200/60">
+                  {feature.image ? (
+                    <div class="mb-4 flex justify-center">
+                      <div class="inline-block overflow-hidden rounded-lg bg-white">
+                        <Image
+                          src={feature.image}
+                          alt={feature.title}
+                          class="block h-40 w-auto object-contain"
+                          width={800}
+                          height={600}
+                        />
+                      </div>
+                    </div>
+                  ) : null}
+                  <div class="flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-primary-100 text-primary-700 flex items-center justify-center shrink-0">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+                      <p class="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
+                    </div>
+                  </div>
+                </Card>
+              </ImageReveal>
+            ))}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="mx-auto mt-8 flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-linear-to-r from-[#E11D48] to-[#F59E7E] hover:from-[#BE123C] hover:to-[#F8BFA8] rounded-full shadow-md hover:shadow-lg transition-all"
+          data-feature-toggle
+          aria-expanded="false"
+          aria-controls="product-features-more"
+        >
+          Show all features
+          <svg class="w-4 h-4 transition-transform duration-300" data-feature-toggle-icon fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+    ) : null}
+  </Section>
 
   <!-- Main Capabilities -->
   <Section background="gray">
@@ -146,6 +321,28 @@ const distributorsHref = localizePath('/distributors', locale);
   </Section>
 
   <!-- Process Section -->
+  <script>
+    const featureToggle = document.querySelector('[data-feature-toggle]');
+    const featureToggleIcon = document.querySelector('[data-feature-toggle-icon]');
+    const featureMore = document.querySelector('#product-features-more');
+
+    if (featureToggle && featureMore) {
+      featureToggle.addEventListener('click', () => {
+        const isOpen = featureMore.classList.contains('is-open');
+        featureMore.classList.toggle('is-open');
+        featureMore.classList.toggle('max-h-0', isOpen);
+        featureMore.classList.toggle('opacity-0', isOpen);
+        featureMore.classList.toggle('max-h-[2000px]', !isOpen);
+        featureMore.classList.toggle('opacity-100', !isOpen);
+        featureToggle.setAttribute('aria-expanded', String(!isOpen));
+        featureToggle.textContent = isOpen ? 'Show all features' : 'Show fewer features';
+        if (featureToggleIcon) {
+          featureToggle.appendChild(featureToggleIcon);
+          featureToggleIcon.classList.toggle('rotate-180', !isOpen);
+        }
+      });
+    }
+  </script>
   <!-- <Section background="white">
     <div class="text-center mb-16">
       <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">

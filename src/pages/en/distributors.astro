@@ -20,6 +20,7 @@ const distributors = [
     location: 'Drummondville, Quebec',
     address: '2250, rue Andre-C.-Hamel, Drummondville, QC J2C 8B1',
     type: 'Fire apparatus and emergency equipment',
+    region: 'Quebec',
     image: easternCanadaDistributorImg,
     icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -43,6 +44,7 @@ const distributors = [
     location: 'Sherwood Park, Alberta',
     address: '2899 Broadmoor Boulevard, 150, Sherwood Park, AB T8H 1B5',
     type: 'Wildfire protection equipment',
+    region: 'BC, Alberta, Saskatchewan',
     image: westernCanadaDistributorImg,
     icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -114,7 +116,7 @@ const facilityStandards = [
 ];
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
-const requestQuoteHref = localizePath('/request-a-quote', locale);
+const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 ---
 
@@ -201,6 +203,7 @@ const distributorsHref = localizePath('/distributors', locale);
               <div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-1">{distributor.name}</h3>
                 <p class="text-sm text-gray-500">{distributor.type}</p>
+                <p class="text-sm font-semibold text-primary-700">{distributor.region}</p>
               </div>
               <p class="text-sm text-gray-600 leading-relaxed">
                 {distributor.description}
@@ -359,21 +362,23 @@ const distributorsHref = localizePath('/distributors', locale);
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-4xl mx-auto text-center text-white">
         <div class="inline-block px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
-          Fire Pump Readiness
+          Dealers Wanted
         </div>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Outfit Your Site with <span class="brand-gradient-text">Portable Fire Pumps</span>
+          Seeking <span class="brand-gradient-text">new dealers</span>
         </h2>
-        <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-          High-flow, rapid-deploy pumps built for emergency response and rugged field use.
+        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+          We are actively seeking new dealer partners for our pumps. Please contact us if you’re interested in distribution opportunities. Priority regions include Ontario, the Maritimes, and Manitoba.
         </p>
-        
+        <div class="mb-12 space-y-2 text-base md:text-lg text-slate-200">
+          <p>Cell: 438 377 6729</p>
+          <p>Tel: 514 464 8931</p>
+          <p>Email: info@portable-fire-pumps.com</p>
+        </div>
+
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <Button href={requestQuoteHref} size="lg" class="brand-cta">
-            Get a Fire Pump Quote
-          </Button>
-          <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
-            Find a Distributor
+            Contact Us
           </Button>
         </div>
       </div>
