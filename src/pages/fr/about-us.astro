@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/ui/Section.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
 import { Image } from 'astro:assets';
 
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
@@ -47,11 +48,11 @@ import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
   </section>
 
   <Section background="white" class="!py-12 lg:!py-16">
-    <div class="text-center mb-8 px-2">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-        À propos de <span class="brand-gradient-text">nous</span>
-      </h2>
-    </div>
+    <SectionHeader
+      title="À propos de"
+      highlight="nous"
+      class="mb-8 px-2"
+    />
     <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6 px-4">
       <p>
         Depuis 1990, Kojex International a offert et fourni les produits et le service dont les clients ont besoin pour être à LA fine pointe du marché. Situé à Montréal, Canada, nous offrons plusieurs technologies et produits tel que l’équipement pour sapeurs-pompiers en Amérique du Nord. Être à l’écoute de nos clients et leur donner satisfaction nous ont assuré le succès par le passé.
@@ -66,11 +67,15 @@ import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
   </Section>
 
   <Section background="gray" class="!py-12 lg:!py-16">
-    <div class="text-center mb-8 px-2">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-        À propos de la <span class="brand-gradient-text">pompe à incendie Shibaura Rabbit</span> et des industries Kojex International
-      </h2>
-    </div>
+    <SectionHeader
+      title="À propos de la"
+      highlight="pompe à incendie Shibaura Rabbit"
+      class="mb-8 px-2"
+    >
+      <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+        et des industries Kojex International
+      </p>
+    </SectionHeader>
     <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6 px-4">
       <p>
         Depuis plus de 25 ans, Kojex International inc. a été le seul distributeur de pompes à incendie portables Shibaura Rabbit et le seul à desservir l’Amérique du Nord. Nous sommes fiers d’offrir un service personnalisé et une valeur inégalée sur le marché des pompes à incendie portables.

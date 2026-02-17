@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Section from '@components/ui/Section.astro';
 import Card from '@components/ui/Card.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
 import RFQForm from '@components/react/RFQForm';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import { Image } from 'astro:assets';
@@ -203,17 +204,13 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
 
   <!-- Trust & Success Section -->
   <Section background="white">
-    <div class="text-center mb-12">
-      <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
-        Trusted by Emergency Response Teams
-      </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-        Equip Teams with <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-600">Portable Fire Pumps</span>
-      </h2>
-      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        We support wildfire protection, municipal response, industrial safety, and remote sites with reliable portable pumps.
-      </p>
-    </div>
+    <SectionHeader
+      badge="Trusted by Emergency Response Teams"
+      title="Equip Teams with"
+      highlight="Portable Fire Pumps"
+      description="We support wildfire protection, municipal response, industrial safety, and remote sites with reliable portable pumps."
+      class="mb-12"
+    />
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
       <!-- Feature 1 -->

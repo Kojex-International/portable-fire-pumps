@@ -1,5 +1,6 @@
 ---
 import FeatureShowcase from '../react/FeatureShowcase';
+import SectionHeader from '../ui/SectionHeader.astro';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
@@ -8,17 +9,13 @@ const productsHref = localizePath('/products', locale);
 
 <section class="py-16 md:py-24 bg-slate-50">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
-        Product Lineup
-      </div>
-      <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-        Portable <span class="brand-gradient-text">Fire Pumps</span>
-      </h2>
-      <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-        Compare performance, priming speed, and deployment fit across our core pump models.
-      </p>
-    </div>
+    <SectionHeader
+      badge="Product Lineup"
+      title="Portable"
+      highlight="Fire Pumps"
+      description="Compare performance, priming speed, and deployment fit across our core pump models."
+      class="mb-16"
+    />
 
     <FeatureShowcase detailsBaseHref={productsHref} client:load />
     

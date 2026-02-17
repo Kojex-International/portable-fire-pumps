@@ -1,0 +1,40 @@
+---
+interface Props {
+  badge?: string;
+  title: string;
+  highlight?: string;
+  description?: string;
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const {
+  badge,
+  title,
+  highlight,
+  description,
+  align = 'center',
+  class: className = ''
+} = Astro.props;
+
+const alignClasses = align === 'left' ? 'text-left' : 'text-center';
+const maxWidthClasses = align === 'left' ? 'max-w-4xl' : 'max-w-5xl mx-auto';
+---
+
+<div class={`${alignClasses} ${maxWidthClasses} ${className}`}>
+  {badge && (
+    <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
+      {badge}
+    </div>
+  )}
+  <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+    {title}
+    {highlight && <span class="brand-gradient-text"> {highlight}</span>}
+  </h2>
+  {description && (
+    <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+      {description}
+    </p>
+  )}
+  <slot />
+</div>

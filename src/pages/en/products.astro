@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/ui/Section.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
 import FirepumpAccordion from '../../components/react/FirepumpAccordion';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
@@ -137,17 +138,12 @@ const hasMoreProductFeatures = sortedProductFeatures.length > 3;
 
   <!-- Product Features -->
   <Section background="white" id="product-features">
-    <div class="text-center mb-12">
-      <div class="inline-block px-4 py-2 mb-4 bg-primary-100 text-primary-800 text-sm font-semibold rounded-full">
-        Product Features
-      </div>
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        Performance and Design Highlights
-      </h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-        Built for fast response, reliable priming, and rugged field use.
-      </p>
-    </div>
+    <SectionHeader
+      badge="Product Features"
+      title="Performance and Design Highlights"
+      description="Built for fast response, reliable priming, and rugged field use."
+      class="mb-12"
+    />
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {sortedProductFeatures.slice(0, 3).map((feature, index) => (

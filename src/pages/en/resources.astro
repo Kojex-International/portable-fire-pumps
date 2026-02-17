@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/ui/Section.astro';
 import Card from '../../components/ui/Card.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
 import ImageReveal from '../../components/react/ImageReveal';
 import { Image } from 'astro:assets';
 
@@ -271,6 +272,14 @@ const faqs = [
         </div>
       </Card>
     </div>
+
+    <SectionHeader
+      badge="Documentation Library"
+      title="Browse Available"
+      highlight="Resources"
+      description="Access product catalogs, manuals, and parts lists in one place."
+      class="mb-16"
+    />
 
     <!-- Documentation Categories -->
     <div class="space-y-20">
