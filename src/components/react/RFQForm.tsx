@@ -21,8 +21,8 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
       {/* Contact Information */}
       <div>
         <div className="flex items-center mb-6">
-          <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-            <User className="w-5 h-5 text-white" />
+          <div className="w-10 h-10 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center mr-3">
+            <User className="w-5 h-5 text-amber-700" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
             Contact Information
@@ -94,8 +94,8 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
       {/* Organization Information */}
       <div className="pt-6 border-t border-gray-200">
         <div className="flex items-center mb-6">
-          <div className="w-10 h-10 rounded-lg bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center mr-3">
-            <Building2 className="w-5 h-5 text-white" />
+          <div className="w-10 h-10 rounded-lg bg-orange-100 border border-orange-200 flex items-center justify-center mr-3">
+            <Building2 className="w-5 h-5 text-orange-700" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
             Organization Information
@@ -149,8 +149,8 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
       {/* Service Requirements */}
       <div className="pt-6 border-t border-gray-200">
         <div className="flex items-center mb-6">
-          <div className="w-10 h-10 rounded-lg bg-linear-to-br from-green-600 to-emerald-600 flex items-center justify-center mr-3">
-            <Flame className="w-5 h-5 text-white" />
+          <div className="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center mr-3">
+            <Flame className="w-5 h-5 text-rose-700" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
               Pump Inquiry
@@ -172,19 +172,19 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               ].map((service) => {
                 const IconComponent = service.icon;
                 return (
-                  <div
-                    key={service.id}
-                    className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer group"
-                  >
+                <div
+                  key={service.id}
+                  className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-lg hover:border-rose-200 hover:bg-rose-50 transition-all cursor-pointer group"
+                >
                     <input
                       id={service.id}
                       type="checkbox"
                       name="services"
                       value={service.id}
-                      className="w-5 h-5 border-2 border-gray-300 rounded text-blue-600 focus:ring-blue-500 shrink-0"
+                      className="w-5 h-5 border-2 border-gray-300 rounded text-rose-600 focus:ring-rose-400 shrink-0"
                     />
-                    <div className="w-8 h-8 rounded-lg bg-gray-100 group-hover:bg-blue-100 flex items-center justify-center shrink-0 transition-colors">
-                      <IconComponent className="w-4 h-4 text-gray-600 group-hover:text-blue-600 transition-colors" />
+                    <div className="w-8 h-8 rounded-lg bg-rose-50 group-hover:bg-rose-100 flex items-center justify-center shrink-0 transition-colors">
+                      <IconComponent className="w-4 h-4 text-rose-600 group-hover:text-rose-700 transition-colors" />
                     </div>
                     <Label.Root
                       htmlFor={service.id}
@@ -270,8 +270,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
       <div className="pt-6">
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95 flex items-center justify-center space-x-2"
-          style={{ backgroundImage: 'linear-gradient(90deg, #2563eb, #0d9488)' }}
+          className="w-full brand-cta px-8 py-4 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 hover:shadow-xl active:scale-95 flex items-center justify-center space-x-2"
         >
           <span>Submit Request</span>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

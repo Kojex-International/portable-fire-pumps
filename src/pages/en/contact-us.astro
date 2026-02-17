@@ -68,6 +68,13 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
       </div>
     </div>
 
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+
     <!-- Wave separator -->
     <!-- <div class="absolute bottom-0 left-0 right-0">
       <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
@@ -89,17 +96,17 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
       <!-- Sidebar -->
       <div class="space-y-6">
         <!-- Contact Info Card -->
-        <Card class="bg-linear-to-br from-blue-50 to-teal-50 border-blue-200">
+        <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-linear-to-br from-blue-600 to-teal-600 flex items-center justify-center mr-3">
-              <Phone className="w-5 h-5 text-white" />
+            <div class="w-10 h-10 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center mr-3">
+              <Phone className="w-5 h-5 text-amber-700" />
             </div>
             <h3 class="text-xl font-bold text-gray-900">Need Help?</h3>
           </div>
           <div class="space-y-4 text-sm">
-            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-                <Phone className="w-5 h-5 text-blue-600" />
+            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
+                <Phone className="w-5 h-5 text-amber-700" />
               </div>
               <div>
                 <div class="font-semibold text-gray-900">Phone</div>
@@ -108,9 +115,9 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
               </div>
             </div>
 
-            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center shrink-0">
-                <Mail className="w-5 h-5 text-teal-600" />
+            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
+                <Mail className="w-5 h-5 text-amber-700" />
               </div>
               <div>
                 <div class="font-semibold text-gray-900">Email</div>
@@ -124,37 +131,37 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         </Card>
 
         <!-- What to Expect Card -->
-        <Card class="bg-linear-to-br from-primary-50 via-blue-50 to-secondary-50 border-primary-200">
+        <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-              <Clock className="w-5 h-5 text-white" />
+            <div class="w-10 h-10 rounded-lg bg-orange-100 border border-orange-200 flex items-center justify-center mr-3">
+              <Clock className="w-5 h-5 text-orange-700" />
             </div>
             <h3 class="text-xl font-bold text-gray-900">What to Expect</h3>
           </div>
           <ol class="space-y-4 text-sm">
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-md">1</span>
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">1</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Response</span>
                 <span class="text-gray-600">We'll review your request within 24 hours</span>
               </div>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-sm shadow-md">2</span>
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">2</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Fit Review</span>
                 <span class="text-gray-600">Confirm flow, head, suction, and deployment needs</span>
               </div>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm shadow-md">3</span>
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">3</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Recommendation</span>
                 <span class="text-gray-600">Receive a pump model + accessories + delivery timeline</span>
               </div>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-md">4</span>
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">4</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Delivery & Support</span>
                 <span class="text-gray-600">Order fulfillment, parts access, and service support</span>
@@ -164,35 +171,35 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         </Card>
 
         <!-- Trust Indicators -->
-        <Card class="bg-linear-to-br from-slate-50 to-gray-50 border-slate-200">
+        <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-linear-to-br from-green-600 to-emerald-600 flex items-center justify-center mr-3">
-              <Award className="w-5 h-5 text-white" />
+            <div class="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center mr-3">
+              <Award className="w-5 h-5 text-rose-700" />
             </div>
             <h3 class="text-xl font-bold text-gray-900">Why Choose Us?</h3>
           </div>
           <ul class="space-y-3 text-sm">
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-                <TrendingUp className="w-4 h-4 text-green-600" />
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                <TrendingUp className="w-4 h-4 text-rose-700" />
               </div>
-              <span class="text-gray-700 pt-1">25+ years in portable fire pumps</span>
+              <span class="text-gray-700 pt-1">70+ years in portable fire pumps</span>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-blue-600" />
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-rose-700" />
               </div>
               <span class="text-gray-700 pt-1">Field-tested reliability and rugged design</span>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center shrink-0">
-                <Shield className="w-4 h-4 text-purple-600" />
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                <Shield className="w-4 h-4 text-rose-700" />
               </div>
               <span class="text-gray-700 pt-1">Serviceable parts and dealer support</span>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center shrink-0">
-                <Users className="w-4 h-4 text-teal-600" />
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                <Users className="w-4 h-4 text-rose-700" />
               </div>
               <span class="text-gray-700 pt-1">Support for municipal, industrial, and wildfire use</span>
             </li>
@@ -202,8 +209,8 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
     </div>
   </Section>
 
-  <!-- Trust & Success Section -->
-  <Section background="white">
+  <!-- Trust & Success Section hidden for now -->
+  <!-- <Section background="white">
     <SectionHeader
       badge="Trusted by Emergency Response Teams"
       title="Equip Teams with"
@@ -213,7 +220,6 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
     />
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-      <!-- Feature 1 -->
       <Card class="text-center hover:shadow-xl transition-all duration-300">
         <div class="w-16 h-16 rounded-full bg-linear-to-br from-blue-600 to-teal-600 flex items-center justify-center mx-auto mb-4">
           <Shield className="w-8 h-8 text-white" />
@@ -224,7 +230,6 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         </p>
       </Card>
 
-      <!-- Feature 2 -->
       <Card class="text-center hover:shadow-xl transition-all duration-300">
         <div class="w-16 h-16 rounded-full bg-linear-to-br from-green-600 to-emerald-600 flex items-center justify-center mx-auto mb-4">
           <TrendingUp className="w-8 h-8 text-white" />
@@ -235,7 +240,6 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         </p>
       </Card>
 
-      <!-- Feature 3 -->
       <Card class="text-center hover:shadow-xl transition-all duration-300">
         <div class="w-16 h-16 rounded-full bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center mx-auto mb-4">
           <Users className="w-8 h-8 text-white" />
@@ -247,7 +251,6 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
       </Card>
     </div>
 
-    <!-- Visual Showcase -->
     <div class="relative rounded-2xl overflow-hidden shadow-2xl">
       <div class="absolute inset-0">
         <Image 
@@ -277,5 +280,5 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         </a>
       </div>
     </div>
-  </Section>
+  </Section> -->
 </BaseLayout>
