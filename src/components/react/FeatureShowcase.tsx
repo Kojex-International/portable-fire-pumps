@@ -10,7 +10,7 @@ import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
 
 const features = [
   {
-    title: 'P510-A',
+    title: 'FT510-A',
     description: 'High-output air-cooled pump for rapid response and reliable flow.',
     image: ft510Img,
     slug: 'ft510-a',

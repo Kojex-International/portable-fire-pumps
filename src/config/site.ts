@@ -21,7 +21,15 @@ const NAV_ITEMS = [
     ],
   },
   { name: 'Distributors', path: '/distributors' },
-  { name: 'Resources', path: '/resources' },
+  {
+    name: 'Resources',
+    path: '/resources',
+    children: [
+      { name: 'Product Catalogs', path: '/resources#product-catalogs' },
+      { name: 'Pump Operation Manuals', path: '/resources#pump-instruction-manuals' },
+      { name: 'Parts Lists', path: '/resources#parts-lists' },
+    ],
+  },
   { name: 'About Us', path: '/about-us' },
 ] as const;
 

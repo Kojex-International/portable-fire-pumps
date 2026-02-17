@@ -12,11 +12,18 @@ import serviceOverviewImg from '@assets/photo-1550751827-4bd374c3f58b.jpg';
 import technicalDocumentationImg from '@assets/photo-1454165804606-c3d57bc86b40.jpg';
 import operationsManualImg from '@assets/photo-1521737604893-d14cc237f11d.jpg';
 import pumpCatalogImg from '@assets/pumpcatalog.png';
+import catalogCardImg from '@assets/2024CatalogImg.png';
 import firepumpManualsImg from '@assets/firepumpmanuals.png';
 import partsListImg from '@assets/partslist.png';
+import ft300Img from '@assets/ft300.jpg';
+import ft500Img from '@assets/ft500.jpg';
+import tf516mhImg from '@assets/tf516mh.jpg';
+import p572sImg from '@assets/p572s.jpg';
+import fk500Img from '@assets/fk500.jpg';
+import ff500Img from '@assets/ff500ar.jpg';
 
 import formsTemplatesImg from '@assets/photo-1450101499163-c8848c66ca85.jpg';
-import heroBgImg from '@assets/photo-1454165804606-c3d57bc86b40.jpg';
+import heroBgImg from '@assets/resources-hero.png';
 import catalogPdf from '../../data/Shibaura_Catalog2024_9.pdf';
 import ft300400ManualPdf from '../../data/manuals/aircooled/ft300-400Manual.pdf';
 import ft450500ManualPdf from '../../data/manuals/aircooled/ft450-500Manual.pdf';
@@ -39,7 +46,7 @@ const iconPaths = {
   manual:
     '<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
   parts:
-    '<path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/>',
+    '<path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/>',
   shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
   lightbulb:
     '<path d="M9.663 17h4.673"/><path d="M12 3v1"/><path d="m18.364 4.636-.707.707"/><path d="M21 12h-1"/><path d="M4 12H3"/><path d="m6.343 6.343-.707-.707"/><path d="m8.172 16.243-.548.547A3.374 3.374 0 0 0 10 18.469V19a2 2 0 1 0 4 0v-.531c0-.895.356-1.754.988-2.386l-.548-.547a5 5 0 1 0-7.072 0z"/>',
@@ -49,6 +56,7 @@ const iconPaths = {
 
 const docCategories = [
   {
+    id: 'product-catalogs',
     title: 'Product Catalogs',
     iconPath: iconPaths.catalog,
     image: pumpCatalogImg,
@@ -57,11 +65,12 @@ const docCategories = [
     bgColor: 'bg-rose-50',
     iconColor: 'text-rose-600',
     docs: [
-      { title: '2024 Shibaura Product Catalog', description: 'Browse the full Shibaura portable fire pump lineup', type: 'PDF', size: '19 MB', href: catalogPdf }
+      { title: '2024 Shibaura Product Catalog', description: 'Browse the full Shibaura portable fire pump lineup', type: 'PDF', size: '19 MB', href: catalogPdf, thumb: catalogCardImg }
     ]
   },
   {
-    title: 'Pump Instruction Manuals',
+    id: 'pump-instruction-manuals',
+    title: 'Pump Operation Manuals',
     iconPath: iconPaths.manual,
     image: firepumpManualsImg,
     color: 'from-purple-500 to-pink-500',
@@ -69,16 +78,17 @@ const docCategories = [
     bgColor: 'bg-purple-50',
     iconColor: 'text-purple-600',
     docs: [
-      { title: 'FT300-A / FT400-A1 Manual', description: 'Air-cooled pump manual', type: 'PDF', size: '1.8 MB', href: ft300400ManualPdf },
-      { title: 'FT450/FT500 Manual', description: 'Air-cooled pump manual', type: 'PDF', size: '2.1 MB', href: ft450500ManualPdf },
-      { title: 'TF516MH Manual', description: 'Air-cooled pump manual', type: 'PDF', size: '44.6 KB', href: tf516mhManualPdf },
-      { title: 'TF745MH Manual', description: 'Air-cooled pump manual', type: 'PDF', size: '3.9 MB', href: tf745mhManualPdf },
-      { title: 'P572S Manual', description: 'Water-cooled pump manual', type: 'PDF', size: '0.7 MB', href: p572sManualPdf },
-      { title: 'FK500 Manual', description: 'Water-cooled pump manual', type: 'PDF', size: '2.5 MB', href: fk500ManualPdf },
-      { title: 'FF500 Manual', description: 'Water-cooled pump manual', type: 'PDF', size: '2.8 MB', href: ff500ManualPdf }
+      { title: 'FT300 / FT400', description: 'Air-cooled pump manual', type: 'PDF', size: '1.8 MB', href: ft300400ManualPdf, thumb: ft300Img },
+      { title: 'FT450/FT500', description: 'Air-cooled pump manual', type: 'PDF', size: '2.1 MB', href: ft450500ManualPdf, thumb: ft500Img },
+      { title: 'TF516MH', description: 'Air-cooled pump manual', type: 'PDF', size: '44.6 KB', href: tf516mhManualPdf, thumb: tf516mhImg },
+      { title: 'TF745MH', description: 'Air-cooled pump manual', type: 'PDF', size: '3.9 MB', href: tf745mhManualPdf, thumb: ft500Img },
+      { title: 'P572S', description: 'Water-cooled pump manual', type: 'PDF', size: '0.7 MB', href: p572sManualPdf, thumb: p572sImg },
+      { title: 'FK500', description: 'Water-cooled pump manual', type: 'PDF', size: '2.5 MB', href: fk500ManualPdf, thumb: fk500Img },
+      { title: 'FF500', description: 'Water-cooled pump manual', type: 'PDF', size: '2.8 MB', href: ff500ManualPdf, thumb: ff500Img }
     ]
   },
   {
+    id: 'parts-lists',
     title: 'Parts Lists',
     iconPath: iconPaths.parts,
     image: partsListImg,
@@ -87,12 +97,12 @@ const docCategories = [
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
     docs: [
-      { title: 'FI6000/FI7000/FI8000 Parts List', description: 'Parts list', type: 'PDF', size: '1.1 MB', href: fi6000fi7000fi8000PartsPdf },
-      { title: 'FT300/FT400 Parts List', description: 'Parts list', type: 'PDF', size: '2.5 MB', href: ft300ft400PartsPdf },
-      { title: 'FT450/FT500 Parts List', description: 'Parts list', type: 'PDF', size: '4.2 MB', href: ft450ft500PartsPdf },
-      { title: 'P509R Parts List', description: 'Parts list', type: 'PDF', size: '0.7 MB', href: p509rPartsPdf },
-      { title: 'P555 Parts List', description: 'Parts list', type: 'PDF', size: '0.5 MB', href: p555PartsPdf },
-      { title: 'P572 Parts List', description: 'Parts list', type: 'PDF', size: '1.0 MB', href: p572PartsPdf }
+      { title: 'FI6000/FI7000/FI8000', description: 'Parts list', type: 'PDF', size: '1.1 MB', href: fi6000fi7000fi8000PartsPdf, thumb: ff500Img },
+      { title: 'FT300/FT400', description: 'Parts list', type: 'PDF', size: '2.5 MB', href: ft300ft400PartsPdf, thumb: ft300Img },
+      { title: 'FT450/FT500', description: 'Parts list', type: 'PDF', size: '4.2 MB', href: ft450ft500PartsPdf, thumb: ft500Img },
+      { title: 'P509R', description: 'Parts list', type: 'PDF', size: '0.7 MB', href: p509rPartsPdf },
+      { title: 'P555', description: 'Parts list', type: 'PDF', size: '0.5 MB', href: p555PartsPdf },
+      { title: 'P572', description: 'Parts list', type: 'PDF', size: '1.0 MB', href: p572PartsPdf, thumb: p572sImg }
     ]
   },
   // {
@@ -262,7 +272,7 @@ const faqs = [
           <span class="text-sm text-gray-500">Quick links:</span>
           <a href="#product-catalogs" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Product Catalogs</a>
           <span class="text-gray-300">•</span>
-          <a href="#pump-instruction-manuals" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Pump Manuals</a>
+          <a href="#pump-instruction-manuals" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Pump Operation Manuals</a>
           <span class="text-gray-300">•</span>
           <a href="#parts-lists" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Parts Lists</a>
           <span class="text-gray-300">•</span>
@@ -284,7 +294,7 @@ const faqs = [
     <!-- Documentation Categories -->
     <div class="space-y-20">
       {docCategories.map((category, index) => {
-        const categoryId = category.title.toLowerCase().replace(/\s+/g, '-');
+        const categoryId = category.id ?? category.title.toLowerCase().replace(/\s+/g, '-');
         return (
         <div class="animate-fadeInUp" style={`animation-delay: ${index * 0.1}s`} id={categoryId}>
           <!-- Category Header with Image -->
@@ -298,10 +308,10 @@ const faqs = [
                   width={2070}
                   height={1380}
                 />
-                <div class={`absolute inset-0 bg-linear-to-r ${category.color} opacity-80`}></div>
+                <div class="absolute inset-0 bg-linear-to-r from-slate-900/15 via-slate-800/35 to-slate-900/55"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                   <div class="text-center text-white">
-                    <div class={`w-20 h-20 ${category.bgColor} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl backdrop-blur-sm bg-white/20 border-2 border-white/30`}>
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg backdrop-blur-sm bg-white/15 border border-white/20">
                       <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2" set:html={category.iconPath} />
                       </svg>
@@ -326,35 +336,94 @@ const faqs = [
                     <Card
                       hover
                       class="cursor-pointer group h-full flex flex-col"
-                      style={`--doc-hover-color: ${category.title === 'Getting Started' ? 'var(--brand-1)' : '#2563eb'};`}
                     >
                       <div class="flex-1">
-                        <div class="flex items-start justify-between mb-4">
-                          <div class={`w-12 h-12 ${category.bgColor} rounded-xl flex items-center justify-center ${category.iconColor} shadow-md group-hover:scale-110 transition-transform`}>
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
+                        {category.id === 'pump-instruction-manuals' || category.id === 'parts-lists' || category.id === 'product-catalogs' ? (
+                          <div class="h-full flex items-stretch justify-between gap-4">
+                            <div class="min-w-0 flex-1 flex flex-col">
+                              <div class="w-12 h-12 mb-4 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 shadow-sm group-hover:bg-slate-200 group-hover:scale-105 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  {category.id === 'parts-lists' || category.id === 'product-catalogs' ? (
+                                    <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2" set:html={category.iconPath} />
+                                  ) : (
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                  )}
+                                </svg>
+                              </div>
+                              <h3 class={`text-xl font-bold text-gray-900 mb-3 doc-card-title ${category.id === 'product-catalogs' || doc.title === 'FI6000/FI7000/FI8000' ? '' : 'whitespace-nowrap truncate'}`}>
+                                {doc.title}
+                              </h3>
+                              <p class="text-sm text-gray-600 leading-relaxed">{doc.description}</p>
+                              <div class="mt-auto pt-2 mb-4 flex items-center text-xs text-gray-500">
+                                <span>Size: {doc.size}</span>
+                              </div>
+                            </div>
+                            <div class="shrink-0 w-24 flex flex-col items-end gap-1">
+                              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+                                {doc.type}
+                              </span>
+                              <div class="w-24 flex-1 min-h-0 mt-4 mb-4 bg-white rounded-md overflow-hidden flex items-center justify-center">
+                                {doc.thumb ? (
+                                  <Image
+                                    src={doc.thumb}
+                                    alt={doc.title}
+                                    class="w-full h-full object-contain"
+                                    width={96}
+                                    height={96}
+                                  />
+                                ) : (
+                                  <svg class="w-9 h-9 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 8v12a2 2 0 0 1-2 2h-4.182"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3.305 19.53.923-.382"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10.592V4a2 2 0 0 1 2-2h8"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4.228 16.852-.924-.383"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5.852 15.228-.383-.923"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5.852 20.772-.383.924"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8.148 15.228.383-.923"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8.53 21.696-.382-.924"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9.773 16.852.922-.383"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9.773 19.148.922.383"/>
+                                    <circle cx="7" cy="18" r="3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                  </svg>
+                                )}
+                              </div>
+                            </div>
                           </div>
-                          <span class={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${category.bgColor} ${category.iconColor} border border-current/20`}>
-                            {doc.type}
-                          </span>
-                        </div>
+                        ) : (
+                          <>
+                            <div class="flex items-start justify-between mb-4">
+                              <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 shadow-sm group-hover:bg-slate-200 group-hover:scale-105 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  {category.id === 'product-catalogs' || category.id === 'parts-lists' ? (
+                                    <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2" set:html={category.iconPath} />
+                                  ) : (
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                  )}
+                                </svg>
+                              </div>
+                              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+                                {doc.type}
+                              </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 doc-card-title">
+                              {doc.title}
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-4 leading-relaxed">{doc.description}</p>
+                          </>
+                        )}
 
-                        <h3 class="text-xl font-bold text-gray-900 mb-3 doc-card-title">
-                          {doc.title}
-                        </h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">{doc.description}</p>
-
-                        <div class="flex items-center text-xs text-gray-500 mb-4">
-                          <span>Size: {doc.size}</span>
-                        </div>
+                        {category.id !== 'pump-instruction-manuals' && category.id !== 'parts-lists' && category.id !== 'product-catalogs' && (
+                          <div class="flex items-center text-xs text-gray-500 mb-4">
+                            <span>Size: {doc.size}</span>
+                          </div>
+                        )}
                       </div>
 
                       {doc.href ? (
                         <a
                           href={doc.href}
-                          class={`w-full mt-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 font-semibold text-white shadow-2xl transition focus-visible:ring-2 focus-visible:ring-offset-2 hover:brightness-95`}
-                          style={`background: ${category.gradient};`}
+                          class="w-full mt-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 font-semibold text-white bg-slate-800 shadow-md transition focus-visible:ring-2 focus-visible:ring-offset-2 hover:bg-slate-700"
                           download
                         >
                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -364,8 +433,7 @@ const faqs = [
                         </a>
                       ) : (
                         <button
-                          class={`w-full mt-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 font-semibold text-white shadow-2xl transition focus-visible:ring-2 focus-visible:ring-offset-2 hover:brightness-95`}
-                          style={`background: ${category.gradient};`}
+                          class="w-full mt-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 font-semibold text-white bg-slate-800 shadow-md transition focus-visible:ring-2 focus-visible:ring-offset-2 hover:bg-slate-700"
                         >
                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

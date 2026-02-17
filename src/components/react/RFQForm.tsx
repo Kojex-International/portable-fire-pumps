@@ -217,7 +217,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
                   className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-white"
                 >
                   <option value="">Select timeline</option>
-                  <option value="1-3-months">1-3 months</option>
+                  <option value="1-4-months">1-4 months</option>
                   <option value="3-6-months">3-6 months</option>
                   <option value="6-plus-months">6+ months</option>
                   <option value="planning">Planning / Budgeting</option>
