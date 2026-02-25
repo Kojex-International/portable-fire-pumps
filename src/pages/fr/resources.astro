@@ -17,6 +17,7 @@ import firepumpManualsImg from '@assets/firepumpmanuals.png';
 import partsListImg from '@assets/partslist.png';
 import ft300Img from '@assets/ft300.jpg';
 import ft500Img from '@assets/ft500.jpg';
+import ft510Img from '@assets/ft510.jpg';
 import tf516mhImg from '@assets/tf516mh.jpg';
 import p572sImg from '@assets/p572s.jpg';
 import fk500Img from '@assets/fk500.jpg';
@@ -27,6 +28,7 @@ import heroBgImg from '@assets/resources-hero.png';
 import catalogPdf from '../../data/Shibaura_Catalog2024_9.pdf';
 import ft300400ManualPdf from '../../data/manuals/aircooled/ft300-400Manual.pdf';
 import ft450500ManualPdf from '../../data/manuals/aircooled/ft450-500Manual.pdf';
+import ft510ManualPdf from '../../data/manuals/aircooled/ft510Manual.pdf';
 import tf516mhManualPdf from '../../data/manuals/aircooled/tf516mhManual.pdf';
 import tf745mhManualPdf from '../../data/manuals/aircooled/tf745mhManual.pdf';
 import p572sManualPdf from '../../data/manuals/watercooled/p572sManual.pdf';
@@ -35,6 +37,7 @@ import ff500ManualPdf from '../../data/manuals/watercooled/ff500Manual.pdf';
 import fi6000fi7000fi8000PartsPdf from '../../data/parts/fi6000fi7000fi8000partslist.pdf';
 import ft300ft400PartsPdf from '../../data/parts/ft300ft400partslist.pdf';
 import ft450ft500PartsPdf from '../../data/parts/ft450ft500partslist.pdf';
+import ft510PartsPdf from '../../data/parts/ft510partslist.pdf';
 import p509rPartsPdf from '../../data/parts/p509rpartslist.PDF';
 import p555PartsPdf from '../../data/parts/p555partslist.pdf';
 import p572PartsPdf from '../../data/parts/p572partslist.pdf';
@@ -83,8 +86,9 @@ const docCategories = [
     docs: [
       { title: 'FT300 / FT400', description: 'Air-cooled pump manual', type: 'PDF', size: '1.8 MB', href: ft300400ManualPdf, thumb: ft300Img },
       { title: 'FT450/FT500', description: 'Air-cooled pump manual', type: 'PDF', size: '2.1 MB', href: ft450500ManualPdf, thumb: ft500Img },
+      { title: 'FT510', description: 'Air-cooled pump manual', type: 'PDF', size: '2.1 MB', href: ft510ManualPdf, thumb: ft510Img },
       { title: 'TF516MH', description: 'Air-cooled pump manual', type: 'PDF', size: '44.6 KB', href: tf516mhManualPdf, thumb: tf516mhImg },
-      { title: 'TF745MH', description: 'Air-cooled pump manual', type: 'PDF', size: '3.9 MB', href: tf745mhManualPdf, thumb: ft500Img },
+      { title: 'TF745MH', description: 'Air-cooled pump manual', type: 'PDF', size: '3.9 MB', href: tf745mhManualPdf },
       { title: 'P572S', description: 'Water-cooled pump manual', type: 'PDF', size: '0.7 MB', href: p572sManualPdf, thumb: p572sImg },
       { title: 'FK500', description: 'Water-cooled pump manual', type: 'PDF', size: '2.5 MB', href: fk500ManualPdf, thumb: fk500Img },
       { title: 'FF500', description: 'Water-cooled pump manual', type: 'PDF', size: '2.8 MB', href: ff500ManualPdf, thumb: ff500Img }
@@ -103,6 +107,7 @@ const docCategories = [
       { title: 'FI6000/FI7000/FI8000', description: 'Parts list', type: 'PDF', size: '1.1 MB', href: fi6000fi7000fi8000PartsPdf, thumb: ff500Img },
       { title: 'FT300/FT400', description: 'Parts list', type: 'PDF', size: '2.5 MB', href: ft300ft400PartsPdf, thumb: ft300Img },
       { title: 'FT450/FT500', description: 'Parts list', type: 'PDF', size: '4.2 MB', href: ft450ft500PartsPdf, thumb: ft500Img },
+      { title: 'FT510', description: 'Parts list', type: 'PDF', size: '4.2 MB', href: ft510PartsPdf, thumb: ft510Img },
       { title: 'P509R', description: 'Parts list', type: 'PDF', size: '0.7 MB', href: p509rPartsPdf },
       { title: 'P555', description: 'Parts list', type: 'PDF', size: '0.5 MB', href: p555PartsPdf },
       { title: 'P572', description: 'Parts list', type: 'PDF', size: '1.0 MB', href: p572PartsPdf, thumb: p572sImg }
@@ -252,7 +257,7 @@ const faqs = [
   <Section background="gray">
     <div class="max-w-4xl mx-auto mb-16">
       <Card class="p-6 shadow-xl border-2 border-gray-100">
-        <div class="flex flex-col md:flex-row gap-4">
+        <form id="doc-search-form" class="flex flex-col md:flex-row gap-4">
           <div class="flex-1 relative">
             <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -260,17 +265,25 @@ const faqs = [
             <input
               type="text"
               placeholder="Search documentation, guides, and resources..."
-              class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg"
+              class="w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg"
               id="doc-search"
             />
+            <button
+              id="doc-search-clear"
+              type="button"
+              class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700"
+              aria-label="Clear search"
+            >
+              Clear
+            </button>
           </div>
-          <button class="brand-cta !px-8 !py-4 !rounded-xl text-base flex items-center justify-center gap-2">
+          <button id="doc-search-submit" type="submit" class="brand-cta !px-8 !py-4 !rounded-xl text-base flex items-center justify-center gap-2 transition-transform active:scale-95">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             Search
           </button>
-        </div>
+        </form>
         <div class="mt-4 flex flex-wrap gap-2">
           <span class="text-sm text-gray-500">Quick links:</span>
           <a href="#product-catalogs" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Product Catalogs</a>
@@ -278,11 +291,8 @@ const faqs = [
           <a href="#pump-instruction-manuals" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Pump Manuals</a>
           <span class="text-gray-300">•</span>
           <a href="#parts-lists" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Parts Lists</a>
-          <span class="text-gray-300">•</span>
-          <a href="#compliance-&-certifications" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Compliance</a>
-          <span class="text-gray-300">•</span>
-          <a href="#faq" class="text-sm text-blue-600 hover:text-blue-800 font-medium">FAQ</a>
         </div>
+        <p id="doc-search-feedback" class="mt-3 text-sm text-gray-500" aria-live="polite"></p>
       </Card>
     </div>
 
@@ -299,7 +309,7 @@ const faqs = [
       {docCategories.map((category, index) => {
         const categoryId = category.id ?? category.title.toLowerCase().replace(/\s+/g, '-');
         return (
-        <div class="animate-fadeInUp" style={`animation-delay: ${index * 0.1}s`} id={categoryId}>
+        <div class="animate-fadeInUp" style={`animation-delay: ${index * 0.1}s`} id={categoryId} data-doc-category>
           <!-- Category Header with Image -->
           <div class="mb-8">
             <ImageReveal client:load delay={index * 0.1}>
@@ -328,14 +338,15 @@ const faqs = [
           </div>
             
             <!-- Documents Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
               {category.docs.map((doc, docIndex) => (
-                <ImageReveal client:load delay={index * 0.1 + docIndex * 0.05}>
-                  <div
-                    class="doc-card"
-                    data-doc-card
-                    data-doc-text={`${doc.title} ${doc.description}`.toLowerCase()}
-                  >
+                <div
+                  class="doc-card w-full max-w-[360px] justify-self-center outline-none focus:outline-none focus-visible:outline-none"
+                  data-doc-card
+                  data-doc-text={`${doc.title} ${doc.description}`.toLowerCase()}
+                  tabindex="-1"
+                >
+                  <ImageReveal client:load delay={index * 0.1 + docIndex * 0.05}>
                     <Card
                       hover
                       class="cursor-pointer group h-full flex flex-col"
@@ -445,8 +456,8 @@ const faqs = [
                         </button>
                       )}
                     </Card>
-                  </div>
-                </ImageReveal>
+                  </ImageReveal>
+                </div>
               ))}
             </div>
           </div>
@@ -456,18 +467,102 @@ const faqs = [
   </Section>
 
   <script>
+    const searchForm = document.querySelector('#doc-search-form');
     const searchInput = document.querySelector('#doc-search');
+    const searchSubmit = document.querySelector('#doc-search-submit');
+    const searchFeedback = document.querySelector('#doc-search-feedback');
+    const searchClear = document.querySelector('#doc-search-clear');
     const docCards = Array.from(document.querySelectorAll('[data-doc-card]'));
+    const docCategories = Array.from(document.querySelectorAll('[data-doc-category]'));
+
+    const applyFilter = (value) => {
+      const term = value.toLowerCase().trim();
+      let visibleCount = 0;
+      docCards.forEach((card) => {
+        const text = card.dataset.docText || '';
+        const isHidden = term.length > 0 && !text.includes(term);
+        card.classList.toggle('hidden', isHidden);
+        if (!isHidden) visibleCount += 1;
+      });
+
+      docCategories.forEach((category) => {
+        const visibleCards = category.querySelectorAll('[data-doc-card]:not(.hidden)').length;
+        category.classList.toggle('hidden', term.length > 0 && visibleCards === 0);
+      });
+
+      if (searchFeedback) {
+        if (!term) {
+          searchFeedback.textContent = `Showing all ${docCards.length} resources`;
+        } else {
+          searchFeedback.textContent = `Showing ${visibleCount} result${visibleCount === 1 ? '' : 's'} for "${value.trim()}"`;
+        }
+      }
+
+      if (searchClear) {
+        searchClear.classList.toggle('hidden', !term);
+      }
+    };
+
+    const getFirstVisibleCard = () => docCards.find((card) => !card.classList.contains('hidden'));
+
+    const flashSearchInput = () => {
+      if (!searchInput) return;
+      searchInput.classList.add('border-blue-400');
+      searchInput.style.boxShadow = '0 0 0 2px rgba(96, 165, 250, 0.45)';
+      window.setTimeout(() => {
+        searchInput.classList.remove('border-blue-400');
+        searchInput.style.boxShadow = '';
+      }, 180);
+    };
+
+    const pressSearchButton = () => {
+      if (!searchSubmit) return;
+      searchSubmit.animate(
+        [
+          { transform: 'scale(1)' },
+          { transform: 'scale(0.96)' },
+          { transform: 'scale(1)' },
+        ],
+        { duration: 180, easing: 'ease-out' }
+      );
+    };
+
+    const scrollToFirstVisibleCard = () => {
+      const firstVisibleCard = getFirstVisibleCard();
+      if (!firstVisibleCard) return;
+      const rect = firstVisibleCard.getBoundingClientRect();
+      const scrollTop = window.scrollY + rect.top - 110;
+      window.scrollTo({ top: Math.max(scrollTop, 0), behavior: 'smooth' });
+      window.setTimeout(() => {
+        firstVisibleCard.focus({ preventScroll: true });
+      }, 220);
+    };
 
     if (searchInput) {
       searchInput.addEventListener('input', (event) => {
-        const term = event.target.value.toLowerCase().trim();
-        docCards.forEach((card) => {
-          const text = card.dataset.docText || '';
-          card.classList.toggle('hidden', term.length > 0 && !text.includes(term));
-        });
+        applyFilter(event.target.value);
       });
     }
+
+    if (searchForm && searchInput) {
+      searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        applyFilter(searchInput.value);
+        flashSearchInput();
+        pressSearchButton();
+        scrollToFirstVisibleCard();
+      });
+    }
+
+    if (searchClear && searchInput) {
+      searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        applyFilter('');
+        searchInput.focus();
+      });
+    }
+
+    applyFilter(searchInput?.value || '');
   </script>
 
   <!-- FAQ Section -->

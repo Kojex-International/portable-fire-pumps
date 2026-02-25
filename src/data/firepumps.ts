@@ -14,6 +14,7 @@ import fk500GraphImg from '@assets/fk500aGraph.png';
 import ff500arGraphImg from '@assets/ff500arGraph.png';
 import ft300400ManualPdf from './manuals/aircooled/ft300-400Manual.pdf';
 import ft450500ManualPdf from './manuals/aircooled/ft450-500Manual.pdf';
+import ft510ManualPdf from './manuals/aircooled/ft510Manual.pdf';
 import tf516mhManualPdf from './manuals/aircooled/tf516mhManual.pdf';
 import p572sManualPdf from './manuals/watercooled/p572sManual.pdf';
 import fk500ManualPdf from './manuals/watercooled/fk500Manual.pdf';
@@ -73,7 +74,7 @@ export const firepumps: Firepump[] = [
     icon: shibauraLogoIcon,
     image: ft510Img,
     graphImage: ft510GraphImg,
-    manualPdf: ft450500ManualPdf,
+    manualPdf: ft510ManualPdf,
     features: [
       { label: 'Automatic choke system for quick starting', icon: carburatorIcon },
       { label: 'Separate fuel feeding system for optimum mixing', icon: engineIcon },
