@@ -10,6 +10,7 @@ import ProcessWorkflow from '../../components/home/ProcessWorkflow.astro';
 import Testimonials from '../../components/home/Testimonials.astro';
 import PremiumCTA from '../../components/home/PremiumCTA.astro';
 import SectionHeader from '../../components/ui/SectionHeader.astro';
+import logoMark from '@assets/shibaura-logo-mark.svg';
 ---
 
 <BaseLayout>
@@ -18,6 +19,7 @@ import SectionHeader from '../../components/ui/SectionHeader.astro';
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <SectionHeader
         badge="About Shibaura Rabbit"
+        badgeIcon={logoMark.src}
         title="Trusted"
         highlight="Portable Fire Pumps"
         class="mb-4"

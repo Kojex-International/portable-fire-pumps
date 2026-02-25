@@ -1,6 +1,7 @@
 ---
 import ImageReveal from '@components/react/ImageReveal';
 import { Image } from 'astro:assets';
+import { Building2 } from 'lucide-react';
 import warehouseImg from '@assets/photo-1566576721346-d4a3b4eaeb55.jpg';
 import fleetImg from '@assets/photo-1601584115197-04ecc0da31d7.jpg';
 import manufacturingImg from '@assets/photo-1581091226825-a6a2a5aee158.jpg';
@@ -15,7 +16,8 @@ const distributorsHref = localizePath('/distributors', locale);
 <section class="py-24 bg-white">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
-      <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
+      <div class="inline-flex items-center px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
+        <Building2 className="w-4 h-4 mr-2" />
         Our Infrastructure
       </div>
       <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">

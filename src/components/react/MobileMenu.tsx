@@ -11,9 +11,13 @@ type MobileMenuProps = {
   rfqHref: string;
   enHref: string;
   frHref: string;
+  locale: string;
 };
 
-export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMenuProps) {
+export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: MobileMenuProps) {
+  const isEnglish = locale === 'en';
+  const isFrench = locale === 'fr';
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -35,7 +39,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
                 <Dialog.Close asChild>
                   <a
                     href={item.href}
-                    className="block px-4 py-3 text-lg font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
+                    className="block px-4 py-3 text-lg font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
                   >
                     {item.name}
                   </a>
@@ -46,7 +50,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
                       <Dialog.Close asChild key={child.href}>
                         <a
                           href={child.href}
-                          className="block px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
+                          className="block px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
                         >
                           {child.name}
                         </a>
@@ -58,13 +62,21 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
             ))}
             <div className="pt-4 flex items-center justify-center gap-3 text-xl sm:text-2xl font-semibold uppercase tracking-wide text-slate-600">
               <Dialog.Close asChild>
-                <a href={enHref} className="px-1.5 py-0.5 rounded-md border border-transparent hover:text-[var(--brand-1)] active:text-[var(--brand-accent)] active:bg-[var(--brand-1-10)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 transition-colors">
+                <a
+                  href={enHref}
+                  aria-current={isEnglish ? 'page' : undefined}
+                  className={`px-1.5 py-0.5 rounded-md border-b-2 border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 transition-colors ${isEnglish ? 'text-slate-900 border-[var(--brand-1)]' : 'text-slate-600 hover:text-[var(--brand-1)] active:text-[var(--brand-soft)] active:bg-[var(--brand-1-10)]'}`}
+                >
                   EN
                 </a>
               </Dialog.Close>
-              <span className="text-slate-300 text-lg sm:text-xl">/</span>
+              <span className="text-slate-300 text-lg sm:text-xl">|</span>
               <Dialog.Close asChild>
-                <a href={frHref} className="px-1.5 py-0.5 rounded-md border border-transparent hover:text-[var(--brand-1)] active:text-[var(--brand-accent)] active:bg-[var(--brand-1-10)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 transition-colors">
+                <a
+                  href={frHref}
+                  aria-current={isFrench ? 'page' : undefined}
+                  className={`px-1.5 py-0.5 rounded-md border-b-2 border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 transition-colors ${isFrench ? 'text-slate-900 border-[var(--brand-1)]' : 'text-slate-600 hover:text-[var(--brand-1)] active:text-[var(--brand-soft)] active:bg-[var(--brand-1-10)]'}`}
+                >
                   FR
                 </a>
               </Dialog.Close>
@@ -73,9 +85,9 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref }: MobileMen
               <Dialog.Close asChild>
                 <a
                   href={rfqHref}
-                  className="block text-center px-6 py-3 text-sm font-semibold text-white brand-gradient-bg hover:brightness-95 active:brightness-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg shadow-md transition-all"
+                  className="block text-center px-6 py-3 text-sm font-semibold text-white brand-gradient-bg hover:brightness-95 active:brightness-90 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg shadow-md transition-all duration-200"
                 >
-                  Contact Us
+                  Contact
                 </a>
               </Dialog.Close>
             </div>

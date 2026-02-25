@@ -76,20 +76,17 @@ export default function FeatureShowcase({ detailsBaseHref = '/products' }: Featu
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.4 }}
               />
-              <div className="absolute bottom-0 left-0 right-0 h-52 bg-linear-to-t from-slate-900/90 via-slate-900/60 via-slate-900/30 to-transparent opacity-90 pointer-events-none" />
               
-              {/* Icon overlay */}
-              <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
-                className="absolute top-4 right-4 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg"
-              >
+            </div>
+
+            {/* Content */}
+            <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-slate-950/82 via-slate-900/52 via-slate-900/20 to-transparent px-6 pb-2 pt-4 text-white">
+              <h3 className="flex items-center gap-2 text-lg font-bold leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                 <span
                   aria-hidden="true"
-                  className="w-10 h-10 brand-gradient-bg"
+                  className="w-7 h-7 shrink-0 drop-shadow-[0_1px_2px_rgba(0,0,0,0.75)]"
                   style={{
+                    backgroundColor: 'currentColor',
                     WebkitMaskImage: `url(${shibauraLogoMark})`,
                     maskImage: `url(${shibauraLogoMark})`,
                     WebkitMaskRepeat: 'no-repeat',
@@ -100,13 +97,9 @@ export default function FeatureShowcase({ detailsBaseHref = '/products' }: Featu
                     maskSize: 'contain',
                   }}
                 />
-              </motion.div>
-            </div>
-
-            {/* Content */}
-            <div className="absolute bottom-0 left-0 right-0 px-6 pb-4 pt-6 text-white drop-shadow-lg">
-              <h3 className="text-lg font-semibold leading-tight">{feature.title}</h3>
-              <p className="text-sm text-white/85 mt-0.5 leading-snug">{feature.description}</p>
+                <span>{feature.title}</span>
+              </h3>
+              <p className="text-sm text-white/95 mt-1 leading-snug drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{feature.description}</p>
             </div>
           </div>
         </motion.a>

@@ -3,6 +3,7 @@ import { getLocaleFromPathname, getNavigation, localizePath } from '@config/site
 import { Image } from 'astro:assets';
 import logoMark from '@assets/shibaura-logo-mark.svg';
 import MobileMenu from '@components/react/MobileMenu';
+import { Globe } from 'lucide-react';
 
 const { currentPathname } = Astro.props;
 const locale = getLocaleFromPathname(currentPathname);
@@ -10,12 +11,14 @@ const navigation = getNavigation(locale);
 const rfqHref = localizePath('/contact-us', locale);
 const enHref = localizePath(currentPathname, 'en');
 const frHref = localizePath(currentPathname, 'fr');
+const isEnglish = locale === 'en';
+const isFrench = locale === 'fr';
 const isActiveLink = (href: string) : boolean => { return href === currentPathname; }
 
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white shadow-sm pt-[env(safe-area-inset-top)]">
-  <nav class="container mx-auto flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
+  <nav class="mx-auto flex h-20 items-center justify-between max-w-[1440px] px-4 sm:px-5 lg:px-6">
     <!-- Logo -->
     <div class="flex items-center">
       <a href={localizePath('/', locale)} class="flex items-center space-x-2.5 group">
@@ -26,7 +29,7 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
             style={`-webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
           ></span>
         </div>
-        <span class="text-2xl font-bold brand-gradient-text">
+        <span class="text-2xl font-extrabold tracking-tight brand-gradient-text brand-title-font text-center leading-tight">
           Portable Fire Pumps
         </span>
       </a>
@@ -41,7 +44,7 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
           return (
             <a
               href={item.href}
-              class={`px-4 py-2 text-sm font-medium text-slate-700 hover:text-[#E11D48] hover:bg-[#FFF1F2] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
+              class={`px-4 py-2 text-sm font-medium text-center leading-tight text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
             >
               {item.name}
             </a>
@@ -52,7 +55,7 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
           <div class="relative group">
             <a
               href={item.href}
-              class={`px-4 py-2 text-sm font-medium text-slate-700 hover:text-[#E11D48] hover:bg-[#FFF1F2] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
+              class={`px-4 py-2 text-sm font-medium text-center leading-tight text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
             >
               {item.name}
             </a>
@@ -61,7 +64,7 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
                 {item.children?.map((child) => (
                   <a
                     href={child.href}
-                    class="block px-3 py-2 text-sm font-medium text-slate-700 hover:text-[#E11D48] hover:bg-[#FFF1F2] rounded-lg transition-colors"
+                    class="block px-3 py-2 text-sm font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] rounded-lg transition-colors"
                   >
                     {child.name}
                   </a>
@@ -73,26 +76,37 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
       })}
     </div>
 
-    <!-- Language Switcher -->
-    <div class="hidden lg:flex lg:items-center">
-      <div class="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wide text-slate-500 px-[5px]">
-        <a href={enHref} class="hover:text-[#E11D48] transition-colors">EN</a>
-        <span class="text-slate-300">/</span>
-        <a href={frHref} class="hover:text-[#E11D48] transition-colors">FR</a>
+    <!-- Right Actions -->
+    <div class="hidden lg:flex lg:items-center lg:gap-4">
+      <div class="min-w-[78px] flex items-center justify-end space-x-1.5 text-xs font-semibold uppercase tracking-wide leading-none">
+        <Globe className="w-3.5 h-3.5 text-slate-500 mr-1.5 shrink-0" />
+        <div class="inline-flex items-center space-x-1.5 px-1.5 py-0.5 rounded-md bg-slate-100/80">
+        <a
+          href={enHref}
+          aria-current={isEnglish ? 'page' : undefined}
+          class={`inline-flex items-center leading-none py-0.5 border-b-2 transition-colors ${isEnglish ? 'text-slate-900 border-[var(--brand-1)]' : 'text-slate-500 border-transparent hover:text-[var(--brand-1)]'}`}
+        >
+          EN
+        </a>
+        <span class="inline-flex items-start self-start translate-y-[1px] text-slate-300 leading-none">|</span>
+        <a
+          href={frHref}
+          aria-current={isFrench ? 'page' : undefined}
+          class={`inline-flex items-center leading-none py-0.5 border-b-2 transition-colors ${isFrench ? 'text-slate-900 border-[var(--brand-1)]' : 'text-slate-500 border-transparent hover:text-[var(--brand-1)]'}`}
+        >
+          FR
+        </a>
+        </div>
       </div>
-    </div>
-
-    <!-- CTA Button -->
-    <div class="hidden lg:flex lg:items-center">
       <a
         href={rfqHref}
-        class="inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-linear-to-r from-[#E11D48] to-[#F59E7E] hover:from-[#BE123C] hover:to-[#F8BFA8] rounded-lg shadow-md hover:shadow-lg transition-all"
+        class="brand-cta px-6 py-2.5 text-sm"
       >
-        Contact Us
+        Contact
       </a>
     </div>
 
     <!-- Mobile Menu Button -->
-    <MobileMenu client:idle items={navigation} rfqHref={rfqHref} enHref={enHref} frHref={frHref} />
+    <MobileMenu client:idle items={navigation} rfqHref={rfqHref} enHref={enHref} frHref={frHref} locale={locale} />
   </nav>
 </header>

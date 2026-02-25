@@ -76,12 +76,11 @@ export const firepumps: Firepump[] = [
     graphImage: ft510GraphImg,
     manualPdf: ft510ManualPdf,
     features: [
-      { label: 'Automatic choke system for quick starting', icon: carburatorIcon },
-      { label: 'Separate fuel feeding system for optimum mixing', icon: engineIcon },
-      { label: "Shibaura's unique water shut-off valve", icon: dischargeIcon },
-      { label: 'Quick valve lever for fast operation', icon: dischargeIcon },
-      { label: 'Oilless vacuum pump with carbon blades', icon: timerIcon },
-      { label: 'Auto coolant circulation system (NICE valve)', icon: dischargeIcon }
+      { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
+      { label: '2-Stroke gasoline engine', icon: engineIcon },
+      { label: 'Carburetor with automatic choke', icon: carburatorIcon },
+      { label: 'Discharge performance: 0.5MPa: 1,450L/min, 1.0MPa: 830L/min', icon: dischargeIcon },
+      { label: 'Priming performance, 1 m suction head: 3.5sec', icon: timerIcon }
     ],
     keySpecs: [
       { label: 'Pump model', value: 'Shibaura B612B', icon: modelIcon },

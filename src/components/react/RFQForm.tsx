@@ -270,7 +270,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
       <div className="pt-6">
         <button
           type="submit"
-          className="w-full brand-cta px-8 py-4 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 hover:shadow-xl active:scale-95 flex items-center justify-center space-x-2"
+          className="w-full brand-cta px-8 py-4 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-95 flex items-center justify-center space-x-2"
         >
           <span>Submit Request</span>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

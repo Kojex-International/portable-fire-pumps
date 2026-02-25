@@ -6,7 +6,7 @@ import SectionHeader from '@components/ui/SectionHeader.astro';
 import RFQForm from '@components/react/RFQForm';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import { Image } from 'astro:assets';
-import { FileText, Clock, Shield, CheckCircle2, Phone, Mail, MessageCircle, Award, TrendingUp, Users } from 'lucide-react';
+import { MessageSquare, Clock, Shield, CheckCircle2, Phone, Mail, MessageCircle, Award, TrendingUp, Users } from 'lucide-react';
 import rfqBgImg from '@assets/contactus.png';
 import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
 
@@ -18,11 +18,14 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
   <!-- Hero Section with Professional Image -->
   <section class="relative h-[500px] md:h-[600px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
-    <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-slate-900">
       <Image 
         src={rfqBgImg}
         alt="Professional logistics and supply chain management"
         class="w-full h-full object-cover"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
         width={2070}
         height={1380}
       />
@@ -32,13 +35,13 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
     <!-- Content -->
     <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center px-4 py-2 mb-6 brand-gradient-bg text-white text-sm font-semibold rounded-full shadow-lg animate-fadeInUp">
-          <FileText className="w-4 h-4 mr-2" />
+        <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 animate-fadeInUp">
+          <MessageSquare className="w-4 h-4 mr-2" />
           Contact Sales & Support
         </div>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp" style="animation-delay: 0.1s">
-          <span class="brand-gradient-text">Contact Us</span>
+          <span class="text-[var(--brand-400)]">Contact Us</span>
         </h1>
         
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">

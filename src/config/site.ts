@@ -30,7 +30,7 @@ const NAV_ITEMS = [
       { name: 'Parts Lists', path: '/resources#parts-lists' },
     ],
   },
-  { name: 'About Us', path: '/about-us' },
+  { name: 'About', path: '/about-us' },
 ] as const;
 
 const stripLocalePrefix = (pathname: string) =>

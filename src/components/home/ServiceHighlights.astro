@@ -2,6 +2,7 @@
 import FeatureShowcase from '../react/FeatureShowcase';
 import SectionHeader from '../ui/SectionHeader.astro';
 import { getLocaleFromPathname, localizePath } from '@config/site';
+import logoMark from '@assets/shibaura-logo-mark.svg';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsHref = localizePath('/products', locale);
@@ -11,6 +12,7 @@ const productsHref = localizePath('/products', locale);
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <SectionHeader
       badge="Product Lineup"
+      badgeIcon={logoMark.src}
       title="Portable"
       highlight="Fire Pumps"
       description="Compare performance, priming speed, and deployment fit across our core pump models."
