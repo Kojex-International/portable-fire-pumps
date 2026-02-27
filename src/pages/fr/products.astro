@@ -3,31 +3,103 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/ui/Section.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
 import FirepumpAccordion from '../../components/react/FirepumpAccordion';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
-import { Gauge, Flame, Workflow } from 'lucide-react';
+import { Gauge, Flame } from 'lucide-react';
 
-import { firepumps } from '../../data/firepumps';
+import { getFirepumps } from '../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
 import logoMark from '@assets/shibaura-logo-mark.svg';
+import feature2StrokeEngineImg from '@assets/features/2StrokeEngine.png';
+import featureCentrifugalPumpImg from '@assets/features/CentrifugalPump.png';
+import featureVacuumPumpImg from '@assets/features/VacuumPump.png';
+import featureDischargeValveImg from '@assets/features/DischargeValve.png';
+import featureMonitoringSystemImg from '@assets/features/MonitoringSystem.png';
+import featureImpellerImg from '@assets/features/Impeller.png';
+import featureChokeSystemImg from '@assets/features/ChokeSystem.png';
+import featureFuelFeedingSystemImg from '@assets/features/FuelFeedingSystem.png';
+import featureAutoCoolantImg from '@assets/features/AutoCoolant.png';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
-const ctaBgImg = heroBgImg;
+const firepumps = getFirepumps('fr');
+
+const productFeatures = [
+  {
+    title: 'Moteur à essence 2 temps',
+    description:
+      'Moteur Shibaura original, compact, léger et puissant, conçu pour les pompes à incendie. Le design 2 temps à haut régime offre de solides performances et une longue durée de service.',
+    image: feature2StrokeEngineImg
+  },
+  {
+    title: 'Pompe centrifuge',
+    description:
+      'Le moteur Shibaura original et la pompe centrifuge à un étage sont intégrés dans une unité compacte, pour plus d’efficacité et un excellent débit à longue distance.',
+    image: featureCentrifugalPumpImg
+  },
+  {
+    title: 'Vanne de refoulement rapide',
+    description:
+      'La vanne à levier permet un contrôle rapide et précis du refoulement, avec rotation à 180° pour améliorer la capacité d’extinction.',
+    image: featureDischargeValveImg
+  },
+  {
+    title: 'Pompe à vide',
+    description:
+      'Pompe à vide Shibaura originale, légère et compacte, qui évacue rapidement l’air dans la ligne d’aspiration pour un amorçage rapide.',
+    image: featureVacuumPumpImg
+  },
+  {
+    title: "Système d’alerte et de surveillance",
+    description:
+      'Des voyants d’alerte signalent les anomalies (niveau d’huile bas, etc.) et le moteur se coupe automatiquement en situation d’urgence.',
+    image: featureMonitoringSystemImg
+  },
+  {
+    title: 'Turbine (impeller)',
+    description:
+      'Turbine Shibaura conçue pour un fort volume d’eau et le refoulement à longue distance. Traitement de surface spécial pour limiter la corrosion.',
+    image: featureImpellerImg
+  },
+  {
+    title: 'Circulation automatique du liquide de refroidissement',
+    description:
+      'La circulation en boucle fermée réduit la consommation d’eau en faible approvisionnement et limite les surfaces glissantes pendant les opérations.',
+    image: featureAutoCoolantImg
+  },
+  {
+    title: "Système d’alimentation en carburant avancé",
+    description:
+      'Alimentation séparée type automobile pour un mélange essence/huile optimal. Le capteur de niveau d’huile facilite les contrôles rapides.',
+    image: featureFuelFeedingSystemImg
+  },
+  {
+    title: 'Système de starter automatique',
+    description:
+      'Les capteurs de température d’air et moteur ajustent automatiquement le starter pour un démarrage facile, une montée en température rapide et un fonctionnement immédiat.',
+    image: featureChokeSystemImg
+  }
+];
+
+const sortedProductFeatures = [...productFeatures].sort(
+  (a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image))
+);
+const hasMoreProductFeatures = sortedProductFeatures.length > 3;
 ---
 
-<BaseLayout title="Products - Portable Fire Pumps">
+<BaseLayout title="Produits - Portable Fire Pumps">
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 bg-slate-900">
       <Image 
         src={heroBgImg}
-        alt="Modern logistics and manufacturing capabilities"
+        alt="Pompes à incendie portatives"
         class="w-full h-full object-cover"
         loading="eager"
         decoding="async"
@@ -41,20 +113,19 @@ const ctaBgImg = heroBgImg;
     <!-- Content -->
     <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-blue-600 to-teal-600 text-white text-sm font-semibold rounded-full shadow-lg">
+        <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
           <Gauge className="w-4 h-4 mr-2" />
-          Comprehensive Solutions
+          Produits
         </div>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
-          <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-teal-400 to-blue-400">
-            Products
+          <span class="text-[var(--brand-400)]">
+            Pompes à incendie portatives
           </span>
       </h1>
         
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
-        Comprehensive logistics and manufacturing solutions designed to optimize your operations 
-        and drive sustainable growth.
+        Conçues pour une performance fiable et un déploiement rapide en intervention.
       </p>
       </div>
     </div>
@@ -67,11 +138,113 @@ const ctaBgImg = heroBgImg;
     </div>
   </section>
 
+  <!-- Product Features -->
+  <Section background="white" id="product-features">
+    <SectionHeader
+      badge="Caractéristiques"
+      badgeIconComponent={Gauge}
+      title="Performance et conception"
+      highlight="des pompes"
+      description="Conçues pour une réponse rapide, un amorçage fiable et un usage terrain exigeant."
+      class="mb-12"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedProductFeatures.slice(0, 3).map((feature, index) => (
+        <ImageReveal client:load delay={index * 0.05} className="overflow-visible rounded-xl">
+          <Card hover class="h-full overflow-hidden border-slate-200/60">
+            {feature.image ? (
+              <div class="mb-4 flex justify-center">
+                <div class="inline-block overflow-hidden rounded-lg bg-white">
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    class="block h-40 w-auto object-contain"
+                    width={800}
+                    height={600}
+                  />
+                </div>
+              </div>
+            ) : null}
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
+              </div>
+            </div>
+          </Card>
+        </ImageReveal>
+      ))}
+    </div>
+
+    {hasMoreProductFeatures ? (
+      <div class="mt-10">
+        <div
+          id="product-features-more"
+          class="overflow-hidden max-h-0 opacity-0 transition-[max-height,opacity] duration-500 ease-in-out"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sortedProductFeatures.slice(3).map((feature, index) => (
+              <ImageReveal client:load delay={0.05 + index * 0.05} className="overflow-visible rounded-xl">
+                <Card hover class="h-full overflow-hidden border-slate-200/60">
+                  {feature.image ? (
+                    <div class="mb-4 flex justify-center">
+                      <div class="inline-block overflow-hidden rounded-lg bg-white">
+                        <Image
+                          src={feature.image}
+                          alt={feature.title}
+                          class="block h-40 w-auto object-contain"
+                          width={800}
+                          height={600}
+                        />
+                      </div>
+                    </div>
+                  ) : null}
+                  <div class="flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0">
+                      <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+                      <p class="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
+                    </div>
+                  </div>
+                </Card>
+              </ImageReveal>
+            ))}
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-center">
+          <button
+            type="button"
+            class="brand-cta flex items-center justify-center gap-2 px-5 py-3 text-sm rounded-full"
+            data-feature-toggle
+            aria-expanded="false"
+            aria-controls="product-features-more"
+          >
+            Afficher toutes les caractéristiques
+            <svg class="w-4 h-4 transition-transform duration-300" data-feature-toggle-icon fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    ) : null}
+  </Section>
+
   <!-- Main Capabilities -->
-  <Section background="gray">
+  <Section background="white">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
-      <FirepumpAccordion capabilities={firepumps} detailsBaseHref={productsBaseHref} client:load />
+      <FirepumpAccordion capabilities={firepumps} detailsBaseHref={productsBaseHref} locale="fr" client:load />
     </div>
     
     <!-- Grid View for Desktop -->
@@ -127,18 +300,14 @@ const ctaBgImg = heroBgImg;
           </div>
           <div class={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
             <ImageReveal client:load delay={index * 0.1}>
-              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
+              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-xl bg-white transition-shadow duration-300 group-hover:shadow-2xl">
                 <Image 
                   src={capability.image}
                   alt={capability.title}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
                   width={1200}
                   height={800}
                 />
-                <div class="absolute bottom-0 left-0 right-0 p-8 text-white drop-shadow-lg">
-                  <h3 class="text-2xl font-bold mb-2">{capability.title}</h3>
-                  <p class="text-gray-200">{capability.description}</p>
-                </div>
               </div>
             </ImageReveal>
           </div>
@@ -148,17 +317,40 @@ const ctaBgImg = heroBgImg;
   </Section>
 
   <!-- Process Section -->
-  <Section background="white">
+  <script>
+    const featureToggle = document.querySelector('[data-feature-toggle]');
+    const featureToggleIcon = document.querySelector('[data-feature-toggle-icon]');
+    const featureMore = document.querySelector('#product-features-more');
+
+    if (featureToggle && featureMore) {
+      featureToggle.addEventListener('click', () => {
+        const isOpen = featureMore.classList.contains('is-open');
+        featureMore.classList.toggle('is-open');
+        featureMore.classList.toggle('max-h-0', isOpen);
+        featureMore.classList.toggle('opacity-0', isOpen);
+        featureMore.classList.toggle('max-h-[2000px]', !isOpen);
+        featureMore.classList.toggle('opacity-100', !isOpen);
+        featureToggle.setAttribute('aria-expanded', String(!isOpen));
+        featureToggle.textContent = isOpen
+          ? 'Afficher toutes les caractéristiques'
+          : 'Afficher moins de caractéristiques';
+        if (featureToggleIcon) {
+          featureToggle.appendChild(featureToggleIcon);
+          featureToggleIcon.classList.toggle('rotate-180', !isOpen);
+        }
+      });
+    }
+  </script>
+  <!-- <Section background="white">
     <div class="text-center mb-16">
-      <div class="inline-flex items-center px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
-        <Workflow className="w-4 h-4 mr-2" />
-        Our Approach
+      <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
+        Notre approche
       </div>
       <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        Our <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-600">Process</span>
+        Notre <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-600">processus</span>
       </h2>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-        A streamlined approach to deliver exceptional results every time.
+        Une approche claire pour livrer des resultats constants.
       </p>
     </div>
 
@@ -167,31 +359,31 @@ const ctaBgImg = heroBgImg;
         { 
           step: '01', 
           title: 'Consultation', 
-          description: 'Understand your unique requirements and challenges',
+          description: 'Comprendre vos besoins opérationnels et contraintes terrain',
           icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>`
         },
         { 
           step: '02', 
-          title: 'Planning', 
-          description: 'Design customized solutions tailored to your needs',
+          title: 'Planification', 
+          description: 'Définir une solution adaptée à votre contexte',
           icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>`
         },
         { 
           step: '03', 
-          title: 'Implementation', 
-          description: 'Execute with precision and attention to detail',
+          title: 'Mise en œuvre', 
+          description: 'Exécuter avec rigueur et précision',
           icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>`
         },
         { 
           step: '04', 
-          title: 'Optimization', 
-          description: 'Continuous improvement and performance monitoring',
+          title: 'Optimisation', 
+          description: 'Suivi et amélioration continue des performances',
           icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>`
@@ -207,14 +399,14 @@ const ctaBgImg = heroBgImg;
         </Card>
       ))}
     </div>
-  </Section>
+  </Section> -->
 
   <!-- CTA Section -->
   <section class="relative py-24 md:py-28 overflow-hidden">
     <!-- Background Image -->
     <div class="absolute inset-0">
       <Image 
-        src={ctaBgImg}
+        src={heroBgImg}
         alt="Modern warehouse operations"
         class="w-full h-full object-cover"
         width={2070}
@@ -228,24 +420,24 @@ const ctaBgImg = heroBgImg;
       <div class="max-w-4xl mx-auto text-center text-white">
         <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
           <Flame className="w-4 h-4 mr-2" />
-          Fire Pump Readiness
+          Préparation incendie
         </div>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Protect Your Site with <span class="text-[var(--brand-400)]">Portable Fire Pumps</span>
+          Protéger votre site avec <span class="text-[var(--brand-400)]">des pompes à incendie portatives</span>
         </h2>
         <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-          High-flow, rapid-deploy pumps engineered for emergency response, remote sites, and rugged field use.
+          Pompes haut débit, déploiement rapide, adaptées aux interventions d'urgence et aux sites isolés.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <Button href={requestQuoteHref} size="lg" class="brand-cta group">
-            Get a Fire Pump Quote
+            Contact
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Button>
           <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl! group">
-            Find a Distributor
+            Trouver un distributeur
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

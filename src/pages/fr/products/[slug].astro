@@ -1,0 +1,461 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Section from '../../../components/ui/Section.astro';
+import Card from '../../../components/ui/Card.astro';
+import Button from '../../../components/ui/Button.astro';
+import { Image } from 'astro:assets';
+import ImageReveal from '../../../components/react/ImageReveal';
+import { getLocaleFromPathname, localizePath } from '@config/site';
+import { getFirepumps, type Firepump } from '../../../data/firepumps';
+import checkIcon from '@assets/icons/check.svg?url';
+import catalogPdf from '../../../data/Shibaura_Catalog2024_9.pdf';
+import ft500CurveImg from '@assets/graphs/FT500-curve.jpg';
+import ft500DimensionsImg from '@assets/graphs/FT500-dimensions.jpg';
+import ft300CurveImg from '@assets/graphs/FT300-curve.jpg';
+import ft300DimensionsImg from '@assets/graphs/FT300-dimensions.jpg';
+import fk500CurveImg from '@assets/graphs/FK500-curve.jpg';
+import fk500DimensionsImg from '@assets/graphs/FK500-dimensions.png';
+import ff500CurveImg from '@assets/graphs/FF500-curve.jpg';
+import ff500DimensionsImg from '@assets/graphs/FF500-dimensions.jpg';
+import p572sCurveImg from '@assets/graphs/P572S-curve.jpg';
+import p572sDimensionsImg from '@assets/graphs/P572S-dimensions.jpg';
+import tfCurveImg from '@assets/graphs/TF-curve.jpg';
+import tfDimensionsImg from '@assets/graphs/TF-dimensions.jpg';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+
+export async function getStaticPaths() {
+  const frFirepumps = getFirepumps('fr');
+  return frFirepumps.flatMap((pump) => {
+    const slugs = [pump.slug, ...(pump.aliases ?? [])];
+    return slugs.map((slug) => ({
+      params: { slug },
+      props: { pump }
+    }));
+  });
+}
+
+const { pump } = Astro.props as { pump: Firepump };
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const requestQuoteHref = localizePath('/contact-us', locale);
+const productsHref = localizePath('/products', locale);
+const manualPdf = pump.manualPdf ?? catalogPdf;
+const manualLabel = pump.manualPdf ? "Manuel d'exploitation PDF" : 'Spécifications PDF';
+
+const frFirepumps = getFirepumps('fr');
+const relatedPumps = frFirepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
+const leftSpecs = [1, 0, 5].map((i) => pump.keySpecs[i]).filter(Boolean);
+const rightSpecs = [4, 3, 2].map((i) => pump.keySpecs[i]).filter(Boolean);
+const heroSpecs = [...leftSpecs, ...rightSpecs];
+const operationVideo =
+  pump.slug === 'ft300-400-a'
+    ? {
+        model: 'FT300-A',
+        title: 'Fonctionnement de la pompe FT300-A',
+        description: 'Découvrez la FT300-A en action avec une démonstration complète.',
+        url: 'https://www.youtube.com/embed/zQEbmyU3i28'
+      }
+    : pump.slug === 'fk500-a'
+      ? {
+          model: 'FK500-A',
+          title: 'Fonctionnement de la pompe FK500-A',
+          description: 'Découvrez la FK500-A en fonctionnement dans une démonstration complète.',
+          url: 'https://www.youtube.com/embed/_pmvc3Xizew'
+        }
+      : pump.slug === 'ft510-a'
+        ? {
+            model: 'FT510-A',
+            title: 'Fonctionnement de la pompe FT510-A',
+            description: 'Découvrez la FT510-A en action avec une démonstration complète.',
+            url: 'https://www.youtube.com/embed/wUKDQSCwxiA'
+          }
+        : pump.slug === 'ff500ar-a'
+          ? {
+              model: 'FF500-AR',
+              title: 'Fonctionnement de la pompe FF500-AR',
+              description: 'Découvrez la FF500-AR en fonctionnement dans une démonstration complète.',
+              url: 'https://www.youtube.com/embed/yuKw3f8MA3g'
+            }
+          : pump.slug === 'p572s-a'
+            ? {
+                model: 'P572S-A',
+                title: 'Fonctionnement de la pompe P572S-A',
+                description: 'Découvrez la P572S-A en action avec une démonstration complète.',
+                url: 'https://www.youtube.com/embed/AOhStVKJxqE'
+              }
+            : pump.slug === 'tf516mh-ab'
+              ? {
+                  model: 'TF516MH-AB',
+                  title: 'Fonctionnement de la pompe TF516MH-AB',
+                  description: 'Découvrez la TF516MH-AB en fonctionnement sur le terrain.',
+                  url: 'https://www.youtube.com/embed/pn0K14dIxho'
+                }
+      : null;
+
+const performanceImagesBySlug: Record<string, { curve: ImageMetadata; dimensions: ImageMetadata }> = {
+  'ft510-a': { curve: ft500CurveImg, dimensions: ft500DimensionsImg },
+  'ft300-400-a': { curve: ft300CurveImg, dimensions: ft300DimensionsImg },
+  'fk500-a': { curve: fk500CurveImg, dimensions: fk500DimensionsImg },
+  'ff500ar-a': { curve: ff500CurveImg, dimensions: ff500DimensionsImg },
+  'p572s-a': { curve: p572sCurveImg, dimensions: p572sDimensionsImg },
+  'tf516mh-ab': { curve: tfCurveImg, dimensions: tfDimensionsImg }
+};
+
+const performanceImages = performanceImagesBySlug[pump.slug];
+---
+
+<BaseLayout title={`${pump.title} - Portable Fire Pumps`}>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-[var(--brand-ink)]">
+    <div class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/75 to-slate-900/40"></div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1 hidden lg:block">
+          <ImageReveal client:load>
+            <div class="relative bg-white/5 border border-white/10 rounded-3xl shadow-2xl overflow-hidden group">
+              <Image
+                src={pump.image}
+                alt={pump.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                width={1200}
+                height={800}
+              />
+              <div class="absolute inset-0 bg-black/2"></div>
+              <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/10 to-transparent"></div>
+            </div>
+          </ImageReveal>
+        </div>
+
+        <div class="order-1 lg:order-2">
+          <h1 class="text-4xl md:text-6xl font-bold text-white mb-3 leading-tight animate-fadeInUp">
+            <span class="brand-gradient-text">{pump.title}</span>
+          </h1>
+          <p class="text-xl text-slate-200 mb-2 animate-fadeInUp" style="animation-delay: 0.1s">
+            {pump.subtitle}
+          </p>
+          <p class="text-lg text-slate-300 mb-8 leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">
+            {pump.valueProp}
+          </p>
+
+          <div class="lg:hidden mb-8 animate-fadeInUp" style="animation-delay: 0.25s">
+            <div class="relative bg-white/5 border border-white/10 rounded-3xl shadow-2xl overflow-hidden group">
+              <Image
+                src={pump.image}
+                alt={pump.title}
+                class="w-full h-full object-cover"
+                width={1200}
+                height={800}
+              />
+              <div class="absolute inset-0 bg-black/2"></div>
+              <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/10 to-transparent"></div>
+            </div>
+          </div>
+
+          <div class="relative animate-fadeInUp" style="animation-delay: 0.3s">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              {heroSpecs.map((spec) => (
+                <div class="flex items-start gap-3">
+                  <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-white text-slate-900 shrink-0">
+                    <img src={spec.icon} alt="" class="w-5 h-5" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p class="text-xs uppercase tracking-wide text-slate-300">{spec.label}</p>
+                    <p class="text-white font-semibold whitespace-pre-line">{spec.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 animate-fadeInUp" style="animation-delay: 0.4s">
+            <a
+              href={manualPdf}
+              class="brand-cta px-6 py-3 text-base"
+              download
+            >
+              {manualLabel}
+            </a>
+            <Button href="#technical-specifications" size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
+              Spécifications
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </section>
+
+  {performanceImages && (
+    <Section background="white" class="!pt-12 !pb-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="px-[3px]">
+            <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4 text-center">
+              Courbe de performance
+            </h3>
+            <Image
+              src={performanceImages.curve}
+              alt={`${pump.title} performance curve`}
+              class="w-full h-auto object-contain"
+              width={1200}
+              height={900}
+            />
+          </div>
+          <div class="pl-[5px]">
+            <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4 text-center">
+              Dimensions
+            </h3>
+            <Image
+              src={performanceImages.dimensions}
+              alt={`${pump.title} dimensions`}
+              class="w-full h-auto object-contain"
+              width={1200}
+              height={900}
+            />
+          </div>
+        </div>
+      </div>
+    </Section>
+  )}
+
+  {operationVideo && (
+    <Section background="gray" class="!pt-12 !pb-4">
+      <div class="text-center mb-8 px-2">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+          {operationVideo.model}{' '}
+          <span class="brand-gradient-text">Fonctionnement de la pompe</span>
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          {operationVideo.description}
+        </p>
+      </div>
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-black">
+          <iframe
+            src={operationVideo.url}
+            title={`${operationVideo.title} video`}
+            class="absolute inset-0 w-full h-full"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
+      </div>
+    </Section>
+  )}
+
+  <!-- Key Benefits
+  <Section background="white" class="!py-12 lg:!py-16">
+    <div class="text-center mb-8 px-2">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        Key <span class="brand-gradient-text">Benefits</span>
+      </h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Why the {pump.title} is a reliable choice for rapid response teams.
+      </p>
+    </div>
+    <ul class="space-y-4 max-w-3xl mx-auto mt-4 px-4">
+      {pump.benefits.map((benefit) => (
+        <li class="flex items-center justify-center gap-4">
+          <div class="flex items-center justify-center w-8 h-8 rounded-md brand-gradient-bg text-white shrink-0">
+            <img src={checkIcon} alt="" class="w-4 h-4 invert" aria-hidden="true" />
+          </div>
+          <div class="w-[28rem] max-w-full text-left">
+            <div class="flex flex-wrap items-baseline gap-x-2">
+              <h3 class="text-lg font-bold text-gray-900">{benefit.title}</h3>
+              <p class="text-gray-600">{benefit.description}</p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </Section>
+  -->
+
+  <!-- Technical Specifications -->
+  <Section background="gray" id="technical-specifications" class="!py-12 lg:!py-16">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        Spécifications <span class="brand-gradient-text">techniques</span>
+      </h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Les données techniques nécessaires pour évaluer la {pump.title}.
+      </p>
+    </div>
+    <div class="space-y-6">
+      {pump.specsTable.groups.map((group) => (
+        <div class="overflow-x-auto bg-white rounded-2xl shadow-xl border border-gray-200 mx-[2px]">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="bg-gray-200 border-b border-gray-100">
+                <th
+                  colSpan={pump.specsTable.columns.length + 2}
+                  class="px-5 py-3 text-sm font-bold text-gray-700 uppercase tracking-wide text-center"
+                >
+                  {group.title}
+                </th>
+              </tr>
+              {pump.specsTable.columns.length > 2 && (
+                <tr class="border-b bg-gray-50">
+                  <th
+                    colSpan={2}
+                    class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide w-1/3 border-r border-gray-200 text-center"
+                  >
+                    Spécification
+                  </th>
+                  {pump.specsTable.columns.map((column) => (
+                    <th class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide border-r border-gray-200 last:border-r-0 text-center">
+                      {column}
+                    </th>
+                  ))}
+                </tr>
+              )}
+            </thead>
+            <tbody>
+              {(() => {
+                const rows = group.rows;
+                const rendered: {
+                  type: 'row' | 'discharge';
+                  row?: typeof rows[number];
+                  items?: typeof rows;
+                }[] = [];
+
+                for (let i = 0; i < rows.length; i += 1) {
+                  const row = rows[i];
+                  if (row.label.startsWith('Discharge performance') || row.label.startsWith('Performance de refoulement')) {
+                    const items = [];
+                    while (i < rows.length && (rows[i].label.startsWith('Discharge performance') || rows[i].label.startsWith('Performance de refoulement'))) {
+                      items.push(rows[i]);
+                      i += 1;
+                    }
+                    i -= 1;
+                    rendered.push({ type: 'discharge', items });
+                  } else {
+                    rendered.push({ type: 'row', row });
+                  }
+                }
+
+                const renderValueCells = (values: string[]) => {
+                  const cells: { value: string; span: number }[] = [];
+                  for (let i = 0; i < values.length; i += 1) {
+                    const value = values[i];
+                    let span = 1;
+                    while (i + span < values.length && values[i + span] === value) {
+                      span += 1;
+                    }
+                    cells.push({ value, span });
+                    i += span - 1;
+                  }
+                  return cells.map((cell) => (
+                    <td
+                      colSpan={cell.span}
+                      class="px-5 py-3 text-gray-900 font-semibold whitespace-pre-line border-r border-gray-200 last:border-r-0 text-center"
+                    >
+                      {cell.value}
+                    </td>
+                  ));
+                };
+
+                const rowsOutput = [];
+                rendered.forEach((entry, entryIndex) => {
+                  if (entry.type === 'row' && entry.row) {
+                    const rowIndex = entryIndex;
+                    rowsOutput.push(
+                      <tr class="border-b border-gray-100 last:border-b-0 bg-white">
+                        <th
+                          colSpan={2}
+                          class={`px-5 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide w-1/3 border-r border-gray-200 bg-gray-50 text-center ${
+                            rowIndex === group.rows.length - 1 ? 'border-b-0' : 'border-b border-black'
+                          }`}
+                        >
+                          {entry.row.label}
+                        </th>
+                        {renderValueCells(entry.row.values)}
+                      </tr>
+                    );
+                  }
+
+                  if (entry.type === 'discharge' && entry.items) {
+                    const dischargeRows = entry.items;
+                    dischargeRows.forEach((row, dischargeIndex) => {
+                      let subLabel = row.label.replace(/Discharge performance|Performance de refoulement/i, '').trim();
+                      if (subLabel.startsWith('(') && subLabel.endsWith(')')) {
+                        subLabel = subLabel.slice(1, -1);
+                      }
+                      rowsOutput.push(
+                        <tr class="border-b border-gray-100 last:border-b-0 bg-white">
+                          {dischargeIndex === 0 && (
+                            <th
+                              rowSpan={dischargeRows.length}
+                              class={`px-3 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wide border-r border-gray-200 bg-gray-50 text-center align-middle ${
+                                entryIndex === rendered.length - 1 ? 'border-b-0' : 'border-b border-black'
+                              }`}
+                            >
+                              <span style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                Performance de refoulement
+                              </span>
+                            </th>
+                          )}
+                          <th class="px-5 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide border-r border-gray-200 bg-gray-50 text-center">
+                            {subLabel}
+                          </th>
+                          {renderValueCells(row.values)}
+                        </tr>
+                      );
+                    });
+                  }
+                });
+
+                return rowsOutput;
+              })()}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Related Products -->
+  <Section background="white">
+    <div class="mb-10 px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        Pompes <span class="brand-gradient-text">associées</span>
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {relatedPumps.map((item) => (
+        <a
+          href={`${productsHref}/${item.slug}`}
+          class="group block animate-fadeInUp transition-transform duration-300 hover:-translate-y-1"
+        >
+          <div class="relative h-full overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
+            <div class="relative h-72 overflow-hidden bg-white">
+              <Image src={item.image} alt={item.title} class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-400" width={600} height={400} />
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-slate-950/82 via-slate-900/52 via-slate-900/20 to-transparent px-6 pb-2 pt-4 text-white">
+              <h3 class="flex items-center gap-2 text-lg font-bold leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                <span
+                  aria-hidden="true"
+                  class="w-7 h-7 shrink-0 drop-shadow-[0_1px_2px_rgba(0,0,0,0.75)]"
+                  style={`background-color: currentColor; -webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+                />
+                <span>{item.title}</span>
+              </h3>
+              <p class="text-sm text-white/95 mt-1 leading-snug drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{item.subtitle}</p>
+              <div class="mt-2 text-sm font-semibold text-white/95">
+                Voir les détails →
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </Section>
+</BaseLayout>

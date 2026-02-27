@@ -6,6 +6,7 @@ import logoMark from '@assets/shibaura-logo-mark.svg';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsHref = localizePath('/products', locale);
+const isFrench = locale === 'fr';
 ---
 
 <section class="relative h-screen min-h-[600px] flex items-center overflow-hidden safari-hero-offset">
@@ -45,24 +46,26 @@ const productsHref = localizePath('/products', locale);
               style={`background-color: currentColor; -webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
             />
           </span>
-          <span class="pl-7">Engineered for Firefighting & Rescue</span>
+          <span class="pl-7">{isFrench ? "Conçues pour l'incendie et le secours" : 'Engineered for Firefighting & Rescue'}</span>
         </div>
       
       <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
-        High-Performance
+        {isFrench ? 'Haute performance' : 'High-Performance'}
         <span class="block text-[var(--brand-400)] mt-2">
-          Portable Fire Pumps
+          {isFrench ? 'Pompes à incendie portatives' : 'Portable Fire Pumps'}
         </span>
       </h1>
       
       <p class="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
-        Since 1952, Shibaura has delivered proven portable fire pump performance.
+        {isFrench
+          ? 'Depuis 1952, Shibaura offre des performances éprouvées en pompes à incendie portatives.'
+          : 'Since 1952, Shibaura has delivered proven portable fire pump performance.'}
       </p>
 
       
       <div class="flex flex-col sm:flex-row items-start gap-4 mb-12 animate-fadeInUp" style="animation-delay: 0.2s">
         <Button href={productsHref} size="lg" class="group !bg-transparent !border-0 !shadow-none hover:!bg-transparent !px-0">
-          View Products
+          {isFrench ? 'Voir les produits' : 'View Products'}
           <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>

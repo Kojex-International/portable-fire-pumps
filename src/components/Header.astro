@@ -13,6 +13,7 @@ const enHref = localizePath(currentPathname, 'en');
 const frHref = localizePath(currentPathname, 'fr');
 const isEnglish = locale === 'en';
 const isFrench = locale === 'fr';
+const contactLabel = isFrench ? 'Contact' : 'Contact';
 const isActiveLink = (href: string) : boolean => { return href === currentPathname; }
 
 ---
@@ -102,7 +103,7 @@ const isActiveLink = (href: string) : boolean => { return href === currentPathna
         href={rfqHref}
         class="brand-cta px-6 py-2.5 text-sm"
       >
-        Contact
+        {contactLabel}
       </a>
     </div>
 

@@ -7,7 +7,7 @@ import { Image } from 'astro:assets';
 import ImageReveal from '../../../components/react/ImageReveal';
 import { Gauge, Flame } from 'lucide-react';
 
-import { firepumps } from '../../../data/firepumps';
+import { getFirepumps } from '../../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
 import logoMark from '@assets/shibaura-logo-mark.svg';
 import { getLocaleFromPathname, localizePath } from '@config/site';
@@ -16,22 +16,20 @@ const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const firepumps = getFirepumps('fr');
 
-const airCooledPumps = firepumps.filter((pump) =>
-  pump.keySpecs.some(
-    (spec) => spec.label === 'Cooling system' && spec.value.toLowerCase().includes('air')
-  )
-);
+const AIR_COOLED_SLUGS = new Set(['ft510-a', 'ft300-400-a', 'tf516mh-ab']);
+const airCooledPumps = firepumps.filter((pump) => AIR_COOLED_SLUGS.has(pump.slug));
 ---
 
-<BaseLayout title="Air-Cooled Portable Fire Pumps - Portable Fire Pumps">
+<BaseLayout title="Pompes à incendie portatives refroidies à l’air - Portable Fire Pumps">
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 bg-slate-900">
       <Image
         src={heroBgImg}
-        alt="Air-cooled portable fire pumps"
+        alt="Pompes à incendie portatives refroidies à l’air"
         class="w-full h-full object-cover"
         loading="eager"
         decoding="async"
@@ -47,17 +45,18 @@ const airCooledPumps = firepumps.filter((pump) =>
       <div class="max-w-4xl mx-auto text-center">
         <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
           <Gauge className="w-4 h-4 mr-2" />
-          Products
+          Produits
         </div>
 
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
           <span class="text-[var(--brand-400)]">
-            Air-Cooled Portable Fire Pumps
+            Refroidies à l’air<br />
+            Pompes à incendie portatives
           </span>
         </h1>
 
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
-          Lightweight, rapid-response pumps built for fast deployment and dependable output.
+          Pompes légères et rapides, conçues pour un déploiement immédiat et une performance fiable.
         </p>
       </div>
     </div>
@@ -71,10 +70,10 @@ const airCooledPumps = firepumps.filter((pump) =>
   </section>
 
   <!-- Main Capabilities -->
-  <Section background="gray">
+  <Section background="white">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
-      <FirepumpAccordion capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} client:load />
+      <FirepumpAccordion capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" client:load />
     </div>
 
     <!-- Grid View for Desktop -->
@@ -84,7 +83,7 @@ const airCooledPumps = firepumps.filter((pump) =>
           class={`group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center cursor-pointer transition-all duration-300 hover:-translate-y-1 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
           role="link"
           tabindex="0"
-          aria-label={`View details for ${capability.title}`}
+          aria-label={`Voir les détails pour ${capability.title}`}
           onclick={`if (event.target.closest('a,button')) return; window.location.href='${productsBaseHref}/${capability.slug}';`}
           onkeydown={`if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('a,button')) { event.preventDefault(); window.location.href='${productsBaseHref}/${capability.slug}'; }`}
         >
@@ -138,10 +137,6 @@ const airCooledPumps = firepumps.filter((pump) =>
                   width={1200}
                   height={800}
                 />
-                <div class="absolute bottom-0 left-0 right-0 p-8 text-white drop-shadow-lg">
-                  <h3 class="text-2xl font-bold mb-2">{capability.title}</h3>
-                  <p class="text-gray-200">{capability.description}</p>
-                </div>
               </div>
             </ImageReveal>
           </div>
@@ -156,7 +151,7 @@ const airCooledPumps = firepumps.filter((pump) =>
     <div class="absolute inset-0">
       <Image
         src={heroBgImg}
-        alt="Modern warehouse operations"
+        alt="Opérations de pompes à incendie portatives"
         class="w-full h-full object-cover"
         width={2070}
         height={1380}
@@ -169,24 +164,24 @@ const airCooledPumps = firepumps.filter((pump) =>
       <div class="max-w-4xl mx-auto text-center text-white">
         <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
           <Flame className="w-4 h-4 mr-2" />
-          Fire Pump Readiness
+          Préparation incendie
         </div>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Outfit Your Site with <span class="text-[var(--brand-400)]">Portable Fire Pumps</span>
+          Équipez votre site avec <span class="text-[var(--brand-400)]">des pompes à incendie portatives</span>
         </h2>
         <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-          High-flow, rapid-deploy pumps built for emergency response and rugged field use.
+          Pompes haut débit, déploiement rapide, adaptées aux interventions d'urgence et aux sites isolés.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <Button href={requestQuoteHref} size="lg" class="brand-cta group">
-            Get a Fire Pump Quote
+            Contact
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Button>
           <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl! group">
-            Find a Distributor
+            Trouver un distributeur
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

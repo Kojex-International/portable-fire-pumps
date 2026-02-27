@@ -14,9 +14,11 @@ interface Capability {
 interface Props {
   capabilities: Capability[];
   detailsBaseHref?: string;
+  locale?: 'en' | 'fr';
 }
 
-export default function FirepumpAccordion({ capabilities, detailsBaseHref = '/en/products' }: Props) {
+export default function FirepumpAccordion({ capabilities, detailsBaseHref = '/en/products', locale = 'en' }: Props) {
+  const isFrench = locale === 'fr';
   return (
     <Accordion.Root type="single" collapsible className="space-y-4">
       {capabilities.map((capability, index) => (
@@ -74,7 +76,7 @@ export default function FirepumpAccordion({ capabilities, detailsBaseHref = '/en
                 href={`${detailsBaseHref}/${capability.slug}`}
                 className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white brand-gradient-bg rounded-lg shadow-md hover:shadow-lg transition-all"
               >
-                View Details
+                {isFrench ? 'Voir les détails' : 'View Details'}
               </a>
             </div>
           </Accordion.Content>

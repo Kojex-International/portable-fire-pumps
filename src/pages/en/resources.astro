@@ -185,6 +185,13 @@ const faqs = [
   }
 ];
 
+const storageNotes = [
+  'Be sure to keep the fuel tank full. Low fuel leaves excess air in the tank, which can increase condensation and internal rust risk.',
+  'Gasoline has an approximate shelf life of six months. Use fresh fuel to protect pump reliability and performance.',
+  'Aged gasoline can degrade and create deposits that affect engine components, including the carburetor or fuel injection system.',
+  'Review the operation manual for your specific model. Storage guidance varies by pump type.'
+];
+
 ---
 
 <BaseLayout title="Resources - Portable Fire Pumps">
@@ -290,6 +297,8 @@ const faqs = [
           <a href="#pump-instruction-manuals" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Pump Operation Manuals</a>
           <span class="text-gray-300">•</span>
           <a href="#parts-lists" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Parts Lists</a>
+          <span class="text-gray-300">•</span>
+          <a href="#fire-pump-storage-notes" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Storage Notes</a>
         </div>
         <p id="doc-search-feedback" class="mt-3 text-sm text-gray-500" aria-live="polite"></p>
       </Card>
@@ -463,6 +472,32 @@ const faqs = [
           </div>
         );
       })}
+    </div>
+
+    <div id="fire-pump-storage-notes" class="mt-20">
+      <SectionHeader
+        badge="Storage Guidance"
+        badgeIconComponent={HelpCircle}
+        title="Notes on Fire Pump"
+        highlight="Storage"
+        description="Proper storage helps maintain pump performance and long-term reliability."
+        class="mb-8"
+      />
+
+      <Card class="p-8 border border-slate-200 shadow-sm">
+        <div class="space-y-4 text-slate-700 leading-relaxed">
+          <p>Thank you for your continued support of our products.</p>
+          <p>
+            Portable fire pumps are often stored for extended periods. With proper storage practices, you can preserve
+            performance and reduce avoidable service issues.
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            {storageNotes.map((note) => (
+              <li>{note}</li>
+            ))}
+          </ul>
+        </div>
+      </Card>
     </div>
   </Section>
 

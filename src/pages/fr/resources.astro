@@ -5,7 +5,7 @@ import Card from '../../components/ui/Card.astro';
 import SectionHeader from '../../components/ui/SectionHeader.astro';
 import ImageReveal from '../../components/react/ImageReveal';
 import { Image } from 'astro:assets';
-import { Library } from 'lucide-react';
+import { HelpCircle, Library } from 'lucide-react';
 
 import gettingStartedImg from '@assets/photo-1451187580459-43490279c0fa.jpg';
 import onboardingChecklistImg from '@assets/photo-1486406146926-c627a92ad1ab.jpg';
@@ -61,7 +61,7 @@ const iconPaths = {
 const docCategories = [
   {
     id: 'product-catalogs',
-    title: 'Getting Started',
+    title: 'Catalogues de produits',
     iconPath: iconPaths.catalog,
     image: pumpCatalogImg,
     color: 'from-[var(--brand-1)] to-[var(--brand-2)]',
@@ -69,15 +69,12 @@ const docCategories = [
     bgColor: 'bg-rose-50',
     iconColor: 'text-rose-600',
     docs: [
-      { title: 'Quick Start Guide', description: 'Get up and running in minutes with our comprehensive onboarding guide', type: 'PDF', size: '2.4 MB' },
-      { title: 'Onboarding Checklist', description: 'Everything you need to get started with our platform', type: 'PDF', size: '1.8 MB' },
-      { title: 'Service Overview', description: 'Understand our complete range of capabilities and services', type: 'PDF', size: '3.2 MB' },
-      { title: 'Product Catalog', description: 'Browse the full Shibaura portable fire pump lineup', type: 'PDF', size: '19 MB', href: catalogPdf, thumb: catalogCardImg }
+      { title: 'Catalogue produits Shibaura 2024', description: 'Consultez la gamme complète des pompes à incendie portatives Shibaura', type: 'PDF', size: '19 MB', href: catalogPdf, thumb: catalogCardImg }
     ]
   },
   {
     id: 'pump-instruction-manuals',
-    title: 'Operations Manual',
+    title: "Manuels d'exploitation des pompes",
     iconPath: iconPaths.manual,
     image: firepumpManualsImg,
     color: 'from-purple-500 to-pink-500',
@@ -85,19 +82,19 @@ const docCategories = [
     bgColor: 'bg-purple-50',
     iconColor: 'text-purple-600',
     docs: [
-      { title: 'FT300 / FT400', description: 'Air-cooled pump manual', type: 'PDF', size: '1.8 MB', href: ft300400ManualPdf, thumb: ft300Img },
-      { title: 'FT450/FT500', description: 'Air-cooled pump manual', type: 'PDF', size: '2.1 MB', href: ft450500ManualPdf, thumb: ft500Img },
-      { title: 'FT510', description: 'Air-cooled pump manual', type: 'PDF', size: '2.1 MB', href: ft510ManualPdf, thumb: ft510Img },
-      { title: 'TF516MH', description: 'Air-cooled pump manual', type: 'PDF', size: '44.6 KB', href: tf516mhManualPdf, thumb: tf516mhImg },
-      { title: 'TF745MH', description: 'Air-cooled pump manual', type: 'PDF', size: '3.9 MB', href: tf745mhManualPdf },
-      { title: 'P572S', description: 'Water-cooled pump manual', type: 'PDF', size: '0.7 MB', href: p572sManualPdf, thumb: p572sImg },
-      { title: 'FK500', description: 'Water-cooled pump manual', type: 'PDF', size: '2.5 MB', href: fk500ManualPdf, thumb: fk500Img },
-      { title: 'FF500', description: 'Water-cooled pump manual', type: 'PDF', size: '2.8 MB', href: ff500ManualPdf, thumb: ff500Img }
+      { title: 'FT300 / FT400', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '1.8 MB', href: ft300400ManualPdf, thumb: ft300Img },
+      { title: 'FT450/FT500', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '2.1 MB', href: ft450500ManualPdf, thumb: ft500Img },
+      { title: 'FT510', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '2.1 MB', href: ft510ManualPdf, thumb: ft510Img },
+      { title: 'TF516MH', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '44.6 KB', href: tf516mhManualPdf, thumb: tf516mhImg },
+      { title: 'TF745MH', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '3.9 MB', href: tf745mhManualPdf },
+      { title: 'P572S', description: "Manuel d'exploitation pompe refroidie à l'eau", type: 'PDF', size: '0.7 MB', href: p572sManualPdf, thumb: p572sImg },
+      { title: 'FK500', description: "Manuel d'exploitation pompe refroidie à l'eau", type: 'PDF', size: '2.5 MB', href: fk500ManualPdf, thumb: fk500Img },
+      { title: 'FF500', description: "Manuel d'exploitation pompe refroidie à l'eau", type: 'PDF', size: '2.8 MB', href: ff500ManualPdf, thumb: ff500Img }
     ]
   },
   {
     id: 'parts-lists',
-    title: 'Technical Documentation',
+    title: 'Listes de pièces',
     iconPath: iconPaths.parts,
     image: partsListImg,
     color: 'from-green-500 to-emerald-500',
@@ -105,60 +102,60 @@ const docCategories = [
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
     docs: [
-      { title: 'FI6000/FI7000/FI8000', description: 'Parts list', type: 'PDF', size: '1.1 MB', href: fi6000fi7000fi8000PartsPdf, thumb: ff500Img },
-      { title: 'FT300/FT400', description: 'Parts list', type: 'PDF', size: '2.5 MB', href: ft300ft400PartsPdf, thumb: ft300Img },
-      { title: 'FT450/FT500', description: 'Parts list', type: 'PDF', size: '4.2 MB', href: ft450ft500PartsPdf, thumb: ft500Img },
-      { title: 'FT510', description: 'Parts list', type: 'PDF', size: '4.2 MB', href: ft510PartsPdf, thumb: ft510Img },
-      { title: 'P509R', description: 'Parts list', type: 'PDF', size: '0.7 MB', href: p509rPartsPdf },
-      { title: 'P555', description: 'Parts list', type: 'PDF', size: '0.5 MB', href: p555PartsPdf },
-      { title: 'P572', description: 'Parts list', type: 'PDF', size: '1.0 MB', href: p572PartsPdf, thumb: p572sImg }
+      { title: 'FI6000/FI7000/FI8000', description: 'Liste de pièces', type: 'PDF', size: '1.1 MB', href: fi6000fi7000fi8000PartsPdf, thumb: ff500Img },
+      { title: 'FT300/FT400', description: 'Liste de pièces', type: 'PDF', size: '2.5 MB', href: ft300ft400PartsPdf, thumb: ft300Img },
+      { title: 'FT450/FT500', description: 'Liste de pièces', type: 'PDF', size: '4.2 MB', href: ft450ft500PartsPdf, thumb: ft500Img },
+      { title: 'FT510', description: 'Liste de pièces', type: 'PDF', size: '4.2 MB', href: ft510PartsPdf, thumb: ft510Img },
+      { title: 'P509R', description: 'Liste de pièces', type: 'PDF', size: '0.7 MB', href: p509rPartsPdf },
+      { title: 'P555', description: 'Liste de pièces', type: 'PDF', size: '0.5 MB', href: p555PartsPdf },
+      { title: 'P572', description: 'Liste de pièces', type: 'PDF', size: '1.0 MB', href: p572PartsPdf, thumb: p572sImg }
     ]
   },
-  {
-    title: 'Compliance & Certifications',
-    iconPath: iconPaths.shield,
-    image: technicalDocumentationImg,
-    color: 'from-amber-500 to-orange-500',
-    gradient: 'linear-gradient(135deg, #f59e0b, #f97316)',
-    bgColor: 'bg-amber-50',
-    iconColor: 'text-amber-600',
-    docs: [
-      { title: 'ISO 9001 Certificate', description: 'Quality management system certification documentation', type: 'PDF', size: '1.2 MB' },
-      { title: 'FDA Registration', description: 'Food and drug administration compliance records', type: 'PDF', size: '2.3 MB' },
-      { title: 'C-TPAT Certification', description: 'Customs trade partnership against terrorism', type: 'PDF', size: '1.8 MB' },
-      { title: 'Safety Data Sheets', description: 'Comprehensive material safety information database', type: 'PDF', size: '5.4 MB' }
-    ]
-  },
-  {
-    title: 'Best Practices',
-    iconPath: iconPaths.lightbulb,
-    image: operationsManualImg,
-    color: 'from-indigo-500 to-blue-500',
-    gradient: 'linear-gradient(135deg, #6366f1, #3b82f6)',
-    bgColor: 'bg-indigo-50',
-    iconColor: 'text-indigo-600',
-    docs: [
-      { title: 'Inventory Optimization', description: 'Strategies to maximize efficiency and reduce costs', type: 'PDF', size: '3.6 MB' },
-      { title: 'Packaging Guidelines', description: 'Best practices for product protection and presentation', type: 'PDF', size: '2.8 MB' },
-      { title: 'Supply Chain Tips', description: 'Proven methods to streamline your operations', type: 'PDF', size: '4.2 MB' },
-      { title: 'Sustainability Guide', description: 'Eco-friendly logistics solutions and practices', type: 'PDF', size: '3.9 MB' }
-    ]
-  },
-  {
-    title: 'Forms & Templates',
-    iconPath: iconPaths.fileText,
-    image: formsTemplatesImg,
-    color: 'from-teal-500 to-cyan-500',
-    gradient: 'linear-gradient(135deg, #14b8a6, #06b6d4)',
-    bgColor: 'bg-teal-50',
-    iconColor: 'text-teal-600',
-    docs: [
-      { title: 'Bill of Lading Template', description: 'Standard shipping documentation template', type: 'DOC', size: '0.5 MB' },
-      { title: 'Packing List Form', description: 'Itemized shipment details and inventory form', type: 'XLS', size: '0.3 MB' },
-      { title: 'Inspection Checklist', description: 'Quality control and verification template', type: 'DOC', size: '0.4 MB' },
-      { title: 'Incident Report Form', description: 'Standardized issue reporting and tracking form', type: 'PDF', size: '0.6 MB' }
-    ]
-  }
+  // {
+  //   title: 'Compliance & Certifications',
+  //   iconPath: iconPaths.shield,
+  //   image: technicalDocumentationImg,
+  //   color: 'from-amber-500 to-orange-500',
+  //   gradient: 'linear-gradient(135deg, #f59e0b, #f97316)',
+  //   bgColor: 'bg-amber-50',
+  //   iconColor: 'text-amber-600',
+  //   docs: [
+  //     { title: 'ISO 9001 Certificate', description: 'Quality management system certification documentation', type: 'PDF', size: '1.2 MB' },
+  //     { title: 'FDA Registration', description: 'Food and drug administration compliance records', type: 'PDF', size: '2.3 MB' },
+  //     { title: 'C-TPAT Certification', description: 'Customs trade partnership against terrorism', type: 'PDF', size: '1.8 MB' },
+  //     { title: 'Safety Data Sheets', description: 'Comprehensive material safety information database', type: 'PDF', size: '5.4 MB' }
+  //   ]
+  // },
+  // {
+  //   title: 'Best Practices',
+  //   iconPath: iconPaths.lightbulb,
+  //   image: operationsManualImg,
+  //   color: 'from-indigo-500 to-blue-500',
+  //   gradient: 'linear-gradient(135deg, #6366f1, #3b82f6)',
+  //   bgColor: 'bg-indigo-50',
+  //   iconColor: 'text-indigo-600',
+  //   docs: [
+  //     { title: 'Inventory Optimization', description: 'Strategies to maximize efficiency and reduce costs', type: 'PDF', size: '3.6 MB' },
+  //     { title: 'Packaging Guidelines', description: 'Best practices for product protection and presentation', type: 'PDF', size: '2.8 MB' },
+  //     { title: 'Supply Chain Tips', description: 'Proven methods to streamline your operations', type: 'PDF', size: '4.2 MB' },
+  //     { title: 'Sustainability Guide', description: 'Eco-friendly logistics solutions and practices', type: 'PDF', size: '3.9 MB' }
+  //   ]
+  // },
+  // {
+  //   title: 'Forms & Templates',
+  //   iconPath: iconPaths.fileText,
+  //   image: formsTemplatesImg,
+  //   color: 'from-teal-500 to-cyan-500',
+  //   gradient: 'linear-gradient(135deg, #14b8a6, #06b6d4)',
+  //   bgColor: 'bg-teal-50',
+  //   iconColor: 'text-teal-600',
+  //   docs: [
+  //     { title: 'Bill of Lading Template', description: 'Standard shipping documentation template', type: 'DOC', size: '0.5 MB' },
+  //     { title: 'Packing List Form', description: 'Itemized shipment details and inventory form', type: 'XLS', size: '0.3 MB' },
+  //     { title: 'Inspection Checklist', description: 'Quality control and verification template', type: 'DOC', size: '0.4 MB' },
+  //     { title: 'Incident Report Form', description: 'Standardized issue reporting and tracking form', type: 'PDF', size: '0.6 MB' }
+  //   ]
+  // }
 ];
 
 const faqs = [
@@ -187,15 +184,22 @@ const faqs = [
     answer: 'Yes, our mobile application is available for both iOS and Android devices. You can download it from the App Store or Google Play Store. The app provides full access to all documentation and features offline reading capabilities.'
   }
 ];
+
+const storageNotes = [
+  "Assurez-vous que le réservoir d'essence reste plein. Un niveau bas laisse davantage d'air dans le réservoir et augmente les risques de condensation et de corrosion.",
+  "La durée de conservation de l'essence est d'environ six mois. Utilisez toujours du carburant récent pour préserver la fiabilité et les performances.",
+  "Une essence vieillie peut se dégrader et créer des dépôts qui perturbent le fonctionnement du moteur, du carburateur ou du système d'injection.",
+  "Consultez le mode d'emploi de votre modèle. Les bonnes pratiques de stockage peuvent varier selon le type de pompe."
+];
 ---
 
-<BaseLayout title="Resources - Portable Fire Pumps">
+<BaseLayout title="Ressources - Portable Fire Pumps">
   <!-- Hero Section with Professional Background -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <div class="absolute inset-0 bg-slate-900">
       <Image 
         src={heroBgImg}
-        alt="Professional documentation and resources"
+        alt="Documentation et ressources"
         class="w-full h-full object-cover"
         loading="eager"
         decoding="async"
@@ -210,18 +214,17 @@ const faqs = [
       <div class="max-w-4xl mx-auto text-center">
         <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
           <Library className="w-4 h-4 mr-2" />
-          Comprehensive Resource Center
+          Centre de ressources
         </div>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
           <span class="text-[var(--brand-400)]">
-            Resources
+            Ressources
           </span>
         </h1>
         
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
-          Access comprehensive guides, technical documentation, compliance certificates, 
-          and resources to optimize your logistics operations.
+          Téléchargez les catalogues, les manuels d'exploitation et les listes de pièces.
         </p>
 
         <div class="flex flex-wrap justify-center gap-4 text-sm text-slate-300 animate-fadeInUp" style="animation-delay: 0.2s">
@@ -229,19 +232,19 @@ const faqs = [
             <svg class="w-4 h-4 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>100+ Documents</span>
+            <span>Documentation pompes</span>
           </div>
           <div class="flex items-center">
             <svg class="w-4 h-4 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Regular Updates</span>
+            <span>Mises à jour régulières</span>
           </div>
           <div class="flex items-center">
             <svg class="w-4 h-4 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>24/7 Access</span>
+            <span>Accès 24/7</span>
           </div>
         </div>
       </div>
@@ -266,7 +269,7 @@ const faqs = [
             </svg>
             <input
               type="text"
-              placeholder="Search documentation, guides, and resources..."
+              placeholder="Rechercher des documents, manuels et ressources..."
               class="w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg"
               id="doc-search"
             />
@@ -274,36 +277,38 @@ const faqs = [
               id="doc-search-clear"
               type="button"
               class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700"
-              aria-label="Clear search"
+              aria-label="Effacer la recherche"
             >
-              Clear
+              Effacer
             </button>
           </div>
           <button id="doc-search-submit" type="submit" class="brand-cta !px-8 !py-4 !rounded-xl text-base flex items-center justify-center gap-2 transition-transform active:scale-95">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            Search
+            Rechercher
           </button>
         </form>
         <div class="mt-4 flex flex-wrap gap-2">
-          <span class="text-sm text-gray-500">Quick links:</span>
-          <a href="#product-catalogs" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Product Catalogs</a>
+          <span class="text-sm text-gray-500">Liens rapides :</span>
+          <a href="#product-catalogs" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Catalogues de produits</a>
           <span class="text-gray-300">•</span>
-          <a href="#pump-instruction-manuals" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Pump Manuals</a>
+          <a href="#pump-instruction-manuals" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Manuels d'exploitation</a>
           <span class="text-gray-300">•</span>
-          <a href="#parts-lists" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Parts Lists</a>
+          <a href="#parts-lists" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Listes de pièces</a>
+          <span class="text-gray-300">•</span>
+          <a href="#fire-pump-storage-notes" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Notes de stockage</a>
         </div>
         <p id="doc-search-feedback" class="mt-3 text-sm text-gray-500" aria-live="polite"></p>
       </Card>
     </div>
 
     <SectionHeader
-      badge="Documentation Library"
+      badge="Bibliothèque documentaire"
       badgeIconComponent={Library}
-      title="Browse Available"
-      highlight="Resources"
-      description="Access product catalogs, manuals, and parts lists in one place."
+      title="Parcourir les"
+      highlight="ressources disponibles"
+      description="Accédez aux catalogues, manuels et listes de pièces en un seul endroit."
       class="mb-16"
     />
 
@@ -333,7 +338,7 @@ const faqs = [
                       </svg>
                     </div>
                     <h2 class="text-4xl md:text-5xl font-bold mb-2">{category.title}</h2>
-                    <p class="text-lg text-white/90">{category.docs.length} Documents Available</p>
+                    <p class="text-lg text-white/90">{category.docs.length} documents disponibles</p>
                   </div>
                 </div>
               </div>
@@ -372,7 +377,7 @@ const faqs = [
                               </h3>
                               <p class="text-sm text-gray-600 leading-relaxed">{doc.description}</p>
                               <div class="mt-auto pt-2 mb-4 flex items-center text-xs text-gray-500">
-                                <span>Size: {doc.size}</span>
+                                <span>Taille : {doc.size}</span>
                               </div>
                             </div>
                             <div class="shrink-0 w-24 flex flex-col items-end gap-1">
@@ -446,7 +451,7 @@ const faqs = [
                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                           </svg>
-                          <span>Download</span>
+                          <span>Télécharger</span>
                         </a>
                       ) : (
                         <button
@@ -455,7 +460,7 @@ const faqs = [
                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                           </svg>
-                          <span>Download</span>
+                          <span>Télécharger</span>
                         </button>
                       )}
                     </Card>
@@ -466,6 +471,32 @@ const faqs = [
           </div>
         );
       })}
+    </div>
+
+    <div id="fire-pump-storage-notes" class="mt-20">
+      <SectionHeader
+        badge="Conseils de stockage"
+        badgeIconComponent={HelpCircle}
+        title="Remarques sur le stockage"
+        highlight="de la pompe à incendie"
+        description="Un stockage adapté aide à conserver les performances et la fiabilité de la pompe."
+        class="mb-8"
+      />
+
+      <Card class="p-8 border border-slate-200 shadow-sm">
+        <div class="space-y-4 text-slate-700 leading-relaxed">
+          <p>Merci beaucoup pour votre soutien continu de nos produits au quotidien.</p>
+          <p>
+            La pompe à incendie portative est souvent stockée pendant une longue période. Un stockage approprié permet
+            de maintenir pleinement ses performances.
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            {storageNotes.map((note) => (
+              <li>{note}</li>
+            ))}
+          </ul>
+        </div>
+      </Card>
     </div>
   </Section>
 
@@ -495,9 +526,9 @@ const faqs = [
 
       if (searchFeedback) {
         if (!term) {
-          searchFeedback.textContent = `Showing all ${docCards.length} resources`;
+          searchFeedback.textContent = `${docCards.length} ressources affichées`;
         } else {
-          searchFeedback.textContent = `Showing ${visibleCount} result${visibleCount === 1 ? '' : 's'} for "${value.trim()}"`;
+          searchFeedback.textContent = `${visibleCount} résultat${visibleCount === 1 ? '' : 's'} pour "${value.trim()}"`;
         }
       }
 
@@ -569,9 +600,10 @@ const faqs = [
   </script>
 
   <!-- FAQ Section -->
-  <Section background="white" id="faq">
+  <!-- <Section background="white" id="faq">
     <div class="text-center mb-16">
-      <div class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
+      <div class="inline-flex items-center px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
+        <HelpCircle className="w-4 h-4 mr-2" />
         Support
       </div>
       <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -605,10 +637,10 @@ const faqs = [
         </ImageReveal>
       ))}
     </div>
-  </Section>
+  </Section> -->
 
   <!-- Help Section -->
-  <Section background="gradient">
+  <!-- <Section background="gradient">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
         <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -681,7 +713,7 @@ const faqs = [
         </ImageReveal>
       </div>
     </div>
-  </Section>
+  </Section> -->
 </BaseLayout>
 
 <style>

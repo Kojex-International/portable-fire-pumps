@@ -3,9 +3,34 @@ import { User, Building2, Briefcase, Calendar, Package, Flame, Droplets, Wrench,
 
 interface RFQFormProps {
   action?: string;
+  locale?: 'en' | 'fr';
 }
 
-export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps) {
+export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }: RFQFormProps) {
+  const isFrench = locale === 'fr';
+  const t = {
+    contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
+    firstName: isFrench ? 'Prénom' : 'First Name',
+    lastName: isFrench ? 'Nom' : 'Last Name',
+    email: isFrench ? 'Adresse courriel' : 'Email Address',
+    phone: isFrench ? 'Téléphone' : 'Phone Number',
+    orgInfo: isFrench ? "Informations de l'organisation" : 'Organization Information',
+    orgName: isFrench ? "Nom de l'organisation" : 'Organization Name',
+    industry: isFrench ? 'Secteur' : 'Industry',
+    selectIndustry: isFrench ? 'Sélectionnez un secteur' : 'Select an industry',
+    inquiry: isFrench ? 'Demande pompe' : 'Pump Inquiry',
+    needs: isFrench ? 'De quoi avez-vous besoin ?' : 'What do you need?',
+    ifQuote: isFrench ? 'Si vous demandez un devis :' : 'If requesting a quote:',
+    timeline: isFrench ? "Échéancier d'achat" : 'Purchase Timeline',
+    selectTimeline: isFrench ? "Sélectionnez l'échéancier" : 'Select timeline',
+    quantity: isFrench ? 'Quantité estimée' : 'Estimated Quantity',
+    qtyPlaceholder: isFrench ? 'ex. : 1-5 unités' : 'e.g., 1-5 units',
+    details: isFrench ? 'Détails de la demande' : 'Inquiry Details',
+    detailsPlaceholder: isFrench
+      ? "Veuillez inclure votre demande ainsi que des détails sur l'usage prévu, les conditions du site, la source d'eau et les modèles ou accessoires souhaités."
+      : 'Please include your inquiry and any details about your use case, site conditions, water source, and any preferred models or accessories.',
+    submit: isFrench ? 'Envoyer la demande' : 'Submit Request',
+  };
   return (
     <form
       className="space-y-6"
@@ -25,7 +50,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
             <User className="w-5 h-5 text-amber-700" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
-            Contact Information
+            {t.contactInfo}
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -34,7 +59,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               htmlFor="firstName"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              First Name <span className="text-red-500">*</span>
+              {t.firstName} <span className="text-red-500">*</span>
             </Label.Root>
             <input
               type="text"
@@ -49,7 +74,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               htmlFor="lastName"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Last Name <span className="text-red-500">*</span>
+              {t.lastName} <span className="text-red-500">*</span>
             </Label.Root>
             <input
               type="text"
@@ -64,7 +89,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               htmlFor="email"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Email Address <span className="text-red-500">*</span>
+              {t.email} <span className="text-red-500">*</span>
             </Label.Root>
             <input
               type="email"
@@ -79,7 +104,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               htmlFor="phone"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Phone Number
+              {t.phone}
             </Label.Root>
             <input
               type="tel"
@@ -98,7 +123,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
             <Building2 className="w-5 h-5 text-orange-700" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
-            Organization Information
+            {t.orgInfo}
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -107,7 +132,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               htmlFor="organization"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Organization Name <span className="text-red-500">*</span>
+              {t.orgName} <span className="text-red-500">*</span>
             </Label.Root>
             <input
               type="text"
@@ -122,7 +147,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               htmlFor="industry"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Industry <span className="text-red-500">*</span>
+              {t.industry} <span className="text-red-500">*</span>
             </Label.Root>
             <select
               id="industry"
@@ -130,17 +155,17 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
             >
-              <option value="">Select an industry</option>
-              <option value="municipal">Municipal Fire Services</option>
-              <option value="government">Government Agencies</option>
-              <option value="wildland">Wildland Firefighting</option>
-              <option value="industrial">Industrial & Plant Safety</option>
-              <option value="utilities">Utilities & Infrastructure</option>
-              <option value="forestry">Forestry & Remote Operations</option>
-              <option value="contractor">Firefighting Contractors</option>
-              <option value="emergency">Emergency Management</option>
-              <option value="dealer">Dealer / Reseller</option>
-              <option value="other">Other</option>
+              <option value="">{t.selectIndustry}</option>
+              <option value="municipal">{isFrench ? 'Services incendie municipaux' : 'Municipal Fire Services'}</option>
+              <option value="government">{isFrench ? 'Organismes gouvernementaux' : 'Government Agencies'}</option>
+              <option value="wildland">{isFrench ? 'Lutte contre les feux de végétation' : 'Wildland Firefighting'}</option>
+              <option value="industrial">{isFrench ? 'Sécurité industrielle et usine' : 'Industrial & Plant Safety'}</option>
+              <option value="utilities">{isFrench ? 'Services publics et infrastructures' : 'Utilities & Infrastructure'}</option>
+              <option value="forestry">{isFrench ? 'Foresterie et opérations éloignées' : 'Forestry & Remote Operations'}</option>
+              <option value="contractor">{isFrench ? 'Entrepreneurs en lutte incendie' : 'Firefighting Contractors'}</option>
+              <option value="emergency">{isFrench ? 'Gestion des urgences' : 'Emergency Management'}</option>
+              <option value="dealer">{isFrench ? 'Distributeur / revendeur' : 'Dealer / Reseller'}</option>
+              <option value="other">{isFrench ? 'Autre' : 'Other'}</option>
             </select>
           </div>
         </div>
@@ -153,22 +178,22 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
             <Flame className="w-5 h-5 text-rose-700" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
-              Pump Inquiry
+              {t.inquiry}
             </h2>
         </div>
         <div className="space-y-6">
           <div>
             <Label.Root className="block text-sm font-medium text-gray-700 mb-3">
-              What do you need?
+              {t.needs}
             </Label.Root>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { id: 'pump-selection', label: 'Pump recommendation', icon: Flame },
-                { id: 'accessories', label: 'Accessories & fittings', icon: Droplets },
-                { id: 'deployment', label: 'Deployment advice', icon: MapPin },
-                { id: 'service-parts', label: 'Parts & service support', icon: Wrench },
-                { id: 'training', label: 'Operator training', icon: Users },
-                { id: 'request-quote', label: 'Request a quote', icon: FileText },
+                { id: 'pump-selection', label: isFrench ? 'Recommandation de pompe' : 'Pump recommendation', icon: Flame },
+                { id: 'accessories', label: isFrench ? 'Accessoires et raccords' : 'Accessories & fittings', icon: Droplets },
+                { id: 'deployment', label: isFrench ? "Conseils de déploiement" : 'Deployment advice', icon: MapPin },
+                { id: 'service-parts', label: isFrench ? 'Support pièces et service' : 'Parts & service support', icon: Wrench },
+                { id: 'training', label: isFrench ? 'Formation opérateur' : 'Operator training', icon: Users },
+                { id: 'request-quote', label: isFrench ? 'Demander un devis' : 'Request a quote', icon: FileText },
               ].map((service) => {
                 const IconComponent = service.icon;
                 return (
@@ -199,7 +224,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
           </div>
 
           <div className="text-sm font-medium text-gray-700">
-            If requesting a quote:
+            {t.ifQuote}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -208,7 +233,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
                 className="flex items-center text-sm font-medium text-gray-700 mb-2"
               >
                 <Calendar className="w-4 h-4 mr-2 text-gray-500" />
-                Purchase Timeline
+                {t.timeline}
               </Label.Root>
               <div className="relative">
                 <select
@@ -216,12 +241,12 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
                   name="timeline"
                   className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-white"
                 >
-                  <option value="">Select timeline</option>
+                  <option value="">{t.selectTimeline}</option>
                   <option value="1-4-months">1-4 months</option>
                   <option value="3-6-months">3-6 months</option>
                   <option value="6-plus-months">6+ months</option>
-                  <option value="planning">Planning / Budgeting</option>
-                  <option value="other">Other</option>
+                  <option value="planning">{isFrench ? 'Planification / budget' : 'Planning / Budgeting'}</option>
+                  <option value="other">{isFrench ? 'Autre' : 'Other'}</option>
                 </select>
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
               </div>
@@ -232,14 +257,14 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
                 className="flex items-center text-sm font-medium text-gray-700 mb-2"
               >
                 <Package className="w-4 h-4 mr-2 text-gray-500" />
-                Estimated Quantity
+                {t.quantity}
               </Label.Root>
               <div className="relative">
                 <input
                   type="text"
                   id="volume"
                   name="volume"
-                  placeholder="e.g., 1-5 units"
+                  placeholder={t.qtyPlaceholder}
                   className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                 />
                 <Package className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
@@ -252,14 +277,14 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
               htmlFor="details"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Inquiry Details <span className="text-red-500">*</span>
+              {t.details} <span className="text-red-500">*</span>
             </Label.Root>
             <textarea
               id="details"
               name="details"
               rows={6}
               required
-              placeholder="Please include your inquiry and any details about your use case, site conditions, water source, and any preferred models or accessories."
+              placeholder={t.detailsPlaceholder}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition resize-none"
             />
           </div>
@@ -272,7 +297,7 @@ export default function RFQForm({ action = '/contact-us/thanks' }: RFQFormProps)
           type="submit"
           className="w-full brand-cta px-8 py-4 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-95 flex items-center justify-center space-x-2"
         >
-          <span>Submit Request</span>
+          <span>{t.submit}</span>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>

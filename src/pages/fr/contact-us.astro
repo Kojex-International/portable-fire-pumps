@@ -2,18 +2,19 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Section from '@components/ui/Section.astro';
 import Card from '@components/ui/Card.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
 import RFQForm from '@components/react/RFQForm';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import { Image } from 'astro:assets';
 import { MessageSquare, Clock, Shield, CheckCircle2, Phone, Mail, MessageCircle, Award, TrendingUp, Users } from 'lucide-react';
-import rfqBgImg from '@assets/photo-1558618666-fcd25c85cd64.jpg';
+import rfqBgImg from '@assets/contactus.png';
 import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const thanksHref = localizePath('/contact-us/thanks', locale);
 ---
 
-<BaseLayout title="Contact Us - Portable Fire Pumps">
+<BaseLayout title="Contact - Portable Fire Pumps">
   <!-- Hero Section with Professional Image -->
   <section class="relative h-[500px] md:h-[600px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
@@ -36,38 +37,45 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
       <div class="max-w-4xl mx-auto text-center">
         <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 animate-fadeInUp">
           <MessageSquare className="w-4 h-4 mr-2" />
-          Get Your Custom Quote Today
+          Contact ventes et support
         </div>
         
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp" style="animation-delay: 0.1s">
-          Request a <span class="text-[var(--brand-400)]">Quote</span>
+          <span class="text-[var(--brand-400)]">Contact</span>
         </h1>
         
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">
-          Get a customized quote tailored to your specific logistics and manufacturing needs. 
-          We typically respond within 24 hours with a comprehensive proposal.
+          Contactez-nous pour un devis ou pour discuter de vos besoins en pompes à incendie, de votre contexte d'utilisation et du support pièces/service.
+          Nous répondons généralement sous 24 heures avec les prochaines étapes.
         </p>
 
         <!-- Quick Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20 animate-fadeInUp" style="animation-delay: 0.3s">
           <div class="group">
             <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">24hr</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Response Time</div>
+            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Délai de réponse</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">500+</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Happy Clients</div>
+            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">70+ ans</div>
+            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Expertise pompes</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">99.9%</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">On-Time Rate</div>
+            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">Terrain</div>
+            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Fiabilité</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">15+</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Facilities</div>
+            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">Support</div>
+            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Pièces & service</div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
     </div>
 
     <!-- Wave separator -->
@@ -84,40 +92,40 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
       <!-- Form -->
       <div class="lg:col-span-2">
         <Card>
-          <RFQForm action={thanksHref} />
+          <RFQForm action={thanksHref} locale="fr" />
         </Card>
       </div>
 
       <!-- Sidebar -->
       <div class="space-y-6">
         <!-- Contact Info Card -->
-        <Card class="bg-linear-to-br from-blue-50 to-teal-50 border-blue-200">
+        <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-linear-to-br from-blue-600 to-teal-600 flex items-center justify-center mr-3">
-              <Phone className="w-5 h-5 text-white" />
+            <div class="w-10 h-10 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center mr-3">
+              <Phone className="w-5 h-5 text-amber-700" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900">Need Help?</h3>
+            <h3 class="text-xl font-bold text-gray-900">Besoin d'aide ?</h3>
           </div>
           <div class="space-y-4 text-sm">
-            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-                <Phone className="w-5 h-5 text-blue-600" />
+            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
+                <Phone className="w-5 h-5 text-amber-700" />
               </div>
               <div>
-                <div class="font-semibold text-gray-900">Phone</div>
-                <div class="text-gray-600 font-medium">1-800-LOGI-MANUF</div>
-                <div class="text-gray-500 text-xs">Mon-Fri, 8am-6pm EST</div>
+                <div class="font-semibold text-gray-900">Téléphone</div>
+                <div class="text-gray-600 font-medium">438 377 6729</div>
+                <div class="text-gray-500 text-xs">Lun-Ven, 8h-18h EST</div>
               </div>
             </div>
 
-            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center shrink-0">
-                <Mail className="w-5 h-5 text-teal-600" />
+            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
+                <Mail className="w-5 h-5 text-amber-700" />
               </div>
               <div>
-                <div class="font-semibold text-gray-900">Email</div>
-                <div class="text-gray-600 font-medium">quotes@astroflow.com</div>
-                <div class="text-gray-500 text-xs">24-hour response time</div>
+                <div class="font-semibold text-gray-900">Courriel</div>
+                <div class="text-gray-600 font-medium">info@kojex.com</div>
+                <div class="text-gray-500 text-xs">Réponse sous 24 h</div>
               </div>
             </div>
 
@@ -126,77 +134,77 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         </Card>
 
         <!-- What to Expect Card -->
-        <Card class="bg-linear-to-br from-primary-50 via-blue-50 to-secondary-50 border-primary-200">
+        <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-              <Clock className="w-5 h-5 text-white" />
+            <div class="w-10 h-10 rounded-lg bg-orange-100 border border-orange-200 flex items-center justify-center mr-3">
+              <Clock className="w-5 h-5 text-orange-700" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900">What to Expect</h3>
+            <h3 class="text-xl font-bold text-gray-900">À quoi s'attendre</h3>
           </div>
           <ol class="space-y-4 text-sm">
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-blue-700 text-white flex items-center justify-center font-bold text-sm shadow-md">1</span>
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">1</span>
               <div>
-                <span class="text-gray-900 font-semibold block">Response</span>
-                <span class="text-gray-600">We'll review your request within 24 hours</span>
+                <span class="text-gray-900 font-semibold block">Réponse</span>
+                <span class="text-gray-600">Analyse de votre demande sous 24 heures</span>
               </div>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-teal-600 to-teal-700 text-white flex items-center justify-center font-bold text-sm shadow-md">2</span>
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">2</span>
               <div>
-                <span class="text-gray-900 font-semibold block">Consultation</span>
-                <span class="text-gray-600">Schedule a call to discuss your needs</span>
+                <span class="text-gray-900 font-semibold block">Analyse</span>
+                <span class="text-gray-600">Validation de vos besoins et contraintes</span>
               </div>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-green-600 to-green-700 text-white flex items-center justify-center font-bold text-sm shadow-md">3</span>
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">3</span>
               <div>
-                <span class="text-gray-900 font-semibold block">Proposal</span>
-                <span class="text-gray-600">Receive a detailed quote and timeline</span>
+                <span class="text-gray-900 font-semibold block">Recommandation</span>
+                <span class="text-gray-600">Réception des prochaines étapes et informations utiles</span>
               </div>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-purple-600 to-purple-700 text-white flex items-center justify-center font-bold text-sm shadow-md">4</span>
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">4</span>
               <div>
-                <span class="text-gray-900 font-semibold block">Partnership</span>
-                <span class="text-gray-600">Begin your logistics journey with us</span>
+                <span class="text-gray-900 font-semibold block">Support</span>
+                <span class="text-gray-600">Accompagnement, pièces et support service</span>
               </div>
             </li>
           </ol>
         </Card>
 
         <!-- Trust Indicators -->
-        <Card class="bg-linear-to-br from-slate-50 to-gray-50 border-slate-200">
+        <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-linear-to-br from-green-600 to-emerald-600 flex items-center justify-center mr-3">
-              <Award className="w-5 h-5 text-white" />
+            <div class="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center mr-3">
+              <Award className="w-5 h-5 text-rose-700" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900">Why Choose Us?</h3>
+            <h3 class="text-xl font-bold text-gray-900">Pourquoi nous choisir ?</h3>
           </div>
           <ul class="space-y-3 text-sm">
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-                <TrendingUp className="w-4 h-4 text-green-600" />
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                <TrendingUp className="w-4 h-4 text-rose-700" />
               </div>
-              <span class="text-gray-700 pt-1">25+ years of industry experience</span>
+              <span class="text-gray-700 pt-1">70+ ans en pompes à incendie portatives</span>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-blue-600" />
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-rose-700" />
               </div>
-              <span class="text-gray-700 pt-1">99.9% on-time delivery rate</span>
+              <span class="text-gray-700 pt-1">Fiabilité terrain et conception robuste</span>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center shrink-0">
-                <Shield className="w-4 h-4 text-purple-600" />
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                <Shield className="w-4 h-4 text-rose-700" />
               </div>
-              <span class="text-gray-700 pt-1">ISO 9001 certified facilities</span>
+              <span class="text-gray-700 pt-1">Pièces de rechange et support distributeurs</span>
             </li>
-            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center shrink-0">
-                <Users className="w-4 h-4 text-teal-600" />
+            <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                <Users className="w-4 h-4 text-rose-700" />
               </div>
-              <span class="text-gray-700 pt-1">24/7 customer support</span>
+              <span class="text-gray-700 pt-1">Support municipal, industriel et feux de végétation</span>
             </li>
           </ul>
         </Card>
@@ -204,62 +212,53 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
     </div>
   </Section>
 
-  <!-- Trust & Success Section -->
-  <Section background="white">
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
-        <Users className="w-4 h-4 mr-2" />
-        Trusted by Industry Leaders
-      </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-        Join Hundreds of <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-600">Successful Companies</span>
-      </h2>
-      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        We've helped companies of all sizes streamline their logistics and manufacturing operations.
-      </p>
-    </div>
+  <!-- Trust & Success Section hidden for now -->
+  <!-- <Section background="white">
+    <SectionHeader
+      badge="Équipes d'intervention"
+      title="Équipez vos équipes avec des"
+      highlight="pompes incendie portatives"
+      description="Nous soutenons la protection contre les feux de forêt, les services municipaux, les sites industriels et les opérations en zones éloignées."
+      class="mb-12"
+    />
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-      <!-- Feature 1 -->
       <Card class="text-center hover:shadow-xl transition-all duration-300">
         <div class="w-16 h-16 rounded-full bg-linear-to-br from-blue-600 to-teal-600 flex items-center justify-center mx-auto mb-4">
           <Shield className="w-8 h-8 text-white" />
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Secure & Reliable</h3>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Fiable et sécurisé</h3>
         <p class="text-gray-600">
-          Enterprise-grade security and 99.9% uptime guarantee for your peace of mind.
+          Équipements fiables et robustes, conçus pour des interventions exigeantes.
         </p>
       </Card>
 
-      <!-- Feature 2 -->
       <Card class="text-center hover:shadow-xl transition-all duration-300">
         <div class="w-16 h-16 rounded-full bg-linear-to-br from-green-600 to-emerald-600 flex items-center justify-center mx-auto mb-4">
           <TrendingUp className="w-8 h-8 text-white" />
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Scalable Solutions</h3>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Solutions évolutives</h3>
         <p class="text-gray-600">
-          Grow your business with solutions that scale from startup to enterprise level.
+          Solutions adaptées aux besoins municipaux, industriels et aux feux de végétation.
         </p>
       </Card>
 
-      <!-- Feature 3 -->
       <Card class="text-center hover:shadow-xl transition-all duration-300">
         <div class="w-16 h-16 rounded-full bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center mx-auto mb-4">
           <Users className="w-8 h-8 text-white" />
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Expert Support</h3>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Support expert</h3>
         <p class="text-gray-600">
-          Dedicated account managers and 24/7 support to help you succeed.
+          Équipe dédiée pour les pièces, le service et l'accompagnement.
         </p>
       </Card>
     </div>
 
-    <!-- Visual Showcase -->
     <div class="relative rounded-2xl overflow-hidden shadow-2xl">
       <div class="absolute inset-0">
         <Image 
           src={warehouseImg}
-          alt="Modern warehouse facility with advanced logistics technology"
+          alt="Installations modernes de logistique"
           class="w-full h-full object-cover"
           width={2070}
           height={800}
@@ -268,21 +267,21 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
       </div>
       <div class="relative z-10 p-12 md:p-16 text-center text-white">
         <h3 class="text-3xl md:text-4xl font-bold mb-4">
-          Ready to Transform Your Supply Chain?
+          Prêt à améliorer votre capacité opérationnelle ?
         </h3>
         <p class="text-xl text-slate-200 mb-8 max-w-2xl mx-auto">
-          Get started today with a customized quote that fits your unique business needs.
+          Contactez-nous dès aujourd'hui pour obtenir un accompagnement personnalisé selon vos besoins.
         </p>
         <a 
           href="#rfq-form" 
           class="inline-flex items-center px-8 py-4 bg-linear-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
         >
-          Request Your Quote Now
+          Demander un devis
           <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
         </a>
       </div>
     </div>
-  </Section>
+  </Section> -->
 </BaseLayout>

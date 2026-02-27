@@ -1,12 +1,15 @@
 ---
 import { getLocaleFromPathname, getNavigation, localizePath, SOCIAL_LINKS, SITE } from '@config/site';
-import { Linkedin, Twitter, Facebook } from 'lucide-react';
+import { Facebook, Instagram, Youtube } from 'lucide-react';
+import logoMark from '@assets/shibaura-logo-mark.svg';
+import shibauraWordmark from '@assets/SHIBAURA.svg';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const navigation = getNavigation(locale);
 const footerLinks = navigation.filter(
-  (item) => !['Applications', 'Distributors', 'Resources'].includes(item.name)
+  (item) => !['/applications', '/distributors', '/resources'].includes(item.href.replace(/^\/(en|fr)/, ''))
 );
+const isFrench = locale === 'fr';
 const productsHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
@@ -19,51 +22,52 @@ const resourcesHref = localizePath('/resources', locale);
       <!-- Company Info -->
       <div class="lg:col-span-1 space-y-6">
         <a href={localizePath('/', locale)} class="flex items-center space-x-3 group">
-          <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-linear-to-br from-blue-600 to-teal-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="w-7 h-7 text-white"
-              aria-hidden="true"
-            >
-              <path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" />
-            </svg>
+          <div class="flex items-center justify-center w-16 h-16">
+            <img src={logoMark.src} alt="Shibaura" class="w-full h-full object-contain" />
           </div>
-          <span class="text-2xl font-bold text-white">
-            Kojex International
-          </span>
+          <img src={shibauraWordmark.src} alt="Shibaura" class="h-7 w-auto" />
         </a>
         <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
           {SITE.description}
         </p>
         <div class="flex space-x-4">
           <a
-            href={SOCIAL_LINKS.linkedin}
-            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-blue-600 hover:text-white transition-all"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="w-5 h-5" />
-          </a>
-          <a
             href={SOCIAL_LINKS.twitter}
-            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-blue-400 hover:text-white transition-all"
-            aria-label="Twitter"
+            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-blue-600 hover:text-white transition-all"
+            aria-label="X"
+            target="_blank"
+            rel="noreferrer"
           >
-            <Twitter className="w-5 h-5" />
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2H21l-6.56 7.497L22.5 22h-6.31l-4.94-6.858L5.2 22H2.44l7.02-8.023L1.5 2h6.47l4.46 6.35L18.244 2Zm-1.1 18.11h1.53L7.14 3.79H5.5l11.644 16.32Z" />
+            </svg>
           </a>
           <a
             href={SOCIAL_LINKS.facebook}
             class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-blue-500 hover:text-white transition-all"
             aria-label="Facebook"
+            target="_blank"
+            rel="noreferrer"
           >
             <Facebook className="w-5 h-5" />
+          </a>
+          <a
+            href={SOCIAL_LINKS.instagram}
+            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-pink-600 hover:text-white transition-all"
+            aria-label="Instagram"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Instagram className="w-5 h-5" />
+          </a>
+          <a
+            href={SOCIAL_LINKS.youtube}
+            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-red-600 hover:text-white transition-all"
+            aria-label="YouTube"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Youtube className="w-5 h-5" />
           </a>
         </div>
       </div>
@@ -71,16 +75,16 @@ const resourcesHref = localizePath('/resources', locale);
       <!-- Quick Links -->
       <div>
         <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
-          Quick Links
+          {isFrench ? 'Liens rapides' : 'Quick Links'}
         </h3>
         <ul class="space-y-3">
           {footerLinks.map((item) => (
             <li>
               <a
                 href={item.href}
-                class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group"
+                class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group"
               >
-                <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
+                <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
                 {item.name}
               </a>
             </li>
@@ -91,19 +95,19 @@ const resourcesHref = localizePath('/resources', locale);
       <!-- Services -->
       <div>
         <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
-          Services
+          {isFrench ? 'Services' : 'Services'}
         </h3>
         <ul class="space-y-3">
           <li>
-            <a href={distributorsHref} class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Distributors
+            <a href={distributorsHref} class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+              {isFrench ? 'Distributeurs' : 'Distributors'}
             </a>
           </li>
           <li>
-            <a href="#" class="text-sm text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Repairs
+            <a href="#" class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+              {isFrench ? 'Réparations' : 'Repairs'}
             </a>
           </li>
         </ul>
@@ -112,19 +116,19 @@ const resourcesHref = localizePath('/resources', locale);
       <!-- Contact -->
       <div>
         <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
-          Get Started
+          {isFrench ? 'Démarrer' : 'Get Started'}
         </h3>
         <ul class="space-y-3 text-sm">
           <li>
-            <a href={requestQuoteHref} class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Contact Us
+            <a href={requestQuoteHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+              {isFrench ? 'Contact' : 'Contact Us'}
             </a>
           </li>
           <li>
-            <a href={resourcesHref} class="text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-blue-400 transition-all mr-0 group-hover:mr-2"></span>
-              Resources
+            <a href={resourcesHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+              {isFrench ? 'Ressources' : 'Resources'}
             </a>
           </li>
         </ul>
@@ -138,19 +142,19 @@ const resourcesHref = localizePath('/resources', locale);
     <div class="mt-16 pt-8 border-t border-slate-800">
       <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
         <p class="text-sm text-slate-400">
-          &copy; {new Date().getFullYear()} {SITE.author}. All rights reserved.
+          &copy; {new Date().getFullYear()} Kojex international. {isFrench ? 'Tous droits réservés.' : 'All rights reserved.'}
         </p>
         <div class="flex items-center space-x-6 text-sm">
-          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-blue-400 transition-colors">
-            Privacy Policy
+          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors">
+            {isFrench ? 'Politique de confidentialite' : 'Privacy Policy'}
           </a>
           <span class="text-slate-700">•</span>
-          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-blue-400 transition-colors">
-            Terms of Service
+          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors">
+            {isFrench ? "Conditions d'utilisation" : 'Terms of Service'}
           </a>
           <span class="text-slate-700">•</span>
-          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-blue-400 transition-colors">
-            Cookie Policy
+          <a href={localizePath('/', locale)} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors">
+            {isFrench ? 'Politique de cookies' : 'Cookie Policy'}
           </a>
         </div>
       </div>

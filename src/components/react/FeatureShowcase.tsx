@@ -8,7 +8,7 @@ import fk500Img from '@assets/fk500.jpg';
 import ff500arImg from '@assets/ff500ar.jpg';
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
 
-const features = [
+const featuresEn = [
   {
     title: 'FT510-A',
     description: 'High-output air-cooled pump for rapid response and reliable flow.',
@@ -47,11 +47,52 @@ const features = [
   },
 ];
 
+const featuresFr = [
+  {
+    title: 'FT510-A',
+    description: 'Pompe haut débit refroidie à l’air pour une intervention rapide et fiable.',
+    image: ft510Img,
+    slug: 'ft510-a',
+  },
+  {
+    title: 'FT300-A / FT400-A1',
+    description: 'Modèles compacts et légers pour un déploiement rapide.',
+    image: ft400Img,
+    slug: 'ft300-400-a',
+  },
+  {
+    title: 'TF516MH-AB',
+    description: 'Pompe ultra-compacte conçue pour la mobilité et le montage véhicule.',
+    image: tf516mhImg,
+    slug: 'tf516mh-ab',
+  },
+  {
+    title: 'P572S-A',
+    description: 'Très haute performance de refoulement pour les opérations exigeantes.',
+    image: p572sImg,
+    slug: 'p572s-a',
+  },
+  {
+    title: 'FK500-A',
+    description: 'Performance équilibrée et fiabilité des pompes refroidies à l’eau.',
+    image: fk500Img,
+    slug: 'fk500-a',
+  },
+  {
+    title: 'FF500AR-A',
+    description: 'Système auto-relais pour le transfert d’eau longue distance.',
+    image: ff500arImg,
+    slug: 'ff500ar-a',
+  },
+];
+
 type FeatureShowcaseProps = {
   detailsBaseHref?: string;
+  locale?: 'en' | 'fr';
 };
 
-export default function FeatureShowcase({ detailsBaseHref = '/products' }: FeatureShowcaseProps) {
+export default function FeatureShowcase({ detailsBaseHref = '/products', locale = 'en' }: FeatureShowcaseProps) {
+  const features = locale === 'fr' ? featuresFr : featuresEn;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature, index) => (

@@ -22,6 +22,7 @@ interface UseCase {
 
 interface Props {
   useCases: UseCase[];
+  locale?: 'en' | 'fr';
 }
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -33,7 +34,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   UtensilsCrossed,
 };
 
-export default function UseCaseTabs({ useCases }: Props) {
+export default function UseCaseTabs({ useCases, locale = 'en' }: Props) {
+  const isFrench = locale === 'fr';
   // Get unique industries
   const industries = Array.from(new Set(useCases.map((uc) => uc.industry)));
 
@@ -105,7 +107,7 @@ export default function UseCaseTabs({ useCases }: Props) {
                         <AlertCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
                         <div>
                           <h3 className="text-lg font-bold text-red-900 mb-2">
-                            Challenge
+                            {isFrench ? 'Défi' : 'Challenge'}
                           </h3>
                           <p className="text-gray-700 leading-relaxed">
                             {useCase.challenge}
@@ -120,7 +122,7 @@ export default function UseCaseTabs({ useCases }: Props) {
                         <Lightbulb className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
                         <div>
                           <h3 className="text-lg font-bold text-blue-900 mb-2">
-                            Solution
+                            {isFrench ? 'Solution' : 'Solution'}
                           </h3>
                           <p className="text-gray-700 leading-relaxed">
                             {useCase.solution}
@@ -133,7 +135,7 @@ export default function UseCaseTabs({ useCases }: Props) {
                     <div>
                       <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                         <CheckCircle2 className="w-5 h-5 text-green-600" />
-                        Results
+                        {isFrench ? 'Résultats' : 'Results'}
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {useCase.results.map((result, idx) => (

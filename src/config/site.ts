@@ -10,27 +10,28 @@ export const LOCALES = ['en', 'fr'] as const;
 export type Locale = (typeof LOCALES)[number] | 'default';
 
 const NAV_ITEMS = [
-  { name: 'Home', path: '/' },
+  { name: { en: 'Home', fr: 'Accueil' }, path: '/' },
   {
-    name: 'Products',
+    name: { en: 'Products', fr: 'Produits' },
     path: '/products',
     children: [
-      { name: 'Product Features', path: '/products#product-features' },
-      { name: 'Air cooled', path: '/products/air-cooled' },
-      { name: 'Water cooled', path: '/products/water-cooled' },
+      { name: { en: 'Product Features', fr: 'Caractéristiques' }, path: '/products#product-features' },
+      { name: { en: 'Air cooled', fr: "Refroidies à l'air" }, path: '/products/air-cooled' },
+      { name: { en: 'Water cooled', fr: "Refroidies à l'eau" }, path: '/products/water-cooled' },
     ],
   },
-  { name: 'Distributors', path: '/distributors' },
+  { name: { en: 'Distributors', fr: 'Distributeurs' }, path: '/distributors' },
   {
-    name: 'Resources',
+    name: { en: 'Resources', fr: 'Ressources' },
     path: '/resources',
     children: [
-      { name: 'Product Catalogs', path: '/resources#product-catalogs' },
-      { name: 'Pump Operation Manuals', path: '/resources#pump-instruction-manuals' },
-      { name: 'Parts Lists', path: '/resources#parts-lists' },
+      { name: { en: 'Product Catalogs', fr: 'Catalogues de produits' }, path: '/resources#product-catalogs' },
+      { name: { en: 'Pump Operation Manuals', fr: "Manuels d'exploitation" }, path: '/resources#pump-instruction-manuals' },
+      { name: { en: 'Parts Lists', fr: 'Listes de pièces' }, path: '/resources#parts-lists' },
+      { name: { en: 'Storage Notes', fr: 'Notes de stockage' }, path: '/resources#fire-pump-storage-notes' },
     ],
   },
-  { name: 'About', path: '/about-us' },
+  { name: { en: 'About', fr: 'À propos' }, path: '/about-us' },
 ] as const;
 
 const stripLocalePrefix = (pathname: string) =>
@@ -59,16 +60,17 @@ export const localizePath = (path: string, locale: Locale): string => {
 
 export const getNavigation = (locale: Locale) =>
   NAV_ITEMS.map((item) => ({
-    name: item.name,
+    name: locale === 'fr' ? item.name.fr : item.name.en,
     href: localizePath(item.path, locale),
     children: item.children?.map((child) => ({
-      name: child.name,
+      name: locale === 'fr' ? child.name.fr : child.name.en,
       href: localizePath(child.path, locale),
     })),
   }));
 
 export const SOCIAL_LINKS = {
-  linkedin: 'https://linkedin.com/company/yourcompany',
-  twitter: 'https://twitter.com/yourcompany',
-  facebook: 'https://facebook.com/yourcompany',
+  twitter: 'https://twitter.com/shibaura_bousai',
+  facebook: 'https://www.facebook.com/profile.php?id=61556205597560',
+  instagram: 'https://www.instagram.com/shibaura_fire_pump/',
+  youtube: 'https://www.youtube.com/@shibaura6004',
 } as const;
