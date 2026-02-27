@@ -116,6 +116,9 @@ function buildUnknownRows(data) {
 }
 
 function buildHtmlEmail(formName, data) {
+  const siteUrl = process.env.PUBLIC_SITE_URL || "https://www.portable-fire-pumps.com";
+  const markLogoUrl = `${siteUrl}/email/shibaura-logo-mark.png`;
+  const wordmarkLogoUrl = `${siteUrl}/email/SHIBAURA-wordmark.png`;
   const sectionBlocks = FIELD_SECTIONS.map((section) => {
     const rows = buildRowsForKeys(data, section.keys);
     if (!rows) return "";
@@ -139,9 +142,12 @@ function buildHtmlEmail(formName, data) {
   return `
     <div style="background:#f3f4f6;padding:24px;font-family:Arial,sans-serif;color:#111827;">
       <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
+        <div style="padding:14px 20px;background:#ffffff;border-bottom:1px solid #e5e7eb;text-align:center;">
+          <img src="${markLogoUrl}" alt="Shibaura" style="height:34px;width:auto;vertical-align:middle;display:inline-block;" />
+          <img src="${wordmarkLogoUrl}" alt="SHIBAURA" style="height:22px;width:auto;vertical-align:middle;display:inline-block;margin-left:10px;" />
+        </div>
         <div style="padding:16px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
-          <h2 style="margin:0;font-size:20px;line-height:28px;">New Website Inquiry</h2>
-          <p style="margin:4px 0 0;font-size:13px;line-height:18px;opacity:.95;">Form: ${escapeHtml(formName)}</p>
+          <h2 style="margin:0;font-size:20px;line-height:28px;">Portable Fire Pump Inquiry</h2>
         </div>
         <div style="padding:20px;">
           ${sectionBlocks}
@@ -171,17 +177,6 @@ function buildTextEmail(formName, data) {
     for (const key of visible) {
       const value = Array.isArray(data[key]) ? data[key].join(", ") : (data[key] || "(empty)");
       lines.push(`- ${FIELD_LABELS[key] || key}: ${value}`);
-    }
-    lines.push("");
-  }
-
-  const known = new Set([...FIELD_SECTIONS.flatMap((section) => section.keys), ...HIDDEN_KEYS]);
-  const unknown = Object.entries(data).filter(([key]) => !known.has(key));
-  if (unknown.length) {
-    lines.push("Additional Fields:");
-    for (const [key, value] of unknown) {
-      const formatted = Array.isArray(value) ? value.join(", ") : (value || "(empty)");
-      lines.push(`- ${FIELD_LABELS[key] || key}: ${formatted}`);
     }
     lines.push("");
   }
