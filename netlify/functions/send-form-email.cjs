@@ -1,4 +1,24 @@
 const RESEND_API_URL = "https://api.resend.com/emails";
+const HIDDEN_KEYS = new Set(["form-name", "bot-field"]);
+
+const FIELD_LABELS = {
+  firstName: "First Name",
+  lastName: "Last Name",
+  email: "Email Address",
+  phone: "Phone Number",
+  organization: "Organization Name",
+  industry: "Organization Type",
+  services: "What Do You Need",
+  timeline: "Purchase Timeline",
+  volume: "Estimated Quantity",
+  details: "Inquiry Details",
+};
+
+const FIELD_SECTIONS = [
+  { title: "Contact Information", keys: ["firstName", "lastName", "email", "phone"] },
+  { title: "Organization Information", keys: ["organization", "industry"] },
+  { title: "Inquiry Information", keys: ["services", "timeline", "volume", "details"] },
+];
 
 function escapeHtml(value) {
   return String(value)
@@ -54,15 +74,37 @@ function formatValue(value) {
   return escapeHtml(value);
 }
 
-function buildRows(data) {
-  const hiddenKeys = new Set(["form-name", "bot-field"]);
+function buildRowsForKeys(data, keys) {
+  return keys
+    .filter((key) => Object.prototype.hasOwnProperty.call(data, key))
+    .map(
+      (key) => `
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:600;color:#111827;vertical-align:top;width:35%;">
+            ${escapeHtml(FIELD_LABELS[key] || key)}
+          </td>
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#1f2937;">
+            ${formatValue(data[key])}
+          </td>
+        </tr>
+      `
+    )
+    .join("");
+}
+
+function buildUnknownRows(data) {
+  const knownKeys = new Set([
+    ...FIELD_SECTIONS.flatMap((section) => section.keys),
+    ...HIDDEN_KEYS,
+  ]);
+
   return Object.entries(data)
-    .filter(([key]) => !hiddenKeys.has(key))
+    .filter(([key]) => !knownKeys.has(key))
     .map(
       ([key, value]) => `
         <tr>
           <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:600;color:#111827;vertical-align:top;width:35%;">
-            ${escapeHtml(key)}
+            ${escapeHtml(FIELD_LABELS[key] || key)}
           </td>
           <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#1f2937;">
             ${formatValue(value)}
@@ -73,20 +115,103 @@ function buildRows(data) {
     .join("");
 }
 
-async function sendEmail({ apiKey, from, to, subject, html, text }) {
+function buildHtmlEmail(formName, data) {
+  const sectionBlocks = FIELD_SECTIONS.map((section) => {
+    const rows = buildRowsForKeys(data, section.keys);
+    if (!rows) return "";
+    return `
+      <div style="margin: 0 0 18px;">
+        <h3 style="margin:0 0 8px;font-size:14px;line-height:20px;color:#374151;text-transform:uppercase;letter-spacing:0.04em;">
+          ${escapeHtml(section.title)}
+        </h3>
+        <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;background:#ffffff;">
+          ${rows}
+        </table>
+      </div>
+    `;
+  }).join("");
+
+  const unknownRows = buildUnknownRows(data);
+  const fallbackBlock = sectionBlocks || unknownRows
+    ? ""
+    : '<p style="margin:0;color:#6b7280;">No submitted fields found.</p>';
+
+  return `
+    <div style="background:#f3f4f6;padding:24px;font-family:Arial,sans-serif;color:#111827;">
+      <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
+        <div style="padding:16px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
+          <h2 style="margin:0;font-size:20px;line-height:28px;">New Website Inquiry</h2>
+          <p style="margin:4px 0 0;font-size:13px;line-height:18px;opacity:.95;">Form: ${escapeHtml(formName)}</p>
+        </div>
+        <div style="padding:20px;">
+          ${sectionBlocks}
+          ${unknownRows ? `
+            <div style="margin: 0 0 18px;">
+              <h3 style="margin:0 0 8px;font-size:14px;line-height:20px;color:#374151;text-transform:uppercase;letter-spacing:0.04em;">
+                Additional Fields
+              </h3>
+              <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;background:#ffffff;">
+                ${unknownRows}
+              </table>
+            </div>
+          ` : ""}
+          ${fallbackBlock}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function buildTextEmail(formName, data) {
+  const lines = [`New form submission: ${formName}`, ""];
+  for (const section of FIELD_SECTIONS) {
+    const visible = section.keys.filter((key) => Object.prototype.hasOwnProperty.call(data, key));
+    if (!visible.length) continue;
+    lines.push(`${section.title}:`);
+    for (const key of visible) {
+      const value = Array.isArray(data[key]) ? data[key].join(", ") : (data[key] || "(empty)");
+      lines.push(`- ${FIELD_LABELS[key] || key}: ${value}`);
+    }
+    lines.push("");
+  }
+
+  const known = new Set([...FIELD_SECTIONS.flatMap((section) => section.keys), ...HIDDEN_KEYS]);
+  const unknown = Object.entries(data).filter(([key]) => !known.has(key));
+  if (unknown.length) {
+    lines.push("Additional Fields:");
+    for (const [key, value] of unknown) {
+      const formatted = Array.isArray(value) ? value.join(", ") : (value || "(empty)");
+      lines.push(`- ${FIELD_LABELS[key] || key}: ${formatted}`);
+    }
+    lines.push("");
+  }
+
+  if (lines.length <= 2) {
+    lines.push("No submitted fields found.");
+  }
+
+  return lines.join("\n");
+}
+
+async function sendEmail({ apiKey, from, to, subject, html, text, replyTo }) {
+  const body = {
+    from,
+    to: [to],
+    subject,
+    html,
+    text,
+  };
+  if (replyTo) {
+    body.reply_to = replyTo;
+  }
+
   const response = await fetch(RESEND_API_URL, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      subject,
-      html,
-      text,
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
@@ -113,19 +238,10 @@ exports.handler = async (event) => {
     }
 
     const { formName, data } = normalizePayload(event);
-    const rows = buildRows(data);
     const subject = `New form submission: ${formName}`;
-    const html = `
-      <div style="font-family:Arial,sans-serif;max-width:720px;margin:0 auto;padding:16px;color:#111827;">
-        <h2 style="margin:0 0 12px;">New Form Submission</h2>
-        <p style="margin:0 0 16px;color:#4b5563;">
-          <strong>Form:</strong> ${escapeHtml(formName)}
-        </p>
-        <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
-          ${rows || '<tr><td style="padding:12px;color:#6b7280;">No submitted fields found.</td></tr>'}
-        </table>
-      </div>
-    `;
+    const html = buildHtmlEmail(formName, data);
+    const text = buildTextEmail(formName, data);
+    const replyTo = typeof data.email === "string" && data.email.includes("@") ? data.email : undefined;
 
     await sendEmail({
       apiKey,
@@ -133,7 +249,8 @@ exports.handler = async (event) => {
       to,
       subject,
       html,
-      text: `New submission received for ${formName}.`,
+      text,
+      replyTo,
     });
 
     return { statusCode: 200, body: "Email sent" };
