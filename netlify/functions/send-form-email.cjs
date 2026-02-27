@@ -193,10 +193,10 @@ function buildTextEmail(formName, data) {
   return lines.join("\n");
 }
 
-async function sendEmail({ apiKey, from, to, subject, html, text, replyTo }) {
+async function sendEmail({ apiKey, from, toList, subject, html, text, replyTo }) {
   const body = {
     from,
-    to: [to],
+    to: toList,
     subject,
     html,
     text,
@@ -228,7 +228,10 @@ exports.handler = async (event) => {
   try {
     const apiKey = process.env.RESEND_API_KEY;
     const from = process.env.RESEND_FROM_EMAIL;
-    const to = process.env.FORM_TO_EMAIL || "nk.matsumoto.dev@gmail.com";
+    const toList = (process.env.FORM_TO_EMAIL || "nk.matsumoto.dev@gmail.com")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean);
 
     if (!apiKey || !from) {
       return {
@@ -246,7 +249,7 @@ exports.handler = async (event) => {
     await sendEmail({
       apiKey,
       from,
-      to,
+      toList,
       subject,
       html,
       text,
