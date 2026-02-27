@@ -116,7 +116,7 @@ function buildUnknownRows(data) {
 }
 
 function buildHtmlEmail(formName, data) {
-  const siteUrl = process.env.PUBLIC_SITE_URL || "https://www.portable-fire-pumps.com";
+  const siteUrl = process.env.PUBLIC_SITE_URL || "https://portable-fire-pumps.netlify.app";
   const markLogoUrl = `${siteUrl}/email/shibaura-logo-mark.png`;
   const wordmarkLogoUrl = `${siteUrl}/email/SHIBAURA-wordmark.png`;
   const sectionBlocks = FIELD_SECTIONS.map((section) => {
@@ -142,11 +142,11 @@ function buildHtmlEmail(formName, data) {
   return `
     <div style="background:#f3f4f6;padding:24px;font-family:Arial,sans-serif;color:#111827;">
       <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
-        <div style="padding:14px 20px;background:#ffffff;border-bottom:1px solid #e5e7eb;text-align:center;">
+        <div style="padding:14px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);text-align:center;">
           <img src="${markLogoUrl}" alt="Shibaura" style="height:34px;width:auto;vertical-align:middle;display:inline-block;" />
           <img src="${wordmarkLogoUrl}" alt="SHIBAURA" style="height:22px;width:auto;vertical-align:middle;display:inline-block;margin-left:10px;" />
         </div>
-        <div style="padding:16px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
+        <div style="padding:16px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;border-top:1px solid rgba(255,255,255,0.2);">
           <h2 style="margin:0;font-size:20px;line-height:28px;">Portable Fire Pump Inquiry</h2>
         </div>
         <div style="padding:20px;">
