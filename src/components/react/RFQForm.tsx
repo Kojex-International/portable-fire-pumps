@@ -111,6 +111,10 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               type="tel"
               id="phone"
               name="phone"
+              inputMode="numeric"
+              pattern="[0-9]{10,}"
+              minLength={10}
+              title={isFrench ? 'Veuillez entrer au moins 10 chiffres (0-9 uniquement).' : 'Please enter at least 10 digits (numbers only).'}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
             />
           </div>

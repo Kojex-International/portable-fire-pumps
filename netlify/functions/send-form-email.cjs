@@ -236,8 +236,8 @@ function buildHtmlEmail(formName, data) {
           ${sectionBlocks}
           ${unknownRows ? `
             <details style="margin:0 0 4px;">
-              <summary style="cursor:pointer;list-style:none;color:#9ca3af;font-size:11px;line-height:16px;font-weight:600;margin-bottom:6px;">
-                Metadata
+              <summary style="cursor:pointer;list-style:none;font-size:11px;line-height:16px;font-weight:600;margin-bottom:6px;">
+                <span style="color:#9ca3af;">Metadata</span>
               </summary>
               <table style="width:100%;border-collapse:collapse;border:1px solid #f1f5f9;border-radius:8px;overflow:hidden;background:#ffffff;">
                 ${unknownRows}
