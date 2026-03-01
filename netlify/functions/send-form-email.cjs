@@ -156,10 +156,10 @@ function buildRowsForKeys(data, keys, locale) {
     .map(
       (key) => `
         <tr>
-          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:500;color:#111827;vertical-align:top;width:35%;">
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:700;color:#111827;vertical-align:top;width:35%;font-size:16px;line-height:24px;">
             ${escapeHtml(FIELD_LABELS[key] || key)}
           </td>
-          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#1f2937;">
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#6b7280;font-weight:400;font-size:15px;line-height:24px;">
             ${formatValue(key, data[key], locale)}
           </td>
         </tr>
@@ -179,10 +179,10 @@ function buildUnknownRows(data, locale) {
     .map(
       ([key, value]) => `
         <tr>
-          <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;font-weight:500;color:#9ca3af;vertical-align:top;width:35%;font-size:11px;line-height:15px;">
+          <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#9ca3af;vertical-align:top;width:35%;font-size:11px;line-height:15px;">
             ${escapeHtml(FIELD_LABELS[key] || key)}
           </td>
-          <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;color:#9ca3af;font-size:11px;line-height:15px;">
+          <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;color:#9ca3af;font-size:11px;line-height:15px;font-weight:400;">
             ${formatValue(key, value, locale)}
           </td>
         </tr>
