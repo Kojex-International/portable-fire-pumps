@@ -1,5 +1,6 @@
 import * as Label from '@radix-ui/react-label';
 import { User, Building2, Briefcase, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText } from 'lucide-react';
+import { useState } from 'react';
 
 interface RFQFormProps {
   action?: string;
@@ -7,6 +8,7 @@ interface RFQFormProps {
 }
 
 export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }: RFQFormProps) {
+  const [showValidationErrors, setShowValidationErrors] = useState(false);
   const isFrench = locale === 'fr';
   const t = {
     contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
@@ -16,8 +18,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
     phone: isFrench ? 'Téléphone' : 'Phone Number',
     emailHint: isFrench ? 'nom@entreprise.com' : 'name@company.com',
     emailInvalid: isFrench ? "Veuillez entrer une adresse courriel valide." : 'Please enter a valid email address.',
-    phoneHint: isFrench ? 'Optionnel — au moins 10 chiffres.' : 'Optional — at least 10 digits.',
-    phoneInvalid: isFrench ? 'Veuillez entrer un numéro de téléphone valide.' : 'Please enter a valid phone number.',
+    phoneInvalid: isFrench ? 'Au moins 10 chiffres.' : 'At least 10 digits.',
     orgInfo: isFrench ? "Informations de l'organisation" : 'Organization Information',
     orgName: isFrench ? "Nom de l'organisation" : 'Organization Name',
     industry: isFrench ? 'Secteur' : 'Industry',
@@ -44,6 +45,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
       data-netlify="true"
       data-netlify-honeypot="bot-field"
       action={action}
+      onSubmitCapture={() => setShowValidationErrors(true)}
     >
       <input type="hidden" name="form-name" value="pump-inquiry" />
       <input type="hidden" name="bot-field" />
@@ -104,10 +106,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               placeholder={t.emailHint}
               className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent invalid:border-rose-300 invalid:ring-1 invalid:ring-rose-200 focus:invalid:border-rose-400 focus:invalid:ring-rose-300 placeholder-shown:invalid:border-gray-300 placeholder-shown:invalid:ring-0 transition"
             />
-            <p className="mt-1 text-xs text-gray-500">
-              {t.emailHint}
-            </p>
-            <p className="mt-1 hidden text-xs text-rose-600 peer-invalid:block peer-placeholder-shown:hidden">
+            <p className={`mt-1 text-xs text-rose-600 ${showValidationErrors ? 'hidden peer-invalid:block peer-placeholder-shown:hidden' : 'hidden'}`}>
               {t.emailInvalid}
             </p>
           </div>
@@ -129,10 +128,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               placeholder={isFrench ? '555-123-4567' : '555-123-4567'}
               className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent invalid:border-rose-300 invalid:ring-1 invalid:ring-rose-200 focus:invalid:border-rose-400 focus:invalid:ring-rose-300 transition"
             />
-            <p className="mt-1 text-xs text-gray-500">
-              {t.phoneHint}
-            </p>
-            <p className="mt-1 hidden text-xs text-rose-600 peer-invalid:block peer-placeholder-shown:hidden">
+            <p className={`mt-1 text-xs text-rose-600 ${showValidationErrors ? 'hidden peer-invalid:block peer-placeholder-shown:hidden' : 'hidden'}`}>
               {t.phoneInvalid}
             </p>
           </div>
