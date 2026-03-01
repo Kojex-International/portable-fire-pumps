@@ -156,7 +156,7 @@ function buildRowsForKeys(data, keys, locale) {
     .map(
       (key) => `
         <tr>
-          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:600;color:#111827;vertical-align:top;width:35%;">
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:500;color:#111827;vertical-align:top;width:35%;">
             ${escapeHtml(FIELD_LABELS[key] || key)}
           </td>
           <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#1f2937;">
@@ -179,7 +179,7 @@ function buildUnknownRows(data, locale) {
     .map(
       ([key, value]) => `
         <tr>
-          <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#9ca3af;vertical-align:top;width:35%;font-size:11px;line-height:15px;">
+          <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;font-weight:500;color:#9ca3af;vertical-align:top;width:35%;font-size:11px;line-height:15px;">
             ${escapeHtml(FIELD_LABELS[key] || key)}
           </td>
           <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;color:#9ca3af;font-size:11px;line-height:15px;">
@@ -201,7 +201,7 @@ function buildHtmlEmail(formName, data) {
     if (!rows) return "";
     return `
       <div style="margin: 0 0 18px;">
-        <h3 style="margin:0 0 8px;font-size:14px;line-height:20px;color:#374151;">
+        <h3 style="margin:0 0 8px;font-size:17px;line-height:24px;color:#374151;font-weight:700;">
           ${escapeHtml(section.title)}
         </h3>
         <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;background:#ffffff;">
@@ -217,7 +217,7 @@ function buildHtmlEmail(formName, data) {
     : '<p style="margin:0;color:#6b7280;">No submitted fields found.</p>';
 
   return `
-    <div style="background:#f3f4f6;padding:24px;font-family:Arial,sans-serif;color:#111827;">
+    <div style="background:#ffffff;padding:12px;font-family:Arial,sans-serif;color:#111827;">
       <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
         <div style="padding:14px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
           <table role="presentation" style="width:100%;border-collapse:collapse;">
