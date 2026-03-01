@@ -156,10 +156,10 @@ function buildRowsForKeys(data, keys, locale) {
     .map(
       (key) => `
         <tr>
-          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:700;color:#111827;vertical-align:top;width:35%;font-size:16px;line-height:24px;">
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:600;color:#111827;vertical-align:top;width:35%;font-size:15px;line-height:22px;">
             ${escapeHtml(FIELD_LABELS[key] || key)}
           </td>
-          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#6b7280;font-weight:400;font-size:15px;line-height:24px;">
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#374151;font-weight:400;font-size:15px;line-height:22px;">
             ${formatValue(key, data[key], locale)}
           </td>
         </tr>
@@ -201,7 +201,7 @@ function buildHtmlEmail(formName, data) {
     if (!rows) return "";
     return `
       <div style="margin: 0 0 18px;">
-        <h3 style="margin:0 0 8px;font-size:17px;line-height:24px;color:#374151;font-weight:700;">
+        <h3 style="margin:0 0 8px;font-size:18px;line-height:26px;color:#374151;font-weight:700;">
           ${escapeHtml(section.title)}
         </h3>
         <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;background:#ffffff;">
@@ -218,7 +218,7 @@ function buildHtmlEmail(formName, data) {
 
   return `
     <div style="background:#ffffff;padding:12px;font-family:Arial,sans-serif;color:#111827;">
-      <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
+      <div style="max-width:1000px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
         <div style="padding:14px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
           <table role="presentation" style="width:100%;border-collapse:collapse;">
             <tr>
@@ -236,8 +236,9 @@ function buildHtmlEmail(formName, data) {
           ${sectionBlocks}
           ${unknownRows ? `
             <details style="margin:0 0 4px;">
-              <summary style="cursor:pointer;list-style:none;color:#9ca3af;font-size:11px;line-height:16px;font-weight:600;">
-                + Additional Fields
+              <summary style="cursor:pointer;list-style:none;color:#6b7280;font-size:14px;line-height:20px;font-weight:600;">
+                <span style="display:inline-block;width:14px;color:#9ca3af;">+</span>
+                <span>Additional Fields</span>
               </summary>
               <div style="margin-top:6px;">
                 <table style="width:100%;border-collapse:collapse;border:1px solid #f1f5f9;border-radius:8px;overflow:hidden;background:#ffffff;">
