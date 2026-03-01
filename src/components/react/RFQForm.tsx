@@ -14,10 +14,10 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
     lastName: isFrench ? 'Nom' : 'Last Name',
     email: isFrench ? 'Adresse courriel' : 'Email Address',
     phone: isFrench ? 'Téléphone' : 'Phone Number',
-    emailHint: isFrench ? "Exemple : nom@entreprise.com" : 'Example: name@company.com',
+    emailHint: isFrench ? 'nom@entreprise.com' : 'name@company.com',
     emailInvalid: isFrench ? "Veuillez entrer une adresse courriel valide." : 'Please enter a valid email address.',
-    phoneHint: isFrench ? 'Optionnel — au moins 10 chiffres (0-9 uniquement).' : 'Optional — at least 10 digits (numbers only).',
-    phoneInvalid: isFrench ? 'Veuillez entrer un numéro valide (au moins 10 chiffres).' : 'Please enter a valid phone number (at least 10 digits).',
+    phoneHint: isFrench ? 'Optionnel — au moins 10 chiffres.' : 'Optional — at least 10 digits.',
+    phoneInvalid: isFrench ? 'Veuillez entrer un numéro de téléphone valide.' : 'Please enter a valid phone number.',
     orgInfo: isFrench ? "Informations de l'organisation" : 'Organization Information',
     orgName: isFrench ? "Nom de l'organisation" : 'Organization Name',
     industry: isFrench ? 'Secteur' : 'Industry',
@@ -102,9 +102,9 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               name="email"
               required
               placeholder={t.emailHint}
-              className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent invalid:border-rose-300 invalid:ring-1 invalid:ring-rose-200 focus:invalid:border-rose-400 focus:invalid:ring-rose-300 transition"
+              className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent invalid:border-rose-300 invalid:ring-1 invalid:ring-rose-200 focus:invalid:border-rose-400 focus:invalid:ring-rose-300 placeholder-shown:invalid:border-gray-300 placeholder-shown:invalid:ring-0 transition"
             />
-            <p className="mt-1 text-xs text-gray-500 peer-invalid:hidden">
+            <p className="mt-1 text-xs text-gray-500">
               {t.emailHint}
             </p>
             <p className="mt-1 hidden text-xs text-rose-600 peer-invalid:block peer-placeholder-shown:hidden">
@@ -122,14 +122,14 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               type="tel"
               id="phone"
               name="phone"
-              inputMode="numeric"
-              pattern="[0-9]{10,}"
+              inputMode="tel"
+              pattern={"(?:[0-9][\\s-]?){10,}"}
               minLength={10}
-              title={isFrench ? 'Veuillez entrer au moins 10 chiffres (0-9 uniquement).' : 'Please enter at least 10 digits (numbers only).'}
-              placeholder={isFrench ? 'Exemple : 5148024450' : 'Example: 5148024450'}
+              title={isFrench ? 'Veuillez entrer au moins 10 chiffres.' : 'Please enter at least 10 digits.'}
+              placeholder={isFrench ? '555-123-4567' : '555-123-4567'}
               className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent invalid:border-rose-300 invalid:ring-1 invalid:ring-rose-200 focus:invalid:border-rose-400 focus:invalid:ring-rose-300 transition"
             />
-            <p className="mt-1 text-xs text-gray-500 peer-invalid:hidden">
+            <p className="mt-1 text-xs text-gray-500">
               {t.phoneHint}
             </p>
             <p className="mt-1 hidden text-xs text-rose-600 peer-invalid:block peer-placeholder-shown:hidden">
@@ -223,17 +223,17 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                 <Label.Root
                   key={service.id}
                   htmlFor={service.id}
-                  className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-lg hover:border-[var(--brand-400)] hover:bg-rose-50 transition-all cursor-pointer group"
+                  className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-lg hover:border-rose-200 hover:bg-rose-50 transition-all cursor-pointer group"
                 >
                     <input
                       id={service.id}
                       type="checkbox"
                       name="services"
                       value={service.id}
-                      className="w-5 h-5 border-2 border-gray-300 rounded text-[var(--brand-1)] focus:ring-[var(--brand-400)] shrink-0"
+                      className="w-5 h-5 border-2 border-gray-300 rounded accent-red-700 focus:ring-rose-400 shrink-0"
                     />
                     <div className="w-8 h-8 rounded-lg bg-rose-50 group-hover:bg-rose-100 flex items-center justify-center shrink-0 transition-colors">
-                      <IconComponent className="w-4 h-4 text-[var(--brand-1)] group-hover:text-[var(--brand-2)] transition-colors" />
+                      <IconComponent className="w-4 h-4 text-rose-600 group-hover:text-rose-700 transition-colors" />
                     </div>
                     <span className="text-sm font-medium text-gray-700 cursor-pointer flex-1 group-hover:text-gray-900 transition-colors">
                       {service.label}
