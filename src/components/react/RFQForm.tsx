@@ -104,7 +104,11 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               name="email"
               required
               placeholder={t.emailHint}
-              className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 invalid:border-rose-300 focus:invalid:border-rose-400 placeholder-shown:invalid:border-gray-300 transition"
+              className={`peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition ${
+                showValidationErrors
+                  ? 'invalid:border-rose-300 focus:invalid:border-rose-400 placeholder-shown:invalid:border-gray-300'
+                  : ''
+              }`}
             />
             <p className={`mt-1 text-xs text-rose-600 ${showValidationErrors ? 'hidden peer-invalid:block peer-placeholder-shown:hidden' : 'hidden'}`}>
               {t.emailInvalid}
@@ -126,7 +130,11 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               minLength={10}
               title={isFrench ? 'Veuillez entrer au moins 10 chiffres.' : 'Please enter at least 10 digits.'}
               placeholder={isFrench ? '555-123-4567' : '555-123-4567'}
-              className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 invalid:border-rose-300 focus:invalid:border-rose-400 transition"
+              className={`peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition ${
+                showValidationErrors
+                  ? 'invalid:border-rose-300 focus:invalid:border-rose-400'
+                  : ''
+              }`}
             />
             <p className={`mt-1 text-xs text-rose-600 ${showValidationErrors ? 'hidden peer-invalid:block peer-placeholder-shown:hidden' : 'hidden'}`}>
               {t.phoneInvalid}
@@ -256,7 +264,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                 <select
                   id="timeline"
                   name="timeline"
-                  className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition appearance-none bg-white"
+                  className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition appearance-none bg-white"
                 >
                   <option value="">{t.selectTimeline}</option>
                   <option value="1-4-months">1-4 months</option>
@@ -282,7 +290,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                   id="volume"
                   name="volume"
                   placeholder={t.qtyPlaceholder}
-                  className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
+                  className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
                 />
                 <Package className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
               </div>
