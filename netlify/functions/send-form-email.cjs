@@ -142,11 +142,11 @@ function buildHtmlEmail(formName, data) {
   return `
     <div style="background:#f3f4f6;padding:24px;font-family:Arial,sans-serif;color:#111827;">
       <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
-        <div style="padding:14px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);text-align:center;">
+        <div style="padding:14px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);text-align:left;">
           <img src="${markLogoUrl}" alt="Shibaura" style="height:34px;width:auto;vertical-align:middle;display:inline-block;" />
           <img src="${wordmarkLogoUrl}" alt="SHIBAURA" style="height:22px;width:auto;vertical-align:middle;display:inline-block;margin-left:10px;" />
         </div>
-        <div style="padding:16px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;border-top:1px solid rgba(255,255,255,0.2);">
+        <div style="padding:16px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
           <h2 style="margin:0;font-size:20px;line-height:28px;">Portable Fire Pump Inquiry</h2>
         </div>
         <div style="padding:20px;">
