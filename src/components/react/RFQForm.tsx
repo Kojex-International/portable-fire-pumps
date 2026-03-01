@@ -43,6 +43,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
     >
       <input type="hidden" name="form-name" value="pump-inquiry" />
       <input type="hidden" name="bot-field" />
+      <input type="hidden" name="locale" value={locale} />
       {/* Contact Information */}
       <div>
         <div className="flex items-center mb-6">

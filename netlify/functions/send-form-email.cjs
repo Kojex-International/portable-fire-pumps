@@ -1,5 +1,5 @@
 const RESEND_API_URL = "https://api.resend.com/emails";
-const HIDDEN_KEYS = new Set(["form-name", "bot-field"]);
+const HIDDEN_KEYS = new Set(["form-name", "bot-field", "locale"]);
 
 const FIELD_LABELS = {
   firstName: "First Name",
@@ -8,10 +8,73 @@ const FIELD_LABELS = {
   phone: "Phone Number",
   organization: "Organization Name",
   industry: "Organization Type",
-  services: "What Do You Need",
+  services: "Inquiring About",
   timeline: "Purchase Timeline",
   volume: "Estimated Quantity",
   details: "Inquiry Details",
+};
+
+const FIELD_VALUE_LABELS = {
+  industry: {
+    en: {
+      municipal: "Municipal Fire Services",
+      government: "Government Agencies",
+      wildland: "Wildland Firefighting",
+      industrial: "Industrial & Plant Safety",
+      utilities: "Utilities & Infrastructure",
+      forestry: "Forestry & Remote Operations",
+      contractor: "Firefighting Contractors",
+      emergency: "Emergency Management",
+      dealer: "Dealer / Reseller",
+      other: "Other",
+    },
+    fr: {
+      municipal: "Services incendie municipaux",
+      government: "Organismes gouvernementaux",
+      wildland: "Lutte contre les feux de végétation",
+      industrial: "Sécurité industrielle et usine",
+      utilities: "Services publics et infrastructures",
+      forestry: "Foresterie et opérations éloignées",
+      contractor: "Entrepreneurs en lutte incendie",
+      emergency: "Gestion des urgences",
+      dealer: "Distributeur / revendeur",
+      other: "Autre",
+    },
+  },
+  services: {
+    en: {
+      "pump-selection": "Pump recommendation",
+      accessories: "Accessories & fittings",
+      deployment: "Deployment advice",
+      "service-parts": "Parts & service support",
+      training: "Operator training",
+      "request-quote": "Request a quote",
+    },
+    fr: {
+      "pump-selection": "Recommandation de pompe",
+      accessories: "Accessoires et raccords",
+      deployment: "Conseils de déploiement",
+      "service-parts": "Support pièces et service",
+      training: "Formation opérateur",
+      "request-quote": "Demander un devis",
+    },
+  },
+  timeline: {
+    en: {
+      "1-4-months": "1-4 months",
+      "3-6-months": "3-6 months",
+      "6-plus-months": "6+ months",
+      planning: "Planning / Budgeting",
+      other: "Other",
+    },
+    fr: {
+      "1-4-months": "1-4 months",
+      "3-6-months": "3-6 months",
+      "6-plus-months": "6+ months",
+      planning: "Planification / budget",
+      other: "Autre",
+    },
+  },
 };
 
 const FIELD_SECTIONS = [
@@ -64,17 +127,30 @@ function normalizePayload(event) {
   return { formName: "pump-inquiry", data: {} };
 }
 
-function formatValue(value) {
+function mapDisplayValue(fieldKey, rawValue, locale) {
+  const labelsByField = FIELD_VALUE_LABELS[fieldKey];
+  if (!labelsByField) return rawValue;
+  const labels = labelsByField[locale] || labelsByField.en || {};
+  return labels[rawValue] || rawValue;
+}
+
+function formatValue(fieldKey, value, locale) {
   if (Array.isArray(value)) {
-    return value.map((item) => escapeHtml(item)).join(", ");
+    return value
+      .map((item) => escapeHtml(mapDisplayValue(fieldKey, item, locale)))
+      .join(", ");
   }
   if (value === null || value === undefined || value === "") {
     return '<span style="color:#9ca3af;">(empty)</span>';
   }
-  return escapeHtml(value);
+  return escapeHtml(mapDisplayValue(fieldKey, value, locale));
 }
 
-function buildRowsForKeys(data, keys) {
+function detectLocale(data) {
+  return data.locale === "fr" ? "fr" : "en";
+}
+
+function buildRowsForKeys(data, keys, locale) {
   return keys
     .filter((key) => Object.prototype.hasOwnProperty.call(data, key))
     .map(
@@ -84,7 +160,7 @@ function buildRowsForKeys(data, keys) {
             ${escapeHtml(FIELD_LABELS[key] || key)}
           </td>
           <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#1f2937;">
-            ${formatValue(data[key])}
+            ${formatValue(key, data[key], locale)}
           </td>
         </tr>
       `
@@ -92,7 +168,7 @@ function buildRowsForKeys(data, keys) {
     .join("");
 }
 
-function buildUnknownRows(data) {
+function buildUnknownRows(data, locale) {
   const knownKeys = new Set([
     ...FIELD_SECTIONS.flatMap((section) => section.keys),
     ...HIDDEN_KEYS,
@@ -103,11 +179,11 @@ function buildUnknownRows(data) {
     .map(
       ([key, value]) => `
         <tr>
-          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:600;color:#111827;vertical-align:top;width:35%;">
+          <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#9ca3af;vertical-align:top;width:35%;font-size:11px;line-height:15px;">
             ${escapeHtml(FIELD_LABELS[key] || key)}
           </td>
-          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#1f2937;">
-            ${formatValue(value)}
+          <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;color:#9ca3af;font-size:11px;line-height:15px;">
+            ${formatValue(key, value, locale)}
           </td>
         </tr>
       `
@@ -119,12 +195,13 @@ function buildHtmlEmail(formName, data) {
   const siteUrl = process.env.PUBLIC_SITE_URL || "https://portable-fire-pumps.netlify.app";
   const markLogoUrl = `${siteUrl}/email/shibaura-logo-mark.png`;
   const wordmarkLogoUrl = `${siteUrl}/email/SHIBAURA-wordmark.png`;
+  const locale = detectLocale(data);
   const sectionBlocks = FIELD_SECTIONS.map((section) => {
-    const rows = buildRowsForKeys(data, section.keys);
+    const rows = buildRowsForKeys(data, section.keys, locale);
     if (!rows) return "";
     return `
       <div style="margin: 0 0 18px;">
-        <h3 style="margin:0 0 8px;font-size:14px;line-height:20px;color:#374151;text-transform:uppercase;letter-spacing:0.04em;">
+        <h3 style="margin:0 0 8px;font-size:14px;line-height:20px;color:#374151;">
           ${escapeHtml(section.title)}
         </h3>
         <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;background:#ffffff;">
@@ -134,7 +211,7 @@ function buildHtmlEmail(formName, data) {
     `;
   }).join("");
 
-  const unknownRows = buildUnknownRows(data);
+  const unknownRows = buildUnknownRows(data, locale);
   const fallbackBlock = sectionBlocks || unknownRows
     ? ""
     : '<p style="margin:0;color:#6b7280;">No submitted fields found.</p>';
@@ -142,24 +219,32 @@ function buildHtmlEmail(formName, data) {
   return `
     <div style="background:#f3f4f6;padding:24px;font-family:Arial,sans-serif;color:#111827;">
       <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
-        <div style="padding:14px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);text-align:left;">
-          <img src="${markLogoUrl}" alt="Shibaura" style="height:34px;width:auto;vertical-align:middle;display:inline-block;" />
-          <img src="${wordmarkLogoUrl}" alt="SHIBAURA" style="height:22px;width:auto;vertical-align:middle;display:inline-block;margin-left:10px;" />
-        </div>
-        <div style="padding:16px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
-          <h2 style="margin:0;font-size:20px;line-height:28px;">Portable Fire Pump Inquiry</h2>
+        <div style="padding:14px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
+          <table role="presentation" style="width:100%;border-collapse:collapse;">
+            <tr>
+              <td style="width:1%;white-space:nowrap;vertical-align:middle;">
+                <img src="${markLogoUrl}" alt="Shibaura" style="height:34px;width:auto;vertical-align:middle;display:inline-block;" />
+                <img src="${wordmarkLogoUrl}" alt="SHIBAURA" style="height:22px;width:auto;vertical-align:middle;display:inline-block;margin-left:10px;" />
+              </td>
+              <td style="padding-left:14px;vertical-align:middle;">
+                <h2 style="margin:0;font-size:20px;line-height:28px;color:#ffffff;">Portable Fire Pump Inquiry</h2>
+              </td>
+            </tr>
+          </table>
         </div>
         <div style="padding:20px;">
           ${sectionBlocks}
           ${unknownRows ? `
-            <div style="margin: 0 0 18px;">
-              <h3 style="margin:0 0 8px;font-size:14px;line-height:20px;color:#374151;text-transform:uppercase;letter-spacing:0.04em;">
-                Additional Fields
-              </h3>
-              <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;background:#ffffff;">
-                ${unknownRows}
-              </table>
-            </div>
+            <details style="margin:0 0 4px;">
+              <summary style="cursor:pointer;list-style:none;color:#9ca3af;font-size:11px;line-height:16px;font-weight:600;">
+                + Additional Fields
+              </summary>
+              <div style="margin-top:6px;">
+                <table style="width:100%;border-collapse:collapse;border:1px solid #f1f5f9;border-radius:8px;overflow:hidden;background:#ffffff;">
+                  ${unknownRows}
+                </table>
+              </div>
+            </details>
           ` : ""}
           ${fallbackBlock}
         </div>
@@ -169,13 +254,16 @@ function buildHtmlEmail(formName, data) {
 }
 
 function buildTextEmail(formName, data) {
+  const locale = detectLocale(data);
   const lines = [`New form submission: ${formName}`, ""];
   for (const section of FIELD_SECTIONS) {
     const visible = section.keys.filter((key) => Object.prototype.hasOwnProperty.call(data, key));
     if (!visible.length) continue;
     lines.push(`${section.title}:`);
     for (const key of visible) {
-      const value = Array.isArray(data[key]) ? data[key].join(", ") : (data[key] || "(empty)");
+      const value = Array.isArray(data[key])
+        ? data[key].map((item) => mapDisplayValue(key, item, locale)).join(", ")
+        : mapDisplayValue(key, data[key], locale) || "(empty)";
       lines.push(`- ${FIELD_LABELS[key] || key}: ${value}`);
     }
     lines.push("");
