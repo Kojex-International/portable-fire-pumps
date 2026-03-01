@@ -21,6 +21,7 @@ import ft500Img from '@assets/ft500.jpg';
 import ft510Img from '@assets/ft510.jpg';
 import tf516mhImg from '@assets/tf516mh.jpg';
 import p572sImg from '@assets/p572s.jpg';
+import p555sImg from '@assets/p555s.jpg';
 import fk500Img from '@assets/fk500.jpg';
 import ff500Img from '@assets/ff500ar.jpg';
 
@@ -82,8 +83,8 @@ const docCategories = [
     bgColor: 'bg-purple-50',
     iconColor: 'text-purple-600',
     docs: [
-      { title: 'FT300 / FT400', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '1.8 MB', href: ft300400ManualPdf, thumb: ft300Img },
-      { title: 'FT450/FT500', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '2.1 MB', href: ft450500ManualPdf, thumb: ft500Img },
+      { title: 'FT300 / FT400', titleLines: ['FT400', 'FT300'], description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '1.8 MB', href: ft300400ManualPdf, thumb: ft300Img },
+      { title: 'FT450 / FT500', titleLines: ['FT500', 'FT450'], description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '2.1 MB', href: ft450500ManualPdf, thumb: ft500Img },
       { title: 'FT510', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '2.1 MB', href: ft510ManualPdf, thumb: ft510Img },
       { title: 'TF516MH', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '44.6 KB', href: tf516mhManualPdf, thumb: tf516mhImg },
       { title: 'TF745MH', description: "Manuel d'exploitation pompe refroidie à l'air", type: 'PDF', size: '3.9 MB', href: tf745mhManualPdf },
@@ -102,12 +103,12 @@ const docCategories = [
     bgColor: 'bg-green-50',
     iconColor: 'text-green-600',
     docs: [
-      { title: 'FI6000/FI7000/FI8000', description: 'Liste de pièces', type: 'PDF', size: '1.1 MB', href: fi6000fi7000fi8000PartsPdf, thumb: ff500Img },
-      { title: 'FT300/FT400', description: 'Liste de pièces', type: 'PDF', size: '2.5 MB', href: ft300ft400PartsPdf, thumb: ft300Img },
-      { title: 'FT450/FT500', description: 'Liste de pièces', type: 'PDF', size: '4.2 MB', href: ft450ft500PartsPdf, thumb: ft500Img },
+      { title: 'FI6000 / FI7000 / FI8000', titleLines: ['FI8000', 'FI7000', 'FI6000'], titleClass: 'text-base', titleLineHeight: 1.05, description: 'Liste de pièces', type: 'PDF', size: '1.1 MB', href: fi6000fi7000fi8000PartsPdf, thumb: ff500Img },
+      { title: 'FT300 / FT400', titleLines: ['FT400', 'FT300'], description: 'Liste de pièces', type: 'PDF', size: '2.5 MB', href: ft300ft400PartsPdf, thumb: ft300Img },
+      { title: 'FT450 / FT500', titleLines: ['FT500', 'FT450'], description: 'Liste de pièces', type: 'PDF', size: '4.2 MB', href: ft450ft500PartsPdf, thumb: ft500Img },
       { title: 'FT510', description: 'Liste de pièces', type: 'PDF', size: '4.2 MB', href: ft510PartsPdf, thumb: ft510Img },
       { title: 'P509R', description: 'Liste de pièces', type: 'PDF', size: '0.7 MB', href: p509rPartsPdf },
-      { title: 'P555', description: 'Liste de pièces', type: 'PDF', size: '0.5 MB', href: p555PartsPdf },
+      { title: 'P555', description: 'Liste de pièces', type: 'PDF', size: '0.5 MB', href: p555PartsPdf, thumb: p555sImg, thumbScale: 0.9 },
       { title: 'P572', description: 'Liste de pièces', type: 'PDF', size: '1.0 MB', href: p572PartsPdf, thumb: p572sImg }
     ]
   },
@@ -372,10 +373,20 @@ const storageNotes = [
                                   )}
                                 </svg>
                               </div>
-                              <h3 class={`text-xl font-bold text-gray-900 mb-3 doc-card-title ${category.id === 'product-catalogs' || doc.title === 'FI6000/FI7000/FI8000' ? '' : 'whitespace-nowrap truncate'}`}>
-                                {doc.title}
+                              <h3 class={`${doc.titleClass ?? 'text-xl'} font-bold text-gray-900 mb-3 doc-card-title min-h-[3rem] ${category.id === 'product-catalogs' || doc.titleLines ? '' : 'whitespace-nowrap truncate'}`}>
+                                {doc.titleLines ? (
+                                  <span class="block" style={`line-height:${doc.titleLineHeight ?? 1.2};`}>
+                                    {doc.titleLines.map((line, lineIndex) => (
+                                      <span class="block" style={lineIndex === doc.titleLines.length - 1 ? 'margin-bottom:0;' : ''}>
+                                        {line}
+                                      </span>
+                                    ))}
+                                  </span>
+                                ) : (
+                                  doc.title
+                                )}
                               </h3>
-                              <p class="text-sm text-gray-600 leading-relaxed">{doc.description}</p>
+                              <p class="text-sm text-gray-600 leading-relaxed min-h-[2.5rem]">{doc.description}</p>
                               <div class="mt-auto pt-2 mb-4 flex items-center text-xs text-gray-500">
                                 <span>Taille : {doc.size}</span>
                               </div>
@@ -392,6 +403,7 @@ const storageNotes = [
                                     class="w-full h-full object-contain"
                                     width={96}
                                     height={96}
+                                    style={`transform: scale(${doc.thumbScale ?? 1}); transform-origin: center;`}
                                   />
                                 ) : (
                                   <svg class="w-9 h-9 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
