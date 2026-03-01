@@ -1,5 +1,5 @@
 const RESEND_API_URL = "https://api.resend.com/emails";
-const HIDDEN_KEYS = new Set(["form-name", "bot-field", "locale"]);
+const HIDDEN_KEYS = new Set(["form-name", "bot-field", "locale", "ip", "user_agent", "referrer"]);
 
 const FIELD_LABELS = {
   firstName: "First Name",
@@ -235,16 +235,14 @@ function buildHtmlEmail(formName, data) {
         <div style="padding:20px;">
           ${sectionBlocks}
           ${unknownRows ? `
-            <details style="margin:0 0 4px;">
-              <summary style="cursor:pointer;display:block;list-style:none;color:#9ca3af;font-size:11px;line-height:16px;font-weight:600;">
-                + Additional Fields
-              </summary>
-              <div style="margin-top:6px;">
-                <table style="width:100%;border-collapse:collapse;border:1px solid #f1f5f9;border-radius:8px;overflow:hidden;background:#ffffff;">
-                  ${unknownRows}
-                </table>
+            <div style="margin:0 0 4px;">
+              <div style="color:#9ca3af;font-size:11px;line-height:16px;font-weight:600;margin-bottom:6px;">
+                Additional Fields
               </div>
-            </details>
+              <table style="width:100%;border-collapse:collapse;border:1px solid #f1f5f9;border-radius:8px;overflow:hidden;background:#ffffff;">
+                ${unknownRows}
+              </table>
+            </div>
           ` : ""}
           ${fallbackBlock}
         </div>
