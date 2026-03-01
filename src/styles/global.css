@@ -341,11 +341,7 @@ html {
 }
 
 .nav-active {
-  @apply after:content-[""] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 hover:after:bg-transparent after:rounded-full;
-}
-
-.nav-active::after {
-  background-color: var(--brand-soft);
+  color: var(--brand-1);
 }
 
 /* Animations */
