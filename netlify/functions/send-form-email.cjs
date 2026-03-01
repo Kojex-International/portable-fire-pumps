@@ -6,12 +6,12 @@ const FIELD_LABELS = {
   lastName: "Last Name",
   email: "Email Address",
   phone: "Phone Number",
-  organization: "Organization Name",
+  organization: "Organization",
   industry: "Organization Type",
   services: "Inquiring About",
   timeline: "Purchase Timeline",
   volume: "Estimated Quantity",
-  details: "Inquiry Details",
+  details: "Inquiry Comment",
 };
 
 const FIELD_VALUE_LABELS = {
@@ -236,9 +236,8 @@ function buildHtmlEmail(formName, data) {
           ${sectionBlocks}
           ${unknownRows ? `
             <details style="margin:0 0 4px;">
-              <summary style="cursor:pointer;list-style:none;color:#6b7280;font-size:14px;line-height:20px;font-weight:600;">
-                <span style="display:inline-block;width:14px;color:#9ca3af;">+</span>
-                <span>Additional Fields</span>
+              <summary style="cursor:pointer;display:block;list-style:none;color:#9ca3af;font-size:11px;line-height:16px;font-weight:600;">
+                + Additional Fields
               </summary>
               <div style="margin-top:6px;">
                 <table style="width:100%;border-collapse:collapse;border:1px solid #f1f5f9;border-radius:8px;overflow:hidden;background:#ffffff;">
