@@ -1,5 +1,28 @@
 ---
-import ThanksPage from '../en/contact-us/thanks.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
-<ThanksPage />
+<BaseLayout title="Thank You - Portable Fire Pumps">
+  <script is:inline>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const explicit = params.get('lang') || params.get('locale');
+      const referrerPath = (() => {
+        try {
+          const ref = document.referrer ? new URL(document.referrer) : null;
+          return ref ? ref.pathname : '';
+        } catch {
+          return '';
+        }
+      })();
+
+      const isFrench = explicit === 'fr' || referrerPath.startsWith('/fr/');
+      const target = isFrench ? '/fr/contact-us/thanks' : '/en/contact-us/thanks';
+
+      if (window.location.pathname !== target) {
+        window.location.replace(target);
+      }
+    })();
+  </script>
+  <main class="min-h-[40vh]"></main>
+</BaseLayout>
