@@ -7,13 +7,13 @@ import shibauraWordmark from '@assets/SHIBAURA.svg';
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const navigation = getNavigation(locale);
 const footerLinks = navigation.filter(
-  (item) => !['/applications', '/distributors', '/resources'].includes(item.href.replace(/^\/(en|fr)/, ''))
+  (item) => !['/applications', '/distributors', '/resources', '/about-us'].includes(item.href.replace(/^\/(en|fr)/, ''))
 );
 const isFrench = locale === 'fr';
 const productsHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
+const aboutHref = localizePath('/about-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
-const resourcesHref = localizePath('/resources', locale);
 ---
 
 <footer class="bg-[var(--brand-ink)] text-slate-300">
@@ -33,7 +33,7 @@ const resourcesHref = localizePath('/resources', locale);
         <div class="flex space-x-4">
           <a
             href={SOCIAL_LINKS.twitter}
-            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-blue-600 hover:text-white transition-all"
+            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-black hover:text-white transition-all"
             aria-label="X"
             target="_blank"
             rel="noreferrer"
@@ -105,30 +105,30 @@ const resourcesHref = localizePath('/resources', locale);
             </a>
           </li>
           <li>
-            <a href="#" class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+            <a href={localizePath('/resources', locale)} class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
-              {isFrench ? 'Réparations' : 'Repairs'}
+              {isFrench ? 'Ressources' : 'Resources'}
             </a>
           </li>
         </ul>
       </div>
 
-      <!-- Contact -->
+      <!-- Company -->
       <div>
         <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
-          {isFrench ? 'Démarrer' : 'Get Started'}
+          {isFrench ? 'Entreprise' : 'Company'}
         </h3>
         <ul class="space-y-3 text-sm">
+          <li>
+            <a href={aboutHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+              {isFrench ? 'À propos' : 'About Us'}
+            </a>
+          </li>
           <li>
             <a href={requestQuoteHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
               {isFrench ? 'Contact' : 'Contact Us'}
-            </a>
-          </li>
-          <li>
-            <a href={resourcesHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
-              {isFrench ? 'Ressources' : 'Resources'}
             </a>
           </li>
         </ul>
