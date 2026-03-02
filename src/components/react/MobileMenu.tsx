@@ -30,12 +30,12 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 z-50 lg:hidden" />
-        <Dialog.Content className="fixed top-0 left-0 right-0 bg-white border-b border-slate-200 z-50 lg:hidden max-h-[85vh] overflow-y-auto">
+        <Dialog.Content className="fixed top-0 left-0 right-0 bg-white border-b border-slate-200 rounded-b-2xl z-50 lg:hidden max-h-[92vh] overflow-y-auto overscroll-contain">
           <Dialog.Title className="sr-only">Navigation Menu</Dialog.Title>
           <Dialog.Description className="sr-only">Main navigation menu</Dialog.Description>
-          <div className="container mx-auto px-4 py-6 space-y-1.5">
-            <div className="flex items-center justify-end pb-2">
-              <div className="min-w-[98px] flex items-center justify-end space-x-2 text-sm font-semibold uppercase tracking-wide leading-none mr-2">
+          <div className="container mx-auto px-4 py-6 pb-8 space-y-1 relative">
+            <div className="absolute right-4 top-6 flex items-center justify-end">
+              <div className="min-w-[98px] flex items-center justify-end space-x-2 text-sm font-semibold uppercase tracking-wide leading-none mr-3">
                 <Globe className="w-4 h-4 text-slate-500 mr-1.5 shrink-0" />
                 <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded-md bg-slate-100/80">
                   <Dialog.Close asChild>
@@ -68,23 +68,24 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
                 </button>
               </Dialog.Close>
             </div>
-            {items.map((item) => (
-              <div key={item.href} className="space-y-1">
+            <div className="pr-[180px]">
+              {items.map((item) => (
+              <div key={item.href} className="space-y-0.5">
                 <Dialog.Close asChild>
                   <a
                     href={item.href}
-                  className="block px-4 py-2.5 text-lg font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
+                  className="block px-4 py-2 text-lg font-medium text-slate-700 hover:text-slate-900 hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
                   >
                     {item.name}
                   </a>
                 </Dialog.Close>
                 {item.children?.length ? (
-                  <div className="ml-4 space-y-1">
+                  <div className="ml-4 space-y-0.5">
                     {item.children.map((child) => (
                       <Dialog.Close asChild key={child.href}>
                         <a
                           href={child.href}
-                          className="block px-4 py-1.5 text-sm font-semibold text-slate-600 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
+                          className="block whitespace-nowrap px-4 py-1 text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
                         >
                           {child.name}
                         </a>
@@ -93,7 +94,8 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
                   </div>
                 ) : null}
               </div>
-            ))}
+              ))}
+            </div>
             <div className="pt-4">
               <Dialog.Close asChild>
                 <a
