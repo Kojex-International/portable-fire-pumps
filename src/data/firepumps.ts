@@ -167,7 +167,7 @@ export const firepumps: Firepump[] = [
   },
   {
     slug: 'ft300-400-a',
-    title: 'FT300/400-A',
+    title: 'FT300 / 400-A',
     subtitle: 'Compact and light weight',
     description: 'A compact, lightweight pump delivering class-leading performance. The newly installed 5.3 L fuel tank supports extended operating time.',
     valueProp: 'Lightweight portable fire pump designed for fast setup and reliable output.',

@@ -4,7 +4,7 @@ import Section from '../../components/ui/Section.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
 import SectionHeader from '../../components/ui/SectionHeader.astro';
-import FirepumpAccordion from '../../components/react/FirepumpAccordion';
+import MobilePumpCards from '../../components/react/MobilePumpCards';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
 import { Gauge, Flame } from 'lucide-react';
@@ -244,7 +244,7 @@ const hasMoreProductFeatures = sortedProductFeatures.length > 3;
   <Section background="white">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
-      <FirepumpAccordion capabilities={firepumps} detailsBaseHref={productsBaseHref} locale="fr" client:load />
+      <MobilePumpCards capabilities={firepumps} detailsBaseHref={productsBaseHref} locale="fr" />
     </div>
     
     <!-- Grid View for Desktop -->

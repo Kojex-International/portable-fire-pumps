@@ -112,16 +112,14 @@ const performanceImages = performanceImagesBySlug[pump.slug];
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div class="order-2 lg:order-1 hidden lg:block">
           <ImageReveal client:load>
-            <div class="relative bg-white/5 border border-white/10 rounded-3xl shadow-2xl overflow-hidden group">
+            <div class="relative bg-white rounded-3xl overflow-hidden">
               <Image
                 src={pump.image}
                 alt={pump.title}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class="w-full h-full object-cover scale-110"
                 width={1200}
                 height={800}
               />
-              <div class="absolute inset-0 bg-black/2"></div>
-              <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/10 to-transparent"></div>
             </div>
           </ImageReveal>
         </div>
@@ -138,16 +136,14 @@ const performanceImages = performanceImagesBySlug[pump.slug];
           </p>
 
           <div class="lg:hidden mb-8 animate-fadeInUp" style="animation-delay: 0.25s">
-            <div class="relative bg-white/5 border border-white/10 rounded-3xl shadow-2xl overflow-hidden group">
+            <div class="relative bg-white rounded-3xl overflow-hidden">
               <Image
                 src={pump.image}
                 alt={pump.title}
-                class="w-full h-full object-cover"
+                class="w-full h-full object-cover scale-110"
                 width={1200}
                 height={800}
               />
-              <div class="absolute inset-0 bg-black/2"></div>
-              <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/10 to-transparent"></div>
             </div>
           </div>
 

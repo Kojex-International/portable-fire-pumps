@@ -9,11 +9,11 @@ const productsHref = localizePath('/products', locale);
 const isFrench = locale === 'fr';
 ---
 
-<section class="relative h-screen min-h-[600px] flex items-center overflow-hidden safari-hero-offset">
+<section class="relative h-[72vh] min-h-[460px] sm:h-screen sm:min-h-[600px] flex items-center overflow-hidden safari-hero-offset">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
     <video
-      class="w-full h-full object-cover object-[35%_20%] sm:object-center motion-reduce:hidden"
+      class="w-full h-full object-cover object-center sm:object-center motion-reduce:hidden"
       autoplay
       muted
       loop
@@ -28,18 +28,18 @@ const isFrench = locale === 'fr';
     <img
       src="/hero-firepump-loop-poster.png"
       alt=""
-      class="hidden w-full h-full object-cover object-[35%_20%] sm:object-center motion-reduce:block"
+      class="hidden w-full h-full object-cover object-center sm:object-center motion-reduce:block"
       loading="eager"
       decoding="async"
     />
-    <div class="absolute inset-0 bg-linear-to-r from-black/58 via-black/38 to-black/18"></div>
+    <div class="absolute inset-0 bg-linear-to-r from-black/46 via-black/30 to-black/14 sm:from-black/58 sm:via-black/38 sm:to-black/18"></div>
   </div>
 
   <!-- Content -->
   <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl relative">
       <div class="relative z-10">
-        <div class="relative inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
+        <div class="relative inline-flex items-center px-3.5 py-1.5 sm:px-4 sm:py-2 mb-4 sm:mb-6 bg-white/10 backdrop-blur-[6px] text-white text-xs sm:text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
           <span class="absolute left-3 inset-y-0.5 flex items-center pointer-events-none" aria-hidden="true">
             <span
               class="h-full aspect-square inline-block"
@@ -49,21 +49,21 @@ const isFrench = locale === 'fr';
           <span class="pl-7">{isFrench ? "Conçues pour l'incendie et le secours" : 'Engineered for Firefighting & Rescue'}</span>
         </div>
       
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
+      <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight animate-fadeInUp">
         {isFrench ? 'Haute performance' : 'High-Performance'}
         <span class="block text-[var(--brand-400)] mt-2">
           {isFrench ? 'Pompes à incendie portatives' : 'Portable Fire Pumps'}
         </span>
       </h1>
       
-      <p class="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
+      <p class="text-base sm:text-lg md:text-xl text-slate-200 mb-6 sm:mb-8 max-w-2xl leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
         {isFrench
           ? 'Depuis 1952, Shibaura offre des performances éprouvées en pompes à incendie portatives.'
           : 'Since 1952, Shibaura has delivered proven portable fire pump performance.'}
       </p>
 
       
-      <div class="flex flex-col sm:flex-row items-start gap-4 mb-12 animate-fadeInUp" style="animation-delay: 0.2s">
+      <div class="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 mb-8 sm:mb-12 animate-fadeInUp" style="animation-delay: 0.2s">
         <Button href={productsHref} size="lg" class="group !bg-transparent !border-0 !shadow-none hover:!bg-transparent !px-0">
           {isFrench ? 'Voir les produits' : 'View Products'}
           <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@ const isFrench = locale === 'fr';
   </div>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+  <div class="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
     </svg>

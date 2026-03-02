@@ -112,7 +112,7 @@ export default function FeatureShowcase({ detailsBaseHref = '/products', locale 
               <motion.img
                 src={feature.image.src}
                 alt={feature.title}
-                className="w-full h-full object-contain p-4"
+                className="w-full h-full object-contain p-0 sm:p-4"
                 loading="lazy"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.4 }}

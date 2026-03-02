@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/ui/Section.astro';
 import Button from '../../../components/ui/Button.astro';
-import FirepumpAccordion from '../../../components/react/FirepumpAccordion';
+import MobilePumpCards from '../../../components/react/MobilePumpCards';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../../components/react/ImageReveal';
 import { Gauge, Flame } from 'lucide-react';
@@ -73,7 +73,7 @@ const airCooledPumps = firepumps.filter((pump) => AIR_COOLED_SLUGS.has(pump.slug
   <Section background="white">
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
-      <FirepumpAccordion capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" client:load />
+      <MobilePumpCards capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" />
     </div>
 
     <!-- Grid View for Desktop -->
