@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { Menu, X } from 'lucide-react';
+import { Globe, Menu, X } from 'lucide-react';
 type NavItem = {
   name: string;
   href: string;
@@ -15,7 +15,7 @@ type MobileMenuProps = {
 };
 
 export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: MobileMenuProps) {
-  const isEnglish = locale === 'en';
+  const isEnglish = locale === 'en' || locale === 'default';
   const isFrench = locale === 'fr';
 
   return (
@@ -33,13 +33,47 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
         <Dialog.Content className="fixed top-0 left-0 right-0 bg-white border-b border-slate-200 z-50 lg:hidden max-h-[85vh] overflow-y-auto">
           <Dialog.Title className="sr-only">Navigation Menu</Dialog.Title>
           <Dialog.Description className="sr-only">Main navigation menu</Dialog.Description>
-          <div className="container mx-auto px-4 py-6 space-y-2">
+          <div className="container mx-auto px-4 py-6 space-y-1.5">
+            <div className="flex items-center justify-end pb-2">
+              <div className="min-w-[98px] flex items-center justify-end space-x-2 text-sm font-semibold uppercase tracking-wide leading-none mr-2">
+                <Globe className="w-4 h-4 text-slate-500 mr-1.5 shrink-0" />
+                <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded-md bg-slate-100/80">
+                  <Dialog.Close asChild>
+                    <a
+                      href={enHref}
+                      aria-current={isEnglish ? 'page' : undefined}
+                      className={`inline-flex min-h-8 items-center leading-none py-0.5 border-b-2 transition-colors ${isEnglish ? 'text-slate-900 border-[var(--brand-1)]' : 'text-slate-500 border-transparent hover:text-[var(--brand-1)]'}`}
+                    >
+                      EN
+                    </a>
+                  </Dialog.Close>
+                  <span className="inline-flex h-8 items-center text-slate-300 text-sm leading-none">|</span>
+                  <Dialog.Close asChild>
+                    <a
+                      href={frHref}
+                      aria-current={isFrench ? 'page' : undefined}
+                      className={`inline-flex min-h-8 items-center leading-none py-0.5 border-b-2 transition-colors ${isFrench ? 'text-slate-900 border-[var(--brand-1)]' : 'text-slate-500 border-transparent hover:text-[var(--brand-1)]'}`}
+                    >
+                      FR
+                    </a>
+                  </Dialog.Close>
+                </div>
+              </div>
+              <Dialog.Close asChild>
+                <button
+                  className="p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </Dialog.Close>
+            </div>
             {items.map((item) => (
               <div key={item.href} className="space-y-1">
                 <Dialog.Close asChild>
                   <a
                     href={item.href}
-                    className="block px-4 py-3 text-lg font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
+                  className="block px-4 py-2.5 text-lg font-medium text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
                   >
                     {item.name}
                   </a>
@@ -50,7 +84,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
                       <Dialog.Close asChild key={child.href}>
                         <a
                           href={child.href}
-                          className="block px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
+                          className="block px-4 py-1.5 text-sm font-semibold text-slate-600 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] active:bg-[var(--brand-1-20)] active:text-[var(--brand-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg transition-all"
                         >
                           {child.name}
                         </a>
@@ -60,27 +94,6 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
                 ) : null}
               </div>
             ))}
-            <div className="pt-4 flex items-center justify-center gap-3 text-xl sm:text-2xl font-semibold uppercase tracking-wide text-slate-600">
-              <Dialog.Close asChild>
-                <a
-                  href={enHref}
-                  aria-current={isEnglish ? 'page' : undefined}
-                  className={`px-1.5 py-0.5 rounded-md border-b-2 border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 transition-colors ${isEnglish ? 'text-slate-900 border-[var(--brand-1)]' : 'text-slate-600 hover:text-[var(--brand-1)] active:text-[var(--brand-soft)] active:bg-[var(--brand-1-10)]'}`}
-                >
-                  EN
-                </a>
-              </Dialog.Close>
-              <span className="text-slate-300 text-lg sm:text-xl">|</span>
-              <Dialog.Close asChild>
-                <a
-                  href={frHref}
-                  aria-current={isFrench ? 'page' : undefined}
-                  className={`px-1.5 py-0.5 rounded-md border-b-2 border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 transition-colors ${isFrench ? 'text-slate-900 border-[var(--brand-1)]' : 'text-slate-600 hover:text-[var(--brand-1)] active:text-[var(--brand-soft)] active:bg-[var(--brand-1-10)]'}`}
-                >
-                  FR
-                </a>
-              </Dialog.Close>
-            </div>
             <div className="pt-4">
               <Dialog.Close asChild>
                 <a
@@ -92,14 +105,6 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
               </Dialog.Close>
             </div>
           </div>
-          <Dialog.Close asChild>
-            <button
-              className="absolute top-4 right-4 p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
-              aria-label="Close menu"
-            >
-              <X className="h-6 w-6" />
-            </button>
-          </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
