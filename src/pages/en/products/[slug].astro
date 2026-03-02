@@ -106,9 +106,9 @@ const performanceImages = performanceImagesBySlug[pump.slug];
 
 <BaseLayout title={`${pump.title} - Portable Fire Pumps`}>
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-[var(--brand-ink)]">
-    <div class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/75 to-slate-900/40"></div>
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 lg:py-24">
+  <section class="relative overflow-hidden bg-white">
+    <div class="absolute inset-0 bg-linear-to-r from-white/95 via-white/80 to-white/55"></div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-[44px] pb-[20px] lg:pt-[76px] lg:pb-[20px]">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div class="order-2 lg:order-1 hidden lg:block">
           <ImageReveal client:load>
@@ -116,7 +116,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
               <Image
                 src={pump.image}
                 alt={pump.title}
-                class="w-full h-full object-cover scale-110"
+                class="w-full h-full object-contain"
                 width={1200}
                 height={800}
               />
@@ -125,13 +125,20 @@ const performanceImages = performanceImagesBySlug[pump.slug];
         </div>
 
         <div class="order-1 lg:order-2">
-          <h1 class="text-4xl md:text-6xl font-bold text-white mb-3 leading-tight animate-fadeInUp">
-            <span class="brand-gradient-text">{pump.title}</span>
+          <h1 class="flex items-center gap-3 text-3xl md:text-5xl font-extrabold text-slate-900 mb-3 leading-tight animate-fadeInUp">
+            <span
+              aria-hidden="true"
+              class="w-[1.2em] h-[1.2em] shrink-0 brand-gradient-bg"
+              style={`-webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+            />
+            <span class="inline-block brand-gradient-bg bg-clip-text text-transparent" style="-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              {pump.title}
+            </span>
           </h1>
-          <p class="text-xl text-slate-200 mb-2 animate-fadeInUp" style="animation-delay: 0.1s">
+          <p class="text-xl text-slate-800 mb-2 animate-fadeInUp" style="animation-delay: 0.1s">
             {pump.subtitle}
           </p>
-          <p class="text-lg text-slate-300 mb-8 leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">
+          <p class="text-lg text-slate-700 mb-8 leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">
             {pump.valueProp}
           </p>
 
@@ -140,7 +147,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
               <Image
                 src={pump.image}
                 alt={pump.title}
-                class="w-full h-full object-cover scale-110"
+                class="w-full h-full object-contain"
                 width={1200}
                 height={800}
               />
@@ -155,43 +162,36 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                     <img src={spec.icon} alt="" class="w-5 h-5" aria-hidden="true" />
                   </div>
                   <div>
-                    <p class="text-xs uppercase tracking-wide text-slate-300">{spec.label}</p>
-                    <p class="text-white font-semibold whitespace-pre-line">{spec.value}</p>
+                    <p class="text-xs uppercase tracking-wide text-slate-600">{spec.label}</p>
+                    <p class="text-slate-900 font-semibold whitespace-pre-line">{spec.value}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 animate-fadeInUp" style="animation-delay: 0.4s">
+          <div class="flex w-full flex-col gap-4 sm:mx-auto sm:max-w-[620px] sm:flex-row sm:justify-evenly sm:gap-0 animate-fadeInUp" style="animation-delay: 0.4s">
             <a
               href={manualPdf}
-              class="brand-cta px-6 py-3 text-base"
+              class="brand-cta min-w-[240px] px-6 py-3 text-base"
               download
             >
               {manualLabel}
             </a>
-            <Button href="#technical-specifications" size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!">
+            <Button href="#technical-specifications" size="md" variant="outline" class="min-w-[240px] border! border-[var(--brand-1)]! text-[var(--brand-1)]! bg-white/90! hover:bg-[var(--brand-1-10)]! shadow-none! hover:shadow-none!">
               Tech Specifcations
             </Button>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
-    </div>
   </section>
 
   {performanceImages && (
-    <Section background="white" class="!pt-12 !pb-4">
+    <Section background="white" class="!pt-4 !pb-4">
       <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="px-[3px]">
+          <div class="px-4 md:px-6">
             <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4 text-center">
               Performance Curve
             </h3>
@@ -203,7 +203,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
               height={900}
             />
           </div>
-          <div class="pl-[5px]">
+          <div class="px-4 md:px-6">
             <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4 text-center">
               Dimensions
             </h3>
@@ -221,7 +221,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
   )}
 
   {operationVideo && (
-    <Section background="gray" class="!pt-12 !pb-4">
+    <Section background="white" class="!pt-12 !pb-4">
       <div class="text-center mb-8 px-2">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
           {operationVideo.model}{' '}
@@ -277,7 +277,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
   -->
 
   <!-- Technical Specifications -->
-  <Section background="gray" id="technical-specifications" class="!py-12 lg:!py-16">
+  <Section background="white" id="technical-specifications" class="!py-12 lg:!py-16">
     <div class="text-center mb-8">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
         Technical <span class="brand-gradient-text">Specifications</span>
@@ -446,9 +446,6 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                 <span>{item.title}</span>
               </h3>
               <p class="text-sm text-white/95 mt-1 leading-snug drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{item.subtitle}</p>
-              <div class="mt-2 text-sm font-semibold text-white/95">
-                View Details →
-              </div>
             </div>
           </div>
         </a>

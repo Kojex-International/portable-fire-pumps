@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Sora:wght@700;800&display=swap");
 
 :root {
   color-scheme: light;
@@ -274,6 +274,14 @@
   color: var(--brand-1);
 }
 
+.brand-gradient-text-fill {
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 .brand-accent-hover {
   transition: color 0.2s ease;
 }
@@ -333,7 +341,7 @@
 
 h1,
 h2 {
-  font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 .doc-card-title {
