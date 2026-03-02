@@ -7,21 +7,25 @@ import { CheckCircle2 } from 'lucide-react';
 
 <BaseLayout title="Thank You - Portable Fire Pumps">
   <Section background="white">
-    <div class="max-w-3xl mx-auto text-center py-16">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-6">
-        <CheckCircle2 className="w-8 h-8" />
+    <div class="max-w-3xl mx-auto py-16 flex flex-col items-center">
+      <div class="inline-flex flex-col items-center mb-8">
+        <div class="relative inline-flex items-center justify-center">
+          <span class="absolute right-full mr-3 inline-flex items-center justify-center text-green-600">
+            <CheckCircle2 className="w-8 h-8" />
+          </span>
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-900">
+            Thanks for reaching out
+          </h1>
+        </div>
+        <p class="text-lg text-gray-600 text-center mt-6">
+          We’ve received your message and will follow up shortly.
+        </p>
       </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        Thanks for reaching out
-      </h1>
-      <p class="text-lg text-gray-600 mb-8">
-        We’ve received your message and will follow up shortly.
-      </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button href="/en" size="lg" class="brand-cta">
+        <Button href="/en" size="lg" class="brand-cta !px-6 !py-2.5 !text-base">
           Back to Home
         </Button>
-        <Button href="/en/products" size="lg" variant="outline">
+        <Button href="/en/products" size="lg" variant="outline" class="!px-6 !py-2.5 !text-base">
           View Products
         </Button>
       </div>

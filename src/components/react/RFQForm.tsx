@@ -1,6 +1,5 @@
 import * as Label from '@radix-ui/react-label';
 import { User, Building2, Briefcase, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText } from 'lucide-react';
-import { useState } from 'react';
 
 interface RFQFormProps {
   action?: string;
@@ -8,13 +7,8 @@ interface RFQFormProps {
 }
 
 export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
-  const [showValidationErrors, setShowValidationErrors] = useState(false);
-  const [organizationName, setOrganizationName] = useState('');
-  const [industry, setIndustry] = useState('');
   const isFrench = locale === 'fr';
   const iconStroke = 1.75;
-  const isIndustryRequired = organizationName.trim().length > 0;
-  const showIndustryValidation = showValidationErrors && isIndustryRequired && industry === '';
   const formAction = action ?? (isFrench ? '/fr/contact-us/thanks' : '/en/contact-us/thanks');
   const t = {
     contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
@@ -51,13 +45,10 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
       method="POST"
       data-netlify="true"
       data-netlify-honeypot="bot-field"
+      data-industry-invalid={t.industryInvalid}
+      data-email-invalid={t.emailInvalid}
+      data-phone-invalid={t.phoneInvalid}
       action={formAction}
-      onSubmit={(e) => {
-        setShowValidationErrors(true);
-        if (isIndustryRequired && industry === '') {
-          e.preventDefault();
-        }
-      }}
     >
       <input type="hidden" name="form-name" value="pump-inquiry" />
       <input type="hidden" name="bot-field" />
@@ -116,13 +107,9 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               name="email"
               required
               placeholder={t.emailHint}
-              className={`peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition ${
-                showValidationErrors
-                  ? 'invalid:border-rose-300 focus:invalid:border-rose-400 placeholder-shown:invalid:border-gray-300'
-                  : ''
-              } placeholder:text-sm`}
+              className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition placeholder:text-sm"
             />
-            <p className={`mt-1 text-xs text-rose-600 ${showValidationErrors ? 'hidden peer-invalid:block peer-placeholder-shown:hidden' : 'hidden'}`}>
+            <p id="email-conditional-error" className="mt-1 text-xs text-rose-600 hidden">
               {t.emailInvalid}
             </p>
           </div>
@@ -142,13 +129,9 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               minLength={10}
               title={isFrench ? 'Veuillez entrer au moins 10 chiffres.' : 'Please enter at least 10 digits.'}
               placeholder={isFrench ? '555-123-4567' : '555-123-4567'}
-              className={`peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition ${
-                showValidationErrors
-                  ? 'invalid:border-rose-300 focus:invalid:border-rose-400'
-                  : ''
-              } placeholder:text-sm`}
+              className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition placeholder:text-sm"
             />
-            <p className={`mt-1 text-xs text-rose-600 ${showValidationErrors ? 'hidden peer-invalid:block peer-placeholder-shown:hidden' : 'hidden'}`}>
+            <p id="phone-conditional-error" className="mt-1 text-xs text-rose-600 hidden">
               {t.phoneInvalid}
             </p>
           </div>
@@ -177,8 +160,6 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               type="text"
               id="organization"
               name="organization"
-              value={organizationName}
-              onChange={(e) => setOrganizationName(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
             />
           </div>
@@ -187,17 +168,12 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               htmlFor="industry"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              {t.industry} {isIndustryRequired && <span className="text-red-500">*</span>}
+              {t.industry} <span id="industry-required-star" className="text-red-500 hidden">*</span>
             </Label.Root>
             <select
               id="industry"
               name="industry"
-              required={isIndustryRequired}
-              value={industry}
-              onChange={(e) => setIndustry(e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition ${
-                showIndustryValidation ? 'border-rose-300' : 'border-gray-300'
-              }`}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
             >
               <option value="">{t.selectIndustry}</option>
               <option value="municipal">{isFrench ? 'Services incendie municipaux' : 'Municipal Fire Services'}</option>
@@ -211,7 +187,7 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               <option value="dealer">{isFrench ? 'Distributeur / revendeur' : 'Dealer / Reseller'}</option>
               <option value="other">{isFrench ? 'Autre' : 'Other'}</option>
             </select>
-            <p className={`mt-1 text-xs text-rose-600 ${showIndustryValidation ? 'block' : 'hidden'}`}>
+            <p id="industry-conditional-error" className="mt-1 text-xs text-rose-600 hidden">
               {t.industryInvalid}
             </p>
           </div>
@@ -348,6 +324,93 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
           </svg>
         </button>
       </div>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            (() => {
+              const form = document.getElementById('rfq-form');
+              if (!form) return;
+              const org = form.querySelector('#organization');
+              const industry = form.querySelector('#industry');
+              const industryStar = form.querySelector('#industry-required-star');
+              const email = form.querySelector('#email');
+              const phone = form.querySelector('#phone');
+              const emailError = form.querySelector('#email-conditional-error');
+              const phoneError = form.querySelector('#phone-conditional-error');
+              const error = form.querySelector('#industry-conditional-error');
+              if (!(org instanceof HTMLInputElement) || !(industry instanceof HTMLSelectElement) || !(email instanceof HTMLInputElement) || !(phone instanceof HTMLInputElement)) return;
+
+              const invalidMsg = form.getAttribute('data-industry-invalid') || 'Please select an organization type.';
+              const emailInvalidMsg = form.getAttribute('data-email-invalid') || 'Please enter a valid email address.';
+              const phoneInvalidMsg = form.getAttribute('data-phone-invalid') || 'At least 10 digits.';
+              let submitted = false;
+
+              const setVisible = (el, visible) => {
+                if (!el) return;
+                el.classList.toggle('hidden', !visible);
+              };
+
+              const showError = () => {
+                industry.classList.add('border-rose-300');
+                setVisible(error, true);
+              };
+              const hideError = () => {
+                industry.classList.remove('border-rose-300');
+                setVisible(error, false);
+                industry.setCustomValidity('');
+              };
+              const needsIndustry = () => org.value.trim().length > 0;
+              const syncRequirement = (checkError = false) => {
+                const required = needsIndustry();
+                industry.required = required;
+                setVisible(industryStar, required);
+                if (!required) {
+                  hideError();
+                  return;
+                }
+                if (checkError && !industry.value) {
+                  industry.setCustomValidity(invalidMsg);
+                  showError();
+                }
+              };
+
+              const syncEmailError = () => {
+                const shouldShow = submitted && email.value.trim() !== '' && !email.validity.valid;
+                email.classList.toggle('border-rose-300', shouldShow);
+                setVisible(emailError, shouldShow);
+                email.setCustomValidity(shouldShow ? emailInvalidMsg : '');
+              };
+
+              const syncPhoneError = () => {
+                const shouldShow = submitted && phone.value.trim() !== '' && !phone.validity.valid;
+                phone.classList.toggle('border-rose-300', shouldShow);
+                setVisible(phoneError, shouldShow);
+                phone.setCustomValidity(shouldShow ? phoneInvalidMsg : '');
+              };
+
+              org.addEventListener('input', () => syncRequirement(submitted));
+              industry.addEventListener('change', () => {
+                hideError();
+                if (submitted) syncRequirement(true);
+              });
+              email.addEventListener('input', syncEmailError);
+              phone.addEventListener('input', syncPhoneError);
+              form.addEventListener('submit', (event) => {
+                submitted = true;
+                syncEmailError();
+                syncPhoneError();
+                syncRequirement(true);
+                if (industry.required && !industry.value) {
+                  event.preventDefault();
+                  industry.reportValidity();
+                }
+              });
+
+              syncRequirement();
+            })();
+          `,
+        }}
+      />
     </form>
   );
 }
