@@ -100,7 +100,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
               <Dialog.Close asChild>
                 <a
                   href={rfqHref}
-                  className="block text-center px-6 py-3 text-sm font-semibold text-white brand-gradient-bg hover:brightness-95 active:brightness-90 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-1)] focus-visible:ring-offset-2 rounded-lg shadow-md transition-all duration-200"
+                  className="brand-cta w-full text-center px-6 py-3 text-sm focus-visible:outline-none"
                 >
                   Contact
                 </a>

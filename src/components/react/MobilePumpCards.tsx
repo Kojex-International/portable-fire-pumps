@@ -85,7 +85,7 @@ export default function MobilePumpCards({ capabilities, detailsBaseHref = '/en/p
             <div className="-mx-6 px-6 pt-4 pb-0 flex justify-center bg-white">
               <a
                 href={`${detailsBaseHref}/${capability.slug}`}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 hover:text-[var(--brand-1)] transition-colors group"
+                className="brand-link-cta group"
               >
                 {isFrench ? 'Voir les détails' : 'View Details'}
                 <svg

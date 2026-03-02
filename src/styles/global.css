@@ -335,6 +335,14 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+.brand-link-cta {
+  @apply inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition-colors;
+}
+
+.brand-link-cta:hover {
+  color: var(--brand-1);
+}
+
 .brand-title-font {
   font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
