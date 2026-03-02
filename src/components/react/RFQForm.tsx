@@ -10,9 +10,11 @@ interface RFQFormProps {
 export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
   const [showValidationErrors, setShowValidationErrors] = useState(false);
   const [organizationName, setOrganizationName] = useState('');
+  const [industry, setIndustry] = useState('');
   const isFrench = locale === 'fr';
   const iconStroke = 1.75;
   const isIndustryRequired = organizationName.trim().length > 0;
+  const showIndustryValidation = showValidationErrors && isIndustryRequired && industry === '';
   const formAction = action ?? (isFrench ? '/fr/contact-us/thanks' : '/en/contact-us/thanks');
   const t = {
     contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
@@ -39,6 +41,7 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
       ? 'Décrivez brièvement votre demande et les exigences clés.'
       : 'Briefly describe your inquiry and any key requirements.',
     submit: isFrench ? 'Envoyer la demande' : 'Submit Request',
+    industryInvalid: isFrench ? "Veuillez sélectionner un type d'organisation." : 'Please select an organization type.',
   };
   return (
     <form
@@ -49,7 +52,12 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
       data-netlify="true"
       data-netlify-honeypot="bot-field"
       action={formAction}
-      onSubmitCapture={() => setShowValidationErrors(true)}
+      onSubmit={(e) => {
+        setShowValidationErrors(true);
+        if (isIndustryRequired && industry === '') {
+          e.preventDefault();
+        }
+      }}
     >
       <input type="hidden" name="form-name" value="pump-inquiry" />
       <input type="hidden" name="bot-field" />
@@ -185,7 +193,11 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               id="industry"
               name="industry"
               required={isIndustryRequired}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
+              value={industry}
+              onChange={(e) => setIndustry(e.target.value)}
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition ${
+                showIndustryValidation ? 'border-rose-300' : 'border-gray-300'
+              }`}
             >
               <option value="">{t.selectIndustry}</option>
               <option value="municipal">{isFrench ? 'Services incendie municipaux' : 'Municipal Fire Services'}</option>
@@ -199,6 +211,9 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               <option value="dealer">{isFrench ? 'Distributeur / revendeur' : 'Dealer / Reseller'}</option>
               <option value="other">{isFrench ? 'Autre' : 'Other'}</option>
             </select>
+            <p className={`mt-1 text-xs text-rose-600 ${showIndustryValidation ? 'block' : 'hidden'}`}>
+              {t.industryInvalid}
+            </p>
           </div>
         </div>
       </div>
