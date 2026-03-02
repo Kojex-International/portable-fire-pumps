@@ -310,12 +310,20 @@
 }
 
 .brand-cta {
-  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white shadow-2xl transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 focus-visible:ring-2 focus-visible:ring-offset-2;
-  background: linear-gradient(135deg, var(--brand-700), var(--brand-600));
+  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 focus-visible:ring-2 focus-visible:ring-offset-2 border;
+  border-color: rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.00) 40%),
+    linear-gradient(135deg, var(--brand-700), var(--brand-600));
+  box-shadow:
+    0 7px 16px rgba(17, 24, 39, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .brand-cta:hover {
-  filter: brightness(0.95);
+  box-shadow:
+    0 9px 18px rgba(17, 24, 39, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .brand-title-font {

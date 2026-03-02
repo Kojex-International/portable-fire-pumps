@@ -9,7 +9,10 @@ interface RFQFormProps {
 
 export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }: RFQFormProps) {
   const [showValidationErrors, setShowValidationErrors] = useState(false);
+  const [organizationName, setOrganizationName] = useState('');
   const isFrench = locale === 'fr';
+  const iconStroke = 1.75;
+  const isIndustryRequired = organizationName.trim().length > 0;
   const t = {
     contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
     firstName: isFrench ? 'Prénom' : 'First Name',
@@ -32,8 +35,8 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
     qtyPlaceholder: isFrench ? 'ex. : 1-5 unités' : 'e.g., 1-5 units',
     details: isFrench ? 'Détails de la demande' : 'Inquiry Details',
     detailsPlaceholder: isFrench
-      ? "Veuillez inclure votre demande ainsi que des détails sur l'usage prévu, les conditions du site, la source d'eau et les modèles ou accessoires souhaités."
-      : 'Please include your inquiry and any details about your use case, site conditions, water source, and any preferred models or accessories.',
+      ? 'Décrivez brièvement votre demande et les exigences clés.'
+      : 'Briefly describe your inquiry and any key requirements.',
     submit: isFrench ? 'Envoyer la demande' : 'Submit Request',
   };
   return (
@@ -53,8 +56,8 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
       {/* Contact Information */}
       <div>
         <div className="flex items-center mb-6">
-          <div className="w-10 h-10 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center mr-3">
-            <User className="w-5 h-5 text-amber-700" />
+          <div className="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center mr-3">
+            <User className="w-5 h-5 text-rose-600" strokeWidth={iconStroke} />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
             {t.contactInfo}
@@ -108,7 +111,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                 showValidationErrors
                   ? 'invalid:border-rose-300 focus:invalid:border-rose-400 placeholder-shown:invalid:border-gray-300'
                   : ''
-              }`}
+              } placeholder:text-sm`}
             />
             <p className={`mt-1 text-xs text-rose-600 ${showValidationErrors ? 'hidden peer-invalid:block peer-placeholder-shown:hidden' : 'hidden'}`}>
               {t.emailInvalid}
@@ -134,7 +137,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                 showValidationErrors
                   ? 'invalid:border-rose-300 focus:invalid:border-rose-400'
                   : ''
-              }`}
+              } placeholder:text-sm`}
             />
             <p className={`mt-1 text-xs text-rose-600 ${showValidationErrors ? 'hidden peer-invalid:block peer-placeholder-shown:hidden' : 'hidden'}`}>
               {t.phoneInvalid}
@@ -146,8 +149,8 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
       {/* Organization Information */}
       <div className="pt-6 border-t border-gray-200">
         <div className="flex items-center mb-6">
-          <div className="w-10 h-10 rounded-lg bg-orange-100 border border-orange-200 flex items-center justify-center mr-3">
-            <Building2 className="w-5 h-5 text-orange-700" />
+          <div className="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center mr-3">
+            <Building2 className="w-5 h-5 text-rose-600" strokeWidth={iconStroke} />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
             {t.orgInfo}
@@ -159,13 +162,14 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               htmlFor="organization"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              {t.orgName} <span className="text-red-500">*</span>
+              {t.orgName}
             </Label.Root>
             <input
               type="text"
               id="organization"
               name="organization"
-              required
+              value={organizationName}
+              onChange={(e) => setOrganizationName(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
             />
           </div>
@@ -174,12 +178,12 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
               htmlFor="industry"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              {t.industry} <span className="text-red-500">*</span>
+              {t.industry} {isIndustryRequired && <span className="text-red-500">*</span>}
             </Label.Root>
             <select
               id="industry"
               name="industry"
-              required
+              required={isIndustryRequired}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
             >
               <option value="">{t.selectIndustry}</option>
@@ -202,7 +206,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
       <div className="pt-6 border-t border-gray-200">
         <div className="flex items-center mb-6">
           <div className="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center mr-3">
-            <Flame className="w-5 h-5 text-rose-700" />
+            <Flame className="w-5 h-5 text-rose-600" strokeWidth={iconStroke} />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
               {t.inquiry}
@@ -237,7 +241,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                       className="w-5 h-5 border-2 border-gray-300 rounded accent-red-700 focus:outline-none focus:ring-0 shrink-0"
                     />
                     <div className="w-8 h-8 rounded-lg bg-rose-50 group-hover:bg-rose-100 flex items-center justify-center shrink-0 transition-colors">
-                      <IconComponent className="w-4 h-4 text-rose-600 group-hover:text-rose-700 transition-colors" />
+                      <IconComponent className="w-4 h-4 text-rose-600 group-hover:text-rose-700 transition-colors" strokeWidth={iconStroke} />
                     </div>
                     <span className="text-sm font-medium text-gray-700 cursor-pointer flex-1 group-hover:text-gray-900 transition-colors">
                       {service.label}
@@ -257,7 +261,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                 htmlFor="timeline"
                 className="flex items-center text-sm font-medium text-gray-700 mb-2"
               >
-                <Calendar className="w-4 h-4 mr-2 text-gray-500" />
+                <Calendar className="w-4 h-4 mr-2 text-gray-500" strokeWidth={iconStroke} />
                 {t.timeline}
               </Label.Root>
               <div className="relative">
@@ -273,7 +277,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                   <option value="planning">{isFrench ? 'Planification / budget' : 'Planning / Budgeting'}</option>
                   <option value="other">{isFrench ? 'Autre' : 'Other'}</option>
                 </select>
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" strokeWidth={iconStroke} />
               </div>
             </div>
             <div>
@@ -281,7 +285,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                 htmlFor="volume"
                 className="flex items-center text-sm font-medium text-gray-700 mb-2"
               >
-                <Package className="w-4 h-4 mr-2 text-gray-500" />
+                <Package className="w-4 h-4 mr-2 text-gray-500" strokeWidth={iconStroke} />
                 {t.quantity}
               </Label.Root>
               <div className="relative">
@@ -292,7 +296,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
                   placeholder={t.qtyPlaceholder}
                   className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
                 />
-                <Package className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <Package className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" strokeWidth={iconStroke} />
               </div>
             </div>
           </div>

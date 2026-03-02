@@ -13,6 +13,13 @@ import warehouseImg from '@assets/photo-1563013544-824ae1b704d3.jpg';
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const thanksHref = localizePath('/contact-us/thanks', locale);
 ---
+<style>
+  .sidebar-icon-sub {
+    color: #64748b;
+  }
+</style>
+
+
 
 <BaseLayout title="Contact Us - Portable Fire Pumps">
   <!-- Hero Section with Professional Image -->
@@ -52,20 +59,20 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         <!-- Quick Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20 animate-fadeInUp" style="animation-delay: 0.3s">
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">24hr</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Typical Response</div>
+            <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">24hr</div>
+            <div class="text-sm text-slate-300">Typical Response</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">70+ yrs</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Pump Expertise</div>
+            <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">70+ yrs</div>
+            <div class="text-sm text-slate-300">Pump Expertise</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">Field</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Proven Reliability</div>
+            <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">Field</div>
+            <div class="text-sm text-slate-300">Proven Reliability</div>
           </div>
           <div class="group">
-            <div class="text-3xl md:text-4xl font-bold brand-gradient-text mb-1">Support</div>
-            <div class="text-sm text-slate-300 group-hover:text-teal-300 transition-colors">Parts & Service</div>
+            <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">Support</div>
+            <div class="text-sm text-slate-300">Parts & Service</div>
           </div>
         </div>
       </div>
@@ -101,15 +108,15 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         <!-- Contact Info Card -->
         <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center mr-3">
-              <Phone className="w-5 h-5 text-amber-700" />
+            <div class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center mr-3">
+              <Phone className="w-5 h-5 sidebar-icon-sub" />
             </div>
             <h3 class="text-xl font-bold text-gray-900">Need Help?</h3>
           </div>
           <div class="space-y-4 text-sm">
             <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
-                <Phone className="w-5 h-5 text-amber-700" />
+              <div class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
+                <Phone className="w-5 h-5 sidebar-icon-sub" />
               </div>
               <div>
                 <div class="font-semibold text-gray-900">Phone</div>
@@ -119,8 +126,8 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
             </div>
 
             <div class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
-                <Mail className="w-5 h-5 text-amber-700" />
+              <div class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
+                <Mail className="w-5 h-5 sidebar-icon-sub" />
               </div>
               <div>
                 <div class="font-semibold text-gray-900">Email</div>
@@ -136,35 +143,35 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         <!-- What to Expect Card -->
         <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-orange-100 border border-orange-200 flex items-center justify-center mr-3">
-              <Clock className="w-5 h-5 text-orange-700" />
+            <div class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center mr-3">
+              <Clock className="w-5 h-5 sidebar-icon-sub" />
             </div>
             <h3 class="text-xl font-bold text-gray-900">What to Expect</h3>
           </div>
           <ol class="space-y-4 text-sm">
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">1</span>
+              <span class="shrink-0 w-8 h-8 rounded-full bg-slate-100 border border-slate-200 sidebar-icon-sub flex items-center justify-center font-bold text-sm">1</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Response</span>
                 <span class="text-gray-600">We'll review your request within 24 hours</span>
               </div>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">2</span>
+              <span class="shrink-0 w-8 h-8 rounded-full bg-slate-100 border border-slate-200 sidebar-icon-sub flex items-center justify-center font-bold text-sm">2</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Fit Review</span>
                 <span class="text-gray-600">Confirm flow, head, suction, and deployment needs</span>
               </div>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">3</span>
+              <span class="shrink-0 w-8 h-8 rounded-full bg-slate-100 border border-slate-200 sidebar-icon-sub flex items-center justify-center font-bold text-sm">3</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Recommendation</span>
                 <span class="text-gray-600">Receive a pump model + accessories + delivery timeline</span>
               </div>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <span class="shrink-0 w-8 h-8 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-sm">4</span>
+              <span class="shrink-0 w-8 h-8 rounded-full bg-slate-100 border border-slate-200 sidebar-icon-sub flex items-center justify-center font-bold text-sm">4</span>
               <div>
                 <span class="text-gray-900 font-semibold block">Delivery & Support</span>
                 <span class="text-gray-600">Order fulfillment, parts access, and service support</span>
@@ -176,33 +183,33 @@ const thanksHref = localizePath('/contact-us/thanks', locale);
         <!-- Trust Indicators -->
         <Card class="bg-slate-50 border-slate-200">
           <div class="flex items-center mb-4">
-            <div class="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center mr-3">
-              <Award className="w-5 h-5 text-rose-700" />
+            <div class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center mr-3">
+              <Award className="w-5 h-5 sidebar-icon-sub" />
             </div>
             <h3 class="text-xl font-bold text-gray-900">Why Choose Us?</h3>
           </div>
           <ul class="space-y-3 text-sm">
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
-                <TrendingUp className="w-4 h-4 text-rose-700" />
+              <div class="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
+                <TrendingUp className="w-4 h-4 sidebar-icon-sub" />
               </div>
               <span class="text-gray-700 pt-1">70+ years in portable fire pumps</span>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-rose-700" />
+              <div class="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 sidebar-icon-sub" />
               </div>
               <span class="text-gray-700 pt-1">Field-tested reliability and rugged design</span>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
-                <Shield className="w-4 h-4 text-rose-700" />
+              <div class="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
+                <Shield className="w-4 h-4 sidebar-icon-sub" />
               </div>
               <span class="text-gray-700 pt-1">Serviceable parts and dealer support</span>
             </li>
             <li class="flex items-start space-x-3 p-3 bg-white rounded-lg hover:shadow-sm transition-shadow">
-              <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
-                <Users className="w-4 h-4 text-rose-700" />
+              <div class="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
+                <Users className="w-4 h-4 sidebar-icon-sub" />
               </div>
               <span class="text-gray-700 pt-1">Support for municipal, industrial, and wildfire use</span>
             </li>
