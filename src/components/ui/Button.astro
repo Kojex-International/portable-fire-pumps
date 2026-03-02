@@ -1,6 +1,6 @@
 ---
 interface Props {
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'light';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   class?: string;
@@ -18,7 +18,8 @@ const baseStyles = 'inline-flex items-center justify-center font-semibold rounde
 const variantStyles = {
   primary: 'bg-primary-800 text-white hover:bg-primary-900',
   secondary: 'bg-secondary-600 text-white hover:bg-secondary-700',
-  outline: 'border-2 border-primary-800 text-primary-800 hover:bg-primary-50'
+  outline: 'border-2 border-primary-800 text-primary-800 hover:bg-primary-50',
+  light: 'border border-[var(--brand-1)] text-[var(--brand-1)] bg-white/90 hover:bg-[var(--brand-1-10)] shadow-none hover:shadow-none'
 };
 
 const sizeStyles = {
