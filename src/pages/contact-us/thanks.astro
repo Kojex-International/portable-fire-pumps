@@ -7,6 +7,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     (() => {
       const params = new URLSearchParams(window.location.search);
       const explicit = params.get('lang') || params.get('locale');
+      const currentPath = window.location.pathname || '';
       const referrerPath = (() => {
         try {
           const ref = document.referrer ? new URL(document.referrer) : null;
@@ -16,7 +17,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         }
       })();
 
-      const isFrench = explicit === 'fr' || referrerPath.startsWith('/fr/');
+      const isFrench =
+        explicit === 'fr' ||
+        currentPath.startsWith('/fr/') ||
+        referrerPath.startsWith('/fr/');
       const target = isFrench ? '/fr/contact-us/thanks' : '/en/contact-us/thanks';
 
       if (window.location.pathname !== target) {
@@ -24,5 +28,15 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       }
     })();
   </script>
-  <main class="min-h-[40vh]"></main>
+  <main class="min-h-[40vh] flex items-center justify-center px-6 text-center">
+    <div class="space-y-3">
+      <p class="text-slate-700">Redirecting to your confirmation page…</p>
+      <p class="text-sm text-slate-500">
+        If you are not redirected, choose:
+        <a href="/en/contact-us/thanks" class="ml-1 text-[var(--brand-1)] hover:underline">EN</a>
+        /
+        <a href="/fr/contact-us/thanks" class="ml-1 text-[var(--brand-1)] hover:underline">FR</a>
+      </p>
+    </div>
+  </main>
 </BaseLayout>
