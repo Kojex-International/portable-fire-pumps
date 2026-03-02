@@ -34,6 +34,7 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
     detailsPlaceholder: isFrench
       ? 'Décrivez brièvement votre demande et les exigences clés.'
       : 'Briefly describe your inquiry and any key requirements.',
+    detailsInvalid: isFrench ? 'Veuillez décrire brièvement votre demande.' : 'Please briefly describe your inquiry.',
     submit: isFrench ? 'Envoyer la demande' : 'Submit Request',
     industryInvalid: isFrench ? "Veuillez sélectionner un type d'organisation." : 'Please select an organization type.',
   };
@@ -48,6 +49,7 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
       data-industry-invalid={t.industryInvalid}
       data-email-invalid={t.emailInvalid}
       data-phone-invalid={t.phoneInvalid}
+      data-details-invalid={t.detailsInvalid}
       action={formAction}
     >
       <input type="hidden" name="form-name" value="pump-inquiry" />
@@ -308,6 +310,9 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               placeholder={t.detailsPlaceholder}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition resize-none"
             />
+            <p id="details-conditional-error" className="mt-1 text-xs text-rose-600 hidden">
+              {t.detailsInvalid}
+            </p>
           </div>
         </div>
       </div>
@@ -335,27 +340,41 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               const industryStar = form.querySelector('#industry-required-star');
               const email = form.querySelector('#email');
               const phone = form.querySelector('#phone');
+              const details = form.querySelector('#details');
               const emailError = form.querySelector('#email-conditional-error');
               const phoneError = form.querySelector('#phone-conditional-error');
+              const detailsError = form.querySelector('#details-conditional-error');
               const error = form.querySelector('#industry-conditional-error');
-              if (!(org instanceof HTMLInputElement) || !(industry instanceof HTMLSelectElement) || !(email instanceof HTMLInputElement) || !(phone instanceof HTMLInputElement)) return;
+              if (!(org instanceof HTMLInputElement) || !(industry instanceof HTMLSelectElement) || !(email instanceof HTMLInputElement) || !(phone instanceof HTMLInputElement) || !(details instanceof HTMLTextAreaElement)) return;
 
               const invalidMsg = form.getAttribute('data-industry-invalid') || 'Please select an organization type.';
               const emailInvalidMsg = form.getAttribute('data-email-invalid') || 'Please enter a valid email address.';
               const phoneInvalidMsg = form.getAttribute('data-phone-invalid') || 'At least 10 digits.';
+              const detailsInvalidMsg = form.getAttribute('data-details-invalid') || 'Please briefly describe your inquiry.';
               let submitted = false;
+              const controls = Array.from(form.querySelectorAll('input, select, textarea')).filter((field) => {
+                if (!(field instanceof HTMLElement)) return false;
+                if (field instanceof HTMLInputElement) {
+                  return field.type !== 'hidden' && field.type !== 'checkbox';
+                }
+                return true;
+              });
 
               const setVisible = (el, visible) => {
                 if (!el) return;
                 el.classList.toggle('hidden', !visible);
               };
+              const setInvalidBorder = (field, invalid) => {
+                if (!(field instanceof HTMLInputElement) && !(field instanceof HTMLSelectElement) && !(field instanceof HTMLTextAreaElement)) return;
+                field.style.borderColor = invalid ? '#fb7185' : '';
+              };
 
               const showError = () => {
-                industry.classList.add('border-rose-300');
+                setInvalidBorder(industry, true);
                 setVisible(error, true);
               };
               const hideError = () => {
-                industry.classList.remove('border-rose-300');
+                setInvalidBorder(industry, false);
                 setVisible(error, false);
                 industry.setCustomValidity('');
               };
@@ -368,6 +387,10 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
                   hideError();
                   return;
                 }
+                if (industry.value) {
+                  hideError();
+                  return;
+                }
                 if (checkError && !industry.value) {
                   industry.setCustomValidity(invalidMsg);
                   showError();
@@ -375,34 +398,113 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               };
 
               const syncEmailError = () => {
-                const shouldShow = submitted && email.value.trim() !== '' && !email.validity.valid;
-                email.classList.toggle('border-rose-300', shouldShow);
+                email.setCustomValidity('');
+                const shouldShow = submitted && !email.validity.valid;
+                setInvalidBorder(email, shouldShow);
                 setVisible(emailError, shouldShow);
                 email.setCustomValidity(shouldShow ? emailInvalidMsg : '');
               };
 
               const syncPhoneError = () => {
+                phone.setCustomValidity('');
                 const shouldShow = submitted && phone.value.trim() !== '' && !phone.validity.valid;
-                phone.classList.toggle('border-rose-300', shouldShow);
+                setInvalidBorder(phone, shouldShow);
                 setVisible(phoneError, shouldShow);
                 phone.setCustomValidity(shouldShow ? phoneInvalidMsg : '');
               };
+              const syncDetailsError = () => {
+                details.setCustomValidity('');
+                const shouldShow = submitted && !details.validity.valid;
+                setInvalidBorder(details, shouldShow);
+                setVisible(detailsError, shouldShow);
+                details.setCustomValidity(shouldShow ? detailsInvalidMsg : '');
+              };
+              const syncInvalidFieldBorders = () => {
+                controls.forEach((field) => {
+                  if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) {
+                    setInvalidBorder(field, submitted && !field.validity.valid);
+                  }
+                });
+              };
+              controls.forEach((field) => {
+                const sync = () => {
+                  if (!submitted) return;
+                  syncInvalidFieldBorders();
+                };
+                field.addEventListener('input', sync);
+                field.addEventListener('change', sync);
+              });
 
-              org.addEventListener('input', () => syncRequirement(submitted));
+              org.addEventListener('input', () => {
+                syncRequirement(submitted);
+                syncInvalidFieldBorders();
+              });
               industry.addEventListener('change', () => {
                 hideError();
                 if (submitted) syncRequirement(true);
+                syncInvalidFieldBorders();
               });
-              email.addEventListener('input', syncEmailError);
-              phone.addEventListener('input', syncPhoneError);
+              email.addEventListener('input', () => {
+                syncEmailError();
+                syncInvalidFieldBorders();
+              });
+              email.addEventListener('change', () => {
+                syncEmailError();
+                syncInvalidFieldBorders();
+              });
+              phone.addEventListener('input', () => {
+                syncPhoneError();
+                syncInvalidFieldBorders();
+              });
+              phone.addEventListener('change', () => {
+                syncPhoneError();
+                syncInvalidFieldBorders();
+              });
+              details.addEventListener('input', () => {
+                syncDetailsError();
+                syncInvalidFieldBorders();
+              });
+              details.addEventListener('change', () => {
+                syncDetailsError();
+                syncInvalidFieldBorders();
+              });
+              form.addEventListener(
+                'invalid',
+                (event) => {
+                  submitted = true;
+                  syncRequirement(true);
+                  syncEmailError();
+                  syncPhoneError();
+                  syncDetailsError();
+                  syncInvalidFieldBorders();
+
+                  const target = event.target;
+                  if (target === industry && industry.required && !industry.value) {
+                    industry.setCustomValidity(invalidMsg);
+                    showError();
+                  }
+
+                  if (target === phone && phone.value.trim() === '') {
+                    // Optional phone should not display a custom validation error when blank.
+                    phone.setCustomValidity('');
+                    setVisible(phoneError, false);
+                    setInvalidBorder(phone, false);
+                  }
+                },
+                true
+              );
               form.addEventListener('submit', (event) => {
                 submitted = true;
                 syncEmailError();
                 syncPhoneError();
+                syncDetailsError();
                 syncRequirement(true);
-                if (industry.required && !industry.value) {
+                syncInvalidFieldBorders();
+                const isValid = form.checkValidity();
+                if (!isValid) {
                   event.preventDefault();
-                  industry.reportValidity();
+                  const firstInvalid = form.querySelector(':invalid');
+                  if (firstInvalid instanceof HTMLElement) firstInvalid.focus();
                 }
               });
 
