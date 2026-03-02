@@ -1,7 +1,7 @@
 ---
 import { getLocaleFromPathname, getNavigation, localizePath } from '@config/site';
-import { Image } from 'astro:assets';
 import logoMark from '@assets/shibaura-logo-mark.svg';
+import shibauraWordmark from '@assets/SHIBAURA.svg';
 import MobileMenu from '@components/react/MobileMenu';
 import { Globe } from 'lucide-react';
 
@@ -40,16 +40,23 @@ const isActiveLink = (href: string): boolean => {
   <nav class="mx-auto flex h-20 items-center justify-between max-w-[1440px] px-4 sm:px-5 lg:px-6">
     <!-- Logo -->
     <div class="flex items-center">
-      <a href={localizePath('/', locale)} class="flex items-center space-x-2.5 group">
-        <div class="flex items-center justify-center w-[52px] h-[52px] rounded-lg group-hover:scale-110 transition-transform">
+      <a href={localizePath('/', locale)} class="flex items-center gap-3 group">
+        <div class="flex items-center justify-center w-[84px] h-12 group-hover:scale-110 transition-transform">
           <span
             aria-hidden="true"
-            class="w-[52px] h-[52px] brand-gradient-bg"
+            class="w-full h-full brand-gradient-bg"
             style={`-webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
           ></span>
         </div>
-        <span class="text-2xl font-extrabold tracking-tight brand-gradient-text brand-title-font text-center leading-tight">
-          Portable Fire Pumps
+        <span class="flex h-12 w-[168px] flex-col justify-between leading-none">
+          <span
+            aria-hidden="true"
+            class="h-8 w-[168px] brand-gradient-bg"
+            style={`-webkit-mask-image: url(${shibauraWordmark.src}); mask-image: url(${shibauraWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center left; mask-position: center left; -webkit-mask-size: contain; mask-size: contain;`}
+          ></span>
+          <span class="block w-full text-center text-[10px] sm:text-[11px] font-bold tracking-[0.12em] uppercase text-black">
+            Portable Fire Pumps
+          </span>
         </span>
       </a>
     </div>

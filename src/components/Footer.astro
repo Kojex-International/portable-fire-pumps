@@ -21,15 +21,15 @@ const resourcesHref = localizePath('/resources', locale);
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-4">
       <!-- Company Info -->
       <div class="lg:col-span-1 space-y-6">
-        <a href={localizePath('/', locale)} class="flex items-center space-x-3 group">
-          <div class="flex items-center justify-center w-16 h-16">
-            <img src={logoMark.src} alt="Shibaura" class="w-full h-full object-contain" />
-          </div>
-          <img src={shibauraWordmark.src} alt="Shibaura" class="h-7 w-auto" />
-        </a>
-        <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
-          {SITE.description}
-        </p>
+        <div class="w-full max-w-xs">
+          <a href={localizePath('/', locale)} class="group flex h-8 w-full items-center gap-3">
+            <img src={logoMark.src} alt="Shibaura" class="h-full w-auto shrink-0 object-contain py-[4px]" />
+            <img src={shibauraWordmark.src} alt="Shibaura" class="h-full w-0 min-w-0 grow object-contain object-left" />
+          </a>
+          <p class="mt-6 text-sm text-slate-400 leading-relaxed">
+            {SITE.description}
+          </p>
+        </div>
         <div class="flex space-x-4">
           <a
             href={SOCIAL_LINKS.twitter}
