@@ -11,7 +11,7 @@ const navigation = getNavigation(locale);
 const rfqHref = localizePath('/contact-us', locale);
 const enHref = localizePath(currentPathname, 'en');
 const frHref = localizePath(currentPathname, 'fr');
-const isEnglish = locale === 'en';
+const isEnglish = locale === 'en' || locale === 'default';
 const isFrench = locale === 'fr';
 const contactLabel = isFrench ? 'Contact' : 'Contact';
 const normalizePath = (path: string): string => {

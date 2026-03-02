@@ -7,12 +7,13 @@ interface RFQFormProps {
   locale?: 'en' | 'fr';
 }
 
-export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }: RFQFormProps) {
+export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
   const [showValidationErrors, setShowValidationErrors] = useState(false);
   const [organizationName, setOrganizationName] = useState('');
   const isFrench = locale === 'fr';
   const iconStroke = 1.75;
   const isIndustryRequired = organizationName.trim().length > 0;
+  const formAction = action ?? (isFrench ? '/fr/contact-us/thanks' : '/en/contact-us/thanks');
   const t = {
     contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
     firstName: isFrench ? 'Prénom' : 'First Name',
@@ -47,7 +48,7 @@ export default function RFQForm({ action = '/contact-us/thanks', locale = 'en' }
       method="POST"
       data-netlify="true"
       data-netlify-honeypot="bot-field"
-      action={action}
+      action={formAction}
       onSubmitCapture={() => setShowValidationErrors(true)}
     >
       <input type="hidden" name="form-name" value="pump-inquiry" />
