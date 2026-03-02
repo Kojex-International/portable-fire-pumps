@@ -1,5 +1,5 @@
 import * as Label from '@radix-ui/react-label';
-import { User, Building2, Briefcase, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText } from 'lucide-react';
+import { User, Building2, Briefcase, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText, Mail, Phone } from 'lucide-react';
 
 interface RFQFormProps {
   action?: string;
@@ -103,14 +103,19 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
             >
               {t.email} <span className="text-red-500">*</span>
             </Label.Root>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder={t.emailHint}
-              className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition placeholder:text-sm"
-            />
+            <div className="relative">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder={t.emailHint}
+                className="peer w-full h-11 px-4 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition placeholder:text-sm leading-normal"
+              />
+              <span className="absolute inset-y-0 left-3 flex items-center translate-y-[2px] pointer-events-none">
+                <Mail className="w-4 h-4 text-gray-400" strokeWidth={iconStroke} />
+              </span>
+            </div>
             <p id="email-conditional-error" className="mt-1 text-xs text-rose-600 hidden">
               {t.emailInvalid}
             </p>
@@ -122,17 +127,22 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
             >
               {t.phone}
             </Label.Root>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              inputMode="tel"
-              pattern={"(?:[0-9][\\s-]?){10,}"}
-              minLength={10}
-              title={isFrench ? 'Veuillez entrer au moins 10 chiffres.' : 'Please enter at least 10 digits.'}
-              placeholder={isFrench ? '555-123-4567' : '555-123-4567'}
-              className="peer w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition placeholder:text-sm"
-            />
+            <div className="relative">
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                inputMode="tel"
+                pattern={"(?:[0-9][\\s-]?){10,}"}
+                minLength={10}
+                title={isFrench ? 'Veuillez entrer au moins 10 chiffres.' : 'Please enter at least 10 digits.'}
+                placeholder="xxx-xxx-xxxx"
+                className="peer w-full h-11 px-4 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition placeholder:text-sm leading-normal"
+              />
+              <span className="absolute inset-y-0 left-3 flex items-center translate-y-[2px] pointer-events-none">
+                <Phone className="w-4 h-4 text-gray-400" strokeWidth={iconStroke} />
+              </span>
+            </div>
             <p id="phone-conditional-error" className="mt-1 text-xs text-rose-600 hidden">
               {t.phoneInvalid}
             </p>
@@ -255,7 +265,6 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
                 htmlFor="timeline"
                 className="flex items-center text-sm font-medium text-gray-700 mb-2"
               >
-                <Calendar className="w-4 h-4 mr-2 text-gray-500" strokeWidth={iconStroke} />
                 {t.timeline}
               </Label.Root>
               <div className="relative">
@@ -279,7 +288,6 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
                 htmlFor="volume"
                 className="flex items-center text-sm font-medium text-gray-700 mb-2"
               >
-                <Package className="w-4 h-4 mr-2 text-gray-500" strokeWidth={iconStroke} />
                 {t.quantity}
               </Label.Root>
               <div className="relative">
@@ -288,7 +296,7 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
                   id="volume"
                   name="volume"
                   placeholder={t.qtyPlaceholder}
-                  className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition"
+                  className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-0 focus:border-slate-400 transition placeholder:text-sm"
                 />
                 <Package className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" strokeWidth={iconStroke} />
               </div>
