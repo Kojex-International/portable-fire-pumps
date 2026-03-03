@@ -13,6 +13,10 @@ const enHref = localizePath(currentPathname, 'en');
 const frHref = localizePath(currentPathname, 'fr');
 const isEnglish = locale === 'en';
 const isFrench = locale === 'fr';
+const subtitleText = isFrench ? 'Pompes incendie portatives' : 'Portable Fire Pumps';
+const subtitleClass = isFrench
+  ? 'text-[8px] sm:text-[9px] tracking-[0.03em]'
+  : 'text-[10px] sm:text-[11px] tracking-[0.12em]';
 const contactLabel = isFrench ? 'Contact' : 'Contact';
 const normalizePath = (path: string): string => {
   const base = path.split(/[?#]/)[0] || '/';
@@ -54,8 +58,8 @@ const isActiveLink = (href: string): boolean => {
             class="h-8 w-[168px] brand-gradient-bg"
             style={`-webkit-mask-image: url(${shibauraWordmark.src}); mask-image: url(${shibauraWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center left; mask-position: center left; -webkit-mask-size: contain; mask-size: contain;`}
           ></span>
-          <span class="block w-full text-center text-[10px] sm:text-[11px] font-bold tracking-[0.12em] uppercase text-black">
-            Portable Fire Pumps
+          <span class={`block w-full text-center font-bold uppercase text-black whitespace-nowrap ${subtitleClass}`}>
+            {subtitleText}
           </span>
         </span>
       </a>
