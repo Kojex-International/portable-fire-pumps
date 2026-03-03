@@ -1,5 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { Globe, Menu, X } from 'lucide-react';
+import type { Locale } from '@config/site';
 type NavItem = {
   name: string;
   href: string;
@@ -11,11 +12,11 @@ type MobileMenuProps = {
   rfqHref: string;
   enHref: string;
   frHref: string;
-  locale: string;
+  locale: Locale;
 };
 
 export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: MobileMenuProps) {
-  const isEnglish = locale === 'en' || locale === 'default';
+  const isEnglish = locale === 'en';
   const isFrench = locale === 'fr';
 
   return (

@@ -7,7 +7,7 @@ export const SITE = {
 } as const;
 
 export const LOCALES = ['en', 'fr'] as const;
-export type Locale = (typeof LOCALES)[number] | 'default';
+export type Locale = (typeof LOCALES)[number];
 
 const NAV_ITEMS = [
   { name: { en: 'Home', fr: 'Accueil' }, path: '/' },
@@ -41,20 +41,12 @@ export const getLocaleFromPathname = (pathname: string): Locale => {
   if (pathname.startsWith('/fr')) {
     return 'fr';
   }
-  if (pathname.startsWith('/en')) {
-    return 'en';
-  }
-  return 'default';
+  return 'en';
 };
 
 export const localizePath = (path: string, locale: Locale): string => {
   const stripped = stripLocalePrefix(path);
   const normalized = stripped === '' ? '/' : stripped;
-
-  if (locale === 'default') {
-    return normalized;
-  }
-
   return normalized === '/' ? `/${locale}` : `/${locale}${normalized}`;
 };
 
