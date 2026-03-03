@@ -38,7 +38,7 @@ const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const productsHref = localizePath('/products', locale);
 const manualPdf = pump.manualPdf ?? catalogPdf;
-const manualLabel = pump.manualPdf ? 'Operations Manual PDF' : 'Specifications PDF';
+const manualLabel = pump.manualPdf ? 'Operations Manual' : 'Specifications';
 
 const relatedPumps = firepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
 const keySpecByLabel = new Map(pump.keySpecs.map((spec) => [spec.label, spec]));
@@ -170,7 +170,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
             </div>
           </div>
 
-          <div class="flex w-full flex-col gap-4 sm:mx-auto sm:max-w-[620px] sm:flex-row sm:justify-evenly sm:gap-0 animate-fadeInUp" style="animation-delay: 0.4s">
+          <div class="flex w-full flex-col gap-4 sm:mx-auto sm:max-w-[620px] sm:flex-row sm:justify-center animate-fadeInUp" style="animation-delay: 0.4s">
             <a
               href={manualPdf}
               class="brand-cta min-w-[240px] px-6 py-3 text-base"
@@ -179,7 +179,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
               {manualLabel}
             </a>
             <Button href="#technical-specifications" size="md" variant="light" class="min-w-[240px]">
-              Tech Specifcations
+              Specifications
             </Button>
           </div>
         </div>

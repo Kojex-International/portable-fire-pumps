@@ -21,14 +21,14 @@ const WATER_COOLED_SLUGS = new Set(['p572s-a', 'p572sw-a', 'fk500-a', 'ff500ar-a
 const waterCooledPumps = firepumps.filter((pump) => WATER_COOLED_SLUGS.has(pump.slug));
 ---
 
-<BaseLayout title="Pompes à incendie portatives refroidies à l’eau - Portable Fire Pumps">
+<BaseLayout title="Pompes incendie portatives refroidies à l’eau - Portable Fire Pumps">
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 bg-slate-900">
       <Image
         src={heroBgImg}
-        alt="Pompes à incendie portatives refroidies à l’eau"
+        alt="Pompes incendie portatives refroidies à l’eau"
         class="w-full h-full object-cover"
         loading="eager"
         decoding="async"

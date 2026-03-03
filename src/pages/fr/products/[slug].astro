@@ -39,7 +39,7 @@ const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const productsHref = localizePath('/products', locale);
 const manualPdf = pump.manualPdf ?? catalogPdf;
-const manualLabel = pump.manualPdf ? "Manuel d'exploitation PDF" : 'Spécifications PDF';
+const manualLabel = pump.manualPdf ? 'Manuel d’utilisation' : 'Spécifications';
 
 const frFirepumps = getFirepumps('fr');
 const relatedPumps = frFirepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
@@ -48,45 +48,45 @@ const rightSpecs = [4, 3, 2].map((i) => pump.keySpecs[i]).filter(Boolean);
 const heroSpecs = [...leftSpecs, ...rightSpecs];
 const operationVideo =
   pump.slug === 'ft300-400-a'
-    ? {
-        model: 'FT300-A',
-        title: 'Fonctionnement de la pompe FT300-A',
-        description: 'Découvrez la FT300-A en action avec une démonstration complète.',
-        url: 'https://www.youtube.com/embed/zQEbmyU3i28'
-      }
+      ? {
+          model: 'FT300-A',
+          title: 'Fonctionnement de la pompe FT300-A',
+          description: 'Vidéo de démonstration du fonctionnement complet de la FT300-A.',
+          url: 'https://www.youtube.com/embed/zQEbmyU3i28'
+        }
     : pump.slug === 'fk500-a'
       ? {
           model: 'FK500-A',
           title: 'Fonctionnement de la pompe FK500-A',
-          description: 'Découvrez la FK500-A en fonctionnement dans une démonstration complète.',
+          description: 'Vidéo de démonstration du fonctionnement complet de la FK500-A.',
           url: 'https://www.youtube.com/embed/_pmvc3Xizew'
         }
       : pump.slug === 'ft510-a'
         ? {
             model: 'FT510-A',
             title: 'Fonctionnement de la pompe FT510-A',
-            description: 'Découvrez la FT510-A en action avec une démonstration complète.',
+            description: 'Vidéo de démonstration du fonctionnement complet de la FT510-A.',
             url: 'https://www.youtube.com/embed/wUKDQSCwxiA'
           }
         : pump.slug === 'ff500ar-a'
           ? {
               model: 'FF500-AR',
               title: 'Fonctionnement de la pompe FF500-AR',
-              description: 'Découvrez la FF500-AR en fonctionnement dans une démonstration complète.',
+              description: 'Vidéo de démonstration du fonctionnement complet de la FF500-AR.',
               url: 'https://www.youtube.com/embed/yuKw3f8MA3g'
             }
           : pump.slug === 'p572s-a'
             ? {
                 model: 'P572S-A',
                 title: 'Fonctionnement de la pompe P572S-A',
-                description: 'Découvrez la P572S-A en action avec une démonstration complète.',
+                description: 'Vidéo de démonstration du fonctionnement complet de la P572S-A.',
                 url: 'https://www.youtube.com/embed/AOhStVKJxqE'
               }
             : pump.slug === 'tf516mh-ab'
               ? {
                   model: 'TF516MH-AB',
                   title: 'Fonctionnement de la pompe TF516MH-AB',
-                  description: 'Découvrez la TF516MH-AB en fonctionnement sur le terrain.',
+                  description: 'Vidéo de démonstration du fonctionnement de la TF516MH-AB sur le terrain.',
                   url: 'https://www.youtube.com/embed/pn0K14dIxho'
                 }
       : null;
@@ -169,7 +169,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
             </div>
           </div>
 
-          <div class="flex w-full flex-col gap-4 sm:mx-auto sm:max-w-[620px] sm:flex-row sm:justify-evenly sm:gap-0 animate-fadeInUp" style="animation-delay: 0.4s">
+          <div class="flex w-full flex-col gap-4 sm:mx-auto sm:max-w-[620px] sm:flex-row sm:justify-center animate-fadeInUp" style="animation-delay: 0.4s">
             <a
               href={manualPdf}
               class="brand-cta min-w-[240px] px-6 py-3 text-base"

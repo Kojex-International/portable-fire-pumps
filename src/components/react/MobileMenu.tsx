@@ -18,6 +18,7 @@ type MobileMenuProps = {
 export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: MobileMenuProps) {
   const isEnglish = locale === 'en';
   const isFrench = locale === 'fr';
+  const contactLabel = isFrench ? 'Nous joindre' : 'Contact';
 
   return (
     <Dialog.Root>
@@ -103,7 +104,7 @@ export default function MobileMenu({ items, rfqHref, enHref, frHref, locale }: M
                   href={rfqHref}
                   className="brand-cta w-full text-center px-6 py-3 text-sm focus-visible:outline-none"
                 >
-                  Contact
+                  {contactLabel}
                 </a>
               </Dialog.Close>
             </div>

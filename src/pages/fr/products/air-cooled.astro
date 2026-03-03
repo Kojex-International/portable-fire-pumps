@@ -21,14 +21,14 @@ const AIR_COOLED_SLUGS = new Set(['ft510-a', 'ft300-400-a', 'tf516mh-ab']);
 const airCooledPumps = firepumps.filter((pump) => AIR_COOLED_SLUGS.has(pump.slug));
 ---
 
-<BaseLayout title="Pompes à incendie portatives refroidies à l’air - Portable Fire Pumps">
+<BaseLayout title="Pompes incendie portatives refroidies à l’air - Portable Fire Pumps">
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 bg-slate-900">
       <Image
         src={heroBgImg}
-        alt="Pompes à incendie portatives refroidies à l’air"
+        alt="Pompes incendie portatives refroidies à l’air"
         class="w-full h-full object-cover"
         loading="eager"
         decoding="async"
