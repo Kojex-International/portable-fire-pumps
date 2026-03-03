@@ -20,8 +20,8 @@ const distributors = [
   {
     name: "L'Arsenal",
     location: 'Drummondville, Québec',
-    address: '2250, rue André-C.-Hamel, Drummondville, QC J2C 8B1',
-    type: "Appareils d'incendie et équipements d'urgence",
+    address: '2250, rue André-C.-Hamel, Drummondville (QC) J2C 8B1',
+    type: "Appareils et équipements d’intervention d’urgence",
     region: 'Québec',
     image: easternCanadaDistributorImg,
     icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,21 +32,21 @@ const distributors = [
     email: 'info@larsenal.ca',
     website: 'https://larsenal.ca/',
     description:
-      "Fondé en 1998, L'Arsenal propose des produits et services d'intervention d'urgence, incluant la vente d'équipements d'incendie, la maintenance, les réparations et le service des pièces.",
+      "Fondée en 1998, L’Arsenal offre des produits et services destinés aux services d’incendie, incluant la vente de camions et d’équipements d’intervention, ainsi que des services d’entretien, de réparation et de pièces.",
     focus:
-      'Basé à Drummondville, au service des organisations incendie, industrielles, gouvernementales et institutionnelles du Québec.',
+      "Basée à Drummondville, L’Arsenal dessert les services d’incendie du Québec ainsi que les organisations industrielles, gouvernementales et institutionnelles.",
     services: [
-      "Camions d'incendie et équipements d'urgence",
-      'Services de maintenance et de réparation',
-      'Support pièces et service'
+      "Camions d’incendie et équipements d’intervention",
+      "Services d’entretien et de réparation",
+      'Pièces et soutien technique'
     ]
   },
   {
     name: 'Flash Wildfire Services',
     location: 'Sherwood Park, Alberta',
-    address: '2899 Broadmoor Boulevard, 150, Sherwood Park, AB T8H 1B5',
+    address: '2899 Broadmoor Boulevard, 150, Sherwood Park (AB) T8H 1B5',
     type: 'Équipements de protection contre les feux de végétation',
-    region: 'C.-B., Alberta, Saskatchewan',
+    region: 'Colombie-Britannique, Alberta, Saskatchewan',
     image: westernCanadaDistributorImg,
     icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -55,13 +55,13 @@ const distributors = [
     email: 'info@flashwildfireservices.ca',
     website: 'https://www.flashwildfireservices.ca/',
     description:
-      'Fournisseur de pompes feux de végétation, systèmes d’arrosage, composants WATERAX, tuyaux incendie et quincaillerie de protection.',
+      'Fournisseur de pompes pour feux de végétation, de systèmes de gicleurs, de composants WATERAX, ainsi que de tuyaux et raccords destinés à la protection contre les incendies.',
     focus:
-      "Au service des propriétés en interface habitat-forêt, des propriétaires, des services publics, des municipalités et des applications commerciales de protection incendie.",
+      'Au service des propriétés situées en interface habitat-forêt (WUI), des propriétaires, des services publics, des municipalités et des applications commerciales de protection incendie.',
     services: [
-      'Pompes feux de végétation et composants WATERAX',
-      "Systèmes d'arrosage et trousses de protection",
-      'Tuyaux incendie, raccords et quincaillerie'
+      'Pompes pour feux de végétation et composants WATERAX',
+      'Systèmes de gicleurs et trousses de protection',
+      'Tuyaux, raccords et quincaillerie'
     ]
   }
 ];
@@ -153,7 +153,7 @@ const distributorsHref = localizePath('/distributors', locale);
         </h1>
         
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
-          Partenaires de confiance en Amérique du Nord pour l’expertise, les pièces et le service des pompes à incendie portatives.
+          Partenaires de confiance à travers l’Amérique du Nord, offrant expertise technique, pièces et service pour les pompes incendie portatives.
         </p>
       </div>
     </div>
@@ -178,14 +178,14 @@ const distributorsHref = localizePath('/distributors', locale);
       badgeIconComponent={Handshake}
       title="Réseau de distributeurs"
       highlight="de confiance"
-      description="Partenaires vérifiés avec une expertise éprouvée en intervention d’urgence et protection contre les feux de végétation."
+      description="Partenaires vérifiés disposant d’une expertise reconnue en intervention d’urgence et en protection contre les feux de végétation."
       class="mb-16"
     />
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 auto-rows-fr">
       {distributors.map((distributor, index) => (
-        <ImageReveal client:load delay={index * 0.1}>
-          <Card hover class="overflow-hidden animate-fadeInUp group" style={`animation-delay: ${index * 0.1}s`}>
+        <ImageReveal client:load delay={index * 0.1} className="h-full">
+          <Card hover class="overflow-hidden animate-fadeInUp group h-full flex flex-col" style={`animation-delay: ${index * 0.1}s`}>
             <!-- Distributor Image -->
             <div class="relative h-64 overflow-hidden bg-black">
               <Image 
@@ -196,7 +196,7 @@ const distributorsHref = localizePath('/distributors', locale);
               <div class="absolute inset-0 bg-linear-to-t from-gray-900/80 via-gray-900/40 to-transparent"></div>
             </div>
 
-            <div class="p-6 space-y-5">
+            <div class="p-6 space-y-5 flex-1 flex flex-col">
               <div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-1">{distributor.name}</h3>
                 <p class="text-sm text-gray-500">{distributor.type}</p>
@@ -253,7 +253,7 @@ const distributorsHref = localizePath('/distributors', locale);
                   <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>
-                  Couverture et offres
+                  Couverture et services
                 </h4>
                 <p class="text-sm text-gray-600 mb-3">
                   {distributor.focus}
@@ -363,19 +363,15 @@ const distributorsHref = localizePath('/distributors', locale);
           Revendeurs recherchés
         </div>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Nous recherchons de <span class="text-[var(--brand-400)]">nouveaux revendeurs</span>
+          Développement de notre
+          <span class="block text-[var(--brand-400)]">réseau de distribution</span>
         </h2>
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed">
-          Nous recherchons activement de nouveaux partenaires de distribution pour nos pompes. Contactez-nous si vous souhaitez devenir revendeur. Régions prioritaires : Ontario, Maritimes et Manitoba.
+          Nous poursuivons l’expansion de notre réseau de distributeurs pour les pompes incendie portatives. Communiquez avec nous si vous souhaitez discuter d’une possibilité de partenariat.
         </p>
-        <div class="mb-12 space-y-2 text-base md:text-lg text-slate-200">
-          <p>Tél : 438 377 6729</p>
-          <p>Courriel : info@kojex.com</p>
-        </div>
-
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <Button href={requestQuoteHref} size="lg" class="brand-cta">
-            Contactez-nous
+            Nous joindre
           </Button>
         </div>
       </div>
