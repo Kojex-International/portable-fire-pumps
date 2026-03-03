@@ -50,37 +50,37 @@ const featuresEn = [
 const featuresFr = [
   {
     title: 'FT510-A',
-    description: 'Pompe haut débit refroidie à l’air pour une intervention rapide et fiable.',
+    description: 'Pompe haut débit refroidie à l’air conçue pour une intervention rapide et un débit constant.',
     image: ft510Img,
     slug: 'ft510-a',
   },
   {
     title: 'FT300-A / FT400-A1',
-    description: 'Modèles compacts et légers pour un déploiement rapide.',
+    description: 'Modèles compacts et légers adaptés au déploiement rapide et au transport.',
     image: ft400Img,
     slug: 'ft300-400-a',
   },
   {
     title: 'TF516MH-AB',
-    description: 'Pompe ultra-compacte conçue pour la mobilité et le montage véhicule.',
+    description: 'Pompe ultra-compacte conçue pour la mobilité et l’installation sur véhicule.',
     image: tf516mhImg,
     slug: 'tf516mh-ab',
   },
   {
     title: 'P572S-A',
-    description: 'Très haute performance de refoulement pour les opérations exigeantes.',
+    description: 'Débit de refoulement élevé pour les opérations exigeantes.',
     image: p572sImg,
     slug: 'p572s-a',
   },
   {
     title: 'FK500-A',
-    description: 'Performance équilibrée et fiabilité des pompes refroidies à l’eau.',
+    description: 'Performance équilibrée et fiabilité d’un système refroidi à l’eau.',
     image: fk500Img,
     slug: 'fk500-a',
   },
   {
     title: 'FF500AR-A',
-    description: 'Système auto-relais pour le transfert d’eau longue distance.',
+    description: 'Système auto-relais conçu pour le transfert d’eau sur de longues distances.',
     image: ff500arImg,
     slug: 'ff500ar-a',
   },

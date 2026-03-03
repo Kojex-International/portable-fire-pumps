@@ -1,15 +1,14 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/ui/Section.astro';
-import Button from '../../../components/ui/Button.astro';
 import MobilePumpCards from '../../../components/react/MobilePumpCards';
+import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
+import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import { Image } from 'astro:assets';
-import ImageReveal from '../../../components/react/ImageReveal';
-import { Gauge, Flame } from 'lucide-react';
+import { Gauge } from 'lucide-react';
 
 import { getFirepumps } from '../../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
-import logoMark from '@assets/shibaura-logo-mark.svg';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
@@ -50,13 +49,13 @@ const waterCooledPumps = firepumps.filter((pump) => WATER_COOLED_SLUGS.has(pump.
 
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
           <span class="text-[var(--brand-400)]">
-            Refroidies à l’eau<br />
-            Pompes à incendie portatives
+            <span class="whitespace-nowrap">Pompes incendie portatives</span><br />
+            Refroidies à l’eau
           </span>
         </h1>
 
         <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
-          Pompes hautes performances conçues pour un débit soutenu et une opération prolongée.
+          Pompes à haut débit conçues pour un fonctionnement continu et des opérations prolongées.
         </p>
       </div>
     </div>
@@ -77,117 +76,13 @@ const waterCooledPumps = firepumps.filter((pump) => WATER_COOLED_SLUGS.has(pump.
     </div>
 
     <!-- Grid View for Desktop -->
-    <div class="hidden lg:block space-y-24">
-      {waterCooledPumps.map((capability, index) => (
-        <div
-          class={`group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center cursor-pointer transition-all duration-300 hover:-translate-y-1 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
-          role="link"
-          tabindex="0"
-          aria-label={`Voir les détails pour ${capability.title}`}
-          onclick={`if (event.target.closest('a,button')) return; window.location.href='${productsBaseHref}/${capability.slug}';`}
-          onkeydown={`if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('a,button')) { event.preventDefault(); window.location.href='${productsBaseHref}/${capability.slug}'; }`}
-        >
-          <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} animate-fadeInUp`}>
-            <div class="flex items-center gap-4 mb-4">
-              <div class="flex items-center justify-center w-[52px] h-[52px] rounded-lg group-hover:scale-110 transition-transform">
-                <span
-                  aria-hidden="true"
-                  class="w-[52px] h-[52px] brand-gradient-bg"
-                  style={`-webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
-                ></span>
-              </div>
-              <h2
-                class="text-3xl md:text-4xl font-extrabold text-gray-900 brand-gradient-hover"
-                data-text={capability.title}
-              >
-                {capability.title}
-              </h2>
-            </div>
-            <h3 class="text-lg md:text-xl font-semibold text-gray-700 mb-2">
-              {capability.subtitle}
-            </h3>
-            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-              {capability.description}
-            </p>
-            <ul class="space-y-3">
-              {capability.features.map((feature, featureIndex) => (
-                <li class="flex items-center space-x-3">
-                  <div class="flex items-center justify-center shrink-0 w-5 h-5">
-                    <img
-                      src={feature.icon}
-                      alt=""
-                      class="block object-contain w-5 h-5"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <span class={`text-gray-700 whitespace-pre-line ${featureIndex === 0 ? 'font-semibold' : ''}`}>
-                    {feature.label}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div class={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-            <ImageReveal client:load delay={index * 0.1}>
-              <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-xl bg-white transition-shadow duration-300 group-hover:shadow-2xl">
-                <Image
-                  src={capability.image}
-                  alt={capability.title}
-                  class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
-                  width={1200}
-                  height={800}
-                />
-              </div>
-            </ImageReveal>
-          </div>
-        </div>
-      ))}
-    </div>
+    <DesktopPumpCards capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" />
   </Section>
 
-  <!-- CTA Section -->
-  <section class="relative py-24 md:py-28 overflow-hidden">
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-      <Image
-        src={heroBgImg}
-        alt="Opérations de pompes à incendie portatives"
-        class="w-full h-full object-cover"
-        width={2070}
-        height={1380}
-      />
-      <div class="absolute inset-0 cta-overlay-gradient"></div>
-    </div>
-
-    <!-- Content -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="max-w-4xl mx-auto text-center text-white">
-        <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
-          <Flame className="w-4 h-4 mr-2" />
-          Préparation incendie
-        </div>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Équipez votre site avec <span class="text-[var(--brand-400)]">des pompes à incendie portatives</span>
-        </h2>
-        <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Pompes haut débit, déploiement rapide, adaptées aux interventions d'urgence et aux sites isolés.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <Button href={requestQuoteHref} size="lg" class="brand-cta group">
-            Contact
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Button>
-          <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl! group">
-            Trouver un distributeur
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <ProductsCTA
+    locale="fr"
+    backgroundImage={heroBgImg}
+    contactHref={requestQuoteHref}
+    distributorsHref={distributorsHref}
+  />
 </BaseLayout>

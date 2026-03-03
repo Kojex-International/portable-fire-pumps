@@ -24,10 +24,12 @@ const distributorsHref = localizePath('/distributors', locale);
         <div class="w-full max-w-xs">
           <a href={localizePath('/', locale)} class="group flex h-8 w-full items-center gap-3">
             <img src={logoMark.src} alt="Shibaura" class="h-full w-auto shrink-0 object-contain py-[4px]" />
-            <img src={shibauraWordmark.src} alt="Shibaura" class="h-full w-0 min-w-0 grow object-contain object-left" />
+            <img src={shibauraWordmark.src} alt="" class="h-full w-0 min-w-0 grow object-contain object-left" />
           </a>
           <p class="mt-6 text-sm text-slate-400 leading-relaxed">
-            {SITE.description}
+            {isFrench
+              ? 'Pompes incendie portatives haute performance destinées à la prévention des incendies et aux interventions d’urgence.'
+              : SITE.description}
           </p>
         </div>
         <div class="flex space-x-4">
@@ -95,7 +97,7 @@ const distributorsHref = localizePath('/distributors', locale);
       <!-- Services -->
       <div>
         <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
-          {isFrench ? 'Services' : 'Services'}
+          {isFrench ? 'Distributeurs et ressources' : 'Services'}
         </h3>
         <ul class="space-y-3">
           <li>
@@ -128,7 +130,7 @@ const distributorsHref = localizePath('/distributors', locale);
           <li>
             <a href={requestQuoteHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
               <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
-              {isFrench ? 'Contact' : 'Contact Us'}
+              {isFrench ? 'Nous joindre' : 'Contact Us'}
             </a>
           </li>
         </ul>

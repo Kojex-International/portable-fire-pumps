@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import ImageReveal from '../react/ImageReveal';
+import logoMark from '@assets/shibaura-logo-mark.svg';
+import type { Firepump } from '../../data/firepumps';
+
+interface Props {
+  capabilities: Firepump[];
+  detailsBaseHref: string;
+  locale?: 'en' | 'fr';
+}
+
+const { capabilities, detailsBaseHref, locale = 'en' } = Astro.props as Props;
+const detailsAriaPrefix = locale === 'fr' ? 'Voir les détails pour' : 'View details for';
+---
+
+<div class="hidden lg:block space-y-24">
+  {capabilities.map((capability, index) => (
+    <div
+      class={`group px-2 md:px-3 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center cursor-pointer transition-all duration-300 hover:-translate-y-1 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
+      role="link"
+      tabindex="0"
+      aria-label={`${detailsAriaPrefix} ${capability.title}`}
+      onclick={`if (event.target.closest('a,button')) return; window.location.href='${detailsBaseHref}/${capability.slug}';`}
+      onkeydown={`if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('a,button')) { event.preventDefault(); window.location.href='${detailsBaseHref}/${capability.slug}'; }`}
+    >
+      <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} animate-fadeInUp`}>
+        <div class="flex items-center gap-4 mb-5">
+          <div class="flex items-center justify-center w-[52px] h-[52px] rounded-lg group-hover:scale-110 transition-transform">
+            <span
+              aria-hidden="true"
+              class="w-[52px] h-[52px] brand-gradient-bg"
+              style={`-webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+            ></span>
+          </div>
+          <h2
+            class="text-3xl md:text-4xl font-extrabold text-gray-900 brand-gradient-hover"
+            data-text={capability.title}
+          >
+            {capability.title}
+          </h2>
+        </div>
+        <h3 class="text-lg md:text-xl font-semibold text-gray-700 mb-3">
+          {capability.subtitle}
+        </h3>
+        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+          {capability.description}
+        </p>
+        <ul class="space-y-4">
+          {capability.features.map((feature, featureIndex) => (
+            <li class="flex items-center space-x-3">
+              <div class="flex items-center justify-center shrink-0 w-5 h-5">
+                <img
+                  src={feature.icon}
+                  alt=""
+                  class="block object-contain w-5 h-5"
+                  aria-hidden="true"
+                />
+              </div>
+              <span class={`text-gray-700 whitespace-pre-line ${featureIndex === 0 ? 'font-semibold' : ''}`}>
+                {feature.label}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+        <ImageReveal client:load delay={index * 0.1}>
+          <div class="relative aspect-4/3 group overflow-hidden rounded-2xl shadow-xl bg-white transition-shadow duration-300 group-hover:shadow-2xl">
+            <Image
+              src={capability.image}
+              alt={capability.title}
+              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
+              width={1200}
+              height={800}
+            />
+          </div>
+        </ImageReveal>
+      </div>
+    </div>
+  ))}
+</div>

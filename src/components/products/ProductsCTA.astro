@@ -1,23 +1,49 @@
 ---
 import { Image } from 'astro:assets';
-import Button from '../ui/Button.astro';
-import warehouseBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
-import wildernessImg from '@assets/wilderness.png';
-import { getLocaleFromPathname, localizePath } from '@config/site';
+import type { ImageMetadata } from 'astro';
 import { Flame } from 'lucide-react';
+import Button from '../../components/ui/Button.astro';
 
-const locale = getLocaleFromPathname(Astro.url.pathname);
-const requestQuoteHref = localizePath('/contact-us', locale);
-const distributorsHref = localizePath('/distributors', locale);
-const isFrench = locale === 'fr';
+interface Props {
+  locale: 'en' | 'fr';
+  backgroundImage: ImageMetadata;
+  contactHref: string;
+  distributorsHref: string;
+}
+
+const { locale, backgroundImage, contactHref, distributorsHref } = Astro.props;
+
+const copy = {
+  en: {
+    bgAlt: 'Modern warehouse operations',
+    badge: 'Fire Pump Readiness',
+    titleLine1: 'Protect Your Site with',
+    titleLine2: 'Portable Fire Pumps',
+    description:
+      'High-flow, rapid-deploy pumps engineered for emergency response, remote sites, and rugged field use.',
+    primaryCta: 'Get a Fire Pump Quote',
+    secondaryCta: 'Find a Distributor'
+  },
+  fr: {
+    bgAlt: 'Opérations de pompes à incendie portatives',
+    badge: 'Préparation aux interventions incendie',
+    titleLine1: 'Protégez votre site avec',
+    titleLine2: 'des pompes incendie portatives',
+    description:
+      'Pompes à haut débit et à déploiement rapide, conçues pour les interventions d’urgence, les sites isolés et les environnements exigeants.',
+    primaryCta: 'Demander une soumission',
+    secondaryCta: 'Trouver un distributeur'
+  }
+} as const;
+
+const cta = copy[locale];
 ---
 
 <section class="relative py-24 md:py-28 overflow-hidden">
-  <!-- Background Image -->
   <div class="absolute inset-0">
-    <Image 
-      src={wildernessImg}
-      alt={isFrench ? "Pompes à incendie portatives en intervention" : 'Modern warehouse operations'}
+    <Image
+      src={backgroundImage}
+      alt={cta.bgAlt}
       class="w-full h-full object-cover"
       width={2070}
       height={1380}
@@ -25,38 +51,34 @@ const isFrench = locale === 'fr';
     <div class="absolute inset-0 cta-overlay-gradient"></div>
   </div>
 
-  <!-- Content -->
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="max-w-4xl mx-auto text-center text-white">
       <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
         <Flame className="w-4 h-4 mr-2" />
-        {isFrench ? 'Préparation aux interventions incendie' : 'Fire Pump Readiness'}
+        {cta.badge}
       </div>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-        {isFrench ? 'Protégez votre site avec ' : 'Protect Your Site with '}
-        <span class="block text-[var(--brand-400)]">{isFrench ? 'des pompes incendie portatives' : 'Portable Fire Pumps'}</span>
+        {cta.titleLine1}
+        <span class="block whitespace-nowrap text-[var(--brand-400)]">{cta.titleLine2}</span>
       </h2>
       <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-        {isFrench
-          ? 'Pompes à haut débit et à déploiement rapide, conçues pour les interventions d’urgence, les sites isolés et les environnements exigeants.'
-          : 'High-flow, rapid-deploy pumps engineered for emergency response, remote sites, and rugged field use.'}
+        {cta.description}
       </p>
-      
+
       <div class="flex flex-col sm:flex-row gap-6 justify-center">
-        <Button href={requestQuoteHref} size="lg" class="brand-cta group">
-          {isFrench ? 'Demander une soumission' : 'Get a Fire Pump Quote'}
+        <Button href={contactHref} size="lg" class="brand-cta group">
+          {cta.primaryCta}
           <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </Button>
         <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl! group">
-          {isFrench ? 'Trouver un distributeur' : 'Find a Distributor'}
+          {cta.secondaryCta}
           <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </Button>
       </div>
-
     </div>
   </div>
 </section>
