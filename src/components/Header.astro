@@ -74,7 +74,7 @@ const isActiveLink = (href: string): boolean => {
           return (
             <a
               href={item.href}
-              class={`px-4 py-2 text-sm font-medium text-center leading-tight text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
+              class={`px-3 py-2 text-sm font-medium text-center leading-tight whitespace-nowrap text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
             >
               {item.name}
               {isActive && <span aria-hidden="true" class="pointer-events-none absolute left-1/2 -bottom-1.5 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[var(--brand-1-20)]"></span>}
@@ -86,7 +86,7 @@ const isActiveLink = (href: string): boolean => {
           <div class="relative group">
             <a
               href={item.href}
-              class={`px-4 py-2 text-sm font-medium text-center leading-tight text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
+              class={`px-3 py-2 text-sm font-medium text-center leading-tight whitespace-nowrap text-slate-700 hover:text-[var(--brand-1)] hover:bg-[var(--brand-1-10)] rounded-lg transition-all relative group ${isActive ? 'nav-active' : ''}`}
             >
               {item.name}
               {isActive && <span aria-hidden="true" class="pointer-events-none absolute left-1/2 -bottom-1.5 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[var(--brand-1-20)]"></span>}
@@ -132,7 +132,7 @@ const isActiveLink = (href: string): boolean => {
       </div>
       <a
         href={rfqHref}
-        class="brand-cta px-6 py-2.5 text-sm"
+        class="brand-cta px-5 py-2.5 text-sm whitespace-nowrap"
       >
         {contactLabel}
       </a>

@@ -46,11 +46,16 @@ const isFrench = locale === 'fr';
               style={`background-color: currentColor; -webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
             />
           </span>
-          <span class="pl-7">{isFrench ? 'Conçues pour les services d’incendie et de secours' : 'Engineered for Firefighting & Rescue'}</span>
+          <span class="pl-7">{isFrench ? 'Conçues pour les services d’incendie' : 'Engineered for Firefighting & Rescue'}</span>
         </div>
       
-      <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight animate-fadeInUp">
-        {isFrench ? <span class="whitespace-nowrap">Pompes incendie portatives</span> : 'High-Performance'}
+      <h1 class:list={[
+        'font-bold text-white mb-4 sm:mb-6 animate-fadeInUp',
+        isFrench
+          ? 'text-[2.1rem] leading-[1.05] sm:text-4xl md:text-6xl lg:text-7xl'
+          : 'text-3xl leading-tight sm:text-4xl md:text-6xl lg:text-7xl',
+      ]}>
+        {isFrench ? <span class="sm:whitespace-nowrap">Pompes incendie portatives</span> : 'High-Performance'}
         <span class="block text-[var(--brand-400)] mt-2">
           {isFrench ? 'haute performance' : 'Portable Fire Pumps'}
         </span>
