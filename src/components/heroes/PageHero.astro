@@ -1,0 +1,93 @@
+---
+import { Image, type ImageMetadata } from 'astro:assets';
+
+interface Props {
+  backgroundImage: ImageMetadata;
+  backgroundAlt: string;
+  badge?: string;
+  badgeIconComponent?: any;
+  sectionClass?: string;
+  backgroundClass?: string;
+  imageClass?: string;
+  overlayClass?: string;
+  containerClass?: string;
+  contentClass?: string;
+  badgeClass?: string;
+  titleClass?: string;
+  description?: string;
+  descriptionClass?: string;
+  descriptionStyle?: string;
+  showScrollIndicator?: boolean;
+  scrollIndicatorClass?: string;
+}
+
+const {
+  backgroundImage,
+  backgroundAlt,
+  badge,
+  badgeIconComponent: BadgeIcon,
+  sectionClass = 'relative h-[70vh] min-h-[500px] flex items-center overflow-hidden',
+  backgroundClass = 'absolute inset-0 bg-slate-900',
+  imageClass = 'w-full h-full object-cover',
+  overlayClass = 'absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50',
+  containerClass = 'container mx-auto relative z-10 px-4 sm:px-6 lg:px-8',
+  contentClass = 'max-w-4xl mx-auto text-center',
+  badgeClass = 'inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15',
+  titleClass = 'text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight',
+  description,
+  descriptionClass = 'text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed',
+  descriptionStyle,
+  showScrollIndicator = true,
+  scrollIndicatorClass = 'absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce',
+} = Astro.props;
+
+const hasDescriptionSlot = Astro.slots.has('description');
+const hasDefaultSlot = Astro.slots.has('default');
+---
+
+<section class={sectionClass}>
+  <div class={backgroundClass}>
+    <Image
+      src={backgroundImage}
+      alt={backgroundAlt}
+      class={imageClass}
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      width={2070}
+      height={1380}
+    />
+    <div class={overlayClass}></div>
+  </div>
+
+  <div class={containerClass}>
+    <div class={contentClass}>
+      {badge && (
+        <div class={badgeClass}>
+          {BadgeIcon && <BadgeIcon className="w-4 h-4 mr-2" />}
+          {badge}
+        </div>
+      )}
+
+      <h1 class={titleClass}>
+        <slot name="title" />
+      </h1>
+
+      {(hasDescriptionSlot || description) && (
+        <p class={descriptionClass} style={descriptionStyle}>
+          <slot name="description">{description}</slot>
+        </p>
+      )}
+
+      {hasDefaultSlot && <slot />}
+    </div>
+  </div>
+
+  {showScrollIndicator && (
+    <div class={scrollIndicatorClass}>
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  )}
+</section>

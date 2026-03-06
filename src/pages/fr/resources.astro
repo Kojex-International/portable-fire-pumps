@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/ui/Section.astro';
 import Card from '../../components/ui/Card.astro';
 import SectionHeader from '../../components/ui/SectionHeader.astro';
+import PageHero from '../../components/heroes/PageHero.astro';
 import ImageReveal from '../../components/react/ImageReveal';
 import { Image } from 'astro:assets';
 import { HelpCircle, Library } from 'lucide-react';
@@ -196,39 +197,24 @@ const storageNotes = [
 
 <BaseLayout title="Ressources - Portable Fire Pumps">
   <!-- Hero Section with Professional Background -->
-  <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
-    <div class="absolute inset-0 bg-slate-900">
-      <Image 
-        src={heroBgImg}
-        alt="Documentation et ressources"
-        class="w-full h-full object-cover"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-        width={2070}
-        height={1380}
-      />
-      <div class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"></div>
-    </div>
-
-    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
-          <Library className="w-4 h-4 mr-2" />
-          Centre de documentation technique
-        </div>
-        
-        <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp">
-          <span class="brand-gradient-text-fill">
-            Documentation et listes de pièces
-          </span>
-        </h1>
-        
-        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
-          Téléchargez les catalogues, les manuels d’utilisation et les listes de pièces.
-        </p>
-
-        <div class="flex flex-wrap justify-center gap-4 text-sm text-slate-300 animate-fadeInUp" style="animation-delay: 0.2s">
+  <PageHero
+    backgroundImage={heroBgImg}
+    backgroundAlt="Documentation et ressources"
+    badge="Centre de documentation technique"
+    badgeIconComponent={Library}
+    titleClass="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
+    descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
+    descriptionStyle="animation-delay: 0.1s"
+  >
+    <Fragment slot="title">
+      <span class="brand-gradient-text-fill">
+        Documentation et listes de pièces
+      </span>
+    </Fragment>
+    <Fragment slot="description">
+      Téléchargez les catalogues, les manuels d’utilisation et les listes de pièces.
+    </Fragment>
+    <div class="flex flex-wrap justify-center gap-4 text-sm text-slate-300 animate-fadeInUp" style="animation-delay: 0.2s">
           <div class="flex items-center">
             <svg class="w-4 h-4 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -248,16 +234,7 @@ const storageNotes = [
             <span>Accès en tout temps</span>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
-    </div>
-  </section>
+  </PageHero>
 
   <!-- Search Bar -->
   <Section background="gray">

@@ -3,6 +3,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Section from '@components/ui/Section.astro';
 import Card from '@components/ui/Card.astro';
 import SectionHeader from '@components/ui/SectionHeader.astro';
+import PageHero from '@components/heroes/PageHero.astro';
 import RFQForm from '@components/react/RFQForm';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import { Image } from 'astro:assets';
@@ -22,76 +23,43 @@ const thanksHref = '/contact-us/thanks?lang=en';
 
 
 <BaseLayout title="Contact Us - Portable Fire Pumps">
-  <!-- Hero Section with Professional Image -->
-  <section class="relative h-[500px] md:h-[600px] flex items-center overflow-hidden">
-    <!-- Background Image with Overlay -->
-    <div class="absolute inset-0 bg-slate-900">
-      <Image 
-        src={rfqBgImg}
-        alt="Professional logistics and supply chain management"
-        class="w-full h-full object-cover"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-        width={2070}
-        height={1380}
-      />
-      <div class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"></div>
-    </div>
-
-    <!-- Content -->
-    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 animate-fadeInUp">
-          <MessageSquare className="w-4 h-4 mr-2" />
-          Contact Sales & Support
-        </div>
-        
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp" style="animation-delay: 0.1s">
-          <span class="brand-gradient-text-fill">Contact Us</span>
-        </h1>
-        
-        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">
-          Contact us for quotes, pump guidance, and parts or service support.
-          We typically respond within 24 hours.
-        </p>
-
-        <!-- Quick Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20 animate-fadeInUp" style="animation-delay: 0.3s">
-          <div class="group">
-            <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">24 hours</div>
-            <div class="text-sm text-slate-300">Typical Response</div>
-          </div>
-          <div class="group">
-            <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">70+ years</div>
-            <div class="text-sm text-slate-300">Pump Expertise</div>
-          </div>
-          <div class="group">
-            <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">Field</div>
-            <div class="text-sm text-slate-300">Proven Reliability</div>
-          </div>
-          <div class="group">
-            <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">Support</div>
-            <div class="text-sm text-slate-300">Parts & Service</div>
-          </div>
-        </div>
+  <PageHero
+    backgroundImage={rfqBgImg}
+    backgroundAlt="Professional logistics and supply chain management"
+    badge="Contact Sales & Support"
+    badgeIconComponent={MessageSquare}
+    sectionClass="relative h-[500px] md:h-[600px] flex items-center overflow-hidden"
+    badgeClass="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 animate-fadeInUp"
+    titleClass="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
+    descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
+    descriptionStyle="animation-delay: 0.2s"
+  >
+    <Fragment slot="title">
+      <span class="brand-gradient-text-fill">Contact Us</span>
+    </Fragment>
+    <Fragment slot="description">
+      Contact us for quotes, pump guidance, and parts or service support.
+      We typically respond within 24 hours.
+    </Fragment>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20 animate-fadeInUp" style="animation-delay: 0.3s">
+      <div class="group">
+        <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">24 hours</div>
+        <div class="text-sm text-slate-300">Typical Response</div>
+      </div>
+      <div class="group">
+        <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">70+ years</div>
+        <div class="text-sm text-slate-300">Pump Expertise</div>
+      </div>
+      <div class="group">
+        <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">Field</div>
+        <div class="text-sm text-slate-300">Proven Reliability</div>
+      </div>
+      <div class="group">
+        <div class="text-lg md:text-xl font-semibold text-slate-100 mb-1">Support</div>
+        <div class="text-sm text-slate-300">Parts & Service</div>
       </div>
     </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
-    </div>
-
-    <!-- Wave separator -->
-    <!-- <div class="absolute bottom-0 left-0 right-0">
-      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-        <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-      </svg>
-    </div> -->
-  </section>
+  </PageHero>
 
   <!-- Main Form Section -->
   <Section background="gray">
