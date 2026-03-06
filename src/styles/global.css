@@ -24,6 +24,7 @@
   --brand-ink: #111827;
   --brand-muted: #475569;
   --brand-surface: #f8fafc;
+  --hero-title: #f2b3b3;
   --brand-1-10: color-mix(in srgb, var(--brand-1) 10%, white);
   --brand-1-20: color-mix(in srgb, var(--brand-1) 20%, white);
   --brand-2-10: color-mix(in srgb, var(--brand-2) 10%, white);
