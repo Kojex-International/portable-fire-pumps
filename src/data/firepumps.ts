@@ -992,6 +992,14 @@ const frReplacements: Array<[string, string]> = [
   ['automatic choke', 'starter automatique'],
   ['High pressure, single stage centrifugal pump', 'Pompe centrifuge haute pression mono-étagée'],
   ['single stage centrifugal pump', 'pompe centrifuge à un étage'],
+  ['Shibaura Original 2 cycle Gasoline Engine', 'Moteur essence 2 temps original Shibaura'],
+  ['Shibaura Original 2 cycle Gasoline Moteur', 'Moteur essence 2 temps original Shibaura'],
+  ['Shibaura Original Centrifugal Pump', 'Pompe centrifuge originale Shibaura'],
+  ['Shibaura Original Centrifugal Pompe', 'Pompe centrifuge originale Shibaura'],
+  ['Shibaura Original Vacuum Pump', 'Pompe à vide originale Shibaura'],
+  ['Shibaura Original Vacuum Pompe', 'Pompe à vide originale Shibaura'],
+  ['Alert Monitoring System', 'Système de surveillance avec alerte'],
+  ['Quick Discharge Valve', 'Vanne de refoulement rapide'],
   ['Model', 'Modèle'],
   ['Engine', 'Moteur'],
   ['Vacuum Pump', 'Pompe à vide'],
@@ -1013,6 +1021,7 @@ const frReplacements: Array<[string, string]> = [
   ['Maximum suction height', 'Hauteur d’aspiration maximale'],
   ['Features', 'Caractéristiques'],
   ['Yes', 'Oui'],
+  ['Seconds', 'secondes'],
   ['Regular unleaded gasoline', 'Essence sans plomb ordinaire'],
   ['Electric starter & manual starter', 'Démarreur électrique et manuel'],
   ['Auto choke carburetor', 'Carburateur à starter automatique'],
@@ -1026,21 +1035,21 @@ const frReplacements: Array<[string, string]> = [
   ['Suction Diameter JIS', 'Diamètre d’aspiration (JIS)'],
   ['Discharge Diameter', 'Diamètre de refoulement'],
   ['Suction Diameter', 'Diamètre d’aspiration'],
+  ['1 m suction head:', '1 m :'],
+  ['3 m suction head:', '3 m :'],
+  ['1m suction head:', '1 m :'],
+  ['3m suction head:', '3 m :'],
+  ['1m SH:', '1 m :'],
+  ['3m SH:', '3 m :'],
   ['4-Vane eccentric rotary type', 'Pompe rotative excentrique à 4 palettes'],
   ['High strength carbon', 'Carbone haute résistance'],
-  ['Shibaura Original 2 cycle Gasoline Engine', 'Moteur essence 2 temps original Shibaura'],
-  ['Shibaura Original Centrifugal Pump', 'Pompe centrifuge originale Shibaura'],
-  ['Shibaura Original Centrifugal Pompe', 'Pompe centrifuge originale Shibaura'],
-  ['Shibaura Original Vacuum Pump', 'Pompe à vide originale Shibaura'],
-  ['Shibaura Original Vacuum Pompe', 'Pompe à vide originale Shibaura'],
-  ['Alert Monitoring System', 'Système de surveillance avec alerte'],
-  ['Quick Discharge Valve', 'Vanne de refoulement rapide'],
   ['0.5MPa', '0,5 MPa'],
   ['0.7MPa', '0,7 MPa'],
   ['0.8MPa', '0,8 MPa'],
   ['1.0MPa', '1,0 MPa'],
   ['1m suction head', 'hauteur d’aspiration 1 m'],
   ['3m suction head', 'hauteur d’aspiration 3 m'],
+  [' x ', ' × '],
   ['Démarrage', 'Système de démarrage'],
   ['2 cylinder', '2 cylindres'],
   ['1 cylinder', '1 cylindre'],
@@ -1061,8 +1070,13 @@ const frReplacements: Array<[string, string]> = [
 const replaceAllFr = (input: string): string =>
   frReplacements.reduce((text, [source, target]) => text.split(source).join(target), input);
 
-const localizeString = (value: string, locale: FirepumpLocale): string =>
-  locale === 'fr' ? replaceAllFr(value) : value;
+const localizeString = (value: string, locale: FirepumpLocale): string => {
+  if (locale !== 'fr') return value;
+  return replaceAllFr(value)
+    .replace(/\b(\d+)\.(\d+)\b/g, '$1,$2')
+    .replace(/(\d(?:,\d+)?)\s*in\b/g, '$1 po')
+    .replace(/(\d(?:,\d+)?)\s*ft\b/g, '$1 pi');
+};
 
 const localizePump = (pump: Firepump, locale: FirepumpLocale): Firepump => {
   if (locale !== 'fr') return pump;
