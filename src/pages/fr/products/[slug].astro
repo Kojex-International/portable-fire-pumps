@@ -316,9 +316,18 @@ const performanceImages = performanceImagesBySlug[pump.slug];
 
                 for (let i = 0; i < rows.length; i += 1) {
                   const row = rows[i];
-                  if (row.label.startsWith('Discharge performance') || row.label.startsWith('Performance de refoulement')) {
+                  if (
+                    row.label.startsWith('Discharge performance') ||
+                    row.label.startsWith('Performance de refoulement') ||
+                    row.label.startsWith('Débit')
+                  ) {
                     const items = [];
-                    while (i < rows.length && (rows[i].label.startsWith('Discharge performance') || rows[i].label.startsWith('Performance de refoulement'))) {
+                    while (
+                      i < rows.length &&
+                      (rows[i].label.startsWith('Discharge performance') ||
+                        rows[i].label.startsWith('Performance de refoulement') ||
+                        rows[i].label.startsWith('Débit'))
+                    ) {
                       items.push(rows[i]);
                       i += 1;
                     }
@@ -372,7 +381,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                   if (entry.type === 'discharge' && entry.items) {
                     const dischargeRows = entry.items;
                     dischargeRows.forEach((row, dischargeIndex) => {
-                      let subLabel = row.label.replace(/Discharge performance|Performance de refoulement/i, '').trim();
+                      let subLabel = row.label.replace(/Discharge performance|Performance de refoulement|Débit/i, '').trim();
                       if (subLabel.startsWith('(') && subLabel.endsWith(')')) {
                         subLabel = subLabel.slice(1, -1);
                       }
@@ -386,7 +395,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                               }`}
                             >
                               <span style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
-                                Performance de refoulement
+                                Débit
                               </span>
                             </th>
                           )}
