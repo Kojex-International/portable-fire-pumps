@@ -38,6 +38,11 @@ export interface FirepumpFeature {
   icon: string;
 }
 
+type LocalizedValue = {
+  en: string;
+  fr: string;
+};
+
 export interface Firepump {
   slug: string;
   title: string;
@@ -50,7 +55,7 @@ export interface Firepump {
   manualPdf?: string;
   aliases?: string[];
   features: FirepumpFeature[];
-  keySpecs: { key: HeroFeatureLabelKey; label?: string; value: string; icon: string }[];
+  keySpecs: { key: HeroFeatureLabelKey; label?: string; value: string | LocalizedValue; icon: string }[];
   benefits: { title: string; description: string }[];
   specsTable: {
     columns: string[];
@@ -85,12 +90,16 @@ export const firepumps: Firepump[] = [
       { label: 'Priming performance, 1 m suction head: 3.5sec', icon: timerIcon }
     ],
     keySpecs: [
-      { key: 'pumpModel', value: 'Shibaura B612B', icon: modelIcon },
-      { key: 'coolingSystem', value: 'Air-cooled', icon: aircooledIcon },
-      { key: 'flowRate', value: '0.5 MPa @ 1,450 L/min\n1.0 MPa @ 830 L/min', icon: dischargeIcon },
-      { key: 'primingTime', value: '1 m : 3.5 sec', icon: timerIcon },
-      { key: 'maxPressure', value: '1.0 MPa', icon: pressureIcon },
-      { key: 'engineType', value: '2-stroke gasoline engine', icon: engineIcon }
+      { key: 'pumpModel', value: { en: 'Shibaura B612B', fr: 'Shibaura B612B' }, icon: modelIcon },
+      { key: 'coolingSystem', value: { en: 'Air-cooled', fr: 'Refroidissement par air' }, icon: aircooledIcon },
+      {
+        key: 'flowRate',
+        value: { en: '0.5 MPa @ 1,450 L/min\n1.0 MPa @ 830 L/min', fr: '0,5 MPa @ 1,450 L/min\n1,0 MPa @ 830 L/min' },
+        icon: dischargeIcon
+      },
+      { key: 'primingTime', value: { en: '1 m : 3.5 sec', fr: '1 m : 3,5 s' }, icon: timerIcon },
+      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
       { title: 'Quick Starting', description: 'Automatic choke starts the engine without warm-up.' },
@@ -185,12 +194,20 @@ export const firepumps: Firepump[] = [
       { label: 'Priming performance, 1 m suction head:\nFT300-A 2.2sec\nFT400-A1 3.5sec', icon: timerIcon }
     ],
     keySpecs: [
-      { key: 'pumpModel', value: 'Shibaura C505', icon: modelIcon },
-      { key: 'coolingSystem', value: 'Air-cooled', icon: aircooledIcon },
-      { key: 'flowRate', value: '0.5 MPa @ 568 L/min\n0.8 MPa @ 318/330 L/min', icon: dischargeIcon },
-      { key: 'primingTime', value: '1 m : 2.2 sec (FT300-A)\n1 m : 3.5 sec (FT400-A1)', icon: timerIcon },
-      { key: 'maxPressure', value: '0.8 MPa', icon: pressureIcon },
-      { key: 'engineType', value: '2-stroke gasoline engine', icon: engineIcon }
+      { key: 'pumpModel', value: { en: 'Shibaura C505', fr: 'Shibaura C505' }, icon: modelIcon },
+      { key: 'coolingSystem', value: { en: 'Air-cooled', fr: 'Refroidissement par air' }, icon: aircooledIcon },
+      {
+        key: 'flowRate',
+        value: { en: '0.5 MPa @ 568 L/min\n0.8 MPa @ 318/330 L/min', fr: '0,5 MPa @ 568 L/min\n0,8 MPa @ 318/330 L/min' },
+        icon: dischargeIcon
+      },
+      {
+        key: 'primingTime',
+        value: { en: '1 m : 2.2 sec (FT300-A)\n1 m : 3.5 sec (FT400-A1)', fr: '1 m : 2,2 s (FT300-A)\n1 m : 3,5 s (FT400-A1)' },
+        icon: timerIcon
+      },
+      { key: 'maxPressure', value: { en: '0.8 MPa', fr: '0,8 MPa' }, icon: pressureIcon },
+      { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
       { title: 'Lightweight Build', description: 'Compact chassis makes transport and setup easy.' },
@@ -408,12 +425,16 @@ export const firepumps: Firepump[] = [
       { label: 'Priming performance, 1 m suction head: 3.6sec', icon: timerIcon }
     ],
     keySpecs: [
-      { key: 'pumpModel', value: 'Shibaura C505', icon: modelIcon },
-      { key: 'coolingSystem', value: 'Air-cooled', icon: aircooledIcon },
-      { key: 'flowRate', value: '0.5 MPa @ 560 L/min\n1.0 MPa @ 280 L/min', icon: dischargeIcon },
-      { key: 'primingTime', value: '1 m : 3.6 sec', icon: timerIcon },
-      { key: 'maxPressure', value: '1.0 MPa', icon: pressureIcon },
-      { key: 'engineType', value: '2-stroke gasoline engine', icon: engineIcon }
+      { key: 'pumpModel', value: { en: 'Shibaura C505', fr: 'Shibaura C505' }, icon: modelIcon },
+      { key: 'coolingSystem', value: { en: 'Air-cooled', fr: 'Refroidissement par air' }, icon: aircooledIcon },
+      {
+        key: 'flowRate',
+        value: { en: '0.5 MPa @ 560 L/min\n1.0 MPa @ 280 L/min', fr: '0,5 MPa @ 560 L/min\n1,0 MPa @ 280 L/min' },
+        icon: dischargeIcon
+      },
+      { key: 'primingTime', value: { en: '1 m : 3.6 sec', fr: '1 m : 3,6 s' }, icon: timerIcon },
+      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
       { title: 'Compact Footprint', description: 'Smallest-in-class size for tight vehicle mounts.' },
@@ -507,12 +528,16 @@ export const firepumps: Firepump[] = [
     ],
     aliases: ['p572sw-a'],
     keySpecs: [
-      { key: 'pumpModel', value: 'Shibaura P572', icon: modelIcon },
-      { key: 'coolingSystem', value: 'Water-cooled', icon: watercooledIcon },
-      { key: 'flowRate', value: '0.5 MPa @ 1,650 L/min\n1.0 MPa @ 1,100 L/min', icon: dischargeIcon },
-      { key: 'primingTime', value: '1 m : 2.1 sec', icon: timerIcon },
-      { key: 'maxPressure', value: '1.0 MPa', icon: pressureIcon },
-      { key: 'engineType', value: '2-stroke gasoline engine', icon: engineIcon }
+      { key: 'pumpModel', value: { en: 'Shibaura P572', fr: 'Shibaura P572' }, icon: modelIcon },
+      { key: 'coolingSystem', value: { en: 'Water-cooled', fr: 'Refroidissement par eau' }, icon: watercooledIcon },
+      {
+        key: 'flowRate',
+        value: { en: '0.5 MPa @ 1,650 L/min\n1.0 MPa @ 1,100 L/min', fr: '0,5 MPa @ 1,650 L/min\n1,0 MPa @ 1,100 L/min' },
+        icon: dischargeIcon
+      },
+      { key: 'primingTime', value: { en: '1 m : 2.1 sec', fr: '1 m : 2,1 s' }, icon: timerIcon },
+      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
       { title: 'Highest Output', description: '1,650 L/min at 0.5 MPa for peak performance.' },
@@ -605,12 +630,16 @@ export const firepumps: Firepump[] = [
       { label: 'Priming performance, 1 m suction head: 2.2sec', icon: timerIcon }
     ],
     keySpecs: [
-      { key: 'pumpModel', value: 'Shibaura B716', icon: modelIcon },
-      { key: 'coolingSystem', value: 'Water-cooled', icon: watercooledIcon },
-      { key: 'flowRate', value: '0.5 MPa @ 1,595 L/min\n1.0 MPa @ 1,020 L/min', icon: dischargeIcon },
-      { key: 'primingTime', value: '1 m : 2.2 sec', icon: timerIcon },
-      { key: 'maxPressure', value: '1.0 MPa', icon: pressureIcon },
-      { key: 'engineType', value: '2-stroke gasoline engine', icon: engineIcon }
+      { key: 'pumpModel', value: { en: 'Shibaura B716', fr: 'Shibaura B716' }, icon: modelIcon },
+      { key: 'coolingSystem', value: { en: 'Water-cooled', fr: 'Refroidissement par eau' }, icon: watercooledIcon },
+      {
+        key: 'flowRate',
+        value: { en: '0.5 MPa @ 1,595 L/min\n1.0 MPa @ 1,020 L/min', fr: '0,5 MPa @ 1,595 L/min\n1,0 MPa @ 1,020 L/min' },
+        icon: dischargeIcon
+      },
+      { key: 'primingTime', value: { en: '1 m : 2.2 sec', fr: '1 m : 2,2 s' }, icon: timerIcon },
+      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
       { title: 'Balanced Output', description: '1,595 L/min at 0.5 MPa for steady flow.' },
@@ -824,12 +853,16 @@ export const firepumps: Firepump[] = [
       { label: 'Priming performance, 1 m suction head: 2.2sec', icon: timerIcon }
     ],
     keySpecs: [
-      { key: 'pumpModel', value: 'Shibaura P556', icon: modelIcon },
-      { key: 'coolingSystem', value: 'Water-cooled', icon: watercooledIcon },
-      { key: 'flowRate', value: '0.5 MPa @ 1,550 L/min\n1.0 MPa @ 980 L/min', icon: dischargeIcon },
-      { key: 'primingTime', value: '1 m : 2.2 sec', icon: timerIcon },
-      { key: 'maxPressure', value: '1.0 MPa', icon: pressureIcon },
-      { key: 'engineType', value: '2-stroke gasoline engine', icon: engineIcon }
+      { key: 'pumpModel', value: { en: 'Shibaura P556', fr: 'Shibaura P556' }, icon: modelIcon },
+      { key: 'coolingSystem', value: { en: 'Water-cooled', fr: 'Refroidissement par eau' }, icon: watercooledIcon },
+      {
+        key: 'flowRate',
+        value: { en: '0.5 MPa @ 1,550 L/min\n1.0 MPa @ 980 L/min', fr: '0,5 MPa @ 1,550 L/min\n1,0 MPa @ 980 L/min' },
+        icon: dischargeIcon
+      },
+      { key: 'primingTime', value: { en: '1 m : 2.2 sec', fr: '1 m : 2,2 s' }, icon: timerIcon },
+      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
       { title: 'Auto Relay', description: 'Automated relay supports long-distance water delivery.' },
@@ -1048,6 +1081,9 @@ const localizeString = (value: string, locale: FirepumpLocale): string => {
     .replace(/(\d(?:,\d+)?)\s*ft\b/g, '$1 pi');
 };
 
+const localizeHeroFeatureValue = (value: string | LocalizedValue, locale: FirepumpLocale): string =>
+  typeof value === 'string' ? localizeString(value, locale) : value[locale];
+
 const localizePump = (pump: Firepump, locale: FirepumpLocale): Firepump => {
   return {
     ...pump,
@@ -1061,7 +1097,7 @@ const localizePump = (pump: Firepump, locale: FirepumpLocale): Firepump => {
     keySpecs: pump.keySpecs.map((spec) => ({
       ...spec,
       label: getHeroFeatureLabel(spec.key, locale),
-      value: localizeString(spec.value, locale),
+      value: localizeHeroFeatureValue(spec.value, locale),
     })),
     benefits: pump.benefits.map((benefit) => ({
       title: localizeString(benefit.title, locale),

@@ -7,7 +7,7 @@ import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/heroes/PageHero.astro';
 import { Gauge } from 'lucide-react';
 
-import { firepumps } from '../../../data/firepumps';
+import { getFirepumps } from '../../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
@@ -16,6 +16,7 @@ const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 
+const firepumps = getFirepumps('en');
 const waterCooledPumps = firepumps.filter((pump) =>
   pump.keySpecs.some(
     (spec) => spec.key === 'coolingSystem' && spec.value.toLowerCase().includes('water')

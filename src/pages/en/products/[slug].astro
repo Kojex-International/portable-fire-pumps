@@ -6,7 +6,7 @@ import Button from '../../../components/ui/Button.astro';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../../components/react/ImageReveal';
 import { getLocaleFromPathname, localizePath } from '@config/site';
-import { firepumps, type Firepump } from '../../../data/firepumps';
+import { getFirepumps, type Firepump } from '../../../data/firepumps';
 import catalogPdf from '../../../data/Shibaura_Catalog2024_9.pdf';
 import ft500CurveImg from '@assets/graphs/FT500-curve.jpg';
 import ft500DimensionsImg from '@assets/graphs/FT500-dimensions.jpg';
@@ -24,7 +24,8 @@ import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
 import { getDischargeSubLabel, getSpecLabel, isDischargePerformanceLabel } from '../../../data/specLabels';
 
 export async function getStaticPaths() {
-  return firepumps.flatMap((pump) => {
+  const enFirepumps = getFirepumps('en');
+  return enFirepumps.flatMap((pump) => {
     const slugs = [pump.slug, ...(pump.aliases ?? [])];
     return slugs.map((slug) => ({
       params: { slug },
@@ -34,13 +35,14 @@ export async function getStaticPaths() {
 }
 
 const { pump } = Astro.props as { pump: Firepump };
+const enFirepumps = getFirepumps('en');
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const productsHref = localizePath('/products', locale);
 const manualPdf = pump.manualPdf ?? catalogPdf;
 const manualLabel = pump.manualPdf ? 'Operations Manual' : 'Specifications';
 
-const relatedPumps = firepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
+const relatedPumps = enFirepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
 const keySpecByKey = new Map(pump.keySpecs.map((spec) => [spec.key, spec]));
 const leftSpecKeys = ['coolingSystem', 'pumpModel', 'engineType'] as const;
 const rightSpecKeys = ['maxPressure', 'primingTime', 'flowRate'] as const;
