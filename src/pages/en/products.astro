@@ -6,6 +6,7 @@ import SectionHeader from '../../components/ui/SectionHeader.astro';
 import MobilePumpCards from '../../components/react/MobilePumpCards';
 import DesktopPumpCards from '../../components/products/DesktopPumpCards.astro';
 import ProductsCTA from '../../components/products/ProductsCTA.astro';
+import AutoRelaySection from '../../components/products/AutoRelaySection.astro';
 import PageHero from '../../components/heroes/PageHero.astro';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
@@ -115,11 +116,14 @@ const hasMoreProductFeatures = sortedProductFeatures.length > 3;
 
   <!-- Product Features -->
   <Section background="white" id="product-features">
+    <AutoRelaySection locale="en" badgeIconComponent={Gauge} />
+
     <SectionHeader
-      badge="Product Features"
+      badge="Core Features"
       badgeIconComponent={Gauge}
-      title="Performance and Design Highlights"
-      description="Built for fast response, reliable priming, and rugged field use."
+      title="Core"
+      highlight="Pump Features"
+      description="Engine components and pump systems designed for dependable firefighting performance."
       class="mb-12"
     />
 

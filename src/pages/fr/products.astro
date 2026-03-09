@@ -6,6 +6,7 @@ import SectionHeader from '../../components/ui/SectionHeader.astro';
 import MobilePumpCards from '../../components/react/MobilePumpCards';
 import DesktopPumpCards from '../../components/products/DesktopPumpCards.astro';
 import ProductsCTA from '../../components/products/ProductsCTA.astro';
+import AutoRelaySection from '../../components/products/AutoRelaySection.astro';
 import PageHero from '../../components/heroes/PageHero.astro';
 import { Image } from 'astro:assets';
 import ImageReveal from '../../components/react/ImageReveal';
@@ -115,12 +116,14 @@ const hasMoreProductFeatures = sortedProductFeatures.length > 3;
 
   <!-- Product Features -->
   <Section background="white" id="product-features">
+    <AutoRelaySection locale="fr" badgeIconComponent={Gauge} />
+
     <SectionHeader
-      badge="Caractéristiques"
+      badge="Caractéristiques essentielles"
       badgeIconComponent={Gauge}
-      title="Performance et conception"
-      highlight=""
-      description="Conçues pour une intervention rapide, un amorçage fiable et une utilisation en conditions exigeantes."
+      title="Caractéristiques des pompes à"
+      highlight="incendie"
+      description="Composants moteur et systèmes de pompage conçus pour assurer une performance fiable lors des interventions incendie."
       class="mb-12"
     />
 

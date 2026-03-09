@@ -50,6 +50,7 @@ const heroSpecs = [...leftSpecs, ...rightSpecs];
 const operationVideo =
   pump.slug === 'ft300-400-a'
     ? {
+        kind: 'youtube' as const,
         model: 'FT300-A',
         title: 'FT300-A Pump Operation',
         description: 'See the FT300-A in action with a full operation walkthrough.',
@@ -57,6 +58,7 @@ const operationVideo =
       }
     : pump.slug === 'fk500-a'
       ? {
+          kind: 'youtube' as const,
           model: 'FK500-A',
           title: 'FK500-A Pump Operation',
           description: 'Watch the FK500-A running through a full pump operation demo.',
@@ -64,6 +66,7 @@ const operationVideo =
         }
       : pump.slug === 'ft510-a'
         ? {
+            kind: 'youtube' as const,
             model: 'FT510-A',
             title: 'FT510-A Pump Operation',
             description: 'See the FT510-A in action with a full pump operation walkthrough.',
@@ -71,13 +74,17 @@ const operationVideo =
           }
         : pump.slug === 'ff500ar-a'
           ? {
+              kind: 'local' as const,
               model: 'FF500-AR',
               title: 'FF500-AR Pump Operation',
               description: 'Watch the FF500-AR running through a complete pump operation demo.',
-              url: 'https://www.youtube.com/embed/yuKw3f8MA3g'
+              desktopUrl: '/videos/products/1kmFF500relay-desktop.mp4',
+              mobileUrl: '/videos/products/1kmFF500relay-mobile.mp4',
+              posterUrl: '/videos/products/1kmFF500relay-poster.jpg'
             }
           : pump.slug === 'p572s-a'
             ? {
+                kind: 'youtube' as const,
                 model: 'P572S-A',
                 title: 'P572S-A Pump Operation',
                 description: 'See the P572S-A in action with a full pump operation walkthrough.',
@@ -85,6 +92,7 @@ const operationVideo =
               }
             : pump.slug === 'tf516mh-ab'
               ? {
+                  kind: 'youtube' as const,
                   model: 'TF516MH-AB',
                   title: 'TF516MH-AB Pump Operation',
                   description: 'See the TF516MH-AB pump operating in the field.',
@@ -233,16 +241,28 @@ const performanceImages = performanceImagesBySlug[pump.slug];
       </div>
       <div class="max-w-5xl mx-auto px-4">
         <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-black">
-          <iframe
-            src={operationVideo.url}
-            title={`${operationVideo.title} video`}
-            class="absolute inset-0 w-full h-full"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-          ></iframe>
+          {operationVideo.kind === 'local' ? (
+            <video
+              class="absolute inset-0 w-full h-full"
+              controls
+              preload="metadata"
+              poster={operationVideo.posterUrl}
+            >
+              <source media="(max-width: 767px)" src={operationVideo.mobileUrl} type="video/mp4" />
+              <source src={operationVideo.desktopUrl} type="video/mp4" />
+            </video>
+          ) : (
+            <iframe
+              src={operationVideo.url}
+              title={`${operationVideo.title} video`}
+              class="absolute inset-0 w-full h-full"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          )}
         </div>
       </div>
     </Section>

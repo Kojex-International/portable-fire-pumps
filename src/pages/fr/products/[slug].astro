@@ -49,6 +49,7 @@ const heroSpecs = [...leftSpecs, ...rightSpecs];
 const operationVideo =
   pump.slug === 'ft300-400-a'
       ? {
+          kind: 'youtube' as const,
           model: 'FT300-A',
           title: 'Fonctionnement de la pompe FT300-A',
           description: 'Vidéo de démonstration du fonctionnement complet de la FT300-A.',
@@ -56,6 +57,7 @@ const operationVideo =
         }
     : pump.slug === 'fk500-a'
       ? {
+          kind: 'youtube' as const,
           model: 'FK500-A',
           title: 'Fonctionnement de la pompe FK500-A',
           description: 'Vidéo de démonstration du fonctionnement complet de la FK500-A.',
@@ -63,6 +65,7 @@ const operationVideo =
         }
       : pump.slug === 'ft510-a'
         ? {
+            kind: 'youtube' as const,
             model: 'FT510-A',
             title: 'Fonctionnement de la pompe FT510-A',
             description: 'Vidéo de démonstration du fonctionnement complet de la FT510-A.',
@@ -70,13 +73,17 @@ const operationVideo =
           }
         : pump.slug === 'ff500ar-a'
           ? {
+              kind: 'local' as const,
               model: 'FF500-AR',
               title: 'Fonctionnement de la pompe FF500-AR',
               description: 'Vidéo de démonstration du fonctionnement complet de la FF500-AR.',
-              url: 'https://www.youtube.com/embed/yuKw3f8MA3g'
+              desktopUrl: '/videos/products/1kmFF500relay-desktop.mp4',
+              mobileUrl: '/videos/products/1kmFF500relay-mobile.mp4',
+              posterUrl: '/videos/products/1kmFF500relay-poster.jpg'
             }
           : pump.slug === 'p572s-a'
             ? {
+                kind: 'youtube' as const,
                 model: 'P572S-A',
                 title: 'Fonctionnement de la pompe P572S-A',
                 description: 'Vidéo de démonstration du fonctionnement complet de la P572S-A.',
@@ -84,6 +91,7 @@ const operationVideo =
               }
             : pump.slug === 'tf516mh-ab'
               ? {
+                  kind: 'youtube' as const,
                   model: 'TF516MH-AB',
                   title: 'Fonctionnement de la pompe TF516MH-AB',
                   description: 'Vidéo de démonstration du fonctionnement de la TF516MH-AB sur le terrain.',
@@ -232,16 +240,28 @@ const performanceImages = performanceImagesBySlug[pump.slug];
       </div>
       <div class="max-w-5xl mx-auto px-4">
         <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-black">
-          <iframe
-            src={operationVideo.url}
-            title={`${operationVideo.title} video`}
-            class="absolute inset-0 w-full h-full"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-          ></iframe>
+          {operationVideo.kind === 'local' ? (
+            <video
+              class="absolute inset-0 w-full h-full"
+              controls
+              preload="metadata"
+              poster={operationVideo.posterUrl}
+            >
+              <source media="(max-width: 767px)" src={operationVideo.mobileUrl} type="video/mp4" />
+              <source src={operationVideo.desktopUrl} type="video/mp4" />
+            </video>
+          ) : (
+            <iframe
+              src={operationVideo.url}
+              title={`${operationVideo.title} video`}
+              class="absolute inset-0 w-full h-full"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          )}
         </div>
       </div>
     </Section>
