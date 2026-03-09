@@ -7,7 +7,6 @@ import { Image } from 'astro:assets';
 import ImageReveal from '../../../components/react/ImageReveal';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import { getFirepumps, type Firepump } from '../../../data/firepumps';
-import checkIcon from '@assets/icons/check.svg?url';
 import catalogPdf from '../../../data/Shibaura_Catalog2024_9.pdf';
 import ft500CurveImg from '@assets/graphs/FT500-curve.jpg';
 import ft500DimensionsImg from '@assets/graphs/FT500-dimensions.jpg';
@@ -266,34 +265,6 @@ const performanceImages = performanceImagesBySlug[pump.slug];
       </div>
     </Section>
   )}
-
-  <!-- Key Benefits
-  <Section background="white" class="!py-12 lg:!py-16">
-    <div class="text-center mb-8 px-2">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-        Key <span class="brand-gradient-text">Benefits</span>
-      </h2>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-        Why the {pump.title} is a reliable choice for rapid response teams.
-      </p>
-    </div>
-    <ul class="space-y-4 max-w-3xl mx-auto mt-4 px-4">
-      {pump.benefits.map((benefit) => (
-        <li class="flex items-center justify-center gap-4">
-          <div class="flex items-center justify-center w-8 h-8 rounded-md brand-gradient-bg text-white shrink-0">
-            <img src={checkIcon} alt="" class="w-4 h-4 invert" aria-hidden="true" />
-          </div>
-          <div class="w-[28rem] max-w-full text-left">
-            <div class="flex flex-wrap items-baseline gap-x-2">
-              <h3 class="text-lg font-bold text-gray-900">{benefit.title}</h3>
-              <p class="text-gray-600">{benefit.description}</p>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
-  </Section>
-  -->
 
   <!-- Technical Specifications -->
   <Section background="white" id="technical-specifications" class="!py-12 lg:!py-16">

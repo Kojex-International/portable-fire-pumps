@@ -11,8 +11,6 @@ import { HelpCircle, Library } from 'lucide-react';
 import gettingStartedImg from '@assets/photo-1451187580459-43490279c0fa.jpg';
 import onboardingChecklistImg from '@assets/photo-1486406146926-c627a92ad1ab.jpg';
 import serviceOverviewImg from '@assets/photo-1550751827-4bd374c3f58b.jpg';
-import technicalDocumentationImg from '@assets/photo-1454165804606-c3d57bc86b40.jpg';
-import operationsManualImg from '@assets/photo-1521737604893-d14cc237f11d.jpg';
 import pumpCatalogImg from '@assets/pumpcatalog.png';
 import catalogCardImg from '@assets/2024CatalogImg.png';
 import firepumpManualsImg from '@assets/firepumpmanuals.png';
@@ -25,8 +23,6 @@ import p572sImg from '@assets/p572s.jpg';
 import p555sImg from '@assets/p555s.jpg';
 import fk500Img from '@assets/fk500.jpg';
 import ff500Img from '@assets/ff500ar.jpg';
-
-import formsTemplatesImg from '@assets/photo-1450101499163-c8848c66ca85.jpg';
 import heroBgImg from '@assets/resources-hero.png';
 import catalogPdf from '../../data/Shibaura_Catalog2024_9.pdf';
 import ft300400ManualPdf from '../../data/manuals/aircooled/ft300-400Manual.pdf';
@@ -51,12 +47,7 @@ const iconPaths = {
   manual:
     '<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
   parts:
-    '<path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/>',
-  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
-  lightbulb:
-    '<path d="M9.663 17h4.673"/><path d="M12 3v1"/><path d="m18.364 4.636-.707.707"/><path d="M21 12h-1"/><path d="M4 12H3"/><path d="m6.343 6.343-.707-.707"/><path d="m8.172 16.243-.548.547A3.374 3.374 0 0 0 10 18.469V19a2 2 0 1 0 4 0v-.531c0-.895.356-1.754.988-2.386l-.548-.547a5 5 0 1 0-7.072 0z"/>',
-  fileText:
-    '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>'
+    '<path d="M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z"/><path d="M20 8v12a2 2 0 0 1-2 2h-4.182"/><path d="m3.305 19.53.923-.382"/><path d="M4 10.592V4a2 2 0 0 1 2-2h8"/><path d="m4.228 16.852-.924-.383"/><path d="m5.852 15.228-.383-.923"/><path d="m5.852 20.772-.383.924"/><path d="m8.148 15.228.383-.923"/><path d="m8.53 21.696-.382-.924"/><path d="m9.773 16.852.922-.383"/><path d="m9.773 19.148.922.383"/><circle cx="7" cy="18" r="3"/>'
 };
 
 const docCategories = [
@@ -111,51 +102,7 @@ const docCategories = [
       { title: 'P572', description: 'Liste de pièces', type: 'PDF', size: '1,0 Mo', href: p572PartsPdf, thumb: p572sImg }
     ]
   },
-  // {
-  //   title: 'Compliance & Certifications',
-  //   iconPath: iconPaths.shield,
-  //   image: technicalDocumentationImg,
-  //   color: 'from-amber-500 to-orange-500',
-  //   gradient: 'linear-gradient(135deg, #f59e0b, #f97316)',
-  //   bgColor: 'bg-amber-50',
-  //   iconColor: 'text-amber-600',
-  //   docs: [
-  //     { title: 'ISO 9001 Certificate', description: 'Quality management system certification documentation', type: 'PDF', size: '1.2 MB' },
-  //     { title: 'FDA Registration', description: 'Food and drug administration compliance records', type: 'PDF', size: '2.3 MB' },
-  //     { title: 'C-TPAT Certification', description: 'Customs trade partnership against terrorism', type: 'PDF', size: '1.8 MB' },
-  //     { title: 'Safety Data Sheets', description: 'Comprehensive material safety information database', type: 'PDF', size: '5.4 MB' }
-  //   ]
-  // },
-  // {
-  //   title: 'Best Practices',
-  //   iconPath: iconPaths.lightbulb,
-  //   image: operationsManualImg,
-  //   color: 'from-indigo-500 to-blue-500',
-  //   gradient: 'linear-gradient(135deg, #6366f1, #3b82f6)',
-  //   bgColor: 'bg-indigo-50',
-  //   iconColor: 'text-indigo-600',
-  //   docs: [
-  //     { title: 'Inventory Optimization', description: 'Strategies to maximize efficiency and reduce costs', type: 'PDF', size: '3.6 MB' },
-  //     { title: 'Packaging Guidelines', description: 'Best practices for product protection and presentation', type: 'PDF', size: '2.8 MB' },
-  //     { title: 'Supply Chain Tips', description: 'Proven methods to streamline your operations', type: 'PDF', size: '4.2 MB' },
-  //     { title: 'Sustainability Guide', description: 'Eco-friendly logistics solutions and practices', type: 'PDF', size: '3.9 MB' }
-  //   ]
-  // },
-  // {
-  //   title: 'Forms & Templates',
-  //   iconPath: iconPaths.fileText,
-  //   image: formsTemplatesImg,
-  //   color: 'from-teal-500 to-cyan-500',
-  //   gradient: 'linear-gradient(135deg, #14b8a6, #06b6d4)',
-  //   bgColor: 'bg-teal-50',
-  //   iconColor: 'text-teal-600',
-  //   docs: [
-  //     { title: 'Bill of Lading Template', description: 'Standard shipping documentation template', type: 'DOC', size: '0.5 MB' },
-  //     { title: 'Packing List Form', description: 'Itemized shipment details and inventory form', type: 'XLS', size: '0.3 MB' },
-  //     { title: 'Inspection Checklist', description: 'Quality control and verification template', type: 'DOC', size: '0.4 MB' },
-  //     { title: 'Incident Report Form', description: 'Standardized issue reporting and tracking form', type: 'PDF', size: '0.6 MB' }
-  //   ]
-  // }
+
 ];
 
 const faqs = [
