@@ -18,7 +18,7 @@ const distributorsHref = localizePath('/distributors', locale);
 
 const airCooledPumps = firepumps.filter((pump) =>
   pump.keySpecs.some(
-    (spec) => spec.label === 'Cooling system' && spec.value.toLowerCase().includes('air')
+    (spec) => spec.key === 'coolingSystem' && spec.value.toLowerCase().includes('air')
   )
 );
 ---

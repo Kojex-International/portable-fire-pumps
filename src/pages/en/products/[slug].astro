@@ -21,6 +21,7 @@ import p572sDimensionsImg from '@assets/graphs/P572S-dimensions.jpg';
 import tfCurveImg from '@assets/graphs/TF-curve.jpg';
 import tfDimensionsImg from '@assets/graphs/TF-dimensions.jpg';
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import { getDischargeSubLabel, getSpecLabel, isDischargePerformanceLabel } from '../../../data/specLabels';
 
 export async function getStaticPaths() {
   return firepumps.flatMap((pump) => {
@@ -40,11 +41,11 @@ const manualPdf = pump.manualPdf ?? catalogPdf;
 const manualLabel = pump.manualPdf ? 'Operations Manual' : 'Specifications';
 
 const relatedPumps = firepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
-const keySpecByLabel = new Map(pump.keySpecs.map((spec) => [spec.label, spec]));
-const leftSpecLabels = ['Cooling system', 'Pump model', 'Engine type'];
-const rightSpecLabels = ['Max pressure', 'Priming performance', 'Discharge performance'];
-const leftSpecs = leftSpecLabels.map((label) => keySpecByLabel.get(label)).filter(Boolean);
-const rightSpecs = rightSpecLabels.map((label) => keySpecByLabel.get(label)).filter(Boolean);
+const keySpecByKey = new Map(pump.keySpecs.map((spec) => [spec.key, spec]));
+const leftSpecKeys = ['coolingSystem', 'pumpModel', 'engineType'] as const;
+const rightSpecKeys = ['maxPressure', 'primingTime', 'flowRate'] as const;
+const leftSpecs = leftSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
+const rightSpecs = rightSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
 const heroSpecs = [...leftSpecs, ...rightSpecs];
 const operationVideo =
   pump.slug === 'ft300-400-a'
@@ -296,7 +297,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                     colSpan={2}
                     class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide w-1/3 border-r border-gray-200 text-center"
                   >
-                    Specification
+                    {getSpecLabel('specification', 'en')}
                   </th>
                   {pump.specsTable.columns.map((column) => (
                     <th class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide border-r border-gray-200 last:border-r-0 text-center">
@@ -317,9 +318,9 @@ const performanceImages = performanceImagesBySlug[pump.slug];
 
                 for (let i = 0; i < rows.length; i += 1) {
                   const row = rows[i];
-                  if (row.label.startsWith('Discharge performance')) {
+                  if (isDischargePerformanceLabel(row.label)) {
                     const items = [];
-                    while (i < rows.length && rows[i].label.startsWith('Discharge performance')) {
+                    while (i < rows.length && isDischargePerformanceLabel(rows[i].label)) {
                       items.push(rows[i]);
                       i += 1;
                     }
@@ -373,10 +374,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                   if (entry.type === 'discharge' && entry.items) {
                     const dischargeRows = entry.items;
                     dischargeRows.forEach((row, dischargeIndex) => {
-                      let subLabel = row.label.replace(/Discharge performance/i, '').trim();
-                      if (subLabel.startsWith('(') && subLabel.endsWith(')')) {
-                        subLabel = subLabel.slice(1, -1);
-                      }
+                      const subLabel = getDischargeSubLabel(row.label, 'en');
                       rowsOutput.push(
                         <tr class="border-b border-gray-100 last:border-b-0 bg-white">
                           {dischargeIndex === 0 && (
@@ -387,7 +385,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                               }`}
                             >
                               <span style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
-                                Discharge performance
+                                {getSpecLabel('dischargePerformance', 'en')}
                               </span>
                             </th>
                           )}

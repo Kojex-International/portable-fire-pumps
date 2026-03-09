@@ -21,6 +21,7 @@ import p572sDimensionsImg from '@assets/graphs/P572S-dimensions.jpg';
 import tfCurveImg from '@assets/graphs/TF-curve.jpg';
 import tfDimensionsImg from '@assets/graphs/TF-dimensions.jpg';
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import { getDischargeSubLabel, getSpecLabel, isDischargePerformanceLabel } from '../../../data/specLabels';
 
 export async function getStaticPaths() {
   const frFirepumps = getFirepumps('fr');
@@ -42,8 +43,11 @@ const manualLabel = pump.manualPdf ? 'Manuel d’utilisation' : 'Spécifications
 
 const frFirepumps = getFirepumps('fr');
 const relatedPumps = frFirepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
-const leftSpecs = [1, 0, 5].map((i) => pump.keySpecs[i]).filter(Boolean);
-const rightSpecs = [4, 3, 2].map((i) => pump.keySpecs[i]).filter(Boolean);
+const keySpecByKey = new Map(pump.keySpecs.map((spec) => [spec.key, spec]));
+const leftSpecKeys = ['coolingSystem', 'pumpModel', 'engineType'] as const;
+const rightSpecKeys = ['maxPressure', 'primingTime', 'flowRate'] as const;
+const leftSpecs = leftSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
+const rightSpecs = rightSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
 const heroSpecs = [...leftSpecs, ...rightSpecs];
 const operationVideo =
   pump.slug === 'ft300-400-a'
@@ -295,7 +299,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                     colSpan={2}
                     class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide w-1/3 border-r border-gray-200 text-center"
                   >
-                    Spécification
+                    {getSpecLabel('specification', 'fr')}
                   </th>
                   {pump.specsTable.columns.map((column) => (
                     <th class="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide border-r border-gray-200 last:border-r-0 text-center">
@@ -316,17 +320,11 @@ const performanceImages = performanceImagesBySlug[pump.slug];
 
                 for (let i = 0; i < rows.length; i += 1) {
                   const row = rows[i];
-                  if (
-                    row.label.startsWith('Discharge performance') ||
-                    row.label.startsWith('Performance de refoulement') ||
-                    row.label.startsWith('Débit')
-                  ) {
+                  if (isDischargePerformanceLabel(row.label)) {
                     const items = [];
                     while (
                       i < rows.length &&
-                      (rows[i].label.startsWith('Discharge performance') ||
-                        rows[i].label.startsWith('Performance de refoulement') ||
-                        rows[i].label.startsWith('Débit'))
+                      isDischargePerformanceLabel(rows[i].label)
                     ) {
                       items.push(rows[i]);
                       i += 1;
@@ -381,10 +379,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                   if (entry.type === 'discharge' && entry.items) {
                     const dischargeRows = entry.items;
                     dischargeRows.forEach((row, dischargeIndex) => {
-                      let subLabel = row.label.replace(/Discharge performance|Performance de refoulement|Débit/i, '').trim();
-                      if (subLabel.startsWith('(') && subLabel.endsWith(')')) {
-                        subLabel = subLabel.slice(1, -1);
-                      }
+                      const subLabel = getDischargeSubLabel(row.label, 'fr');
                       rowsOutput.push(
                         <tr class="border-b border-gray-100 last:border-b-0 bg-white">
                           {dischargeIndex === 0 && (
@@ -395,7 +390,7 @@ const performanceImages = performanceImagesBySlug[pump.slug];
                               }`}
                             >
                               <span style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
-                                Débit
+                                {getSpecLabel('dischargePerformance', 'fr')}
                               </span>
                             </th>
                           )}
