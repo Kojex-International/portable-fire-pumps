@@ -105,33 +105,6 @@ const docCategories = [
 
 ];
 
-const faqs = [
-  {
-    question: 'How do I access the customer portal?',
-    answer: 'Contact your account manager to receive login credentials for our secure customer portal. Once registered, you can track shipments, view inventory, generate reports, and manage your account 24/7 from anywhere in the world.'
-  },
-  {
-    question: 'What file formats are supported for EDI?',
-    answer: 'We support all standard EDI formats including X12 (850, 856, 810, 997, etc.), EDIFACT, and custom XML formats. Our integration team can work with your existing systems to ensure seamless data exchange and compatibility.'
-  },
-  {
-    question: 'Where can I find safety data sheets (SDS)?',
-    answer: 'All safety data sheets are available in the Compliance & Certifications section of this documentation center. You can also request specific SDS documents directly from your account manager or through our support portal.'
-  },
-  {
-    question: 'How often is documentation updated?',
-    answer: 'Documentation is reviewed and updated quarterly, or more frequently as needed for regulatory changes, system updates, or process improvements. You will be notified of any critical updates via email and through the customer portal.'
-  },
-  {
-    question: 'Can I download multiple documents at once?',
-    answer: 'Yes, you can select multiple documents and download them as a ZIP archive. Simply use the bulk selection feature available in each category section to download multiple files simultaneously.'
-  },
-  {
-    question: 'Is there a mobile app for accessing documentation?',
-    answer: 'Yes, our mobile application is available for both iOS and Android devices. You can download it from the App Store or Google Play Store. The app provides full access to all documentation and features offline reading capabilities.'
-  }
-];
-
 const storageNotes = [
   'Be sure to keep the fuel tank full. Low fuel leaves excess air in the tank, which can increase condensation and internal rust risk.',
   'Gasoline has an approximate shelf life of six months. Use fresh fuel to protect pump reliability and performance.',
@@ -535,120 +508,8 @@ const storageNotes = [
   </script>
 
   <!-- FAQ Section -->
-  <!-- <Section background="white" id="faq">
-    <div class="text-center mb-16">
-      <div class="inline-flex items-center px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
-        <HelpCircle className="w-4 h-4 mr-2" />
-        Support
-      </div>
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        Frequently Asked <span class="gradient-text">Questions</span>
-      </h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        Quick answers to common questions about our documentation and resources.
-      </p>
-    </div>
-
-    <div class="max-w-4xl mx-auto space-y-4">
-      {faqs.map((faq, index) => (
-        <ImageReveal client:load delay={index * 0.05}>
-          <Card hover class="animate-fadeInUp border-2 border-gray-100 hover:border-blue-200 transition-colors" style={`animation-delay: ${index * 0.05}s`}>
-            <details class="group">
-              <summary class="flex items-center justify-between cursor-pointer list-none py-2">
-                <h3 class="text-lg font-semibold text-gray-900 pr-4 group-hover:text-blue-600 transition-colors">
-                  {faq.question}
-                </h3>
-                <div class="shrink-0">
-                  <svg class="w-5 h-5 text-gray-400 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </summary>
-              <div class="mt-4 pt-4 border-t border-gray-100">
-                <p class="text-gray-600 leading-relaxed">{faq.answer}</p>
-              </div>
-            </details>
-          </Card>
-        </ImageReveal>
-      ))}
-    </div>
-  </Section> -->
 
   <!-- Help Section -->
-  <!-- <Section background="gradient">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Need More <span class="gradient-text">Help?</span>
-        </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our team is here to assist you with any questions or support you need.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <ImageReveal client:load delay={0}>
-          <Card hover class="text-center h-full">
-            <div class="w-20 h-20 bg-linear-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-3">Need Support?</h3>
-            <p class="text-gray-600 mb-6 leading-relaxed">
-              Our support team is available 24/7 to help with any questions or technical issues you may encounter.
-            </p>
-            <a href="/en/contact-us" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold group">
-              Contact Support
-              <svg class="w-4 h-4 -rotate-90 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </a>
-          </Card>
-        </ImageReveal>
-
-        <ImageReveal client:load delay={0.1}>
-          <Card hover class="text-center h-full">
-            <div class="w-20 h-20 bg-linear-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-3">Training Resources</h3>
-            <p class="text-gray-600 mb-6 leading-relaxed">
-              Access comprehensive video tutorials, webinars, and training materials to master our platform.
-            </p>
-            <a href="#" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold group">
-              View Training
-              <svg class="w-4 h-4 -rotate-90 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </a>
-          </Card>
-        </ImageReveal>
-
-        <ImageReveal client:load delay={0.2}>
-          <Card hover class="text-center h-full">
-            <div class="w-20 h-20 bg-linear-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-3">Stay Updated</h3>
-            <p class="text-gray-600 mb-6 leading-relaxed">
-              Subscribe to receive notifications about new documentation, updates, and important announcements.
-            </p>
-            <a href="#" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold group">
-              Subscribe
-              <svg class="w-4 h-4 -rotate-90 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </a>
-          </Card>
-        </ImageReveal>
-      </div>
-    </div>
-  </Section> -->
 </BaseLayout>
 
 <style>
