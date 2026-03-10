@@ -258,6 +258,13 @@
   transition: background 0.3s ease;
 }
 
+@media (max-width: 767px) {
+  .container {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+}
+
 .cta-overlay-gradient {
   background: linear-gradient(
     135deg,

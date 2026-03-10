@@ -101,7 +101,7 @@ type PumpSpecRow =
   | ConnectionSpecRow
   | PrimingPerformanceSpecRow
   | DischargePerformanceSpecRow;
-type EngineSpecRow = SpecRow<EngineSpecKey>;
+type EngineSpecRow = SpecRow<EngineSpecKey | 'maxOutput'>;
 type VacuumPumpSpecRow = SpecRow<VacuumPumpSpecKey>;
 type FeaturesSpecRow = SpecRow<FeaturesSpecKey>;
 
@@ -213,10 +213,9 @@ export const firepumps: Firepump[] = [
           rows: [
             { key: 'model', values: ['SHIBAURA B612B', 'SHIBAURA B612B'] },
             { key: 'type', values: ['High pressure, single stage centrifugal pump', 'High pressure, single stage centrifugal pump'] },
-            { key: 'dischargePerformance', pressureMPa: '0.5', suctionHeightM: '1', values: ['1,450 L/min', '383 gpm @ 72.5 psi, 3.3 ft'] },
-            { key: 'dischargePerformance', pressureMPa: '0.5', suctionHeightM: '3', values: ['1,435 L/min', '379 gpm @ 72.5 psi, 9.8 ft'] },
-            { key: 'dischargePerformance', pressureMPa: '1.0', suctionHeightM: '1', values: ['830 L/min', '219 gpm @ 145 psi, 3.3 ft'] },
-            { key: 'dischargePerformance', pressureMPa: '1.0', suctionHeightM: '3', values: ['790 L/min', '209 gpm @ 145 psi, 9.8 ft'] },
+            { key: 'dischargePerformance', pressureMPa: '0.5', suctionHeightM: '1', values: ['1,703 L/min', '450 gpm @ 72 psi'] },
+            { key: 'dischargePerformance', pressureMPa: '0.6', suctionHeightM: '1', values: ['1,590 L/min', '420 gpm @ 87 psi'] },
+            { key: 'dischargePerformance', pressureMPa: '0.8', suctionHeightM: '1', values: ['1,476 L/min', '390 gpm @ 116 psi'] },
             { key: 'primingPerformance', qualifier: '1 m', values: ['3.5 Seconds', '3.5 Seconds (3.3 ft suction head)'] },
             {
               key: 'dischargeDiameterJis',
@@ -244,6 +243,7 @@ export const firepumps: Firepump[] = [
             { key: 'fuelSystem', values: ['Auto choke carburetor', 'Auto choke carburetor'] },
             { key: 'displacement', values: ['436 cc', '26.6 cu in'] },
             { key: 'boreStroke', values: ['68 mm x 60 mm', '2.68 x 2.36 in'] },
+            { key: 'maxOutput', values: ['46 HP / 34 kW', '46 HP / 34 kW'] },
             { key: 'ratedOutput', values: ['22.8 kW / 31 PS', '30.6 hp'] },
             { key: 'startingSystem', values: ['Electric starter & manual starter', 'Electric starter & manual starter'] },
             { key: 'fuelTankCapacity', values: ['14.5 L', '3.83 gal'] },
@@ -272,10 +272,9 @@ export const firepumps: Firepump[] = [
       ]
     },
     performance: [
-      { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,450 L/min' },
-      { label: 'Discharge performance (0.5MPa, 3 m suction head)', value: '1,435 L/min' },
-      { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '830 L/min' },
-      { label: 'Discharge performance (1.0MPa, 3 m suction head)', value: '790 L/min' },
+      { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,703 L/min' },
+      { label: 'Discharge performance (0.6MPa, 1 m suction head)', value: '1,590 L/min' },
+      { label: 'Discharge performance (0.8MPa, 1 m suction head)', value: '1,476 L/min' },
       { label: 'Priming performance (1 m suction head)', value: '3.5 sec' }
     ]
   },

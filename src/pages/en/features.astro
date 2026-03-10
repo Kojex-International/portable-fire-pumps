@@ -26,19 +26,20 @@ const distributorsHref = localizePath('/distributors', locale);
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="brand-gradient-text-fill">Portable Fire Pump Features</span>
+      <span class="brand-gradient-text-fill">Fire Pump Features</span>
     </Fragment>
     <Fragment slot="description">
       Pump technologies and operational systems designed for reliable firefighting performance.
     </Fragment>
   </PageHero>
 
-  <Section background="white" id="auto-relay-system">
-    <AutoRelaySection locale="en" badgeIconComponent={Gauge} />
-  </Section>
-
-  <Section background="white" id="pump-features">
-    <PumpFeaturesSection locale="en" />
+  <Section background="white">
+    <div id="auto-relay-system">
+      <AutoRelaySection locale="en" badgeIconComponent={Gauge} />
+    </div>
+    <div id="pump-features" class="mt-16 lg:mt-24">
+      <PumpFeaturesSection locale="en" />
+    </div>
   </Section>
 
   <ProductsCTA

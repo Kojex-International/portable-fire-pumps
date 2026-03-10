@@ -387,7 +387,7 @@ const specSections = [
     <div class="space-y-4">
       {specSections.map((section, sectionIndex) => (
         <div class="mt-6 first:mt-0">
-          <div class="overflow-x-auto overflow-hidden m-[4px] md:m-[2px] rounded-md border border-zinc-200 bg-white">
+          <div class="overflow-x-auto overflow-hidden m-[4px] md:m-[2px] rounded-lg border border-zinc-200 bg-white">
             {(() => {
               const dischargeRowsInSection = section.rows.filter((item) => item.key === 'dischargePerformance').length;
               const firstDischargeRowIndex = section.rows.findIndex((item) => item.key === 'dischargePerformance');
@@ -597,7 +597,7 @@ const specSections = [
         Pompes <span class="brand-gradient-text">associées</span>
       </h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-[4px] md:mx-0">
       {relatedPumps.map((item) => (
         <a
           href={`${productsHref}/${item.slug}`}

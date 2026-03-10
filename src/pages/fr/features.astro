@@ -33,12 +33,13 @@ const distributorsHref = localizePath('/distributors', locale);
     </Fragment>
   </PageHero>
 
-  <Section background="white" id="auto-relay-system">
-    <AutoRelaySection locale="fr" badgeIconComponent={Gauge} />
-  </Section>
-
-  <Section background="white" id="pump-features">
-    <PumpFeaturesSection locale="fr" />
+  <Section background="white">
+    <div id="auto-relay-system">
+      <AutoRelaySection locale="fr" badgeIconComponent={Gauge} />
+    </div>
+    <div id="pump-features" class="mt-16 lg:mt-24">
+      <PumpFeaturesSection locale="fr" />
+    </div>
   </Section>
 
   <ProductsCTA
