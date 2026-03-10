@@ -1,0 +1,292 @@
+---
+import Card from '../ui/Card.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import { Image } from 'astro:assets';
+import ImageReveal from '../react/ImageReveal';
+import { Gauge } from 'lucide-react';
+import feature2StrokeEngineImg from '@assets/features/2StrokeEngine.png';
+import featureCentrifugalPumpImg from '@assets/features/CentrifugalPump.png';
+import featureVacuumPumpImg from '@assets/features/VacuumPump.png';
+import featureDischargeValveImg from '@assets/features/DischargeValve.png';
+import featureMonitoringSystemImg from '@assets/features/MonitoringSystem.png';
+import featureImpellerImg from '@assets/features/Impeller.png';
+import featureChokeSystemImg from '@assets/features/ChokeSystem.png';
+import featureFuelFeedingSystemImg from '@assets/features/FuelFeedingSystem.png';
+import featureAutoCoolantImg from '@assets/features/AutoCoolant.png';
+
+interface Props {
+  locale: 'en' | 'fr';
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+  en: {
+    badge: 'Core Features',
+    title: 'Core',
+    highlight: 'Pump Features',
+    description: 'Engine components and pump systems designed for dependable firefighting performance.',
+    showAll: 'Show all features',
+    showLess: 'Show fewer features',
+    features: [
+      {
+        title: '2-Stroke Gasoline Engine',
+        description:
+          'Shibaura original small, lightweight, high-power engine purpose-built for fire pumps. The high-speed 2-stroke design delivers strong performance and long service life in demanding duty cycles.',
+        image: feature2StrokeEngineImg
+      },
+      {
+        title: 'Centrifugal Pump',
+        description:
+          'Shibaura original engine and single-stage centrifugal pump are integrated into one compact unit, improving efficiency and delivering high-volume, long-distance discharge performance.',
+        image: featureCentrifugalPumpImg
+      },
+      {
+        title: 'Quick Discharge Valve',
+        description:
+          'Lever-type discharge valve enables quick, accurate discharge operation and swivels 180 degrees to improve firefighting capability. A short-stroke 45-degree lever makes valve operation faster and easier.',
+        image: featureDischargeValveImg
+      },
+      {
+        title: 'Vacuum Pump',
+        description:
+          'Shibaura original lightweight, compact vacuum pump removes air in the suction line quickly, enabling rapid priming and fast discharge. High efficiency and low wear with short suction procedures and straightforward maintenance. High-performance carbon fiber blades eliminate oily discharge for cleaner operation.',
+        image: featureVacuumPumpImg
+      },
+      {
+        title: 'Alert Monitoring System',
+        description:
+          'Warning lamps indicate issues such as low oil, and the engine automatically shuts down to protect itself in emergencies.',
+        image: featureMonitoringSystemImg
+      },
+      {
+        title: 'Impeller',
+        description:
+          'Originally designed Shibaura impeller supports high-volume, long-distance discharge. Special surface treatment helps prevent corrosion.',
+        image: featureImpellerImg
+      },
+      {
+        title: 'Auto Coolant Circulation (Nice Valve)',
+        description:
+          'Closed-loop coolant circulation reduces water waste in low-supply conditions, while preventing slippery, wet, muddy, or icy surfaces during operations.',
+        image: featureAutoCoolantImg
+      },
+      {
+        title: 'Advanced Fuel Feeding System',
+        description:
+          'Automotive-style separate fuel feeding delivers an optimal gasoline/oil mix in any conditions. An oil-level sensor displays status on the OK monitor, making quick checks easy.',
+        image: featureFuelFeedingSystemImg
+      },
+      {
+        title: 'Automatic Choke System',
+        description:
+          'Air and engine temperature sensors adjust the choke automatically for easy starts, fast warm-up, and immediate full-throttle operation. A high-output coil rapidly heats the bimetal element, and the downward diaphragm rod helps prevent dust or wastewater ingress.',
+        image: featureChokeSystemImg
+      }
+    ]
+  },
+  fr: {
+    badge: 'Caractéristiques essentielles',
+    title: 'Caractéristiques des pompes à',
+    highlight: 'incendie',
+    description: 'Composants moteur et systèmes de pompage conçus pour assurer une performance fiable lors des interventions incendie.',
+    showAll: 'Afficher toutes les caractéristiques',
+    showLess: 'Afficher moins de caractéristiques',
+    features: [
+      {
+        title: 'Moteur à essence 2 temps',
+        description:
+          'Moteur Shibaura compact, léger et haute puissance, spécialement conçu pour les pompes incendie. La conception 2 temps à haut régime assure des performances élevées et une longue durée de service en conditions d’utilisation intensives.',
+        image: feature2StrokeEngineImg
+      },
+      {
+        title: 'Pompe centrifuge',
+        description:
+          'Le moteur Shibaura et la pompe centrifuge à un étage sont intégrés dans une unité compacte, améliorant le rendement et permettant un débit élevé sur de longues distances.',
+        image: featureCentrifugalPumpImg
+      },
+      {
+        title: 'Vanne de refoulement rapide',
+        description:
+          'La vanne à levier permet un contrôle rapide et précis du refoulement et pivote sur 180° afin d’améliorer l’efficacité des opérations.',
+        image: featureDischargeValveImg
+      },
+      {
+        title: 'Pompe à vide',
+        description:
+          'Pompe à vide Shibaura légère et compacte permettant l’évacuation rapide de l’air dans la conduite d’aspiration pour un amorçage rapide. Conception à haut rendement et faible usure, facilitant l’entretien. Les pales en fibre de carbone haute performance éliminent tout rejet huileux pour un fonctionnement plus propre.',
+        image: featureVacuumPumpImg
+      },
+      {
+        title: 'Système d’alerte',
+        description:
+          'Des voyants signalent les anomalies, notamment un niveau d’huile bas, et le moteur s’arrête automatiquement pour assurer sa protection.',
+        image: featureMonitoringSystemImg
+      },
+      {
+        title: 'Turbine',
+        description:
+          'Turbine Shibaura conçue pour un débit élevé et un refoulement à longue distance. Traitement de surface spécial contribuant à la protection contre la corrosion.',
+        image: featureImpellerImg
+      },
+      {
+        title: 'Circulation automatique du liquide de refroidissement (Nice Valve)',
+        description:
+          'La circulation en boucle fermée réduit la consommation d’eau en conditions d’approvisionnement limité et limite la formation de surfaces glissantes durant les opérations.',
+        image: featureAutoCoolantImg
+      },
+      {
+        title: 'Système d’alimentation en carburant',
+        description:
+          'Système d’alimentation séparé de type automobile assurant un mélange essence/huile optimal dans toutes les conditions. Le capteur de niveau d’huile affiche l’état sur l’indicateur OK pour un contrôle rapide.',
+        image: featureFuelFeedingSystemImg
+      },
+      {
+        title: 'Système de démarrage automatique',
+        description:
+          'Les capteurs de température de l’air et du moteur ajustent automatiquement le starter pour faciliter le démarrage, accélérer la mise en température et permettre une mise en régime rapide.',
+        image: featureChokeSystemImg
+      }
+    ]
+  }
+} as const;
+
+const content = copy[locale];
+const sortedProductFeatures = [...content.features].sort(
+  (a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image))
+);
+const hasMoreProductFeatures = sortedProductFeatures.length > 3;
+const moreSectionId = `product-features-more-${locale}`;
+---
+
+<SectionHeader
+  badge={content.badge}
+  badgeIconComponent={Gauge}
+  title={content.title}
+  highlight={content.highlight}
+  description={content.description}
+  class="mb-12"
+/>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {sortedProductFeatures.slice(0, 3).map((feature, index) => (
+    <ImageReveal client:load delay={index * 0.05} className="overflow-visible rounded-xl">
+      <Card hover class="h-full overflow-hidden border-slate-200/60">
+        {feature.image ? (
+          <div class="mb-4 flex justify-center">
+            <div class="inline-block overflow-hidden rounded-lg bg-white">
+              <Image
+                src={feature.image}
+                alt={feature.title}
+                class="block h-40 w-auto object-contain"
+                width={800}
+                height={600}
+              />
+            </div>
+          </div>
+        ) : null}
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
+          </div>
+        </div>
+      </Card>
+    </ImageReveal>
+  ))}
+</div>
+
+{hasMoreProductFeatures ? (
+  <div class="mt-10">
+    <div
+      id={moreSectionId}
+      class="overflow-hidden max-h-0 opacity-0 transition-[max-height,opacity] duration-500 ease-in-out"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedProductFeatures.slice(3).map((feature, index) => (
+          <ImageReveal client:load delay={0.05 + index * 0.05} className="overflow-visible rounded-xl">
+            <Card hover class="h-full overflow-hidden border-slate-200/60">
+              {feature.image ? (
+                <div class="mb-4 flex justify-center">
+                  <div class="inline-block overflow-hidden rounded-lg bg-white">
+                    <Image
+                      src={feature.image}
+                      alt={feature.title}
+                      class="block h-40 w-auto object-contain"
+                      width={800}
+                      height={600}
+                    />
+                  </div>
+                </div>
+              ) : null}
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+                  <p class="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
+                </div>
+              </div>
+            </Card>
+          </ImageReveal>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-8 flex justify-center">
+      <button
+        type="button"
+        class="brand-cta flex items-center justify-center gap-2 px-5 py-3 text-sm rounded-full"
+        data-feature-toggle={moreSectionId}
+        aria-expanded="false"
+        aria-controls={moreSectionId}
+      >
+        <span data-feature-toggle-label>{content.showAll}</span>
+        <svg class="w-4 h-4 transition-transform duration-300" data-feature-toggle-icon fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+) : null}
+
+<script>
+  const toggleButtons = document.querySelectorAll('[data-feature-toggle]');
+
+  toggleButtons.forEach((button) => {
+    if (!(button instanceof HTMLButtonElement)) return;
+    const targetId = button.getAttribute('data-feature-toggle');
+    if (!targetId) return;
+    const featureMore = document.getElementById(targetId);
+    if (!featureMore) return;
+    const icon = button.querySelector('[data-feature-toggle-icon]');
+    const label = button.querySelector('[data-feature-toggle-label]');
+    const showAll = { en: 'Show all features', fr: 'Afficher toutes les caractéristiques' };
+    const showLess = { en: 'Show fewer features', fr: 'Afficher moins de caractéristiques' };
+    const locale = targetId.endsWith('-fr') ? 'fr' : 'en';
+
+    button.addEventListener('click', () => {
+      const isOpen = featureMore.classList.contains('is-open');
+      featureMore.classList.toggle('is-open');
+      featureMore.classList.toggle('max-h-0', isOpen);
+      featureMore.classList.toggle('opacity-0', isOpen);
+      featureMore.classList.toggle('max-h-[2000px]', !isOpen);
+      featureMore.classList.toggle('opacity-100', !isOpen);
+      button.setAttribute('aria-expanded', String(!isOpen));
+      if (label) {
+        label.textContent = isOpen ? showAll[locale] : showLess[locale];
+      }
+      if (icon) {
+        icon.classList.toggle('rotate-180', !isOpen);
+      }
+    });
+  });
+</script>

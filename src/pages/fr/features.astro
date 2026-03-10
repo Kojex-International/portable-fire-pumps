@@ -1,49 +1,44 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Section from '../../components/ui/Section.astro';
-import MobilePumpCards from '../../components/react/MobilePumpCards';
-import DesktopPumpCards from '../../components/products/DesktopPumpCards.astro';
-import ProductsCTA from '../../components/products/ProductsCTA.astro';
 import PageHero from '../../components/heroes/PageHero.astro';
+import Section from '../../components/ui/Section.astro';
+import AutoRelaySection from '../../components/products/AutoRelaySection.astro';
+import PumpFeaturesSection from '../../components/products/PumpFeaturesSection.astro';
+import ProductsCTA from '../../components/products/ProductsCTA.astro';
 import { Gauge } from 'lucide-react';
-
-import { getFirepumps } from '../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
+import productFeatureHeroImg from '@assets/ProductFeatureHero.png';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
-const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
-const firepumps = getFirepumps('fr');
 ---
 
-<BaseLayout title="Produits - Portable Fire Pumps">
+<BaseLayout title="Caractéristiques - Portable Fire Pumps">
   <PageHero
-    backgroundImage={heroBgImg}
-    backgroundAlt="Pompes à incendie portatives"
-    badge="Produits"
+    backgroundImage={productFeatureHeroImg}
+    backgroundAlt="Caractéristiques techniques des pompes incendie"
+    badge="Caractéristiques"
     badgeIconComponent={Gauge}
     titleClass="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
     descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="brand-gradient-text-fill">
-        Pompes incendie portatives
-      </span>
+      <span class="brand-gradient-text-fill">Caractéristiques des pompes incendie portables</span>
     </Fragment>
     <Fragment slot="description">
-      Conçues pour offrir une performance constante et un déploiement rapide lors d’interventions critiques.
+      Technologies de pompage et systèmes opérationnels pour des interventions incendie fiables.
     </Fragment>
   </PageHero>
 
-  <Section background="white">
-    <div class="lg:hidden mb-12">
-      <MobilePumpCards capabilities={firepumps} detailsBaseHref={productsBaseHref} locale="fr" />
-    </div>
+  <Section background="white" id="auto-relay-system">
+    <AutoRelaySection locale="fr" badgeIconComponent={Gauge} />
+  </Section>
 
-    <DesktopPumpCards capabilities={firepumps} detailsBaseHref={productsBaseHref} locale="fr" />
+  <Section background="white" id="pump-features">
+    <PumpFeaturesSection locale="fr" />
   </Section>
 
   <ProductsCTA

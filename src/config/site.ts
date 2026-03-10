@@ -15,9 +15,16 @@ const NAV_ITEMS = [
     name: { en: 'Products', fr: 'Produits' },
     path: '/products',
     children: [
-      { name: { en: 'Product Features', fr: 'Caractéristiques des produits' }, path: '/products#product-features' },
-      { name: { en: 'Air cooled', fr: 'Refroidies à l’air' }, path: '/products/air-cooled' },
-      { name: { en: 'Water cooled', fr: 'Refroidies à l’eau' }, path: '/products/water-cooled' },
+      { name: { en: 'Air cooled', fr: 'Refroidis par air' }, path: '/products/air-cooled' },
+      { name: { en: 'Water cooled', fr: 'Refroidis par eau' }, path: '/products/water-cooled' },
+    ],
+  },
+  {
+    name: { en: 'Features', fr: 'Caractéristiques' },
+    path: '/features',
+    children: [
+      { name: { en: 'Auto Relay System', fr: 'Système Auto Relay' }, path: '/features#auto-relay-system' },
+      { name: { en: 'Pump Features', fr: 'Caractéristiques des pompes' }, path: '/features#pump-features' },
     ],
   },
   { name: { en: 'Distributors', fr: 'Distributeurs' }, path: '/distributors' },
