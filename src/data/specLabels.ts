@@ -1,41 +1,8 @@
 export type SpecLocale = 'en' | 'fr';
 
-export type SpecLabelKey =
-  | 'metric'
-  | 'imperial'
-  | 'specification'
-  | 'modelGroup'
-  | 'pumpGroup'
-  | 'engineGroup'
-  | 'vacuumPumpGroup'
-  | 'featuresGroup'
-  | 'model'
-  | 'type'
-  | 'dimensions'
-  | 'dryWeight'
-  | 'dischargePerformance'
-  | 'primingPerformanceAt'
-  | 'dischargeDiameterJis'
-  | 'suctionDiameterJis'
-  | 'coolingSystem'
-  | 'cylinderCount'
-  | 'fuelSystem'
-  | 'displacement'
-  | 'boreStroke'
-  | 'ratedOutput'
-  | 'startingSystem'
-  | 'fuelTankCapacity'
-  | 'fuelConsumption'
-  | 'fuelType'
-  | 'vaneMaterial'
-  | 'maxSuctionHeight'
-  | 'featureOriginalEngine'
-  | 'featureOriginalCentrifugalPump'
-  | 'featureOriginalVacuumPump'
-  | 'featureAlertMonitoringSystem'
-  | 'featureQuickDischargeValve';
+export type SpecGroupKey = 'modelGroup' | 'pumpGroup' | 'engineGroup' | 'vacuumPumpGroup' | 'featuresGroup';
 
-const SPEC_LABELS: Record<SpecLabelKey, { en: string; fr: string }> = {
+export const SPEC_LABELS = {
   metric: { en: 'Metric', fr: 'Metric' },
   imperial: { en: 'Imperial', fr: 'Imperial' },
   specification: { en: 'Specification', fr: 'Spécification' },
@@ -46,12 +13,12 @@ const SPEC_LABELS: Record<SpecLabelKey, { en: string; fr: string }> = {
   featuresGroup: { en: 'Features', fr: 'Caractéristiques' },
   model: { en: 'Model', fr: 'Modèle' },
   type: { en: 'Type', fr: 'Type' },
-  dimensions: { en: 'Dimensions LxWxH (mm)', fr: 'Dimensions (L × l × H) (mm)' },
+  dimensions: { en: 'Dimensions (L × W × H)', fr: 'Dimensions (L × l × H)' },
   dryWeight: { en: 'Dry Weight', fr: 'Poids à sec' },
   dischargePerformance: { en: 'Discharge performance', fr: 'Débit' },
-  primingPerformanceAt: { en: 'Priming performance at', fr: 'Temps d’amorçage à hauteur d’aspiration' },
-  dischargeDiameterJis: { en: 'Discharge Diameter JIS', fr: 'Diamètre de refoulement (JIS)' },
-  suctionDiameterJis: { en: 'Suction Diameter JIS', fr: 'Diamètre d’aspiration (JIS)' },
+  primingPerformance: { en: 'Priming performance at', fr: 'Temps d’amorçage à' },
+  dischargeDiameterJis: { en: 'Discharge Diameter', fr: 'Diamètre de refoulement' },
+  suctionDiameterJis: { en: 'Suction Diameter', fr: 'Diamètre d’aspiration' },
   coolingSystem: { en: 'Cooling system', fr: 'Système de refroidissement' },
   cylinderCount: { en: 'No of cylinder', fr: 'Nombre de cylindres' },
   fuelSystem: { en: 'Fuel system', fr: 'Système d’alimentation' },
@@ -60,7 +27,7 @@ const SPEC_LABELS: Record<SpecLabelKey, { en: string; fr: string }> = {
   ratedOutput: { en: 'Rated output', fr: 'Puissance nominale' },
   startingSystem: { en: 'Starting', fr: 'Système de démarrage' },
   fuelTankCapacity: { en: 'Fuel tank capacity', fr: 'Capacité du réservoir de carburant' },
-  fuelConsumption: { en: 'Fuel consumption', fr: 'Consommation de carburant' },
+  fuelConsumption: { en: 'Fuel Consumption', fr: 'Consommation de carburant' },
   fuelType: { en: 'Fuel type', fr: 'Type de carburant' },
   vaneMaterial: { en: 'Blade type', fr: 'Matériau des palettes' },
   maxSuctionHeight: { en: 'Maximum suction height', fr: 'Hauteur d’aspiration maximale' },
@@ -84,16 +51,60 @@ const SPEC_LABELS: Record<SpecLabelKey, { en: string; fr: string }> = {
     en: 'Quick Discharge Valve',
     fr: 'Vanne de refoulement rapide',
   },
-};
+} as const;
 
-const SPEC_LABEL_ALIASES: Record<string, SpecLabelKey> = {
+export type SpecKey = keyof typeof SPEC_LABELS;
+export type SpecLabelKey = SpecKey;
+
+export const MODEL_SPEC_KEYS = ['dimensions', 'dryWeight'] as const;
+export const PUMP_SPEC_KEYS = [
+  'model',
+  'type',
+  'dischargePerformance',
+  'primingPerformance',
+  'dischargeDiameterJis',
+  'suctionDiameterJis',
+] as const;
+export const ENGINE_SPEC_KEYS = [
+  'model',
+  'type',
+  'coolingSystem',
+  'cylinderCount',
+  'fuelSystem',
+  'displacement',
+  'boreStroke',
+  'ratedOutput',
+  'startingSystem',
+  'fuelTankCapacity',
+  'fuelConsumption',
+  'fuelType',
+] as const;
+export const VACUUM_PUMP_SPEC_KEYS = ['type', 'vaneMaterial', 'maxSuctionHeight'] as const;
+export const FEATURES_SPEC_KEYS = [
+  'featureOriginalEngine',
+  'featureOriginalCentrifugalPump',
+  'featureOriginalVacuumPump',
+  'featureAlertMonitoringSystem',
+  'featureQuickDischargeValve',
+] as const;
+
+export type ModelSpecKey = (typeof MODEL_SPEC_KEYS)[number];
+export type PumpSpecKey = (typeof PUMP_SPEC_KEYS)[number];
+export type EngineSpecKey = (typeof ENGINE_SPEC_KEYS)[number];
+export type VacuumPumpSpecKey = (typeof VACUUM_PUMP_SPEC_KEYS)[number];
+export type FeaturesSpecKey = (typeof FEATURES_SPEC_KEYS)[number];
+
+const SPEC_LABEL_ALIASES: Record<string, SpecKey> = {
   Metric: 'metric',
   Imperial: 'imperial',
   Model: 'model',
   Type: 'type',
   'Dimensions LxWxH (mm)': 'dimensions',
+  'Dimensions (L × W × H)': 'dimensions',
   'Dry Weight': 'dryWeight',
+  'Discharge Diameter': 'dischargeDiameterJis',
   'Discharge Diameter JIS': 'dischargeDiameterJis',
+  'Suction Diameter': 'suctionDiameterJis',
   'Suction Diameter JIS': 'suctionDiameterJis',
   'Cooling system': 'coolingSystem',
   'No of cylinder': 'cylinderCount',
@@ -104,6 +115,7 @@ const SPEC_LABEL_ALIASES: Record<string, SpecLabelKey> = {
   Starting: 'startingSystem',
   'Fuel tank capacity': 'fuelTankCapacity',
   'Fuel consumption': 'fuelConsumption',
+  'Fuel Consumption': 'fuelConsumption',
   'Fuel type': 'fuelType',
   'Blade type': 'vaneMaterial',
   'Maximum suction height': 'maxSuctionHeight',
@@ -119,11 +131,14 @@ const SPEC_LABEL_ALIASES: Record<string, SpecLabelKey> = {
   Caractéristiques: 'featuresGroup',
   'Poids à sec': 'dryWeight',
   'Dimensions (L × l × H) (mm)': 'dimensions',
-  'Temps d’amorçage à': 'primingPerformanceAt',
-  'Temps d’amorçage à hauteur d’aspiration': 'primingPerformanceAt',
+  'Dimensions (L × l × H)': 'dimensions',
+  'Temps d’amorçage à': 'primingPerformance',
+  'Temps d’amorçage à hauteur d’aspiration': 'primingPerformance',
   Débit: 'dischargePerformance',
   'Diamètre de refoulement (JIS)': 'dischargeDiameterJis',
+  'Diamètre de refoulement': 'dischargeDiameterJis',
   'Diamètre d’aspiration (JIS)': 'suctionDiameterJis',
+  'Diamètre d’aspiration': 'suctionDiameterJis',
   'Système de refroidissement': 'coolingSystem',
   'Nombre de cylindres': 'cylinderCount',
   'Système d’alimentation': 'fuelSystem',
@@ -151,7 +166,7 @@ const SPEC_LABEL_ALIASES: Record<string, SpecLabelKey> = {
   'Quick Discharge Valve': 'featureQuickDischargeValve',
 };
 
-const SPEC_GROUP_TITLE_ALIASES: Record<string, SpecLabelKey> = {
+const SPEC_GROUP_TITLE_ALIASES: Record<string, SpecGroupKey> = {
   Model: 'modelGroup',
   Modèle: 'modelGroup',
   Pump: 'pumpGroup',
@@ -163,6 +178,14 @@ const SPEC_GROUP_TITLE_ALIASES: Record<string, SpecLabelKey> = {
   'Pompe à vide': 'vacuumPumpGroup',
   Features: 'featuresGroup',
   Caractéristiques: 'featuresGroup',
+};
+
+export const REQUIRED_SPEC_KEYS: Record<SpecGroupKey, readonly SpecKey[]> = {
+  modelGroup: MODEL_SPEC_KEYS,
+  pumpGroup: PUMP_SPEC_KEYS,
+  engineGroup: ENGINE_SPEC_KEYS,
+  vacuumPumpGroup: VACUUM_PUMP_SPEC_KEYS,
+  featuresGroup: FEATURES_SPEC_KEYS,
 };
 
 const normalizeDischargeQualifierFr = (qualifier: string): string =>
@@ -180,25 +203,40 @@ const extractDischargeQualifier = (label: string): string | null => {
 };
 
 const extractPrimingHead = (label: string): string | null => {
-  const match = label.match(/^(?:Priming performance at|Temps d’amorçage à hauteur d’aspiration)\s+(\d)\s*m/i);
+  const match = label.match(/^(?:Priming performance at|Temps d’amorçage à hauteur d’aspiration|Temps d’amorçage à)\s+(\d)\s*m/i);
   return match ? `${match[1]} m` : null;
 };
 
-export const getSpecLabel = (key: SpecLabelKey, locale: SpecLocale): string => SPEC_LABELS[key][locale];
+export const getSpecLabel = (key: SpecKey, locale: SpecLocale): string => SPEC_LABELS[key][locale];
 
-export const getSpecLabelKey = (label: string): SpecLabelKey | null => {
+export const getSpecLabelKey = (label: string): SpecKey | null => {
   if (SPEC_LABEL_ALIASES[label]) return SPEC_LABEL_ALIASES[label];
   if (extractDischargeQualifier(label)) return 'dischargePerformance';
-  if (extractPrimingHead(label)) return 'primingPerformanceAt';
+  if (extractPrimingHead(label)) return 'primingPerformance';
   return null;
 };
 
 export const isDischargePerformanceLabel = (label: string): boolean => getSpecLabelKey(label) === 'dischargePerformance';
 
-export const getDischargeSubLabel = (label: string, locale: SpecLocale): string => {
-  const qualifier = extractDischargeQualifier(label);
-  if (!qualifier) return label;
-  return locale === 'fr' ? normalizeDischargeQualifierFr(qualifier) : qualifier;
+export const getDischargeSubLabel = (
+  pressureMPa: string,
+  suctionHeightM: string,
+  locale: SpecLocale
+): string => {
+  const normalizedPressure = pressureMPa.trim();
+  const normalizedSuctionHeight = suctionHeightM.trim();
+  if (locale === 'fr') {
+    return `${normalizedPressure.replace('.', ',')} MPa, hauteur d’aspiration ${normalizedSuctionHeight} m`;
+  }
+  return `${normalizedPressure}MPa, ${normalizedSuctionHeight}m suction head`;
+};
+
+export const getPrimingQualifierLabel = (qualifier: string, locale: SpecLocale): string => {
+  const normalizedQualifier = qualifier.trim();
+  if (locale === 'fr') {
+    return normalizedQualifier.replace('.', ',');
+  }
+  return normalizedQualifier;
 };
 
 export const localizeSpecLabel = (label: string, locale: SpecLocale): string => {
@@ -212,7 +250,7 @@ export const localizeSpecLabel = (label: string, locale: SpecLocale): string => 
     return `${getSpecLabel(key, locale)} (${localQualifier})`;
   }
 
-  if (key === 'primingPerformanceAt') {
+  if (key === 'primingPerformance') {
     const head = extractPrimingHead(label);
     if (!head) return getSpecLabel(key, locale);
     return `${getSpecLabel(key, locale)} ${head}`;
@@ -225,4 +263,13 @@ export const localizeSpecGroupTitle = (title: string, locale: SpecLocale): strin
   const key = SPEC_GROUP_TITLE_ALIASES[title];
   if (key) return getSpecLabel(key, locale);
   return title;
+};
+
+export const getSpecGroupKey = (title: string): SpecGroupKey | null => {
+  const key = SPEC_GROUP_TITLE_ALIASES[title];
+  if (!key) return null;
+  if (key === 'modelGroup' || key === 'pumpGroup' || key === 'engineGroup' || key === 'vacuumPumpGroup' || key === 'featuresGroup') {
+    return key;
+  }
+  return null;
 };
