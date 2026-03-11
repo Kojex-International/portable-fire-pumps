@@ -185,11 +185,14 @@ export const firepumps: Firepump[] = [
       { key: 'coolingSystem', value: { en: 'Air-cooled', fr: 'Refroidissement par air' }, icon: aircooledIcon },
       {
         key: 'flowRate',
-        value: { en: '0.5 MPa @ 1,450 L/min\n1.0 MPa @ 830 L/min', fr: '0,5 MPa @ 1,450 L/min\n1,0 MPa @ 830 L/min' },
+        value: {
+          en: '450 GPM @ 72 PSI\n390 GPM @ 116 PSI',
+          fr: '450 GPM @ 72 PSI\n390 GPM @ 116 PSI'
+        },
         icon: dischargeIcon
       },
       { key: 'primingTime', value: { en: '1 m : 3.5 sec', fr: '1 m : 3,5 s' }, icon: timerIcon },
-      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'maxPressure', value: { en: '145 PSI (1.00 MPa)', fr: '145 PSI (1,00 MPa)' }, icon: pressureIcon },
       { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
@@ -300,7 +303,10 @@ export const firepumps: Firepump[] = [
       { key: 'coolingSystem', value: { en: 'Air-cooled', fr: 'Refroidissement par air' }, icon: aircooledIcon },
       {
         key: 'flowRate',
-        value: { en: '0.5 MPa @ 568 L/min\n0.8 MPa @ 318/330 L/min', fr: '0,5 MPa @ 568 L/min\n0,8 MPa @ 318/330 L/min' },
+        value: {
+          en: '150 GPM @ 72.5 PSI\n84/87 GPM @ 116 PSI',
+          fr: '150 GPM @ 72,5 PSI\n84/87 GPM @ 116 PSI'
+        },
         icon: dischargeIcon
       },
       {
@@ -308,7 +314,7 @@ export const firepumps: Firepump[] = [
         value: { en: '1 m : 2.2 sec (FT300-A)\n1 m : 3.5 sec (FT400-A1)', fr: '1 m : 2,2 s (FT300-A)\n1 m : 3,5 s (FT400-A1)' },
         icon: timerIcon
       },
-      { key: 'maxPressure', value: { en: '0.8 MPa', fr: '0,8 MPa' }, icon: pressureIcon },
+      { key: 'maxPressure', value: { en: '116 PSI (0.8 MPa)', fr: '116 PSI (0,8 MPa)' }, icon: pressureIcon },
       { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
@@ -491,11 +497,14 @@ export const firepumps: Firepump[] = [
       { key: 'coolingSystem', value: { en: 'Air-cooled', fr: 'Refroidissement par air' }, icon: aircooledIcon },
       {
         key: 'flowRate',
-        value: { en: '0.5 MPa @ 560 L/min\n1.0 MPa @ 280 L/min', fr: '0,5 MPa @ 560 L/min\n1,0 MPa @ 280 L/min' },
+        value: {
+          en: '148 GPM @ 72.5 PSI\n74 GPM @ 116 PSI',
+          fr: '148 GPM @ 72,5 PSI\n74 GPM @ 116 PSI'
+        },
         icon: dischargeIcon
       },
       { key: 'primingTime', value: { en: '1 m : 3.6 sec', fr: '1 m : 3,6 s' }, icon: timerIcon },
-      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'maxPressure', value: { en: '116 PSI (0.8 MPa)', fr: '116 PSI (0,8 MPa)' }, icon: pressureIcon },
       { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
@@ -604,11 +613,14 @@ export const firepumps: Firepump[] = [
       { key: 'coolingSystem', value: { en: 'Water-cooled', fr: 'Refroidissement par eau' }, icon: watercooledIcon },
       {
         key: 'flowRate',
-        value: { en: '0.5 MPa @ 1,650 L/min\n1.0 MPa @ 1,100 L/min', fr: '0,5 MPa @ 1,650 L/min\n1,0 MPa @ 1,100 L/min' },
+        value: {
+          en: '436 GPM @ 72.5 PSI\n291 GPM @ 145 PSI',
+          fr: '436 GPM @ 72,5 PSI\n291 GPM @ 145 PSI'
+        },
         icon: dischargeIcon
       },
       { key: 'primingTime', value: { en: '1 m : 2.1 sec', fr: '1 m : 2,1 s' }, icon: timerIcon },
-      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'maxPressure', value: { en: '145 PSI (1.0 MPa)', fr: '145 PSI (1,0 MPa)' }, icon: pressureIcon },
       { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
@@ -693,7 +705,11 @@ export const firepumps: Firepump[] = [
     performance: [
       { label: 'Discharge performance (0.5MPa, 1 m suction head)', value: '1,650 L/min' },
       { label: 'Discharge performance (1.0MPa, 1 m suction head)', value: '1,100 L/min' },
-      { label: 'Priming performance (1 m suction head)', value: '2.1 sec' }
+      { label: 'Priming performance (1 m suction head)', value: '2.1 sec' },
+      {
+        label: 'Performance note',
+        value: 'Performance values represent maximum pump output measured under standard factory test conditions.'
+      }
     ]
   },
   {
@@ -718,11 +734,14 @@ export const firepumps: Firepump[] = [
       { key: 'coolingSystem', value: { en: 'Water-cooled', fr: 'Refroidissement par eau' }, icon: watercooledIcon },
       {
         key: 'flowRate',
-        value: { en: '0.5 MPa @ 1,595 L/min\n1.0 MPa @ 1,020 L/min', fr: '0,5 MPa @ 1,595 L/min\n1,0 MPa @ 1,020 L/min' },
+        value: {
+          en: '421 GPM @ 72.5 PSI\n269 GPM @ 145 PSI',
+          fr: '421 GPM @ 72,5 PSI\n269 GPM @ 145 PSI'
+        },
         icon: dischargeIcon
       },
       { key: 'primingTime', value: { en: '1 m : 2.2 sec', fr: '1 m : 2,2 s' }, icon: timerIcon },
-      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'maxPressure', value: { en: '145 PSI (1.0 MPa)', fr: '145 PSI (1,0 MPa)' }, icon: pressureIcon },
       { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [
@@ -905,11 +924,14 @@ export const firepumps: Firepump[] = [
       { key: 'coolingSystem', value: { en: 'Water-cooled', fr: 'Refroidissement par eau' }, icon: watercooledIcon },
       {
         key: 'flowRate',
-        value: { en: '0.5 MPa @ 1,550 L/min\n1.0 MPa @ 980 L/min', fr: '0,5 MPa @ 1,550 L/min\n1,0 MPa @ 980 L/min' },
+        value: {
+          en: '409 GPM @ 72.5 PSI\n259 GPM @ 145 PSI',
+          fr: '409 GPM @ 72,5 PSI\n259 GPM @ 145 PSI'
+        },
         icon: dischargeIcon
       },
       { key: 'primingTime', value: { en: '1 m : 2.2 sec', fr: '1 m : 2,2 s' }, icon: timerIcon },
-      { key: 'maxPressure', value: { en: '1.0 MPa', fr: '1,0 MPa' }, icon: pressureIcon },
+      { key: 'maxPressure', value: { en: '145 PSI (1.0 MPa)', fr: '145 PSI (1,0 MPa)' }, icon: pressureIcon },
       { key: 'engineType', value: { en: '2-stroke gasoline engine', fr: 'Moteur 2 temps à essence' }, icon: engineIcon }
     ],
     benefits: [

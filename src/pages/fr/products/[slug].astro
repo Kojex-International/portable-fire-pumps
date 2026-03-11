@@ -36,10 +36,13 @@ export async function getStaticPaths() {
 
 const { pump } = Astro.props as { pump: Firepump };
 const locale = getLocaleFromPathname(Astro.url.pathname);
+const isFt510 = pump.slug === 'ft510-a';
+const isP572 = pump.slug === 'p572s-a';
 const requestQuoteHref = localizePath('/contact-us', locale);
 const productsHref = localizePath('/products', locale);
 const manualPdf = pump.manualPdf ?? catalogPdf;
 const manualLabel = pump.manualPdf ? 'Manuel d’utilisation' : 'Spécifications';
+const performanceNote = pump.performance.find((item) => item.label === 'Performance note')?.value;
 
 const frFirepumps = getFirepumps('fr');
 const relatedPumps = frFirepumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
@@ -127,9 +130,34 @@ const isSingleModel = modelColumns.length === 1;
 const specificationColumnWidth = isMultiModel ? 32 : 36;
 const valueColumnWidth = (100 - specificationColumnWidth) / modelColumns.length;
 
+const normalizeImperialDimensions = (value: string): string => {
+  const match = value.match(/^(.+?)\s*(in|po)\s*$/i);
+  if (!match) return value;
+
+  const rawDims = match[1];
+  const unit = match[2];
+  const separator = rawDims.includes('×') ? ' × ' : ' x ';
+  const parts = rawDims.split(/[×x]/).map((part) => part.trim());
+  if (parts.length !== 3) return value;
+
+  const normalized = parts.map((part) => {
+    const numeric = Number(part.replace(',', '.'));
+    if (!Number.isFinite(numeric)) return part;
+    const isWholeOrHalf = Number.isInteger(numeric * 2);
+    const rounded = isWholeOrHalf ? numeric : Math.round(numeric);
+    if (Number.isInteger(rounded)) return String(rounded);
+    return rounded.toFixed(1).replace(/\.0$/, '');
+  });
+
+  return `${normalized.join(separator)} ${unit}`;
+};
+
 const getValuePair = (row: SpecRow, modelIndex = 0) => ({
   metric: (row.values ?? [])[modelIndex * 2] ?? '',
-  imperial: (row.values ?? [])[modelIndex * 2 + 1] ?? '',
+  imperial:
+    row.key === 'dimensions'
+      ? normalizeImperialDimensions((row.values ?? [])[modelIndex * 2 + 1] ?? '')
+      : (row.values ?? [])[modelIndex * 2 + 1] ?? '',
 });
 
 const normalizeImperialDisplay = (value: string): string => {
@@ -176,6 +204,12 @@ const formatFeet = (suctionHeightM: string): string => {
   const meters = Number(suctionHeightM);
   const feet = meters * 3.28084;
   return (Math.round(feet * 10) / 10).toFixed(1);
+};
+
+const getFt510DischargePsi = (row: SpecRow): string => {
+  const imperialValue = row.values?.[1] ?? '';
+  const match = imperialValue.match(/@\s*([\d.]+)\s*psi/i);
+  return match?.[1] ?? formatPsi(row.pressureMPa);
 };
 
 const getValueSignature = (row: SpecRow, modelIndex = 0): string => {
@@ -469,17 +503,20 @@ const specSections = [
                         )}
                         <th colSpan={isDischargeRow ? 1 : 2} class={`p-2 ${isDischargeRow ? 'text-xs text-slate-600' : 'text-sm text-slate-700'} font-medium align-middle text-center bg-zinc-100/50`}>
                           {isDischargeRow ? (
-                            <>
+                            isFt510 ? (
                               <div class="text-sm font-semibold text-slate-950 text-center">
-                                {formatPsi(row.pressureMPa)} psi
+                                {getFt510DischargePsi(row)} psi
                               </div>
-                              <div class="text-sm text-slate-800 text-center">
-                                {formatFeet(row.suctionHeightM)} ft de hauteur d’aspiration
-                              </div>
-                              <div class="text-xs text-slate-600 mt-1 text-center">
-                                {row.pressureMPa} MPa @ {row.suctionHeightM} m de hauteur d’aspiration
-                              </div>
-                            </>
+                            ) : (
+                              <>
+                                <div class="text-sm font-semibold text-slate-950 text-center">
+                                  {formatPsi(row.pressureMPa)} psi ({row.pressureMPa} MPa)
+                                </div>
+                                <div class="text-sm text-slate-800 text-center">
+                                  {row.suctionHeightM} m de hauteur d’aspiration ({formatFeet(row.suctionHeightM)} ft)
+                                </div>
+                              </>
+                            )
                           ) : isPrimingRow(row) ? (
                             `${getSpecLabel('primingPerformance', 'fr')} ${getPrimingQualifierLabel(row.qualifier, 'fr')}`
                           ) : (
@@ -531,15 +568,20 @@ const specSections = [
                               )}
                             </div>
                             <div class="px-2">
-                              <div class="text-sm font-semibold text-slate-950 text-center">
-                                {formatPsi(row.pressureMPa)} psi
-                              </div>
-                              <div class="text-sm text-slate-800 text-center">
-                                {formatFeet(row.suctionHeightM)} ft de hauteur d’aspiration
-                              </div>
-                              <div class="text-xs text-slate-600 mt-1 text-center">
-                                {row.pressureMPa} MPa @ {row.suctionHeightM} m de hauteur d’aspiration
-                              </div>
+                              {isFt510 ? (
+                                <div class="text-sm font-semibold text-slate-950 text-center">
+                                  {getFt510DischargePsi(row)} psi
+                                </div>
+                              ) : (
+                                <>
+                                  <div class="text-sm font-semibold text-slate-950 text-center">
+                                    {formatPsi(row.pressureMPa)} psi ({row.pressureMPa} MPa)
+                                  </div>
+                                  <div class="text-sm text-slate-800 text-center">
+                                    {row.suctionHeightM} m de hauteur d’aspiration ({formatFeet(row.suctionHeightM)} ft)
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
                         ) : isPrimingRow(row) ? (
@@ -585,6 +627,16 @@ const specSections = [
               );
             })()}
           </div>
+          {isFt510 && section.title === getSpecLabel('pumpGroup', 'fr') && (
+            <p class="mt-4 text-sm text-slate-600 px-4">
+              Les valeurs de performance représentent le débit maximal de la pompe mesuré selon les conditions d’essai standard en usine avec de l’eau propre.
+            </p>
+          )}
+          {isP572 && section.title === getSpecLabel('pumpGroup', 'fr') && performanceNote && (
+            <p class="mt-4 text-sm text-slate-600 px-4">
+              {performanceNote}
+            </p>
+          )}
         </div>
       ))}
     </div>
