@@ -1,4 +1,6 @@
 ---
+import Container from './Container.astro';
+
 interface Props {
   class?: string;
   background?: 'white' | 'gray' | 'gradient';
@@ -21,8 +23,7 @@ const classes = `py-16 lg:py-24 ${bgStyles[background]} ${className}`;
 ---
 
 <section class={classes} id={id}>
-  <div class="container mx-auto">
+  <Container>
     <slot />
-  </div>
+  </Container>
 </section>
-
