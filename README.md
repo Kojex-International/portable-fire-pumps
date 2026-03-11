@@ -1,11 +1,15 @@
 # Portable Fire Pumps Website
 
-A bilingual Astro website for portable fire pump products, technical resources, distributor information, and quote/contact workflows. Built with React, Tailwind CSS, and TypeScript.
+![Astro](https://img.shields.io/badge/Astro-Static%20Site-FF5D01)
+![React](https://img.shields.io/badge/React-Components-61DAFB)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-UI-38B2AC)
+![TypeScript](https://img.shields.io/badge/TypeScript-Type%20Safe-3178C6)
 
-![Astro](https://img.shields.io/badge/Astro-5.16.0-FF5D01?logo=astro&logoColor=white)
-![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.17-38B2AC?logo=tailwind-css&logoColor=white)
+Distributor website for **Shibaura portable fire pumps**, operated by **Kojex International**.
+
+🌐 Live site: *coming soon*
+
+Built with **Astro, React, Tailwind CSS, and TypeScript**.
 
 ## Repository Purpose
 
@@ -200,6 +204,20 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 | `npm run build`        | Build your production site to `./dist/`         |
 | `npm run preview`      | Preview your build locally, before deploying     |
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
+
+## Website Preview
+
+### Homepage
+
+![Homepage](docs/screenshots/homepage.png)
+
+### Product Page
+
+![Product Page](docs/screenshots/product-page.png)
+
+### Resources
+
+![Resources](docs/screenshots/resources.png)
 
 ## 📁 Project Structure
 
