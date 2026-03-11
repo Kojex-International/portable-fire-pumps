@@ -7,7 +7,7 @@ import shibauraWordmark from '@assets/SHIBAURA.svg';
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const navigation = getNavigation(locale);
 const footerLinks = navigation.filter(
-  (item) => !['/applications', '/distributors', '/resources', '/about-us'].includes(item.href.replace(/^\/(en|fr)/, ''))
+  (item) => !['/distributors', '/resources', '/about-us'].includes(item.href.replace(/^\/(en|fr)/, ''))
 );
 const isFrench = locale === 'fr';
 const productsHref = localizePath('/products', locale);

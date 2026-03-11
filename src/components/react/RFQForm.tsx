@@ -1,5 +1,5 @@
 import * as Label from '@radix-ui/react-label';
-import { User, Building2, Briefcase, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText, Mail, Phone } from 'lucide-react';
+import { User, Building2, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText, Mail, Phone } from 'lucide-react';
 
 interface RFQFormProps {
   action?: string;
