@@ -110,10 +110,10 @@ English routes:
 - `/en/distributors/`
 
 French routes:
-- `/fr/produits/`
-- `/fr/ressources/`
-- `/fr/fonctionnalites/`
-- `/fr/distributeurs/`
+- `/fr/products/`
+- `/fr/resources/`
+- `/fr/features/`
+- `/fr/distributors/`
 
 EN and FR routes should remain structurally aligned to preserve maintainability and predictable navigation behavior.
 
@@ -167,7 +167,7 @@ export const SOCIAL_LINKS = {
 
 ### Form Integration
 
-The RFQ form (`src/components/react/RFQForm.tsx`) currently logs form data to the console. To integrate with a backend:
+The RFQ form (`src/components/forms/RFQForm.tsx`) currently logs form data to the console. To integrate with a backend:
 
 1. **Option 1: Form Service** (Recommended for static sites)
    - Use [Formspree](https://formspree.io/), [Netlify Forms](https://www.netlify.com/products/forms/), or similar
@@ -223,23 +223,78 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
 ```
 /
-├── public/
-│   └── favicon.svg
+├── public/                   # Static files served as-is
 ├── src/
-│   ├── assets/          # Images and static assets
-│   ├── components/      # Reusable components
-│   │   ├── home/        # Home page components
-│   │   ├── react/       # React interactive components
-│   │   └── ui/          # UI components
-│   ├── config/          # Configuration files
-│   ├── layouts/         # Page layouts
-│   ├── pages/           # Astro pages (routes)
-│   ├── styles/          # Global styles
-│   └── utils/           # Utility functions
-├── astro.config.mjs     # Astro configuration
+│   ├── archive/                # Archived template/legacy code and assets
+│   ├── assets/                 # Source-managed images/graphics
+│   ├── components/
+│   │   ├── forms/              # RFQ/contact form components
+│   │   ├── layout/             # Shared page layout primitives
+│   │   ├── navigation/         # Header/footer/mobile navigation
+│   │   ├── products/           # Product-specific rendering components
+│   │   ├── react/              # React island components
+│   │   ├── sections/           # Reusable page sections
+│   │   └── ui/                 # Generic UI primitives
+│   ├── config/                 # Site/navigation configuration
+│   ├── data/
+│   │   ├── firepumps.ts        # Compatibility re-export
+│   │   └── firepumps/          # Modular firepump data system
+│   │       ├── index.ts        # Public API + validation
+│   │       ├── pumps/          # One file per pump model
+│   │       ├── localize.ts
+│   │       ├── validation.ts
+│   │       ├── media.ts
+│   │       ├── spec-utils.ts
+│   │       ├── spec-types.ts
+│   │       ├── types.ts
+│   │       └── frReplacements.ts
+│   ├── layouts/                # Base layout composition
+│   ├── pages/
+│   │   ├── en/                 # English routes
+│   │   └── fr/                 # French routes
+│   ├── styles/                 # Global styles
+│   └── utils/                  # Utility helpers
+├── astro.config.mjs
 ├── package.json
 └── tsconfig.json
 ```
+
+## Product Rendering Architecture
+
+- Product detail pages use thin locale wrappers:
+  - `src/pages/en/products/[slug].astro`
+  - `src/pages/fr/products/[slug].astro`
+- Shared product rendering is centralized in:
+  - `src/components/products/ProductDetailPageContent.astro`
+- Product content is sourced from the modular firepump data API (`getFirepumps(...)`), keeping page templates declarative and minimizing duplicated EN/FR markup.
+
+### Product Page Flow
+
+The current product page architecture flows from route wrappers to shared rendering and then to the firepump data layer.
+
+```text
+EN/FR Route
+    ↓
+[slug].astro
+    ↓
+ProductDetailPageContent.astro
+    ↓
+src/data/firepumps/index.ts
+    ↓
+pumps/<model>.ts
+```
+
+## Firepump Data Architecture
+
+- `src/data/firepumps.ts` is a compatibility layer that re-exports from `src/data/firepumps/index.ts`.
+- `src/data/firepumps/index.ts` assembles pump modules, runs validation, and exports `getFirepumps(locale)`.
+- Each pump model is defined under `src/data/firepumps/pumps/`.
+- Supporting modules are split by responsibility:
+  - `localize.ts` (EN/FR value localization)
+  - `validation.ts` (hero/spec schema validation)
+  - `media.ts` (shared media/manual assets)
+  - `spec-utils.ts` and `spec-types.ts` (spec table helpers/types)
+  - `frReplacements.ts` (French normalization replacements)
 
 ## 🗂️ Asset Organization
 
@@ -275,11 +330,12 @@ Store production images in `src/assets/` and public static media in `public/`.
 
 ## ➕ Adding a New Pump Model
 
-1. Add or update the model entry in `src/data/firepumps.ts`.
-2. Ensure EN/FR product detail rendering works through the localized route pattern.
-3. Add required manuals/parts/assets in the correct data and asset directories.
-4. Verify product cards/listing pages include the model where appropriate.
-5. Validate related resources (manual links, parts list links, hero/spec content).
+1. Add a new model file under `src/data/firepumps/pumps/`.
+2. Export/include it in `src/data/firepumps/index.ts` so it is part of the validated `firepumps` array.
+3. Add required media/manual assets via `src/data/firepumps/media.ts` (or existing asset/data locations as appropriate).
+4. Verify EN/FR product detail routes resolve via `src/pages/en/products/[slug].astro` and `src/pages/fr/products/[slug].astro`.
+5. Confirm listing/card surfaces include the new model where needed.
+6. Run `npm run build` and validate hero/spec/resources output for both locales.
 
 ## Page Creation Checklist
 

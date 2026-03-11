@@ -1,0 +1,641 @@
+---
+import Section from '../layout/Section.astro';
+import Button from '../ui/Button.astro';
+import { Image, type ImageMetadata } from 'astro:assets';
+import ImageReveal from '../react/ImageReveal';
+import { localizePath } from '@config/site';
+import { getFirepumps, type Firepump } from '../../data/firepumps';
+import catalogPdf from '../../data/Shibaura_Catalog2024_9.pdf';
+import ft500CurveImg from '@assets/graphs/FT500-curve.jpg';
+import ft500DimensionsImg from '@assets/graphs/FT500-dimensions.jpg';
+import ft300CurveImg from '@assets/graphs/FT300-curve.jpg';
+import ft300DimensionsImg from '@assets/graphs/FT300-dimensions.jpg';
+import fk500CurveImg from '@assets/graphs/FK500-curve.jpg';
+import fk500DimensionsImg from '@assets/graphs/FK500-dimensions.png';
+import ff500CurveImg from '@assets/graphs/FF500-curve.jpg';
+import ff500DimensionsImg from '@assets/graphs/FF500-dimensions.jpg';
+import p572sCurveImg from '@assets/graphs/P572S-curve.jpg';
+import p572sDimensionsImg from '@assets/graphs/P572S-dimensions.jpg';
+import tfCurveImg from '@assets/graphs/TF-curve.jpg';
+import tfDimensionsImg from '@assets/graphs/TF-dimensions.jpg';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import { getPrimingQualifierLabel, getSpecLabel } from '../../data/specLabels';
+
+interface Props {
+  pump: Firepump;
+  locale: 'en' | 'fr';
+}
+
+const { pump, locale } = Astro.props;
+const isFrench = locale === 'fr';
+const isFt510 = pump.slug === 'ft510-a';
+const isP572 = pump.slug === 'p572s-a';
+const productsHref = localizePath('/products', locale);
+const performanceNote = pump.performance.find((item) => item.label === 'Performance note')?.value;
+const manualPdf = pump.manualPdf ?? catalogPdf;
+const manualLabel = pump.manualPdf
+  ? isFrench
+    ? 'Manuel d’utilisation'
+    : 'Operations Manual'
+  : isFrench
+    ? 'Spécifications'
+    : 'Specifications';
+
+const localizedPumps = getFirepumps(locale);
+const relatedPumps = localizedPumps.filter((item) => item.slug !== pump.slug).slice(0, 3);
+
+const keySpecByKey = new Map(pump.keySpecs.map((spec) => [spec.key, spec]));
+const leftSpecKeys = ['coolingSystem', 'pumpModel', 'engineType'] as const;
+const rightSpecKeys = ['maxPressure', 'primingTime', 'flowRate'] as const;
+const leftSpecs = leftSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
+const rightSpecs = rightSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
+const heroSpecs = [...leftSpecs, ...rightSpecs];
+
+const operationVideo =
+  pump.slug === 'ft300-400-a'
+    ? {
+        kind: 'youtube' as const,
+        model: 'FT300-A',
+        title: isFrench ? 'Fonctionnement de la pompe FT300-A' : 'FT300-A Pump Operation',
+        description: isFrench
+          ? 'Vidéo de démonstration du fonctionnement complet de la FT300-A.'
+          : 'See the FT300-A in action with a full operation walkthrough.',
+        url: 'https://www.youtube.com/embed/zQEbmyU3i28'
+      }
+    : pump.slug === 'fk500-a'
+      ? {
+          kind: 'youtube' as const,
+          model: 'FK500-A',
+          title: isFrench ? 'Fonctionnement de la pompe FK500-A' : 'FK500-A Pump Operation',
+          description: isFrench
+            ? 'Vidéo de démonstration du fonctionnement complet de la FK500-A.'
+            : 'Watch the FK500-A running through a full pump operation demo.',
+          url: 'https://www.youtube.com/embed/_pmvc3Xizew'
+        }
+      : pump.slug === 'ft510-a'
+        ? {
+            kind: 'youtube' as const,
+            model: 'FT510-A',
+            title: isFrench ? 'Fonctionnement de la pompe FT510-A' : 'FT510-A Pump Operation',
+            description: isFrench
+              ? 'Vidéo de démonstration du fonctionnement complet de la FT510-A.'
+              : 'See the FT510-A in action with a full pump operation walkthrough.',
+            url: 'https://www.youtube.com/embed/wUKDQSCwxiA'
+          }
+        : pump.slug === 'ff500ar-a'
+          ? {
+              kind: 'local' as const,
+              model: 'FF500-AR',
+              title: isFrench ? 'Fonctionnement de la pompe FF500-AR' : 'FF500-AR Pump Operation',
+              description: isFrench
+                ? 'Vidéo de démonstration du fonctionnement complet de la FF500-AR.'
+                : 'Watch the FF500-AR running through a complete pump operation demo.',
+              desktopUrl: '/videos/products/1kmFF500relay-desktop.mp4',
+              mobileUrl: '/videos/products/1kmFF500relay-mobile.mp4',
+              posterUrl: '/videos/products/1kmFF500relay-poster.jpg'
+            }
+          : pump.slug === 'p572s-a'
+            ? {
+                kind: 'youtube' as const,
+                model: 'P572S-A',
+                title: isFrench ? 'Fonctionnement de la pompe P572S-A' : 'P572S-A Pump Operation',
+                description: isFrench
+                  ? 'Vidéo de démonstration du fonctionnement complet de la P572S-A.'
+                  : 'See the P572S-A in action with a full pump operation walkthrough.',
+                url: 'https://www.youtube.com/embed/AOhStVKJxqE'
+              }
+            : pump.slug === 'tf516mh-ab'
+              ? {
+                  kind: 'youtube' as const,
+                  model: 'TF516MH-AB',
+                  title: isFrench ? 'Fonctionnement de la pompe TF516MH-AB' : 'TF516MH-AB Pump Operation',
+                  description: isFrench
+                    ? 'Vidéo de démonstration du fonctionnement de la TF516MH-AB sur le terrain.'
+                    : 'See the TF516MH-AB pump operating in the field.',
+                  url: 'https://www.youtube.com/embed/pn0K14dIxho'
+                }
+              : null;
+
+const performanceImagesBySlug: Record<string, { curve: ImageMetadata; dimensions: ImageMetadata }> = {
+  'ft510-a': { curve: ft500CurveImg, dimensions: ft500DimensionsImg },
+  'ft300-400-a': { curve: ft300CurveImg, dimensions: ft300DimensionsImg },
+  'fk500-a': { curve: fk500CurveImg, dimensions: fk500DimensionsImg },
+  'ff500ar-a': { curve: ff500CurveImg, dimensions: ff500DimensionsImg },
+  'p572s-a': { curve: p572sCurveImg, dimensions: p572sDimensionsImg },
+  'tf516mh-ab': { curve: tfCurveImg, dimensions: tfDimensionsImg }
+};
+
+const performanceImages = performanceImagesBySlug[pump.slug];
+
+type SpecGroup = Firepump['specsTable']['groups'][number];
+type SpecRow = SpecGroup['rows'][number];
+
+const isMultiModel = pump.specsTable.columns.length > 2;
+const modelColumns = isMultiModel
+  ? Array.from({ length: Math.floor(pump.specsTable.columns.length / 2) }, (_, index) => {
+      const rawLabel = pump.specsTable.columns[index * 2] ?? '';
+      return rawLabel.replace(/\s*\((?:Metric|Imperial|Métrique|Impérial)\)\s*$/i, '').trim();
+    })
+  : [pump.title];
+const isSingleModel = modelColumns.length === 1;
+const specificationColumnWidth = isMultiModel ? 32 : 36;
+const valueColumnWidth = (100 - specificationColumnWidth) / modelColumns.length;
+
+const normalizeImperialDimensions = (value: string): string => {
+  const match = value.match(/^(.+?)\s*(in|po)\s*$/i);
+  if (!match) return value;
+
+  const rawDims = match[1];
+  const unit = match[2];
+  const separator = rawDims.includes('×') ? ' × ' : ' x ';
+  const parts = rawDims.split(/[×x]/).map((part) => part.trim());
+  if (parts.length !== 3) return value;
+
+  const normalized = parts.map((part) => {
+    const numeric = Number(part.replace(',', '.'));
+    if (!Number.isFinite(numeric)) return part;
+    const isWholeOrHalf = Number.isInteger(numeric * 2);
+    const rounded = isWholeOrHalf ? numeric : Math.round(numeric);
+    if (Number.isInteger(rounded)) return String(rounded);
+    return rounded.toFixed(1).replace(/\.0$/, '');
+  });
+
+  return `${normalized.join(separator)} ${unit}`;
+};
+
+const getValuePair = (row: SpecRow, modelIndex = 0) => ({
+  metric: (row.values ?? [])[modelIndex * 2] ?? '',
+  imperial:
+    row.key === 'dimensions'
+      ? normalizeImperialDimensions((row.values ?? [])[modelIndex * 2 + 1] ?? '')
+      : (row.values ?? [])[modelIndex * 2 + 1] ?? '',
+});
+
+const normalizeImperialDisplay = (value: string): string => {
+  if (!isFrench) return value;
+  const normalizedUnits = value.replace(/\bpo\b/g, 'in').replace(/\bpi\b/g, 'ft');
+  const hasImperialUnits = /(?:\bin\b|\bft\b|\blb\b|gal\/h|gal\b|psi\b|gpm\b|hp\b|cu in\b)/.test(normalizedUnits);
+  if (!hasImperialUnits) return normalizedUnits;
+  return normalizedUnits.replace(/(\d),(\d{1,2})(?!\d)/g, '$1.$2');
+};
+
+const IMPERIAL_FIRST_KEYS = new Set([
+  'dimensions',
+  'dryWeight',
+  'dischargeDiameterJis',
+  'suctionDiameterJis',
+  'ratedOutput',
+  'fuelTankCapacity',
+  'fuelConsumption',
+  'maxSuctionHeight',
+  'dischargePerformance',
+]);
+
+const KEEP_SOURCE_ORDER_KEYS = new Set(['displacement', 'boreStroke', 'model', 'featureOriginalEngine', 'featureOriginalCentrifugalPump', 'featureOriginalVacuumPump', 'featureAlertMonitoringSystem', 'featureQuickDischargeValve']);
+
+const getDisplayValuePair = (row: SpecRow, modelIndex = 0) => {
+  const pair = getValuePair(row, modelIndex);
+  const imperial = normalizeImperialDisplay(pair.imperial);
+  const shouldFlip = IMPERIAL_FIRST_KEYS.has(row.key) && !KEEP_SOURCE_ORDER_KEYS.has(row.key);
+  const primary = shouldFlip ? imperial : pair.metric;
+  const secondary = shouldFlip ? pair.metric : imperial;
+  return {
+    primary,
+    secondary: primary === secondary ? '' : secondary,
+  };
+};
+
+const formatPsi = (pressureMPa: string): string => {
+  const mpa = Number(pressureMPa);
+  const psi = mpa * 145.038;
+  const rounded = Math.round(psi * 10) / 10;
+  return Number.isInteger(rounded) ? `${rounded}` : rounded.toFixed(1);
+};
+
+const formatFeet = (suctionHeightM: string): string => {
+  const meters = Number(suctionHeightM);
+  const feet = meters * 3.28084;
+  return (Math.round(feet * 10) / 10).toFixed(1);
+};
+
+const getFt510DischargePsi = (row: SpecRow): string => {
+  const imperialValue = row.values?.[1] ?? '';
+  const match = imperialValue.match(/@\s*([\d.]+)\s*psi/i);
+  return match?.[1] ?? formatPsi(row.pressureMPa);
+};
+
+const getValueSignature = (row: SpecRow, modelIndex = 0): string => {
+  const pair = getDisplayValuePair(row, modelIndex);
+  return `${pair.primary}|||${pair.secondary}`;
+};
+
+const getMergedSpan = (row: SpecRow): number => {
+  if (!isMultiModel || modelColumns.length < 2) return 1;
+  const first = getValueSignature(row, 0);
+  const allSame = modelColumns.every((_, index) => getValueSignature(row, index) === first);
+  return allSame ? modelColumns.length : 1;
+};
+
+const isPrimingRow = (row: SpecRow): row is Extract<SpecRow, { key: 'primingPerformance' }> =>
+  row.key === 'primingPerformance';
+
+const [modelGroup, pumpGroup, engineGroup, vacuumPumpGroup, featuresGroup] = pump.specsTable.groups;
+const specSections = [
+  {
+    title: modelGroup?.title ?? (isFrench ? 'Modèle' : 'Model'),
+    rows: modelGroup?.rows ?? [],
+  },
+  {
+    title: pumpGroup?.title ?? (isFrench ? 'Pompe' : 'Pump'),
+    rows: pumpGroup?.rows ?? [],
+  },
+  {
+    title: engineGroup?.title ?? (isFrench ? 'Moteur' : 'Engine'),
+    rows: engineGroup?.rows ?? [],
+  },
+  {
+    title: vacuumPumpGroup?.title ?? (isFrench ? 'Pompe à vide' : 'Vacuum Pump'),
+    rows: vacuumPumpGroup?.rows ?? [],
+  },
+  {
+    title: featuresGroup?.title ?? (isFrench ? 'Caractéristiques' : 'Features'),
+    rows: featuresGroup?.rows ?? [],
+  },
+].filter((section) => section.rows.length > 0);
+
+const text = {
+  specButton: isFrench ? 'Spécifications' : 'Specifications',
+  performanceCurve: isFrench ? 'Courbe de performance' : 'Performance Curve',
+  dimensions: isFrench ? 'Dimensions' : 'Dimensions',
+  operationHeadingSuffix: isFrench ? 'Fonctionnement de la pompe' : 'Pump Operation',
+  technicalTitleLeading: isFrench ? 'Spécifications' : 'Technical',
+  technicalTitleHighlight: isFrench ? 'techniques' : 'Specifications',
+  technicalDescription: isFrench
+    ? `Les données techniques nécessaires pour évaluer la ${pump.title}.`
+    : `The specifications procurement teams need to evaluate the ${pump.title}.`,
+  specificationHeader: getSpecLabel('specification', locale),
+  valueHeader: isFrench ? 'Valeur' : 'Value',
+  dischargeRail: isFrench ? 'Performance de refoulement' : 'Discharge Performance',
+  primingLabel: getSpecLabel('primingPerformance', locale),
+  ft510Note: isFrench
+    ? 'Les valeurs de performance représentent le débit maximal de la pompe mesuré selon les conditions d’essai standard en usine avec de l’eau propre.'
+    : 'Performance values represent maximum pump output measured under standard factory test conditions using clean water.',
+  relatedTitleLeading: isFrench ? 'Pompes' : 'Related',
+  relatedTitleHighlight: isFrench ? 'associées' : 'Pumps',
+  suctionCondition: (m: string, ft: string) =>
+    isFrench ? `${m} m de hauteur d’aspiration (${ft} ft)` : `${m} m suction head (${ft} ft)`,
+};
+---
+
+<section class="relative overflow-hidden bg-white">
+  <div class="absolute inset-0 bg-linear-to-r from-white/95 via-white/80 to-white/55"></div>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-[44px] pb-[20px] lg:pt-[76px] lg:pb-[20px]">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="order-2 lg:order-1 hidden lg:block">
+        <ImageReveal client:load>
+          <div class="relative bg-white rounded-3xl overflow-hidden">
+            <Image src={pump.image} alt={pump.title} class="w-full h-full object-contain" width={1200} height={800} />
+          </div>
+        </ImageReveal>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <h1 class="flex items-center gap-3 text-3xl md:text-5xl font-extrabold text-slate-900 mb-3 leading-tight animate-fadeInUp">
+          <span
+            aria-hidden="true"
+            class="w-[1.2em] h-[1.2em] shrink-0 brand-gradient-bg"
+            style={`-webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+          />
+          <span class="inline-block brand-gradient-bg bg-clip-text text-transparent" style="-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            {pump.title}
+          </span>
+        </h1>
+        <p class="text-xl text-slate-800 mb-2 animate-fadeInUp" style="animation-delay: 0.1s">{pump.subtitle}</p>
+        <p class="text-lg text-slate-700 mb-8 leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">{pump.valueProp}</p>
+
+        <div class="lg:hidden mb-8 animate-fadeInUp" style="animation-delay: 0.25s">
+          <div class="relative bg-white rounded-3xl overflow-hidden">
+            <Image src={pump.image} alt={pump.title} class="w-full h-full object-contain" width={1200} height={800} />
+          </div>
+        </div>
+
+        <div class="relative animate-fadeInUp" style="animation-delay: 0.3s">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {heroSpecs.map((spec) => (
+              <div class="flex items-start gap-3">
+                <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-white text-slate-900 shrink-0">
+                  <img src={spec.icon} alt="" class="w-5 h-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-600">{spec.label}</p>
+                  <p class="text-slate-900 font-semibold whitespace-pre-line">{spec.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="flex w-full flex-col gap-4 sm:mx-auto sm:max-w-[620px] sm:flex-row sm:justify-center animate-fadeInUp" style="animation-delay: 0.4s">
+          <a href={manualPdf} class="brand-cta min-w-[240px] px-6 py-3 text-base" download>{manualLabel}</a>
+          <Button href="#technical-specifications" size="md" variant="light" class="min-w-[240px]">{text.specButton}</Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{performanceImages && (
+  <Section background="white" class="!pt-4 !pb-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="px-4 md:px-6">
+          <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4 text-center">{text.performanceCurve}</h3>
+          <Image src={performanceImages.curve} alt={`${pump.title} performance curve`} class="w-full h-auto object-contain" width={1200} height={900} />
+        </div>
+        <div class="px-4 md:px-6">
+          <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4 text-center">{text.dimensions}</h3>
+          <Image src={performanceImages.dimensions} alt={`${pump.title} dimensions`} class="w-full h-auto object-contain" width={1200} height={900} />
+        </div>
+      </div>
+    </div>
+  </Section>
+)}
+
+{operationVideo && (
+  <Section background="white" class="!pt-12 !pb-4">
+    <div class="text-center mb-8 px-2">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        {operationVideo.model}{' '}
+        <span class="brand-gradient-text">{text.operationHeadingSuffix}</span>
+      </h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{operationVideo.description}</p>
+    </div>
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-black">
+        {operationVideo.kind === 'local' ? (
+          <video class="absolute inset-0 w-full h-full" controls preload="metadata" poster={operationVideo.posterUrl}>
+            <source media="(max-width: 767px)" src={operationVideo.mobileUrl} type="video/mp4" />
+            <source src={operationVideo.desktopUrl} type="video/mp4" />
+          </video>
+        ) : (
+          <iframe
+            src={operationVideo.url}
+            title={`${operationVideo.title} video`}
+            class="absolute inset-0 w-full h-full"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        )}
+      </div>
+    </div>
+  </Section>
+)}
+
+<Section background="white" id="technical-specifications" class="!py-12 lg:!py-16">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      {text.technicalTitleLeading} <span class="brand-gradient-text">{text.technicalTitleHighlight}</span>
+    </h2>
+    <p class="text-lg text-gray-600 max-w-3xl mx-auto">{text.technicalDescription}</p>
+  </div>
+  <div class="space-y-4">
+    {specSections.map((section, sectionIndex) => (
+      <div class="mt-6 first:mt-0">
+        <div class="overflow-x-auto overflow-hidden m-[4px] md:m-[2px] rounded-lg border border-zinc-200 bg-white">
+          {(() => {
+            const dischargeRowsInSection = section.rows.filter((item) => item.key === 'dischargePerformance').length;
+            const firstDischargeRowIndex = section.rows.findIndex((item) => item.key === 'dischargePerformance');
+            const isPumpSection = section.title === getSpecLabel('pumpGroup', locale);
+            const sectionTitle = isSingleModel && sectionIndex === 0 ? modelColumns[0] : section.title;
+            const totalColumnCount = isPumpSection
+              ? (isMultiModel ? modelColumns.length + 2 : 3)
+              : (isMultiModel ? modelColumns.length + 1 : 2);
+            const dischargeRailWidth = 4;
+            const specificationTextWidth = specificationColumnWidth - dischargeRailWidth;
+            return (
+              <table class={`w-full text-center ${isSingleModel ? '' : 'min-w-[560px] md:min-w-[720px]'}`}>
+                <colgroup>
+                  {isPumpSection ? (
+                    <>
+                      <col style={`width: ${dischargeRailWidth}%;`} />
+                      <col style={`width: ${specificationTextWidth}%;`} />
+                      {isMultiModel ? (
+                        modelColumns.map(() => <col style={`width: ${valueColumnWidth}%;`} />)
+                      ) : (
+                        <col style={`width: ${valueColumnWidth}%;`} />
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <col style={`width: ${specificationColumnWidth}%;`} />
+                      {isMultiModel ? (
+                        modelColumns.map(() => <col style={`width: ${valueColumnWidth}%;`} />)
+                      ) : (
+                        <col style={`width: ${valueColumnWidth}%;`} />
+                      )}
+                    </>
+                  )}
+                </colgroup>
+                <thead>
+                  <tr class="bg-zinc-100 border-b border-zinc-200">
+                    <th colSpan={totalColumnCount} class="p-2 text-center text-base font-semibold tracking-wide uppercase text-slate-700">
+                      {sectionTitle}
+                    </th>
+                  </tr>
+                  {!isSingleModel && (
+                    <tr class="bg-zinc-100/75 border-b border-zinc-200">
+                      <th colSpan={isPumpSection ? 2 : 1} class="p-2 text-sm font-semibold text-slate-600 tracking-wide text-center">
+                        {text.specificationHeader}
+                      </th>
+                      {isMultiModel ? (
+                        modelColumns.map((model) => (
+                          <th class="p-2 text-base font-semibold text-slate-950 border-l border-zinc-200 text-center">{model}</th>
+                        ))
+                      ) : (
+                        <th class="p-2 text-sm font-semibold text-slate-600 tracking-wide border-l border-zinc-200 text-center">
+                          {text.valueHeader}
+                        </th>
+                      )}
+                    </tr>
+                  )}
+                </thead>
+                <tbody>
+                  {section.rows.map((row, rowIndex) => {
+                    const mergedSpan = getMergedSpan(row);
+                    const isDischargeRow = row.key === 'dischargePerformance';
+                    if (isPumpSection) {
+                      return (
+                        <tr class="border-b border-zinc-200 last:border-b-0">
+                          {isDischargeRow && rowIndex === firstDischargeRowIndex && dischargeRowsInSection > 0 && (
+                            <th rowSpan={dischargeRowsInSection} class="p-2 align-middle border-r border-zinc-200 bg-zinc-100/75">
+                              <span class="mx-auto text-xs font-semibold tracking-wider text-slate-500 uppercase leading-none" style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                {text.dischargeRail}
+                              </span>
+                            </th>
+                          )}
+                          <th colSpan={isDischargeRow ? 1 : 2} class={`p-2 ${isDischargeRow ? 'text-xs text-slate-600' : 'text-sm text-slate-700'} font-medium align-middle text-center bg-zinc-100/50`}>
+                            {isDischargeRow ? (
+                              isFt510 ? (
+                                <div class="text-sm font-semibold text-slate-950 text-center">{getFt510DischargePsi(row)} psi</div>
+                              ) : (
+                                <>
+                                  <div class="text-sm font-semibold text-slate-950 text-center">
+                                    {formatPsi(row.pressureMPa)} psi ({row.pressureMPa} MPa)
+                                  </div>
+                                  <div class="text-sm text-slate-800 text-center">
+                                    {text.suctionCondition(row.suctionHeightM, formatFeet(row.suctionHeightM))}
+                                  </div>
+                                </>
+                              )
+                            ) : isPrimingRow(row) ? (
+                              `${text.primingLabel} ${getPrimingQualifierLabel(row.qualifier, locale)}`
+                            ) : (
+                              getSpecLabel(row.key, locale)
+                            )}
+                          </th>
+                          {isMultiModel ? (
+                            mergedSpan > 1 ? (
+                              <td colSpan={mergedSpan} class="p-2 border-l border-zinc-200 align-middle text-center">
+                                <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{getDisplayValuePair(row).primary}</div>
+                                {getDisplayValuePair(row).secondary && (
+                                  <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{getDisplayValuePair(row).secondary}</div>
+                                )}
+                              </td>
+                            ) : (
+                              modelColumns.map((_, index) => {
+                                const pair = getDisplayValuePair(row, index);
+                                return (
+                                  <td class="p-2 border-l border-zinc-200 align-middle text-center">
+                                    <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{pair.primary}</div>
+                                    {pair.secondary && (
+                                      <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{pair.secondary}</div>
+                                    )}
+                                  </td>
+                                );
+                              })
+                            )
+                          ) : (
+                            <td class="p-2 border-l border-zinc-200 align-middle text-center">
+                              <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{getDisplayValuePair(row).primary}</div>
+                              {getDisplayValuePair(row).secondary && (
+                                <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{getDisplayValuePair(row).secondary}</div>
+                              )}
+                            </td>
+                          )}
+                        </tr>
+                      );
+                    }
+
+                    return (
+                      <tr class="border-b border-zinc-200 last:border-b-0">
+                        <th class={`p-2 ${isDischargeRow ? 'text-xs text-slate-600' : 'text-sm text-slate-700'} font-medium align-middle text-center bg-zinc-100/50`}>
+                          {isDischargeRow ? (
+                            <div class="grid grid-cols-[3rem_minmax(0,1fr)]">
+                              <div class="flex items-center justify-center border-r border-zinc-200">
+                                {rowIndex === firstDischargeRowIndex && dischargeRowsInSection > 0 && (
+                                  <span class="mx-auto text-xs font-semibold tracking-wider text-slate-500 uppercase leading-none" style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                    {text.dischargeRail}
+                                  </span>
+                                )}
+                              </div>
+                              <div class="px-2">
+                                {isFt510 ? (
+                                  <div class="text-sm font-semibold text-slate-950 text-center">{getFt510DischargePsi(row)} psi</div>
+                                ) : (
+                                  <>
+                                    <div class="text-sm font-semibold text-slate-950 text-center">
+                                      {formatPsi(row.pressureMPa)} psi ({row.pressureMPa} MPa)
+                                    </div>
+                                    <div class="text-sm text-slate-800 text-center">
+                                      {text.suctionCondition(row.suctionHeightM, formatFeet(row.suctionHeightM))}
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          ) : isPrimingRow(row) ? (
+                            `${text.primingLabel} ${getPrimingQualifierLabel(row.qualifier, locale)}`
+                          ) : (
+                            getSpecLabel(row.key, locale)
+                          )}
+                        </th>
+                        {isMultiModel ? (
+                          mergedSpan > 1 ? (
+                            <td colSpan={mergedSpan} class="p-2 border-l border-zinc-200 align-middle text-center">
+                              <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{getDisplayValuePair(row).primary}</div>
+                              {getDisplayValuePair(row).secondary && (
+                                <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{getDisplayValuePair(row).secondary}</div>
+                              )}
+                            </td>
+                          ) : (
+                            modelColumns.map((_, index) => {
+                              const pair = getDisplayValuePair(row, index);
+                              return (
+                                <td class="p-2 border-l border-zinc-200 align-middle text-center">
+                                  <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{pair.primary}</div>
+                                  {pair.secondary && (
+                                    <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{pair.secondary}</div>
+                                  )}
+                                </td>
+                              );
+                            })
+                          )
+                        ) : (
+                          <td class="p-2 border-l border-zinc-200 align-middle text-center">
+                            <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{getDisplayValuePair(row).primary}</div>
+                            {getDisplayValuePair(row).secondary && (
+                              <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{getDisplayValuePair(row).secondary}</div>
+                            )}
+                          </td>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            );
+          })()}
+        </div>
+        {isFt510 && section.title === getSpecLabel('pumpGroup', locale) && (
+          <p class="mt-4 text-sm text-slate-600 px-4">{text.ft510Note}</p>
+        )}
+        {isP572 && section.title === getSpecLabel('pumpGroup', locale) && performanceNote && (
+          <p class="mt-4 text-sm text-slate-600 px-4">{performanceNote}</p>
+        )}
+      </div>
+    ))}
+  </div>
+</Section>
+
+<Section background="white">
+  <div class="mb-10 px-4 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      {text.relatedTitleLeading} <span class="brand-gradient-text">{text.relatedTitleHighlight}</span>
+    </h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-[4px] md:mx-0">
+    {relatedPumps.map((item) => (
+      <a href={`${productsHref}/${item.slug}`} class="group block animate-fadeInUp transition-transform duration-300 hover:-translate-y-1">
+        <div class="relative h-full overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
+          <div class="relative h-72 overflow-hidden bg-white">
+            <Image src={item.image} alt={item.title} class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-400" width={600} height={400} />
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-slate-950/82 via-slate-900/52 via-slate-900/20 to-transparent px-6 pb-2 pt-4 text-white">
+            <h3 class="flex items-center gap-2 text-lg font-bold leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+              <span
+                aria-hidden="true"
+                class="w-7 h-7 shrink-0 drop-shadow-[0_1px_2px_rgba(0,0,0,0.75)]"
+                style={`background-color: currentColor; -webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+              />
+              <span>{item.title}</span>
+            </h3>
+            <p class="text-sm text-white/95 mt-1 leading-snug drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{item.subtitle}</p>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</Section>
