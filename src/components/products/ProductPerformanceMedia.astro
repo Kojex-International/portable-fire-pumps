@@ -1,0 +1,94 @@
+---
+import { Image, type ImageMetadata } from 'astro:assets';
+import Section from '../layout/Section.astro';
+
+type OperationVideo =
+  | {
+      kind: 'youtube';
+      model: string;
+      title: string;
+      description: string;
+      url: string;
+    }
+  | {
+      kind: 'local';
+      model: string;
+      title: string;
+      description: string;
+      desktopUrl: string;
+      mobileUrl: string;
+      posterUrl: string;
+    };
+
+interface Props {
+  pumpTitle: string;
+  performanceImages?: { curve: ImageMetadata; dimensions: ImageMetadata };
+  operationVideo: OperationVideo | null;
+  performanceCurveLabel: string;
+  dimensionsLabel: string;
+  operationHeadingSuffix: string;
+  locale: 'en' | 'fr';
+}
+
+const {
+  pumpTitle,
+  performanceImages,
+  operationVideo,
+  performanceCurveLabel,
+  dimensionsLabel,
+  operationHeadingSuffix,
+  locale,
+} = Astro.props;
+
+const isFrench = locale === 'fr';
+---
+
+{performanceImages && (
+  <Section background="white" class="!pt-4 !pb-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="px-4 md:px-6">
+          <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4 text-center">{performanceCurveLabel}</h3>
+          <Image src={performanceImages.curve} alt={isFrench ? `Courbe de performance de la pompe incendie portable ${pumpTitle}` : `Performance curve for the ${pumpTitle} portable fire pump`} class="w-full h-auto object-contain" width={1200} height={900} />
+        </div>
+        <div class="px-4 md:px-6">
+          <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-4 text-center">{dimensionsLabel}</h3>
+          <Image src={performanceImages.dimensions} alt={isFrench ? `Schéma des dimensions hors tout de la pompe incendie portable ${pumpTitle}` : `Overall dimensions diagram for the ${pumpTitle} portable fire pump`} class="w-full h-auto object-contain" width={1200} height={900} />
+        </div>
+      </div>
+    </div>
+  </Section>
+)}
+
+{operationVideo && (
+  <Section background="white" class="!pt-12 !pb-4">
+    <div class="text-center mb-8 px-2">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        {operationVideo.model}{' '}
+        <span class="brand-gradient-text">{operationHeadingSuffix}</span>
+      </h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{operationVideo.description}</p>
+    </div>
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-black">
+        {operationVideo.kind === 'local' ? (
+          <video class="absolute inset-0 w-full h-full" controls preload="metadata" poster={operationVideo.posterUrl}>
+            <source media="(max-width: 767px)" src={operationVideo.mobileUrl} type="video/mp4" />
+            <source src={operationVideo.desktopUrl} type="video/mp4" />
+          </video>
+        ) : (
+          <iframe
+            src={operationVideo.url}
+            title={`${operationVideo.title} video`}
+            class="absolute inset-0 w-full h-full"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        )}
+      </div>
+    </div>
+  </Section>
+)}

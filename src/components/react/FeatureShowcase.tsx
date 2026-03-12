@@ -1,11 +1,11 @@
 import { motion } from 'motion/react';
 
-import ft510Img from '@assets/ft510.jpg';
-import ft400Img from '@assets/ft400.jpg';
-import tf516mhImg from '@assets/tf516mh.jpg';
-import p572sImg from '@assets/p572s.jpg';
-import fk500Img from '@assets/fk500.jpg';
-import ff500arImg from '@assets/ff500ar.jpg';
+import ft510Img from '@assets/shibaura-ft510-portable-fire-pump-side-view.jpg';
+import ft400Img from '@assets/shibaura-ft400-portable-fire-pump-side-view.jpg';
+import tf516mhImg from '@assets/shibaura-tf516mh-portable-fire-pump-side-view.jpg';
+import p572sImg from '@assets/shibaura-p572s-portable-fire-pump-side-view.jpg';
+import fk500Img from '@assets/shibaura-fk500-portable-fire-pump-side-view.jpg';
+import ff500arImg from '@assets/shibaura-ff500ar-portable-fire-pump-side-view.jpg';
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
 
 const featuresEn = [

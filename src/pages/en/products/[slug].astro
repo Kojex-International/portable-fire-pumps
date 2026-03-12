@@ -2,6 +2,9 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ProductDetailPageContent from '../../../components/products/ProductDetailPageContent.astro';
 import { getFirepumps, type Firepump } from '../../../data/firepumps';
+import { SITE } from '../../../config/site';
+import { getProductMetadata } from '../../../utils/productMetadata';
+import { buildProductBreadcrumbSchema, buildProductSchema } from '../../../utils/seo/schema';
 
 export async function getStaticPaths() {
   const enFirepumps = getFirepumps('en');
@@ -9,14 +12,45 @@ export async function getStaticPaths() {
     const slugs = [pump.slug, ...(pump.aliases ?? [])];
     return slugs.map((slug) => ({
       params: { slug },
-      props: { pump },
+      props: { pump, requestedSlug: slug },
     }));
   });
 }
 
-const { pump } = Astro.props as { pump: Firepump };
+const { pump, requestedSlug } = Astro.props as { pump: Firepump; requestedSlug: string };
+
+if (requestedSlug !== pump.slug) {
+  return Astro.redirect(`/en/products/${pump.slug}`);
+}
+
+const metadata = getProductMetadata({
+  pump,
+  locale: 'en',
+  siteUrl: SITE.url,
+  pathname: Astro.url.pathname,
+});
+const structuredData = [
+  buildProductSchema({
+    pump,
+    locale: 'en',
+    canonicalUrl: metadata.canonicalUrl,
+    imageUrl: metadata.ogImageUrl,
+  }),
+  buildProductBreadcrumbSchema({
+    pump,
+    locale: 'en',
+    canonicalUrl: metadata.canonicalUrl,
+  }),
+];
 ---
 
-<BaseLayout title={`${pump.title} - Portable Fire Pumps`}>
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="en"
+  structuredData={structuredData}
+>
   <ProductDetailPageContent pump={pump} locale="en" />
 </BaseLayout>

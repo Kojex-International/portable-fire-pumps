@@ -8,18 +8,18 @@ import ImageReveal from '../../components/react/ImageReveal';
 import { Image } from 'astro:assets';
 import { HelpCircle, Library } from 'lucide-react';
 
-import pumpCatalogImg from '@assets/pumpcatalog.png';
-import catalogCardImg from '@assets/2024CatalogImg.png';
-import firepumpManualsImg from '@assets/firepumpmanuals.png';
-import partsListImg from '@assets/partslist.png';
-import ft300Img from '@assets/ft300.jpg';
-import ft500Img from '@assets/ft500.jpg';
-import ft510Img from '@assets/ft510.jpg';
-import tf516mhImg from '@assets/tf516mh.jpg';
-import p572sImg from '@assets/p572s.jpg';
-import p555sImg from '@assets/p555s.jpg';
-import fk500Img from '@assets/fk500.jpg';
-import ff500Img from '@assets/ff500ar.jpg';
+import pumpCatalogImg from '@assets/product-catalog-library.png';
+import catalogCardImg from '@assets/shibaura-2024-product-catalog-cover.png';
+import firepumpManualsImg from '@assets/pump-operation-manuals-library.png';
+import partsListImg from '@assets/pump-parts-lists-library.png';
+import ft300Img from '@assets/shibaura-ft300-portable-fire-pump-side-view.jpg';
+import ft500Img from '@assets/shibaura-ft500-portable-fire-pump-side-view.jpg';
+import ft510Img from '@assets/shibaura-ft510-portable-fire-pump-side-view.jpg';
+import tf516mhImg from '@assets/shibaura-tf516mh-portable-fire-pump-side-view.jpg';
+import p572sImg from '@assets/shibaura-p572s-portable-fire-pump-side-view.jpg';
+import p555sImg from '@assets/shibaura-p555-portable-fire-pump-side-view.jpg';
+import fk500Img from '@assets/shibaura-fk500-portable-fire-pump-side-view.jpg';
+import ff500Img from '@assets/shibaura-ff500ar-portable-fire-pump-side-view.jpg';
 import heroBgImg from '@assets/resources-hero.png';
 import catalogPdf from '../../data/Shibaura_Catalog2024_9.pdf';
 import ft300400ManualPdf from '../../data/manuals/aircooled/ft300-400Manual.pdf';
@@ -36,6 +36,7 @@ import ft450ft500PartsPdf from '../../data/parts/ft450ft500partslist.pdf';
 import ft510PartsPdf from '../../data/parts/ft510partslist.pdf';
 import p555PartsPdf from '../../data/parts/p555partslist.pdf';
 import p572PartsPdf from '../../data/parts/p572partslist.pdf';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
 
 // Icon SVG paths
 const iconPaths = {
@@ -108,9 +109,21 @@ const storageNotes = [
   'Un carburant vieillissant peut générer des dépôts affectant le carburateur ou le système d’injection.',
   'Consultez le manuel d’utilisation propre à votre modèle. Les recommandations d’entreposage varient selon le type de pompe.'
 ];
+
+const metadata = getNonProductMetadata({
+  pageKey: 'resources',
+  locale: 'fr',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
 ---
 
-<BaseLayout title="Ressources - Portable Fire Pumps">
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+>
   <!-- Hero Section with Professional Background -->
   <PageHero
     backgroundImage={heroBgImg}

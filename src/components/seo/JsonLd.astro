@@ -1,0 +1,14 @@
+---
+interface Props {
+  schemas?: unknown | unknown[];
+}
+
+const { schemas } = Astro.props;
+const normalizedSchemas = Array.isArray(schemas) ? schemas : schemas ? [schemas] : [];
+---
+
+{
+  normalizedSchemas.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))
+}

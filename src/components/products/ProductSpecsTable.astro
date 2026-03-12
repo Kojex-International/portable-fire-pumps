@@ -1,0 +1,390 @@
+---
+import Section from '../layout/Section.astro';
+import type { Firepump } from '../../data/firepumps';
+import { getPrimingQualifierLabel, getSpecLabel } from '../../data/specLabels';
+
+interface Props {
+  pump: Firepump;
+  locale: 'en' | 'fr';
+}
+
+const { pump, locale } = Astro.props;
+
+const isFrench = locale === 'fr';
+const isFt510 = pump.slug === 'ft510-a';
+const isP572 = pump.slug === 'p572s-a';
+const performanceNote = pump.performance.find((item) => item.label === 'Performance note')?.value;
+
+type SpecGroup = Firepump['specsTable']['groups'][number];
+type SpecRow = SpecGroup['rows'][number];
+
+const isMultiModel = pump.specsTable.columns.length > 2;
+const modelColumns = isMultiModel
+  ? Array.from({ length: Math.floor(pump.specsTable.columns.length / 2) }, (_, index) => {
+      const rawLabel = pump.specsTable.columns[index * 2] ?? '';
+      return rawLabel.replace(/\s*\((?:Metric|Imperial|Métrique|Impérial)\)\s*$/i, '').trim();
+    })
+  : [pump.title];
+const isSingleModel = modelColumns.length === 1;
+const specificationColumnWidth = isMultiModel ? 32 : 36;
+const valueColumnWidth = (100 - specificationColumnWidth) / modelColumns.length;
+
+const normalizeImperialDimensions = (value: string): string => {
+  const match = value.match(/^(.+?)\s*(in|po)\s*$/i);
+  if (!match) return value;
+
+  const rawDims = match[1];
+  const unit = match[2];
+  const separator = rawDims.includes('×') ? ' × ' : ' x ';
+  const parts = rawDims.split(/[×x]/).map((part) => part.trim());
+  if (parts.length !== 3) return value;
+
+  const normalized = parts.map((part) => {
+    const numeric = Number(part.replace(',', '.'));
+    if (!Number.isFinite(numeric)) return part;
+    const isWholeOrHalf = Number.isInteger(numeric * 2);
+    const rounded = isWholeOrHalf ? numeric : Math.round(numeric);
+    if (Number.isInteger(rounded)) return String(rounded);
+    return rounded.toFixed(1).replace(/\.0$/, '');
+  });
+
+  return `${normalized.join(separator)} ${unit}`;
+};
+
+const getValuePair = (row: SpecRow, modelIndex = 0) => ({
+  metric: (row.values ?? [])[modelIndex * 2] ?? '',
+  imperial:
+    row.key === 'dimensions'
+      ? normalizeImperialDimensions((row.values ?? [])[modelIndex * 2 + 1] ?? '')
+      : (row.values ?? [])[modelIndex * 2 + 1] ?? '',
+});
+
+const normalizeImperialDisplay = (value: string): string => {
+  if (!isFrench) return value;
+  const normalizedUnits = value.replace(/\bpo\b/g, 'in').replace(/\bpi\b/g, 'ft');
+  const hasImperialUnits = /(?:\bin\b|\bft\b|\blb\b|gal\/h|gal\b|psi\b|gpm\b|hp\b|cu in\b)/.test(normalizedUnits);
+  if (!hasImperialUnits) return normalizedUnits;
+  return normalizedUnits.replace(/(\d),(\d{1,2})(?!\d)/g, '$1.$2');
+};
+
+const IMPERIAL_FIRST_KEYS = new Set([
+  'dimensions',
+  'dryWeight',
+  'dischargeDiameterJis',
+  'suctionDiameterJis',
+  'ratedOutput',
+  'fuelTankCapacity',
+  'fuelConsumption',
+  'maxSuctionHeight',
+  'dischargePerformance',
+]);
+
+const KEEP_SOURCE_ORDER_KEYS = new Set(['displacement', 'boreStroke', 'model', 'featureOriginalEngine', 'featureOriginalCentrifugalPump', 'featureOriginalVacuumPump', 'featureAlertMonitoringSystem', 'featureQuickDischargeValve']);
+
+const getDisplayValuePair = (row: SpecRow, modelIndex = 0) => {
+  const pair = getValuePair(row, modelIndex);
+  const imperial = normalizeImperialDisplay(pair.imperial);
+  const shouldFlip = IMPERIAL_FIRST_KEYS.has(row.key) && !KEEP_SOURCE_ORDER_KEYS.has(row.key);
+  const primary = shouldFlip ? imperial : pair.metric;
+  const secondary = shouldFlip ? pair.metric : imperial;
+  return {
+    primary,
+    secondary: primary === secondary ? '' : secondary,
+  };
+};
+
+const formatPsi = (pressureMPa: string): string => {
+  const mpa = Number(pressureMPa);
+  const psi = mpa * 145.038;
+  const rounded = Math.round(psi * 10) / 10;
+  return Number.isInteger(rounded) ? `${rounded}` : rounded.toFixed(1);
+};
+
+const formatFeet = (suctionHeightM: string): string => {
+  const meters = Number(suctionHeightM);
+  const feet = meters * 3.28084;
+  return (Math.round(feet * 10) / 10).toFixed(1);
+};
+
+const getFt510DischargePsi = (row: SpecRow): string => {
+  const imperialValue = row.values?.[1] ?? '';
+  const match = imperialValue.match(/@\s*([\d.]+)\s*psi/i);
+  return match?.[1] ?? formatPsi(row.pressureMPa);
+};
+
+const getValueSignature = (row: SpecRow, modelIndex = 0): string => {
+  const pair = getDisplayValuePair(row, modelIndex);
+  return `${pair.primary}|||${pair.secondary}`;
+};
+
+const getMergedSpan = (row: SpecRow): number => {
+  if (!isMultiModel || modelColumns.length < 2) return 1;
+  const first = getValueSignature(row, 0);
+  const allSame = modelColumns.every((_, index) => getValueSignature(row, index) === first);
+  return allSame ? modelColumns.length : 1;
+};
+
+const isPrimingRow = (row: SpecRow): row is Extract<SpecRow, { key: 'primingPerformance' }> =>
+  row.key === 'primingPerformance';
+
+const [modelGroup, pumpGroup, engineGroup, vacuumPumpGroup, featuresGroup] = pump.specsTable.groups;
+const specSections = [
+  {
+    title: modelGroup?.title ?? (isFrench ? 'Modèle' : 'Model'),
+    rows: modelGroup?.rows ?? [],
+  },
+  {
+    title: pumpGroup?.title ?? (isFrench ? 'Pompe' : 'Pump'),
+    rows: pumpGroup?.rows ?? [],
+  },
+  {
+    title: engineGroup?.title ?? (isFrench ? 'Moteur' : 'Engine'),
+    rows: engineGroup?.rows ?? [],
+  },
+  {
+    title: vacuumPumpGroup?.title ?? (isFrench ? 'Pompe à vide' : 'Vacuum Pump'),
+    rows: vacuumPumpGroup?.rows ?? [],
+  },
+  {
+    title: featuresGroup?.title ?? (isFrench ? 'Caractéristiques' : 'Features'),
+    rows: featuresGroup?.rows ?? [],
+  },
+].filter((section) => section.rows.length > 0);
+
+const text = {
+  technicalTitleLeading: isFrench ? 'Spécifications' : 'Technical',
+  technicalTitleHighlight: isFrench ? 'techniques' : 'Specifications',
+  technicalDescription: isFrench
+    ? `Les données techniques nécessaires pour évaluer la ${pump.title}.`
+    : `The specifications procurement teams need to evaluate the ${pump.title}.`,
+  specificationHeader: getSpecLabel('specification', locale),
+  valueHeader: isFrench ? 'Valeur' : 'Value',
+  dischargeRail: isFrench ? 'Performance de refoulement' : 'Discharge Performance',
+  primingLabel: getSpecLabel('primingPerformance', locale),
+  ft510Note: isFrench
+    ? 'Les valeurs de performance représentent le débit maximal de la pompe mesuré selon les conditions d’essai standard en usine avec de l’eau propre.'
+    : 'Performance values represent maximum pump output measured under standard factory test conditions using clean water.',
+  suctionCondition: (m: string, ft: string) =>
+    isFrench ? `${m} m de hauteur d’aspiration (${ft} ft)` : `${m} m suction head (${ft} ft)`,
+};
+---
+
+<Section background="white" id="technical-specifications" class="!py-12 lg:!py-16">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      {text.technicalTitleLeading} <span class="brand-gradient-text">{text.technicalTitleHighlight}</span>
+    </h2>
+    <p class="text-lg text-gray-600 max-w-3xl mx-auto">{text.technicalDescription}</p>
+  </div>
+  <div class="space-y-4">
+    {specSections.map((section, sectionIndex) => (
+      <div class="mt-6 first:mt-0">
+        <div class="overflow-x-auto overflow-hidden m-[4px] md:m-[2px] rounded-lg border border-zinc-200 bg-white">
+          {(() => {
+            const dischargeRowsInSection = section.rows.filter((item) => item.key === 'dischargePerformance').length;
+            const firstDischargeRowIndex = section.rows.findIndex((item) => item.key === 'dischargePerformance');
+            const isPumpSection = section.title === getSpecLabel('pumpGroup', locale);
+            const sectionTitle = isSingleModel && sectionIndex === 0 ? modelColumns[0] : section.title;
+            const totalColumnCount = isPumpSection
+              ? (isMultiModel ? modelColumns.length + 2 : 3)
+              : (isMultiModel ? modelColumns.length + 1 : 2);
+            const dischargeRailWidth = 4;
+            const specificationTextWidth = specificationColumnWidth - dischargeRailWidth;
+            return (
+              <table class={`w-full text-center ${isSingleModel ? '' : 'min-w-[560px] md:min-w-[720px]'}`}>
+                <colgroup>
+                  {isPumpSection ? (
+                    <>
+                      <col style={`width: ${dischargeRailWidth}%;`} />
+                      <col style={`width: ${specificationTextWidth}%;`} />
+                      {isMultiModel ? (
+                        modelColumns.map(() => <col style={`width: ${valueColumnWidth}%;`} />)
+                      ) : (
+                        <col style={`width: ${valueColumnWidth}%;`} />
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <col style={`width: ${specificationColumnWidth}%;`} />
+                      {isMultiModel ? (
+                        modelColumns.map(() => <col style={`width: ${valueColumnWidth}%;`} />)
+                      ) : (
+                        <col style={`width: ${valueColumnWidth}%;`} />
+                      )}
+                    </>
+                  )}
+                </colgroup>
+                <thead>
+                  <tr class="bg-zinc-100 border-b border-zinc-200">
+                    <th colSpan={totalColumnCount} class="p-2 text-center text-base font-semibold tracking-wide uppercase text-slate-700">
+                      {sectionTitle}
+                    </th>
+                  </tr>
+                  {!isSingleModel && (
+                    <tr class="bg-zinc-100/75 border-b border-zinc-200">
+                      <th colSpan={isPumpSection ? 2 : 1} class="p-2 text-sm font-semibold text-slate-600 tracking-wide text-center">
+                        {text.specificationHeader}
+                      </th>
+                      {isMultiModel ? (
+                        modelColumns.map((model) => (
+                          <th class="p-2 text-base font-semibold text-slate-950 border-l border-zinc-200 text-center">{model}</th>
+                        ))
+                      ) : (
+                        <th class="p-2 text-sm font-semibold text-slate-600 tracking-wide border-l border-zinc-200 text-center">
+                          {text.valueHeader}
+                        </th>
+                      )}
+                    </tr>
+                  )}
+                </thead>
+                <tbody>
+                  {section.rows.map((row, rowIndex) => {
+                    const mergedSpan = getMergedSpan(row);
+                    const isDischargeRow = row.key === 'dischargePerformance';
+                    if (isPumpSection) {
+                      return (
+                        <tr class="border-b border-zinc-200 last:border-b-0">
+                          {isDischargeRow && rowIndex === firstDischargeRowIndex && dischargeRowsInSection > 0 && (
+                            <th rowSpan={dischargeRowsInSection} class="p-2 align-middle border-r border-zinc-200 bg-zinc-100/75">
+                              <span class="mx-auto text-xs font-semibold tracking-wider text-slate-500 uppercase leading-none" style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                {text.dischargeRail}
+                              </span>
+                            </th>
+                          )}
+                          <th colSpan={isDischargeRow ? 1 : 2} class={`p-2 ${isDischargeRow ? 'text-xs text-slate-600' : 'text-sm text-slate-700'} font-medium align-middle text-center bg-zinc-100/50`}>
+                            {isDischargeRow ? (
+                              isFt510 ? (
+                                <div class="text-sm font-semibold text-slate-950 text-center">
+                                  {getFt510DischargePsi(row)} psi ({row.pressureMPa} MPa)
+                                </div>
+                              ) : (
+                                <>
+                                  <div class="text-sm font-semibold text-slate-950 text-center">
+                                    {formatPsi(row.pressureMPa)} psi ({row.pressureMPa} MPa)
+                                  </div>
+                                  <div class="text-sm text-slate-800 text-center">
+                                    {text.suctionCondition(row.suctionHeightM, formatFeet(row.suctionHeightM))}
+                                  </div>
+                                </>
+                              )
+                            ) : isPrimingRow(row) ? (
+                              `${text.primingLabel} ${getPrimingQualifierLabel(row.qualifier, locale)}`
+                            ) : (
+                              getSpecLabel(row.key, locale)
+                            )}
+                          </th>
+                          {isMultiModel ? (
+                            mergedSpan > 1 ? (
+                              <td colSpan={mergedSpan} class="p-2 border-l border-zinc-200 align-middle text-center">
+                                <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{getDisplayValuePair(row).primary}</div>
+                                {getDisplayValuePair(row).secondary && (
+                                  <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{getDisplayValuePair(row).secondary}</div>
+                                )}
+                              </td>
+                            ) : (
+                              modelColumns.map((_, index) => {
+                                const pair = getDisplayValuePair(row, index);
+                                return (
+                                  <td class="p-2 border-l border-zinc-200 align-middle text-center">
+                                    <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{pair.primary}</div>
+                                    {pair.secondary && (
+                                      <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{pair.secondary}</div>
+                                    )}
+                                  </td>
+                                );
+                              })
+                            )
+                          ) : (
+                            <td class="p-2 border-l border-zinc-200 align-middle text-center">
+                              <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{getDisplayValuePair(row).primary}</div>
+                              {getDisplayValuePair(row).secondary && (
+                                <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{getDisplayValuePair(row).secondary}</div>
+                              )}
+                            </td>
+                          )}
+                        </tr>
+                      );
+                    }
+
+                    return (
+                      <tr class="border-b border-zinc-200 last:border-b-0">
+                        <th class={`p-2 ${isDischargeRow ? 'text-xs text-slate-600' : 'text-sm text-slate-700'} font-medium align-middle text-center bg-zinc-100/50`}>
+                          {isDischargeRow ? (
+                            <div class="grid grid-cols-[3rem_minmax(0,1fr)]">
+                              <div class="flex items-center justify-center border-r border-zinc-200">
+                                {rowIndex === firstDischargeRowIndex && dischargeRowsInSection > 0 && (
+                                  <span class="mx-auto text-xs font-semibold tracking-wider text-slate-500 uppercase leading-none" style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                    {text.dischargeRail}
+                                  </span>
+                                )}
+                              </div>
+                              <div class="px-2">
+                                {isFt510 ? (
+                                  <div class="text-sm font-semibold text-slate-950 text-center">
+                                    {getFt510DischargePsi(row)} psi ({row.pressureMPa} MPa)
+                                  </div>
+                                ) : (
+                                  <>
+                                    <div class="text-sm font-semibold text-slate-950 text-center">
+                                      {formatPsi(row.pressureMPa)} psi ({row.pressureMPa} MPa)
+                                    </div>
+                                    <div class="text-sm text-slate-800 text-center">
+                                      {text.suctionCondition(row.suctionHeightM, formatFeet(row.suctionHeightM))}
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          ) : isPrimingRow(row) ? (
+                            `${text.primingLabel} ${getPrimingQualifierLabel(row.qualifier, locale)}`
+                          ) : (
+                            getSpecLabel(row.key, locale)
+                          )}
+                        </th>
+                        {isMultiModel ? (
+                          mergedSpan > 1 ? (
+                            <td colSpan={mergedSpan} class="p-2 border-l border-zinc-200 align-middle text-center">
+                              <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{getDisplayValuePair(row).primary}</div>
+                              {getDisplayValuePair(row).secondary && (
+                                <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{getDisplayValuePair(row).secondary}</div>
+                              )}
+                            </td>
+                          ) : (
+                            modelColumns.map((_, index) => {
+                              const pair = getDisplayValuePair(row, index);
+                              return (
+                                <td class="p-2 border-l border-zinc-200 align-middle text-center">
+                                  <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{pair.primary}</div>
+                                  {pair.secondary && (
+                                    <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{pair.secondary}</div>
+                                  )}
+                                </td>
+                              );
+                            })
+                          )
+                        ) : (
+                          <td class="p-2 border-l border-zinc-200 align-middle text-center">
+                            <div class="text-sm font-semibold text-slate-950 leading-snug whitespace-pre-line">{getDisplayValuePair(row).primary}</div>
+                            {getDisplayValuePair(row).secondary && (
+                              <div class="mt-1 text-xs text-slate-600 leading-snug whitespace-pre-line">{getDisplayValuePair(row).secondary}</div>
+                            )}
+                          </td>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            );
+          })()}
+        </div>
+        {isFt510 && section.title === getSpecLabel('pumpGroup', locale) && (
+          <p class="mt-4 text-sm text-slate-600 px-4">{text.ft510Note}</p>
+        )}
+        {isP572 && section.title === getSpecLabel('pumpGroup', locale) && performanceNote && (
+          <p class="mt-4 text-sm text-slate-600 px-4">{performanceNote}</p>
+        )}
+      </div>
+    ))}
+  </div>
+</Section>

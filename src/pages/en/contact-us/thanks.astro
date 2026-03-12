@@ -3,9 +3,24 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Section from '@components/layout/Section.astro';
 import Button from '@components/ui/Button.astro';
 import { CheckCircle2 } from 'lucide-react';
+import heroOgImage from '@assets/contact-rfq-hero.png';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+const metadata = getNonProductMetadata({
+  pageKey: 'contactThanks',
+  locale: 'en',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroOgImage.src,
+});
 ---
 
-<BaseLayout title="Thank You - Portable Fire Pumps">
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="en"
+  robots="noindex, follow"
+>
   <Section background="white">
     <div class="max-w-3xl mx-auto py-16 flex flex-col items-center">
       <div class="inline-flex flex-col items-center mb-8">

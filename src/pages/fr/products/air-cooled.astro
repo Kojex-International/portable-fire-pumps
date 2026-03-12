@@ -10,6 +10,9 @@ import { Gauge } from 'lucide-react';
 import { getFirepumps } from '../../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
 import { getLocaleFromPathname, localizePath } from '@config/site';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { buildItemListSchema } from '@utils/seo/schema';
+import { SITE } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
@@ -19,9 +22,31 @@ const firepumps = getFirepumps('fr');
 
 const AIR_COOLED_SLUGS = new Set(['ft510-a', 'ft300-400-a', 'tf516mh-ab']);
 const airCooledPumps = firepumps.filter((pump) => AIR_COOLED_SLUGS.has(pump.slug));
+const metadata = getNonProductMetadata({
+  pageKey: 'productsAirCooled',
+  locale: 'fr',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
+const structuredData = buildItemListSchema({
+  listName: 'Pompes incendie portatives refroidies à l’air',
+  canonicalUrl: metadata.canonicalUrl,
+  items: airCooledPumps.map((pump) => ({
+    name: pump.title,
+    url: new URL(localizePath(`/products/${pump.slug}`, 'fr'), SITE.url).toString(),
+    image: new URL(pump.image.src, SITE.url).toString(),
+  })),
+});
 ---
 
-<BaseLayout title="Pompes incendie portatives refroidies à l’air - Portable Fire Pumps">
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="fr"
+  structuredData={structuredData}
+>
   <PageHero
     backgroundImage={heroBgImg}
     backgroundAlt="Pompes incendie portatives refroidies à l’air"

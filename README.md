@@ -203,6 +203,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 | `npm run dev`          | Starts local dev server at `localhost:4321`     |
 | `npm run build`        | Build your production site to `./dist/`         |
 | `npm run preview`      | Preview your build locally, before deploying     |
+| `npm run audit:images` | Audit active image alt text and filename quality |
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
 
 ## Website Preview
@@ -305,11 +306,49 @@ pumps/<model>.ts
 
 ## Asset Naming Guidelines
 
-- Group product images by pump model
-- Use descriptive filenames
-- Avoid spaces in filenames
-- Keep hero images separate from product assets
+- Use lowercase only
+- Use kebab-case only
+- Use descriptive names; avoid generic names like `image1`, `final-v2`, `IMG_1234`
+- Include model numbers when relevant
+- Keep hero/support images separate from product/model assets
 - Archive deprecated assets rather than deleting them
+
+Recommended naming patterns:
+- Product photos: `shibaura-{model}-portable-fire-pump-{view}.ext`
+- Performance overview images: `{model}-performance-overview-graph.ext`
+- Performance charts: `{model}-performance-curve.ext`
+- Dimensions diagrams: `{model}-dimensions-diagram.ext`
+- Hero/support images: `{context}-{role}.ext`
+- Brand assets: `shibaura-wordmark.ext`, `shibaura-logo-mark.ext`
+
+Examples:
+- `shibaura-ff500ar-portable-fire-pump-side-view.jpg`
+- `ft510-performance-overview-graph.png`
+- `ff500-dimensions-diagram.jpg`
+- `distributors-network-hero.png`
+- `shibaura-wordmark.svg`
+
+## Alt Text Standards
+
+- Meaningful content images must have descriptive alt text
+- Decorative images should use `alt=""`
+- Describe the image naturally; do not repeat filenames
+- Avoid keyword stuffing
+- Include model/context where useful for product and technical imagery
+
+Examples:
+- `Side view of the Shibaura FT510 portable fire pump`
+- `Performance curve for the Shibaura P572S portable fire pump`
+- `Diagram showing a portable fire pump relay system used in wildfire operations`
+
+### Image Audit
+
+Run `npm run audit:images` to scan active source files for:
+- `<img>` or `<Image>` tags missing `alt`
+- weak literal alt values such as `image`, `photo`, `picture`, or `logo`
+- generic asset filename references in active imports
+
+Scope: `src/pages/`, `src/components/`, `src/layouts/` (excluding archived content).
 
 ## 🎨 Customization
 

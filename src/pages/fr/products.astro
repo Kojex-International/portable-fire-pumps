@@ -10,15 +10,40 @@ import { Gauge } from 'lucide-react';
 import { getFirepumps } from '../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
 import { getLocaleFromPathname, localizePath } from '@config/site';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { buildItemListSchema } from '@utils/seo/schema';
+import { SITE } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 const firepumps = getFirepumps('fr');
+const metadata = getNonProductMetadata({
+  pageKey: 'products',
+  locale: 'fr',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
+const structuredData = buildItemListSchema({
+  listName: 'Pompes incendie portatives',
+  canonicalUrl: metadata.canonicalUrl,
+  items: firepumps.map((pump) => ({
+    name: pump.title,
+    url: new URL(localizePath(`/products/${pump.slug}`, 'fr'), SITE.url).toString(),
+    image: new URL(pump.image.src, SITE.url).toString(),
+  })),
+});
 ---
 
-<BaseLayout title="Produits - Portable Fire Pumps">
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="fr"
+  structuredData={structuredData}
+>
   <PageHero
     backgroundImage={heroBgImg}
     backgroundAlt="Pompes à incendie portatives"

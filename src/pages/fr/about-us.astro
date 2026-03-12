@@ -6,9 +6,25 @@ import PageHero from '../../components/layout/PageHero.astro';
 import { Building2 } from 'lucide-react';
 
 import heroBgImg from '@assets/about-us-hero.png';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { buildAboutPageSchema } from '@utils/seo/schema';
+const metadata = getNonProductMetadata({
+  pageKey: 'about',
+  locale: 'fr',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
+const structuredData = buildAboutPageSchema(metadata.canonicalUrl, 'fr');
 ---
 
-<BaseLayout title="À propos de nous - Portable Fire Pumps">
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="fr"
+  structuredData={structuredData}
+>
   <PageHero
     backgroundImage={heroBgImg}
     backgroundAlt="À propos de Kojex International"

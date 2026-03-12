@@ -1,8 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
-import warehouseBgImg from '@assets/photo-1553413077-190dd305871c.jpg';
-import wildernessImg from '@assets/wilderness.png';
+import wildernessImg from '@assets/portable-fire-pump-wildfire-operation.png';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import { Flame } from 'lucide-react';
 
@@ -17,7 +16,7 @@ const isFrench = locale === 'fr';
   <div class="absolute inset-0">
     <Image 
       src={wildernessImg}
-      alt={isFrench ? "Pompes à incendie portatives en intervention" : 'Modern warehouse operations'}
+      alt={isFrench ? "Pompiers utilisant des pompes incendie portatives lors d'une intervention en milieu sauvage" : 'Firefighters using portable fire pumps during a wildfire response'}
       class="w-full h-full object-cover"
       width={2070}
       height={1380}

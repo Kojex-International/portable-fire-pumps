@@ -5,9 +5,22 @@ import ServiceHighlights from '../../components/sections/ServiceHighlights.astro
 import PremiumCTA from '../../components/sections/PremiumCTA.astro';
 import SectionHeader from '../../components/layout/SectionHeading.astro';
 import logoMark from '@assets/shibaura-logo-mark.svg';
+import heroOgImage from '@assets/portable-fire-pumps-hero.jpg';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+const metadata = getNonProductMetadata({
+  pageKey: 'home',
+  locale: 'en',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroOgImage.src,
+});
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+>
   <PremiumHero />
   <section class="bg-white">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">

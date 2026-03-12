@@ -7,15 +7,27 @@ import PumpFeaturesSection from '../../components/products/PumpFeaturesSection.a
 import ProductsCTA from '../../components/products/ProductsCTA.astro';
 import { Gauge } from 'lucide-react';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
-import productFeatureHeroImg from '@assets/ProductFeatureHero.png';
+import productFeatureHeroImg from '@assets/product-features-hero.png';
 import { getLocaleFromPathname, localizePath } from '@config/site';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const metadata = getNonProductMetadata({
+  pageKey: 'features',
+  locale: 'en',
+  pathname: Astro.url.pathname,
+  ogImageSrc: productFeatureHeroImg.src,
+});
 ---
 
-<BaseLayout title="Features - Portable Fire Pumps">
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+>
   <PageHero
     backgroundImage={productFeatureHeroImg}
     backgroundAlt="Portable fire pump engineering features"

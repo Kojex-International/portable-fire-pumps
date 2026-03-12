@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import ImageReveal from '../react/ImageReveal';
+import Button from '../ui/Button.astro';
+import type { Firepump } from '../../data/firepumps';
+
+interface HeroSpecItem {
+  label: string;
+  value: string;
+  icon: string;
+}
+
+interface Props {
+  pump: Firepump;
+  locale: 'en' | 'fr';
+  heroSpecs: HeroSpecItem[];
+  manualPdf: string;
+  manualLabel: string;
+  specButtonLabel: string;
+  shibauraLogoMark: string;
+}
+
+const { pump, locale, heroSpecs, manualPdf, manualLabel, specButtonLabel, shibauraLogoMark } = Astro.props;
+const isFrench = locale === 'fr';
+---
+
+<section class="relative overflow-hidden bg-white">
+  <div class="absolute inset-0 bg-linear-to-r from-white/95 via-white/80 to-white/55"></div>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-[44px] pb-[20px] lg:pt-[76px] lg:pb-[20px]">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="order-2 lg:order-1 hidden lg:block">
+        <ImageReveal client:load>
+          <div class="relative bg-white rounded-3xl overflow-hidden">
+            <Image src={pump.image} alt={isFrench ? `Photo du modèle ${pump.title} de pompe incendie portable` : `${pump.title} portable fire pump product photo`} class="w-full h-full object-contain" width={1200} height={800} />
+          </div>
+        </ImageReveal>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <h1 class="flex items-center gap-3 text-3xl md:text-5xl font-extrabold text-slate-900 mb-3 leading-tight animate-fadeInUp">
+          <span
+            aria-hidden="true"
+            class="w-[1.2em] h-[1.2em] shrink-0 brand-gradient-bg"
+            style={`-webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+          />
+          <span class="inline-block brand-gradient-bg bg-clip-text text-transparent" style="-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            {pump.title}
+          </span>
+        </h1>
+        <p class="text-xl text-slate-800 mb-2 animate-fadeInUp" style="animation-delay: 0.1s">{pump.subtitle}</p>
+        <p class="text-lg text-slate-700 mb-8 leading-relaxed animate-fadeInUp" style="animation-delay: 0.2s">{pump.valueProp}</p>
+
+        <div class="lg:hidden mb-8 animate-fadeInUp" style="animation-delay: 0.25s">
+          <div class="relative bg-white rounded-3xl overflow-hidden">
+            <Image src={pump.image} alt={isFrench ? `Photo du modèle ${pump.title} de pompe incendie portable` : `${pump.title} portable fire pump product photo`} class="w-full h-full object-contain" width={1200} height={800} />
+          </div>
+        </div>
+
+        <div class="relative animate-fadeInUp" style="animation-delay: 0.3s">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {heroSpecs.map((spec) => (
+              <div class="flex items-start gap-3">
+                <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-white text-slate-900 shrink-0">
+                  <img src={spec.icon} alt="" class="w-5 h-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-600">{spec.label}</p>
+                  <p class="text-slate-900 font-semibold whitespace-pre-line">{spec.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="flex w-full flex-col gap-4 sm:mx-auto sm:max-w-[620px] sm:flex-row sm:justify-center animate-fadeInUp" style="animation-delay: 0.4s">
+          <a href={manualPdf} class="brand-cta min-w-[240px] px-6 py-3 text-base" download>{manualLabel}</a>
+          <Button href="#technical-specifications" size="md" variant="light" class="min-w-[240px]">{specButtonLabel}</Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

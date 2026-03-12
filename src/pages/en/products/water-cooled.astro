@@ -10,6 +10,9 @@ import { Gauge } from 'lucide-react';
 import { getFirepumps } from '../../../data/firepumps';
 import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
 import { getLocaleFromPathname, localizePath } from '@config/site';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { buildItemListSchema } from '@utils/seo/schema';
+import { SITE } from '@config/site';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
@@ -22,9 +25,31 @@ const waterCooledPumps = firepumps.filter((pump) =>
     (spec) => spec.key === 'coolingSystem' && spec.value.toLowerCase().includes('water')
   )
 );
+const metadata = getNonProductMetadata({
+  pageKey: 'productsWaterCooled',
+  locale: 'en',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
+const structuredData = buildItemListSchema({
+  listName: 'Water-Cooled Portable Fire Pumps',
+  canonicalUrl: metadata.canonicalUrl,
+  items: waterCooledPumps.map((pump) => ({
+    name: pump.title,
+    url: new URL(localizePath(`/products/${pump.slug}`, 'en'), SITE.url).toString(),
+    image: new URL(pump.image.src, SITE.url).toString(),
+  })),
+});
 ---
 
-<BaseLayout title="Water-Cooled Portable Fire Pumps - Portable Fire Pumps">
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="en"
+  structuredData={structuredData}
+>
   <PageHero
     backgroundImage={heroBgImg}
     backgroundAlt="Water-cooled portable fire pumps"

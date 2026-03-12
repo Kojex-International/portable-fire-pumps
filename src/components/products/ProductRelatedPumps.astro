@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import Section from '../layout/Section.astro';
+import type { Firepump } from '../../data/firepumps';
+
+interface Props {
+  relatedPumps: Firepump[];
+  productsHref: string;
+  titleLeading: string;
+  titleHighlight: string;
+  shibauraLogoMark: string;
+  locale: 'en' | 'fr';
+}
+
+const { relatedPumps, productsHref, titleLeading, titleHighlight, shibauraLogoMark, locale } = Astro.props;
+const isFrench = locale === 'fr';
+---
+
+<Section background="white">
+  <div class="mb-10 px-4 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      {titleLeading} <span class="brand-gradient-text">{titleHighlight}</span>
+    </h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-[4px] md:mx-0">
+    {relatedPumps.map((item) => (
+      <a href={`${productsHref}/${item.slug}`} class="group block animate-fadeInUp transition-transform duration-300 hover:-translate-y-1">
+        <div class="relative h-full overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
+          <div class="relative h-72 overflow-hidden bg-white">
+            <Image src={item.image} alt={isFrench ? `Photo du modèle ${item.title} de pompe incendie portable` : `${item.title} portable fire pump product photo`} class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-400" width={600} height={400} />
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-slate-950/82 via-slate-900/52 via-slate-900/20 to-transparent px-6 pb-2 pt-4 text-white">
+            <h3 class="flex items-center gap-2 text-lg font-bold leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+              <span
+                aria-hidden="true"
+                class="w-7 h-7 shrink-0 drop-shadow-[0_1px_2px_rgba(0,0,0,0.75)]"
+                style={`background-color: currentColor; -webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+              />
+              <span>{item.title}</span>
+            </h3>
+            <p class="text-sm text-white/95 mt-1 leading-snug drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{item.subtitle}</p>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</Section>

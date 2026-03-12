@@ -5,8 +5,17 @@ import Card from '@components/ui/Card.astro';
 import PageHero from '@components/layout/PageHero.astro';
 import RFQForm from '@components/forms/RFQForm';
 import { MessageSquare, Clock, Shield, CheckCircle2, Phone, Mail, Award, TrendingUp, Users } from 'lucide-react';
-import rfqBgImg from '@assets/contactus.png';
+import rfqBgImg from '@assets/contact-rfq-hero.png';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { buildContactPageSchema } from '@utils/seo/schema';
 const thanksHref = '/contact-us/thanks?lang=fr';
+const metadata = getNonProductMetadata({
+  pageKey: 'contact',
+  locale: 'fr',
+  pathname: Astro.url.pathname,
+  ogImageSrc: rfqBgImg.src,
+});
+const structuredData = buildContactPageSchema(metadata.canonicalUrl, 'fr');
 ---
 <style>
   .sidebar-icon-sub {
@@ -16,10 +25,17 @@ const thanksHref = '/contact-us/thanks?lang=fr';
 
 
 
-<BaseLayout title="Contact - Portable Fire Pumps">
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="fr"
+  structuredData={structuredData}
+>
   <PageHero
     backgroundImage={rfqBgImg}
-    backgroundAlt="Professional logistics and supply chain management"
+    backgroundAlt="Consultation en vente et support pour pompes incendie portables"
     badge="Contact ventes et support"
     badgeIconComponent={MessageSquare}
     sectionClass="relative h-[500px] md:h-[600px] flex items-center overflow-hidden"
