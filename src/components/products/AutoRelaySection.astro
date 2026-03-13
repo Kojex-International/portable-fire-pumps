@@ -25,6 +25,8 @@ const {
   badgeIconComponent
 } = Astro.props;
 const resolvedDesktopVideoSrc = videoSrc ?? desktopVideoSrc;
+const sharedContentWidthClass = 'max-w-3xl';
+const hasMediaBlock = showVideo || variant === 'waterRelay';
 
 const copy = {
   en: {
@@ -151,7 +153,7 @@ const content = copy[locale][variant];
   />
 
   {variant === 'waterRelay' && (
-    <div class="w-full max-w-3xl mx-auto my-10 overflow-hidden rounded-xl border border-slate-200 bg-white">
+    <div class={`w-full ${sharedContentWidthClass} mx-auto mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white`}>
       <Image
         src={relayPumpingDiagramImg}
         alt="Relay pumping diagram showing long-distance water delivery using multiple pumps"
@@ -161,7 +163,7 @@ const content = copy[locale][variant];
   )}
 
   {showVideo && (
-    <div class="max-w-4xl mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
+    <div class={`${sharedContentWidthClass} mx-auto mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white`}>
       <video
         data-auto-relay-video
         class="w-full h-auto block"
@@ -178,7 +180,7 @@ const content = copy[locale][variant];
     </div>
   )}
 
-  <div class={`${showVideo ? 'mt-6' : 'mt-2'} max-w-4xl mx-auto`}>
+  <div class={`${hasMediaBlock ? 'mt-6' : 'mt-2'} ${sharedContentWidthClass} mx-auto`}>
     <div class="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
       {'paragraph' in content ? (
         <p>{content.paragraph}</p>
@@ -191,7 +193,7 @@ const content = copy[locale][variant];
     </div>
   </div>
 
-  <div class="mt-6 max-w-4xl mx-auto">
+  <div class={`mt-6 ${sharedContentWidthClass} mx-auto`}>
     <ul class="space-y-5">
       {content.points.map((point) => (
         <li class="flex items-start gap-4">

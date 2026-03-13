@@ -23,7 +23,11 @@ const NAV_ITEMS = [
     name: { en: 'Features', fr: 'Caractéristiques' },
     path: '/features',
     children: [
-      { name: { en: 'Auto Relay System', fr: 'Système Auto Relay' }, path: '/features#auto-relay-system' },
+      {
+        name: { en: 'Long-Distance Water Delivery', fr: 'Acheminement d’eau sur longue distance' },
+        path: '/features#long-distance-water-delivery'
+      },
+      { name: { en: 'Auto Relay System', fr: 'Système Auto Relay' }, path: '/features#water-relay-system' },
       { name: { en: 'Pump Features', fr: 'Caractéristiques des pompes' }, path: '/features#pump-features' },
     ],
   },
