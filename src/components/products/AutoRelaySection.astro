@@ -1,8 +1,12 @@
 ---
 import SectionHeader from '../layout/SectionHeading.astro';
+import { Image } from 'astro:assets';
+import relayPumpingDiagramImg from '@assets/portable-fire-pump-relay-pumping-diagram.png';
 
 interface Props {
   locale: 'en' | 'fr';
+  variant?: 'longDistance' | 'waterRelay';
+  showVideo?: boolean;
   videoSrc?: string;
   desktopVideoSrc?: string;
   mobileVideoSrc?: string;
@@ -12,6 +16,8 @@ interface Props {
 
 const {
   locale,
+  variant = 'waterRelay',
+  showVideo = true,
   videoSrc,
   desktopVideoSrc = '/videos/products/1kmFF500relay-desktop.mp4',
   mobileVideoSrc = '/videos/products/1kmFF500relay-mobile.mp4',
@@ -22,62 +28,116 @@ const resolvedDesktopVideoSrc = videoSrc ?? desktopVideoSrc;
 
 const copy = {
   en: {
-    badge: 'Auto Relay System',
-    titlePrefix: 'Auto',
-    titleHighlight: 'Relay System',
-    subtitle: 'Automatic relay pumping for long-distance water transfer.',
-    paragraph1:
-      'The Shibaura Auto Relay system enables portable fire pumps to operate automatically in relay pumping operations. When water from an upstream pump reaches the relay pump, the system detects the incoming pressure and begins boosting the water supply to the next stage.',
-    paragraph2:
-      'This allows long hose lines to be deployed efficiently without requiring operators at every relay pump, making the system ideal for wildfire response, remote water supply, and extended firefighting operations.',
-    points: [
-      {
-        title: 'Automatic Relay Operation',
-        text:
-          'The system automatically detects incoming water pressure from an upstream pump and begins boosting water to the next stage in the relay line.'
-      },
-      {
-        title: 'Long-Distance Water Supply',
-        text:
-          'Relay pumping allows water to be transported over extended distances, making it ideal for wildfire response, remote water sources, and large-scale firefighting operations.'
-      },
-      {
-        title: 'Reduced Operator Requirements',
-        text:
-          'Automatic relay operation allows pumps to operate without an operator at every relay point, simplifying deployment and improving efficiency in the field.'
-      }
-    ]
+    longDistance: {
+      badge: 'Long-Distance Water Delivery',
+      titlePrefix: 'Long-Distance',
+      titleHighlight: 'Water Delivery',
+      subtitle: 'Relay-compatible pumping for sustained water transfer from remote sources.',
+      paragraph:
+        'Shibaura portable fire pumps support long-distance water delivery from remote water sources through sustained flow, quick vacuum priming, and relay-compatible deployment. Electric fuel injection supports easy starting and appropriate fuel consumption, while the centrifugal pump and impeller design are built for stable performance and large-discharge water transfer.',
+      points: [
+        {
+          title: 'Remote Water Source Transfer',
+          text:
+            'Supports extended water delivery from ponds, tanks, and other remote sources where direct attack lines would otherwise be limited by distance.'
+        },
+        {
+          title: 'Dependable Flow Over Distance',
+          text:
+            'Centrifugal pump and impeller design help maintain stable, high-volume flow across long hose deployments and elevation changes.'
+        },
+        {
+          title: 'Relay-Compatible Deployment',
+          text:
+            'Quick vacuum priming and easy engine starting support coordinated relay pumping layouts for sustained long-distance water movement.'
+        }
+      ]
+    },
+    waterRelay: {
+      badge: 'Auto Relay System',
+      titlePrefix: 'Auto',
+      titleHighlight: 'Relay System',
+      subtitle: 'Automatic relay pumping for long-distance water transfer.',
+      paragraph1:
+        'The Shibaura Auto Relay system enables portable fire pumps to operate automatically in relay pumping operations. When water from an upstream pump reaches the relay pump, the system detects the incoming pressure and begins boosting the water supply to the next stage.',
+      paragraph2:
+        'This allows long hose lines to be deployed efficiently without requiring operators at every relay pump, making the system ideal for wildfire response, remote water supply, and extended firefighting operations.',
+      points: [
+        {
+          title: 'Automatic Relay Operation',
+          text:
+            'The system automatically detects incoming water pressure from an upstream pump and begins boosting water to the next stage in the relay line.'
+        },
+        {
+          title: 'Long-Distance Water Supply',
+          text:
+            'Relay pumping allows water to be transported over extended distances, making it ideal for wildfire response, remote water sources, and large-scale firefighting operations.'
+        },
+        {
+          title: 'Reduced Operator Requirements',
+          text:
+            'Automatic relay operation allows pumps to operate without an operator at every relay point, simplifying deployment and improving efficiency in the field.'
+        }
+      ]
+    }
   },
   fr: {
-    badge: 'Système auto-relais',
-    titlePrefix: 'Système',
-    titleHighlight: 'auto-relais',
-    subtitle: 'Pompage relais automatique pour l’acheminement de l’eau sur longue distance.',
-    paragraph1:
-      'Le système auto-relais Shibaura permet aux pompes incendie portatives d’assurer automatiquement le relais de l’eau lors d’opérations de pompage en relais. Lorsque l’eau provenant de la pompe en amont atteint la pompe relais, le système détecte la pression entrante et commence à relayer l’eau vers l’étape suivante.',
-    paragraph2:
-      'Cela permet de déployer efficacement de longues lignes de tuyaux sans nécessiter d’opérateur à chaque pompe, ce qui est particulièrement adapté aux incendies de forêt, aux sources d’eau éloignées et aux opérations prolongées.',
-    points: [
-      {
-        title: 'Fonctionnement auto-relais',
-        text:
-          'Le système détecte automatiquement la pression d’eau provenant de la pompe en amont et commence à relayer l’eau vers l’étape suivante.'
-      },
-      {
-        title: 'Acheminement d’eau sur longue distance',
-        text:
-          'Le pompage en relais permet d’acheminer l’eau sur de longues distances, idéal pour les incendies de forêt et les opérations en milieux isolés.'
-      },
-      {
-        title: 'Réduction des besoins en opérateurs',
-        text:
-          'Le fonctionnement auto-relais permet aux pompes de fonctionner sans opérateur à chaque point de relais, simplifiant le déploiement et améliorant l’efficacité sur le terrain.'
-      }
-    ]
+    longDistance: {
+      badge: 'Acheminement d’eau sur longue distance',
+      titlePrefix: 'Acheminement d’eau',
+      titleHighlight: 'sur longue distance',
+      subtitle: 'Pompage compatible avec le relais pour un transfert d’eau soutenu depuis des sources éloignées.',
+      paragraph:
+        'Les pompes incendie portables Shibaura permettent l’acheminement d’eau sur longue distance depuis des sources éloignées grâce à un débit soutenu, un amorçage rapide par pompe à vide et un déploiement compatible avec le pompage en relais. L’injection électronique favorise un démarrage facile et une consommation appropriée, tandis que la pompe centrifuge et la roue sont conçues pour une performance stable et un fort débit sur de longues distances.',
+      points: [
+        {
+          title: 'Transfert depuis des sources éloignées',
+          text:
+            'Permet l’acheminement de l’eau depuis des étangs, réservoirs et autres sources éloignées lorsque la distance limite une alimentation directe.'
+        },
+        {
+          title: 'Débit fiable sur longue distance',
+          text:
+            'La conception de la pompe centrifuge et de la roue aide à maintenir un débit stable et important sur de longues lignes et en terrain avec dénivelé.'
+        },
+        {
+          title: 'Déploiement compatible avec le relais',
+          text:
+            'L’amorçage rapide par pompe à vide et le démarrage aisé du moteur favorisent des configurations de pompage en relais pour un transfert d’eau soutenu.'
+        }
+      ]
+    },
+    waterRelay: {
+      badge: 'Système auto-relais',
+      titlePrefix: 'Système',
+      titleHighlight: 'auto-relais',
+      subtitle: 'Pompage relais automatique pour l’acheminement de l’eau sur longue distance.',
+      paragraph1:
+        'Le système auto-relais Shibaura permet aux pompes incendie portatives d’assurer automatiquement le relais de l’eau lors d’opérations de pompage en relais. Lorsque l’eau provenant de la pompe en amont atteint la pompe relais, le système détecte la pression entrante et commence à relayer l’eau vers l’étape suivante.',
+      paragraph2:
+        'Cela permet de déployer efficacement de longues lignes de tuyaux sans nécessiter d’opérateur à chaque pompe, ce qui est particulièrement adapté aux incendies de forêt, aux sources d’eau éloignées et aux opérations prolongées.',
+      points: [
+        {
+          title: 'Fonctionnement auto-relais',
+          text:
+            'Le système détecte automatiquement la pression d’eau provenant de la pompe en amont et commence à relayer l’eau vers l’étape suivante.'
+        },
+        {
+          title: 'Acheminement d’eau sur longue distance',
+          text:
+            'Le pompage en relais permet d’acheminer l’eau sur de longues distances, idéal pour les incendies de forêt et les opérations en milieux isolés.'
+        },
+        {
+          title: 'Réduction des besoins en opérateurs',
+          text:
+            'Le fonctionnement auto-relais permet aux pompes de fonctionner sans opérateur à chaque point de relais, simplifiant le déploiement et améliorant l’efficacité sur le terrain.'
+        }
+      ]
+    }
   }
 } as const;
 
-const content = copy[locale];
+const content = copy[locale][variant];
 ---
 
 <div class="mb-12">
@@ -90,26 +150,44 @@ const content = copy[locale];
     class="mb-8"
   />
 
-  <div class="max-w-4xl mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
-    <video
-      data-auto-relay-video
-      class="w-full h-auto block"
-      autoplay
-      muted
-      playsinline
-      loop
-      preload="metadata"
-      poster={posterSrc}
-    >
-      <source media="(max-width: 767px)" src={mobileVideoSrc} type="video/mp4" />
-      <source src={resolvedDesktopVideoSrc} type="video/mp4" />
-    </video>
-  </div>
+  {variant === 'waterRelay' && (
+    <div class="w-full max-w-3xl mx-auto my-10 overflow-hidden rounded-xl border border-slate-200 bg-white">
+      <Image
+        src={relayPumpingDiagramImg}
+        alt="Relay pumping diagram showing long-distance water delivery using multiple pumps"
+        class="w-full h-auto block"
+      />
+    </div>
+  )}
 
-  <div class="mt-6 max-w-4xl mx-auto">
+  {showVideo && (
+    <div class="max-w-4xl mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
+      <video
+        data-auto-relay-video
+        class="w-full h-auto block"
+        autoplay
+        muted
+        playsinline
+        loop
+        preload="metadata"
+        poster={posterSrc}
+      >
+        <source media="(max-width: 767px)" src={mobileVideoSrc} type="video/mp4" />
+        <source src={resolvedDesktopVideoSrc} type="video/mp4" />
+      </video>
+    </div>
+  )}
+
+  <div class={`${showVideo ? 'mt-6' : 'mt-2'} max-w-4xl mx-auto`}>
     <div class="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
-      <p>{content.paragraph1}</p>
-      <p>{content.paragraph2}</p>
+      {'paragraph' in content ? (
+        <p>{content.paragraph}</p>
+      ) : (
+        <>
+          <p>{content.paragraph1}</p>
+          <p>{content.paragraph2}</p>
+        </>
+      )}
     </div>
   </div>
 
@@ -123,8 +201,14 @@ const content = copy[locale];
             </svg>
           </div>
           <div class="w-full text-left">
-            <h4 class="text-lg font-bold text-gray-900 mb-1">{point.title}</h4>
-            <p class="text-sm text-gray-600 leading-relaxed">{point.text}</p>
+            {typeof point === 'string' ? (
+              <p class="text-sm text-gray-600 leading-relaxed">{point}</p>
+            ) : (
+              <>
+                <h4 class="text-lg font-bold text-gray-900 mb-1">{point.title}</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">{point.text}</p>
+              </>
+            )}
           </div>
         </li>
       ))}
@@ -133,9 +217,11 @@ const content = copy[locale];
 </div>
 
 <script>
-  const video = document.querySelector('[data-auto-relay-video]');
+  const videos = document.querySelectorAll('[data-auto-relay-video]');
 
-  if (video instanceof HTMLVideoElement) {
+  videos.forEach((video) => {
+    if (!(video instanceof HTMLVideoElement)) return;
+
     video.addEventListener('pointerenter', async () => {
       video.controls = true;
       video.loop = false;
@@ -156,5 +242,5 @@ const content = copy[locale];
         // Ignore replay issues; user can restart with controls.
       }
     });
-  }
+  });
 </script>

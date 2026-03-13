@@ -1,0 +1,156 @@
+<svg width="1600" height="700" viewBox="0 0 1600 700" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Relay pumping for long-distance water delivery</title>
+  <desc id="desc">A clean schematic showing a water source, a main pump, three relay pumps, hose routing uphill, and a nozzle operator at the top.</desc>
+
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#EAF6FB"/>
+      <stop offset="100%" stop-color="#DCEFF7"/>
+    </linearGradient>
+
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6FD3F5"/>
+      <stop offset="100%" stop-color="#2FA9D6"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10V0Z" fill="#111827"/>
+    </marker>
+
+    <style>
+      .label-title { font: 700 28px Inter, Arial, sans-serif; fill: #111827; }
+      .label-sub { font: 500 18px Inter, Arial, sans-serif; fill: #475569; }
+      .pump-text { font: 700 20px Inter, Arial, sans-serif; fill: #111827; }
+      .small-text { font: 600 16px Inter, Arial, sans-serif; fill: #334155; }
+      .section-text { font: 700 22px Inter, Arial, sans-serif; fill: #111827; }
+      .water-text { font: 700 18px Inter, Arial, sans-serif; fill: #0F172A; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="700" fill="url(#sky)"/>
+
+  <text x="80" y="84" class="label-title">Relay Pumping for Long-Distance Water Delivery</text>
+  <text x="80" y="118" class="label-sub">Concept illustration showing staged pumps transferring water uphill from a remote source.</text>
+
+  <path
+    d="M0 620
+       L0 520
+       L220 520
+       L360 470
+       L540 470
+       L680 400
+       L860 400
+       L1010 320
+       L1190 320
+       L1360 230
+       L1600 230
+       L1600 700
+       L0 700 Z"
+    fill="#D9B07A"/>
+
+  <rect x="0" y="520" width="120" height="100" fill="url(#water)"/>
+  <rect x="20" y="540" width="80" height="60" rx="8" fill="rgba(255,255,255,0.15)"/>
+  <text x="36" y="645" class="water-text">Water</text>
+  <text x="27" y="668" class="water-text">Source</text>
+
+  <path
+    d="M92 550
+       L92 485
+       L205 485
+       L255 485
+       L315 485
+       L395 438
+       L525 438
+       L595 438
+       L655 438
+       L735 368
+       L845 368
+       L915 368
+       L975 368
+       L1060 288
+       L1175 288
+       L1245 288
+       L1310 288
+       L1410 198
+       L1485 198"
+    fill="none"
+    stroke="#111827"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+  <path d="M150 485 L200 485" stroke="#111827" stroke-width="3" marker-end="url(#arrowHead)"/>
+  <path d="M455 438 L505 438" stroke="#111827" stroke-width="3" marker-end="url(#arrowHead)"/>
+  <path d="M785 368 L835 368" stroke="#111827" stroke-width="3" marker-end="url(#arrowHead)"/>
+  <path d="M1110 288 L1160 288" stroke="#111827" stroke-width="3" marker-end="url(#arrowHead)"/>
+  <path d="M1430 198 L1470 198" stroke="#111827" stroke-width="3" marker-end="url(#arrowHead)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="180" y="445" width="90" height="60" rx="12" fill="#FFFFFF"/>
+    <rect x="180" y="445" width="90" height="60" rx="12" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="205" y="428" width="22" height="22" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+    <text x="212" y="444" text-anchor="middle" class="small-text">P</text>
+    <rect x="255" y="462" width="22" height="12" rx="3" fill="#FACC15"/>
+  </g>
+  <text x="145" y="540" class="pump-text">Main Pump</text>
+
+  <g filter="url(#shadow)">
+    <rect x="570" y="398" width="90" height="60" rx="12" fill="#FFFFFF"/>
+    <rect x="570" y="398" width="90" height="60" rx="12" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="595" y="381" width="22" height="22" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+    <text x="606" y="397" text-anchor="middle" class="small-text">P</text>
+    <rect x="646" y="415" width="22" height="12" rx="3" fill="#FACC15"/>
+  </g>
+  <text x="514" y="495" class="pump-text">Relay Pump 1</text>
+
+  <g filter="url(#shadow)">
+    <rect x="890" y="328" width="90" height="60" rx="12" fill="#FFFFFF"/>
+    <rect x="890" y="328" width="90" height="60" rx="12" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="915" y="311" width="22" height="22" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+    <text x="926" y="327" text-anchor="middle" class="small-text">P</text>
+    <rect x="966" y="345" width="22" height="12" rx="3" fill="#FACC15"/>
+  </g>
+  <text x="835" y="425" class="pump-text">Relay Pump 2</text>
+
+  <g filter="url(#shadow)">
+    <rect x="1210" y="248" width="90" height="60" rx="12" fill="#FFFFFF"/>
+    <rect x="1210" y="248" width="90" height="60" rx="12" stroke="#CBD5E1" stroke-width="2"/>
+    <rect x="1235" y="231" width="22" height="22" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+    <text x="1246" y="247" text-anchor="middle" class="small-text">P</text>
+    <rect x="1286" y="265" width="22" height="12" rx="3" fill="#FACC15"/>
+  </g>
+  <text x="1154" y="345" class="pump-text">Relay Pump 3</text>
+
+  <text x="330" y="422" class="section-text">Direct Valve</text>
+  <path d="M400 428 L320 472" stroke="#475569" stroke-width="2.5"/>
+
+  <text x="660" y="352" class="section-text">Direct Valve</text>
+  <path d="M735 358 L655 425" stroke="#475569" stroke-width="2.5"/>
+
+  <text x="975" y="272" class="section-text">Direct Valve</text>
+  <path d="M1050 278 L975 345" stroke="#475569" stroke-width="2.5"/>
+
+  <g transform="translate(1450 95)">
+    <circle cx="22" cy="18" r="13" fill="none" stroke="#111827" stroke-width="4"/>
+    <path d="M22 31 L22 76" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+    <path d="M22 45 L2 60" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+    <path d="M22 45 L48 34" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+    <path d="M22 76 L5 106" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+    <path d="M22 76 L46 106" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+
+    <path d="M48 34 L82 20" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+    <path d="M82 20 L101 11" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+
+    <path d="M104 10 C118 0, 128 -6, 140 -10" stroke="#22C7F2" stroke-width="4" stroke-linecap="round"/>
+    <path d="M103 16 C121 12, 136 9, 149 6" stroke="#22C7F2" stroke-width="4" stroke-linecap="round"/>
+    <path d="M102 22 C118 24, 132 30, 147 36" stroke="#22C7F2" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <path d="M1485 198 L1515 163" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
+
+  <text x="80" y="660" class="label-sub">Illustrative schematic for web use. Labels can be localized or simplified for EN / FR versions.</text>
+</svg>

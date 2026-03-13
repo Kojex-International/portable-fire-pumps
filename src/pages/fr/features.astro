@@ -46,8 +46,11 @@ const metadata = getNonProductMetadata({
   </PageHero>
 
   <Section background="white">
-    <div id="auto-relay-system">
-      <AutoRelaySection locale="fr" badgeIconComponent={Gauge} />
+    <div id="long-distance-water-delivery">
+      <AutoRelaySection locale="fr" variant="longDistance" showVideo={true} badgeIconComponent={Gauge} />
+    </div>
+    <div id="water-relay-system" class="mt-16 lg:mt-24">
+      <AutoRelaySection locale="fr" variant="waterRelay" showVideo={false} badgeIconComponent={Gauge} />
     </div>
     <div id="pump-features" class="mt-16 lg:mt-24">
       <PumpFeaturesSection locale="fr" />
