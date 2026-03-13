@@ -36,4 +36,4 @@ export function buildConnectionRowValues(row: ConnectionSpecRow, modelCount: num
 
 export const SPEC_LABEL_UNIT_PATTERN = /\b(mm|cm|m|in|ft|MPa|L\/min|JIS|psi|gpm)\b/i;
 export const UNIT_NEUTRAL_SPEC_KEYS = new Set<SpecKey>(['dimensions', 'dischargeDiameterJis', 'suctionDiameterJis']);
-export const REPEATED_ALLOWED_SPEC_KEYS = new Set<SpecKey>(['dischargePerformance']);
+export const REPEATED_ALLOWED_SPEC_KEYS = new Set<SpecKey>(['dischargePerformance', 'maximumDischargePerformance']);

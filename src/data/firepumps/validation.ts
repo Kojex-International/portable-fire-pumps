@@ -92,12 +92,12 @@ export const validateSpecTables = (pumps: Firepump[]): void => {
           }
         }
 
-        if (row.key === 'dischargePerformance') {
+        if (row.key === 'dischargePerformance' || row.key === 'maximumDischargePerformance') {
           if (!row.pressureMPa || !row.pressureMPa.trim()) {
-            errors.push(`[${pump.slug}] dischargePerformance row is missing pressureMPa`);
+            errors.push(`[${pump.slug}] ${row.key} row is missing pressureMPa`);
           }
           if (!row.suctionHeightM || !row.suctionHeightM.trim()) {
-            errors.push(`[${pump.slug}] dischargePerformance row is missing suctionHeightM`);
+            errors.push(`[${pump.slug}] ${row.key} row is missing suctionHeightM`);
           }
         }
 

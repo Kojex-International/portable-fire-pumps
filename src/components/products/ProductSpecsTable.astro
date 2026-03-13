@@ -17,6 +17,8 @@ const performanceNote = pump.performance.find((item) => item.label === 'Performa
 
 type SpecGroup = Firepump['specsTable']['groups'][number];
 type SpecRow = SpecGroup['rows'][number];
+type PerformanceRow = Extract<SpecRow, { key: 'dischargePerformance' | 'maximumDischargePerformance' }>;
+type PerformanceRowKey = PerformanceRow['key'];
 
 const isMultiModel = pump.specsTable.columns.length > 2;
 const modelColumns = isMultiModel
@@ -76,6 +78,7 @@ const IMPERIAL_FIRST_KEYS = new Set([
   'fuelTankCapacity',
   'fuelConsumption',
   'maxSuctionHeight',
+  'maximumDischargePerformance',
   'dischargePerformance',
 ]);
 
@@ -106,11 +109,51 @@ const formatFeet = (suctionHeightM: string): string => {
   return (Math.round(feet * 10) / 10).toFixed(1);
 };
 
-const getFt510DischargePsi = (row: SpecRow): string => {
+const getPerformancePsi = (row: PerformanceRow): string => {
   const imperialValue = row.values?.[1] ?? '';
   const match = imperialValue.match(/@\s*([\d.]+)\s*psi/i);
   return match?.[1] ?? formatPsi(row.pressureMPa);
 };
+
+const isPerformanceRow = (row: SpecRow): row is PerformanceRow =>
+  row.key === 'dischargePerformance' || row.key === 'maximumDischargePerformance';
+
+const getPerformanceRailLabel = (key: PerformanceRowKey): string => {
+  if (key === 'maximumDischargePerformance') {
+    return isFrench ? 'Performance maximale de refoulement' : 'Maximum Discharge\nPerformance';
+  }
+  return isFrench ? 'Performance de refoulement' : 'Discharge Performance';
+};
+
+const getPerformanceSourceLabel = (row: PerformanceRow): string | null => {
+  if (!row.performanceSource) return null;
+  if (row.performanceSource === 'distributor') {
+    return isFrench ? 'Données d’essai indépendantes' : '*Independent test';
+  }
+  return isFrench ? 'Données standard du fabricant' : 'Manufacturer standard';
+};
+
+const performanceRailTextClass =
+  'mx-auto text-xs font-semibold tracking-wider text-slate-500 uppercase leading-none whitespace-pre-line';
+const performanceRailSubtitleClass =
+  'mx-auto text-[10px] font-medium leading-tight text-slate-400 whitespace-pre-line';
+
+const getPerformanceGroupMeta = (rows: SpecRow[]): Record<PerformanceRowKey, { count: number; firstIndex: number }> => ({
+  maximumDischargePerformance: {
+    count: rows.filter((item) => item.key === 'maximumDischargePerformance').length,
+    firstIndex: rows.findIndex((item) => item.key === 'maximumDischargePerformance'),
+  },
+  dischargePerformance: {
+    count: rows.filter((item) => item.key === 'dischargePerformance').length,
+    firstIndex: rows.findIndex((item) => item.key === 'dischargePerformance'),
+  },
+});
+
+const getSpecificationCellClass = (isPerformanceSectionRow: boolean): string =>
+  `p-2 ${isPerformanceSectionRow ? 'text-xs text-slate-600' : 'text-sm text-slate-700'} font-medium align-middle text-center bg-zinc-100/50`;
+
+const shouldHideSuctionCondition = (row: PerformanceRow): boolean =>
+  row.key === 'maximumDischargePerformance' && (isFt510 || isP572);
 
 const getValueSignature = (row: SpecRow, modelIndex = 0): string => {
   const pair = getDisplayValuePair(row, modelIndex);
@@ -159,11 +202,10 @@ const text = {
     : `The specifications procurement teams need to evaluate the ${pump.title}.`,
   specificationHeader: getSpecLabel('specification', locale),
   valueHeader: isFrench ? 'Valeur' : 'Value',
-  dischargeRail: isFrench ? 'Performance de refoulement' : 'Discharge Performance',
   primingLabel: getSpecLabel('primingPerformance', locale),
   ft510Note: isFrench
-    ? 'Les valeurs de performance représentent le débit maximal de la pompe mesuré selon les conditions d’essai standard en usine avec de l’eau propre.'
-    : 'Performance values represent maximum pump output measured under standard factory test conditions using clean water.',
+    ? '*Les valeurs de performance représentent la sortie maximale dans des conditions d’essai standard en usine; les performances réelles peuvent varier selon les conditions d’utilisation.'
+    : '*Performance values represent maximum output under standard factory test conditions; actual performance may vary depending on operating conditions.',
   suctionCondition: (m: string, ft: string) =>
     isFrench ? `${m} m de hauteur d’aspiration (${ft} ft)` : `${m} m suction head (${ft} ft)`,
 };
@@ -181,8 +223,7 @@ const text = {
       <div class="mt-6 first:mt-0">
         <div class="overflow-x-auto overflow-hidden m-[4px] md:m-[2px] rounded-lg border border-zinc-200 bg-white">
           {(() => {
-            const dischargeRowsInSection = section.rows.filter((item) => item.key === 'dischargePerformance').length;
-            const firstDischargeRowIndex = section.rows.findIndex((item) => item.key === 'dischargePerformance');
+            const performanceGroupMeta = getPerformanceGroupMeta(section.rows);
             const isPumpSection = section.title === getSpecLabel('pumpGroup', locale);
             const sectionTitle = isSingleModel && sectionIndex === 0 ? modelColumns[0] : section.title;
             const totalColumnCount = isPumpSection
@@ -190,26 +231,31 @@ const text = {
               : (isMultiModel ? modelColumns.length + 1 : 2);
             const dischargeRailWidth = 4;
             const specificationTextWidth = specificationColumnWidth - dischargeRailWidth;
+            const dischargeRailStyle = `width: ${dischargeRailWidth}%;`;
+            const specificationTextStyle = `width: ${specificationTextWidth}%;`;
+            const specificationColumnStyle = `width: ${specificationColumnWidth}%;`;
+            const valueColumnStyle = `width: ${valueColumnWidth}%;`;
+            const tableClass = `w-full text-center ${isSingleModel ? '' : 'min-w-[560px] md:min-w-[720px]'}`;
             return (
-              <table class={`w-full text-center ${isSingleModel ? '' : 'min-w-[560px] md:min-w-[720px]'}`}>
+              <table class={tableClass}>
                 <colgroup>
                   {isPumpSection ? (
                     <>
-                      <col style={`width: ${dischargeRailWidth}%;`} />
-                      <col style={`width: ${specificationTextWidth}%;`} />
+                      <col style={dischargeRailStyle} />
+                      <col style={specificationTextStyle} />
                       {isMultiModel ? (
-                        modelColumns.map(() => <col style={`width: ${valueColumnWidth}%;`} />)
+                        modelColumns.map(() => <col style={valueColumnStyle} />)
                       ) : (
-                        <col style={`width: ${valueColumnWidth}%;`} />
+                        <col style={valueColumnStyle} />
                       )}
                     </>
                   ) : (
                     <>
-                      <col style={`width: ${specificationColumnWidth}%;`} />
+                      <col style={specificationColumnStyle} />
                       {isMultiModel ? (
-                        modelColumns.map(() => <col style={`width: ${valueColumnWidth}%;`} />)
+                        modelColumns.map(() => <col style={valueColumnStyle} />)
                       ) : (
-                        <col style={`width: ${valueColumnWidth}%;`} />
+                        <col style={valueColumnStyle} />
                       )}
                     </>
                   )}
@@ -240,33 +286,38 @@ const text = {
                 <tbody>
                   {section.rows.map((row, rowIndex) => {
                     const mergedSpan = getMergedSpan(row);
-                    const isDischargeRow = row.key === 'dischargePerformance';
+                    const isPerformanceSectionRow = isPerformanceRow(row);
+                    const performanceMeta = isPerformanceSectionRow ? performanceGroupMeta[row.key] : null;
+                    const sourceLabel = isPerformanceSectionRow ? getPerformanceSourceLabel(row) : null;
                     if (isPumpSection) {
                       return (
                         <tr class="border-b border-zinc-200 last:border-b-0">
-                          {isDischargeRow && rowIndex === firstDischargeRowIndex && dischargeRowsInSection > 0 && (
-                            <th rowSpan={dischargeRowsInSection} class="p-2 align-middle border-r border-zinc-200 bg-zinc-100/75">
-                              <span class="mx-auto text-xs font-semibold tracking-wider text-slate-500 uppercase leading-none" style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
-                                {text.dischargeRail}
-                              </span>
+                          {isPerformanceSectionRow && performanceMeta && rowIndex === performanceMeta.firstIndex && performanceMeta.count > 0 && (
+                            <th rowSpan={performanceMeta.count} class="p-2 align-middle border-r border-zinc-200 bg-zinc-100/75">
+                              <div class="flex h-full flex-row items-center justify-center gap-1">
+                                <span class={performanceRailTextClass} style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                  {getPerformanceRailLabel(row.key)}
+                                </span>
+                                {sourceLabel && (
+                                  <span class={performanceRailSubtitleClass} style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                    {sourceLabel}
+                                  </span>
+                                )}
+                              </div>
                             </th>
                           )}
-                          <th colSpan={isDischargeRow ? 1 : 2} class={`p-2 ${isDischargeRow ? 'text-xs text-slate-600' : 'text-sm text-slate-700'} font-medium align-middle text-center bg-zinc-100/50`}>
-                            {isDischargeRow ? (
-                              isFt510 ? (
+                            <th colSpan={isPerformanceSectionRow ? 1 : 2} class={getSpecificationCellClass(isPerformanceSectionRow)}>
+                            {isPerformanceSectionRow ? (
+                              <>
                                 <div class="text-sm font-semibold text-slate-950 text-center">
-                                  {getFt510DischargePsi(row)} psi ({row.pressureMPa} MPa)
+                                  {getPerformancePsi(row)} psi ({row.pressureMPa} MPa)
                                 </div>
-                              ) : (
-                                <>
-                                  <div class="text-sm font-semibold text-slate-950 text-center">
-                                    {formatPsi(row.pressureMPa)} psi ({row.pressureMPa} MPa)
-                                  </div>
+                                {!shouldHideSuctionCondition(row) && (
                                   <div class="text-sm text-slate-800 text-center">
                                     {text.suctionCondition(row.suctionHeightM, formatFeet(row.suctionHeightM))}
                                   </div>
-                                </>
-                              )
+                                )}
+                              </>
                             ) : isPrimingRow(row) ? (
                               `${text.primingLabel} ${getPrimingQualifierLabel(row.qualifier, locale)}`
                             ) : (
@@ -308,30 +359,31 @@ const text = {
 
                     return (
                       <tr class="border-b border-zinc-200 last:border-b-0">
-                        <th class={`p-2 ${isDischargeRow ? 'text-xs text-slate-600' : 'text-sm text-slate-700'} font-medium align-middle text-center bg-zinc-100/50`}>
-                          {isDischargeRow ? (
+                        <th class={getSpecificationCellClass(isPerformanceSectionRow)}>
+                          {isPerformanceSectionRow ? (
                             <div class="grid grid-cols-[3rem_minmax(0,1fr)]">
-                              <div class="flex items-center justify-center border-r border-zinc-200">
-                                {rowIndex === firstDischargeRowIndex && dischargeRowsInSection > 0 && (
-                                  <span class="mx-auto text-xs font-semibold tracking-wider text-slate-500 uppercase leading-none" style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
-                                    {text.dischargeRail}
-                                  </span>
+                              <div class="flex flex-row items-center justify-center gap-1 border-r border-zinc-200">
+                                {performanceMeta && rowIndex === performanceMeta.firstIndex && performanceMeta.count > 0 && (
+                                  <>
+                                    <span class={performanceRailTextClass} style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                      {getPerformanceRailLabel(row.key)}
+                                    </span>
+                                    {sourceLabel && (
+                                      <span class={performanceRailSubtitleClass} style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block;">
+                                        {sourceLabel}
+                                      </span>
+                                    )}
+                                  </>
                                 )}
                               </div>
                               <div class="px-2">
-                                {isFt510 ? (
-                                  <div class="text-sm font-semibold text-slate-950 text-center">
-                                    {getFt510DischargePsi(row)} psi ({row.pressureMPa} MPa)
+                                <div class="text-sm font-semibold text-slate-950 text-center">
+                                  {getPerformancePsi(row)} psi ({row.pressureMPa} MPa)
+                                </div>
+                                {!shouldHideSuctionCondition(row) && (
+                                  <div class="text-sm text-slate-800 text-center">
+                                    {text.suctionCondition(row.suctionHeightM, formatFeet(row.suctionHeightM))}
                                   </div>
-                                ) : (
-                                  <>
-                                    <div class="text-sm font-semibold text-slate-950 text-center">
-                                      {formatPsi(row.pressureMPa)} psi ({row.pressureMPa} MPa)
-                                    </div>
-                                    <div class="text-sm text-slate-800 text-center">
-                                      {text.suctionCondition(row.suctionHeightM, formatFeet(row.suctionHeightM))}
-                                    </div>
-                                  </>
                                 )}
                               </div>
                             </div>

@@ -86,9 +86,55 @@ export const ft510_a: Firepump = {
           rows: [
             { key: 'model', values: ['SHIBAURA B612B', 'SHIBAURA B612B'] },
             { key: 'type', values: ['High pressure, single stage centrifugal pump', 'High pressure, single stage centrifugal pump'] },
-            { key: 'dischargePerformance', pressureMPa: '0.5', suctionHeightM: '1', values: ['1,703 L/min', '450 gpm @ 72 psi'] },
-            { key: 'dischargePerformance', pressureMPa: '0.6', suctionHeightM: '1', values: ['1,590 L/min', '420 gpm @ 87 psi'] },
-            { key: 'dischargePerformance', pressureMPa: '0.8', suctionHeightM: '1', values: ['1,476 L/min', '390 gpm @ 116 psi'] },
+            {
+              key: 'maximumDischargePerformance',
+              pressureMPa: '0.5',
+              suctionHeightM: '1',
+              performanceSource: 'distributor',
+              values: ['1,703 L/min', '450 gpm @ 72 psi']
+            },
+            {
+              key: 'maximumDischargePerformance',
+              pressureMPa: '0.6',
+              suctionHeightM: '1',
+              performanceSource: 'distributor',
+              values: ['1,590 L/min', '420 gpm @ 87 psi']
+            },
+            {
+              key: 'maximumDischargePerformance',
+              pressureMPa: '0.8',
+              suctionHeightM: '1',
+              performanceSource: 'distributor',
+              values: ['1,476 L/min', '390 gpm @ 116 psi']
+            },
+            {
+              key: 'dischargePerformance',
+              pressureMPa: '0.5',
+              suctionHeightM: '1',
+              performanceSource: 'manufacturer',
+              values: ['1,450 L/min', '383 gpm @ 72.5 psi']
+            },
+            {
+              key: 'dischargePerformance',
+              pressureMPa: '0.5',
+              suctionHeightM: '3',
+              performanceSource: 'manufacturer',
+              values: ['1,435 L/min', '379 gpm @ 72.5 psi']
+            },
+            {
+              key: 'dischargePerformance',
+              pressureMPa: '1.0',
+              suctionHeightM: '1',
+              performanceSource: 'manufacturer',
+              values: ['830 L/min', '219 gpm @ 145 psi']
+            },
+            {
+              key: 'dischargePerformance',
+              pressureMPa: '1.0',
+              suctionHeightM: '3',
+              performanceSource: 'manufacturer',
+              values: ['790 L/min', '209 gpm @ 145 psi']
+            },
             { key: 'primingPerformance', qualifier: '1 m', values: ['3.5 Seconds', '3.5 Seconds (3.3 ft suction head)'] },
             {
               key: 'dischargeDiameterJis',

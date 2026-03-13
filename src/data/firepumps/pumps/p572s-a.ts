@@ -85,10 +85,62 @@ export const p572s_a: Firepump = {
           rows: [
             { key: 'model', values: ['SHIBAURA P572', 'SHIBAURA P572'] },
             { key: 'type', values: ['High pressure, single stage centrifugal pump', 'High pressure, single stage centrifugal pump'] },
-            { key: 'dischargePerformance', pressureMPa: '0.5', suctionHeightM: '1', values: ['1,650 L/min', '436 gpm @ 72.5 psi, 3.3 ft'] },
-            { key: 'dischargePerformance', pressureMPa: '0.7', suctionHeightM: '1', values: ['1,600 L/min', '423 gpm @ 101.5 psi, 3.3 ft'] },
-            { key: 'dischargePerformance', pressureMPa: '1.0', suctionHeightM: '1', values: ['1,100 L/min', '291 gpm @ 145 psi, 3.3 ft'] },
-            { key: 'dischargePerformance', pressureMPa: '1.0', suctionHeightM: '3', values: ['1,070 L/min', '283 gpm @ 145 psi, 9.8 ft'] },
+            {
+              key: 'maximumDischargePerformance',
+              pressureMPa: '0.4',
+              suctionHeightM: '1',
+              performanceSource: 'distributor',
+              values: ['2,233 L/min', '590 gpm @ 58 psi']
+            },
+            {
+              key: 'maximumDischargePerformance',
+              pressureMPa: '0.6',
+              suctionHeightM: '1',
+              performanceSource: 'distributor',
+              values: ['2,385 L/min', '630 gpm @ 87 psi']
+            },
+            {
+              key: 'maximumDischargePerformance',
+              pressureMPa: '0.8',
+              suctionHeightM: '1',
+              performanceSource: 'distributor',
+              values: ['1,893 L/min', '500 gpm @ 116 psi']
+            },
+            {
+              key: 'maximumDischargePerformance',
+              pressureMPa: '1.0',
+              suctionHeightM: '3',
+              performanceSource: 'distributor',
+              values: ['1,476 L/min', '390 gpm @ 145 psi']
+            },
+            {
+              key: 'dischargePerformance',
+              pressureMPa: '0.5',
+              suctionHeightM: '1',
+              performanceSource: 'manufacturer',
+              values: ['1,650 L/min', '436 gpm @ 72.5 psi']
+            },
+            {
+              key: 'dischargePerformance',
+              pressureMPa: '0.7',
+              suctionHeightM: '1',
+              performanceSource: 'manufacturer',
+              values: ['1,600 L/min', '423 gpm @ 101.5 psi']
+            },
+            {
+              key: 'dischargePerformance',
+              pressureMPa: '1.0',
+              suctionHeightM: '1',
+              performanceSource: 'manufacturer',
+              values: ['1,100 L/min', '291 gpm @ 145 psi']
+            },
+            {
+              key: 'dischargePerformance',
+              pressureMPa: '1.0',
+              suctionHeightM: '3',
+              performanceSource: 'manufacturer',
+              values: ['1,070 L/min', '283 gpm @ 145 psi']
+            },
             { key: 'primingPerformance', qualifier: '1 m', values: ['2.1 Seconds', '2.1 Seconds (3.3 ft suction head)'] },
             {
               key: 'dischargeDiameterJis',
@@ -149,7 +201,7 @@ export const p572s_a: Firepump = {
       { label: 'Priming performance (1 m suction head)', value: '2.1 sec' },
       {
         label: 'Performance note',
-        value: 'Performance values represent maximum pump output measured under standard factory test conditions.'
+        value: '*Performance values represent maximum output under standard factory test conditions; actual performance may vary depending on operating conditions.'
       }
     ]
   };

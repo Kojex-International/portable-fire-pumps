@@ -29,9 +29,14 @@ export type PrimingPerformanceSpecRow = SpecRow<'primingPerformance'> & {
   qualifier: string;
 };
 
-export type DischargePerformanceSpecRow = SpecRow<'dischargePerformance'> & {
+export type PerformanceSpecKey = 'dischargePerformance' | 'maximumDischargePerformance';
+export type PerformanceSpecSource = 'distributor' | 'manufacturer';
+
+export type DischargePerformanceSpecRow<K extends PerformanceSpecKey = PerformanceSpecKey> = SpecRow<K> & {
   pressureMPa: string;
   suctionHeightM: string;
+  performanceSource?: PerformanceSpecSource;
+  showSuctionCondition?: boolean;
 };
 
 export type ModelSpecRow = SpecRow<ModelSpecKey>;
