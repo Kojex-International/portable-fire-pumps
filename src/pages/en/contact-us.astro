@@ -8,7 +8,6 @@ import { MessageSquare, Clock, Shield, CheckCircle2, Phone, Mail, Award, Trendin
 import rfqBgImg from '@assets/contact-rfq-hero.png';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
 import { buildContactPageSchema } from '@utils/seo/schema';
-const thanksHref = '/contact-us/thanks?lang=en';
 const metadata = getNonProductMetadata({
   pageKey: 'contact',
   locale: 'en',
@@ -77,7 +76,7 @@ const structuredData = buildContactPageSchema(metadata.canonicalUrl, 'en');
       <!-- Form -->
       <div class="lg:col-span-2">
         <Card>
-          <RFQForm action={thanksHref} locale="en" />
+          <RFQForm locale="en" />
         </Card>
       </div>
 
