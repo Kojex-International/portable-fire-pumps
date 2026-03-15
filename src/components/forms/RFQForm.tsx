@@ -9,6 +9,7 @@ interface RFQFormProps {
 export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
   const isFrench = locale === 'fr';
   const iconStroke = 1.75;
+  const formName = isFrench ? 'pump-inquiry-fr' : 'pump-inquiry-en';
   const formAction = action ?? (isFrench ? '/fr/contact-us/thanks/' : '/en/contact-us/thanks/');
   const t = {
     contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
@@ -42,7 +43,7 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
     <form
       className="space-y-6"
       id="rfq-form"
-      name="pump-inquiry"
+      name={formName}
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
@@ -52,7 +53,7 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
       data-details-invalid={t.detailsInvalid}
       action={formAction}
     >
-      <input type="hidden" name="form-name" value="pump-inquiry" />
+      <input type="hidden" name="form-name" value={formName} />
       <input type="hidden" name="bot-field" />
       <input type="hidden" name="locale" value={locale} />
       {/* Contact Information */}
