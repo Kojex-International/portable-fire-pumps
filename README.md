@@ -5,7 +5,7 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-UI-38B2AC)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Type%20Safe-3178C6)
 
-This repository documents a live production distributor website for **Shibaura portable fire pumps**, built for **Kojex International** to deliver product information, technical documentation, and inquiry workflows for North American buyers and partners.
+This repository documents a live production website built for **Kojex International** to present **Shibaura portable fire pumps** with technical documentation and inquiry workflows for North American buyers and partners.
 
 🌐 Live site: [https://www.portable-fire-pumps.com](https://www.portable-fire-pumps.com)
 
@@ -13,33 +13,35 @@ It is built with **Astro, React, Tailwind CSS, and TypeScript** using an Astro-f
 
 ## My Role
 
-Although this repository is hosted under the **Kojex International** organization, the site architecture and implementation were developed by **Nicholas Matsumoto**.
+This repository is hosted under the **Kojex International** organization, while the site architecture and implementation were developed by **Nicholas Matsumoto**.
 
 - Migrated the legacy Wix site to a modern Astro static architecture
 - Designed the modular fire pump product data system
 - Implemented bilingual routing across the entire site (`/en/` and `/fr/`)
-- Built product detail pages and technical documentation resources
-- Structured the Resources section for manuals, catalogs, and parts references
+- Built product detail pages and technical documentation resources, including the Resources section
 - Implemented SEO metadata, sitemap generation, and environment-aware indexing behavior
-- Deployed and maintained the production site on Netlify
-- Preserved a low-JavaScript, Astro-first rendering model across the site
+- Deployed and maintained the production site on Netlify while preserving a low-JavaScript, Astro-first rendering model
 
 ## Screenshots
 
 ### Homepage
 Shows the bilingual marketing homepage, product positioning, and primary entry points into the catalog.
+
 ![Homepage](./docs/screenshots/homepage.png)
 
 ### Product Listing
 Highlights the product family overview and category-driven navigation used to guide buyers to the right pump line.
+
 ![Product Listing](./docs/screenshots/product-listing.png)
 
 ### Product Detail (FT510)
 Demonstrates the product detail architecture, including specifications, supporting media, and conversion-oriented content blocks.
+
 ![Product Detail](./docs/screenshots/product-detail-ft510.png)
 
 ### Resources & Documentation
 Shows the documentation experience for manuals, catalogs, and technical resources that support evaluation and after-sales use.
+
 ![Resources](./docs/screenshots/resources-search.png)
 
 ## Architecture Highlights
@@ -59,16 +61,15 @@ Kojex International distributes Shibaura portable fire pumps, and this site prov
 
 This repository powers the Portable Fire Pumps website as a distributor-focused product information and technical documentation platform.
 
-It is not an ecommerce storefront. The site is designed to:
-- Present pump model pages and supporting product information
+This is not an ecommerce storefront. The site is designed to:
+- Present pump model pages and core product information
 - Publish technical manuals, catalogs, parts lists, and related resources
-- Support distributor-facing credibility and capture contact / RFQ inquiries
+- Support distributor credibility and contact / RFQ workflows
 
 ## Project Status
 
 The project is under active development with a focus on product depth, technical clarity, and commercial usability.
 
-Current priorities:
 - Expanding model-specific product pages across the lineup
 - Improving technical resources, manuals, and documentation coverage
 - Refining SEO, performance, and lead-generation content across EN/FR routes
@@ -423,13 +424,13 @@ npm run build
 
 This creates a `dist/` folder with your static site.
 
-### Deploy to Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
 ### Deploy to Netlify
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start)
+
+### Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 
 ### Other Platforms
 
@@ -457,14 +458,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome. Please open an issue in this repository.
-
-## ⭐ Show Your Support
-
-If you find this repository useful, please give it a star on GitHub.
+Contributions and issue reports are welcome. Please open an issue before making substantial changes so work can be aligned with the project direction.
 
 ## 📧 Support
 
 For questions or support, please open an issue on GitHub.
-
-Built with [Astro](https://astro.build)
