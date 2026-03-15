@@ -53,51 +53,25 @@ Shows the documentation experience for manuals, catalogs, and technical resource
 
 ## Project Background
 
-Kojex International distributes Shibaura portable fire pumps and needed a production website that could communicate product information and technical resources more effectively than the previous Wix implementation. The platform is designed to support distributors, procurement teams, and emergency response organizations evaluating pump models and documentation.
-
-This project replaces that legacy Wix-based site with a modern static architecture focused on maintainability, performance, bilingual publishing, and documentation delivery. The result is a business-facing platform that supports both product discovery and technical follow-up.
-
-## Portfolio Note
-
-- Real production business website serving a live distributor brand
-- Bilingual site architecture with aligned EN/FR route structure
-- Modular product data rendering for scalable product detail pages
-- Static site performance and SEO optimization in a production deployment
-- Documentation and resource management for manuals, catalogs, and parts content
+Kojex International distributes Shibaura portable fire pumps, and this site provides the product information and technical resources needed by distributors, procurement teams, and emergency response organizations. It replaces a legacy Wix implementation with a modern static platform focused on maintainability, performance, bilingual publishing, and documentation delivery.
 
 ## Repository Purpose
 
 This repository powers the Portable Fire Pumps website as a distributor-focused product information and technical documentation platform.
 
 It is not an ecommerce storefront. The site is designed to:
-- Present portable fire pump product lines and detailed model pages
-- Publish technical manuals, catalogs, parts lists, and supporting resources
-- Support distributor discovery, credibility, and engagement
-- Capture contact and RFQ inquiries for sales follow-up
+- Present pump model pages and supporting product information
+- Publish technical manuals, catalogs, parts lists, and related resources
+- Support distributor-facing credibility and capture contact / RFQ inquiries
 
 ## Project Status
 
-The project is under active development, with ongoing work focused on commercial clarity and technical depth.
+The project is under active development with a focus on product depth, technical clarity, and commercial usability.
 
 Current priorities:
-- Expanding model-specific product pages across the pump lineup
-- Strengthening technical documentation, manuals, and resource coverage
-- Improving distributor visibility and lead-generation pathways
-- Refining performance, SEO, and content quality across EN/FR routes
-
-## 🖼️ Preview
-
-This preview shows the current homepage presentation and overall visual direction of the site.
-
-### Website Screenshot
-<img alt="Portable Fire Pumps Website Preview" src="./public/hero-firepump-loop-poster.png" />
-
-### Performance & Speed
-Run a local production build to validate output quality and performance:
-
-```bash
-npm run build
-```
+- Expanding model-specific product pages across the lineup
+- Improving technical resources, manuals, and documentation coverage
+- Refining SEO, performance, and lead-generation content across EN/FR routes
 
 ## ✨ Features
 
@@ -260,20 +234,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 | `npm run preview`      | Preview your build locally, before deploying     |
 | `npm run audit:images` | Audit active image alt text and filename quality |
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-
-## Website Preview
-
-### Homepage
-
-![Homepage](docs/screenshots/homepage.png)
-
-### Product Page
-
-![Product Page](docs/screenshots/product-page.png)
-
-### Resources
-
-![Resources](docs/screenshots/resources.png)
 
 ## 📁 Project Structure
 
