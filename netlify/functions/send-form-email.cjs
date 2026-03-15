@@ -2,16 +2,30 @@ const RESEND_API_URL = "https://api.resend.com/emails";
 const HIDDEN_KEYS = new Set(["form-name", "bot-field", "locale"]);
 
 const FIELD_LABELS = {
-  firstName: "First Name",
-  lastName: "Last Name",
-  email: "Email Address",
-  phone: "Phone Number",
-  organization: "Organization",
-  industry: "Organization Type",
-  services: "Inquiring About",
-  timeline: "Purchase Timeline",
-  volume: "Estimated Quantity",
-  details: "Inquiry Comment",
+  en: {
+    firstName: "First Name",
+    lastName: "Last Name",
+    email: "Email Address",
+    phone: "Phone Number",
+    organization: "Organization",
+    industry: "Organization Type",
+    services: "Inquiring About",
+    timeline: "Purchase Timeline",
+    volume: "Estimated Quantity",
+    details: "Inquiry Comment",
+  },
+  fr: {
+    firstName: "Prénom",
+    lastName: "Nom",
+    email: "Adresse courriel",
+    phone: "Téléphone",
+    organization: "Organisation",
+    industry: "Type d’organisation",
+    services: "Demande concernant",
+    timeline: "Échéancier d’achat",
+    volume: "Quantité estimée",
+    details: "Commentaire sur la demande",
+  },
 };
 
 const FIELD_VALUE_LABELS = {
@@ -77,11 +91,33 @@ const FIELD_VALUE_LABELS = {
   },
 };
 
-const FIELD_SECTIONS = [
-  { title: "Contact Information", keys: ["firstName", "lastName", "email", "phone"] },
-  { title: "Organization Information", keys: ["organization", "industry"] },
-  { title: "Inquiry Information", keys: ["services", "timeline", "volume", "details"] },
-];
+const FIELD_SECTIONS = {
+  en: [
+    { title: "Contact Information", keys: ["firstName", "lastName", "email", "phone"] },
+    { title: "Organization Information", keys: ["organization", "industry"] },
+    { title: "Inquiry Information", keys: ["services", "timeline", "volume", "details"] },
+  ],
+  fr: [
+    { title: "Coordonnées", keys: ["firstName", "lastName", "email", "phone"] },
+    { title: "Informations sur l’organisation", keys: ["organization", "industry"] },
+    { title: "Renseignements sur la demande", keys: ["services", "timeline", "volume", "details"] },
+  ],
+};
+
+function getSingleValue(value) {
+  if (Array.isArray(value)) {
+    return value.length ? value[value.length - 1] : undefined;
+  }
+  return value;
+}
+
+function getFieldLabel(fieldKey, locale) {
+  return FIELD_LABELS[locale]?.[fieldKey] || FIELD_LABELS.en[fieldKey] || fieldKey;
+}
+
+function getSections(locale) {
+  return FIELD_SECTIONS[locale] || FIELD_SECTIONS.en;
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -147,7 +183,8 @@ function formatValue(fieldKey, value, locale) {
 }
 
 function detectLocale(data) {
-  return data.locale === "fr" ? "fr" : "en";
+  const localeValue = String(getSingleValue(data.locale) || "").toLowerCase();
+  return localeValue.startsWith("fr") ? "fr" : "en";
 }
 
 function buildRowsForKeys(data, keys, locale) {
@@ -157,7 +194,7 @@ function buildRowsForKeys(data, keys, locale) {
       (key) => `
         <tr>
           <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:600;color:#111827;vertical-align:top;width:35%;font-size:15px;line-height:22px;">
-            ${escapeHtml(FIELD_LABELS[key] || key)}
+            ${escapeHtml(getFieldLabel(key, locale))}
           </td>
           <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#374151;font-weight:400;font-size:15px;line-height:22px;">
             ${formatValue(key, data[key], locale)}
@@ -170,7 +207,7 @@ function buildRowsForKeys(data, keys, locale) {
 
 function buildUnknownRows(data, locale) {
   const knownKeys = new Set([
-    ...FIELD_SECTIONS.flatMap((section) => section.keys),
+    ...getSections(locale).flatMap((section) => section.keys),
     ...HIDDEN_KEYS,
   ]);
 
@@ -180,7 +217,7 @@ function buildUnknownRows(data, locale) {
       ([key, value]) => `
         <tr>
           <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#9ca3af;vertical-align:top;width:35%;font-size:11px;line-height:15px;">
-            ${escapeHtml(FIELD_LABELS[key] || key)}
+            ${escapeHtml(getFieldLabel(key, locale))}
           </td>
           <td style="padding:6px 8px;border-bottom:1px solid #f1f5f9;color:#9ca3af;font-size:11px;line-height:15px;font-weight:400;">
             ${formatValue(key, value, locale)}
@@ -196,7 +233,7 @@ function buildHtmlEmail(formName, data) {
   const markLogoUrl = `${siteUrl}/email/shibaura-logo-mark.png`;
   const wordmarkLogoUrl = `${siteUrl}/email/SHIBAURA-wordmark.png`;
   const locale = detectLocale(data);
-  const sectionBlocks = FIELD_SECTIONS.map((section) => {
+  const sectionBlocks = getSections(locale).map((section) => {
     const rows = buildRowsForKeys(data, section.keys, locale);
     if (!rows) return "";
     return `
@@ -227,7 +264,7 @@ function buildHtmlEmail(formName, data) {
                 <img src="${wordmarkLogoUrl}" alt="SHIBAURA" style="height:22px;width:auto;vertical-align:middle;display:inline-block;margin-left:10px;" />
               </td>
               <td style="padding-left:14px;vertical-align:middle;">
-                <h2 style="margin:0;font-size:20px;line-height:28px;color:#ffffff;">Portable Fire Pump Inquiry</h2>
+                <h2 style="margin:0;font-size:20px;line-height:28px;color:#ffffff;">${locale === "fr" ? "Demande de pompe incendie portative" : "Portable Fire Pump Inquiry"}</h2>
               </td>
             </tr>
           </table>
@@ -253,8 +290,8 @@ function buildHtmlEmail(formName, data) {
 
 function buildTextEmail(formName, data) {
   const locale = detectLocale(data);
-  const lines = [`New form submission: ${formName}`, ""];
-  for (const section of FIELD_SECTIONS) {
+  const lines = [locale === "fr" ? `Nouvelle soumission de formulaire : ${formName}` : `New form submission: ${formName}`, ""];
+  for (const section of getSections(locale)) {
     const visible = section.keys.filter((key) => Object.prototype.hasOwnProperty.call(data, key));
     if (!visible.length) continue;
     lines.push(`${section.title}:`);
@@ -262,7 +299,7 @@ function buildTextEmail(formName, data) {
       const value = Array.isArray(data[key])
         ? data[key].map((item) => mapDisplayValue(key, item, locale)).join(", ")
         : mapDisplayValue(key, data[key], locale) || "(empty)";
-      lines.push(`- ${FIELD_LABELS[key] || key}: ${value}`);
+      lines.push(`- ${getFieldLabel(key, locale)}: ${value}`);
     }
     lines.push("");
   }
@@ -321,11 +358,22 @@ exports.handler = async (event) => {
       };
     }
 
-    const { formName, data } = normalizePayload(event);
-    const subject = `New form submission: ${formName}`;
+    const { formName, data, meta } = normalizePayload(event);
+    const locale = detectLocale(data);
+    const subject = locale === "fr" ? `Nouvelle soumission de formulaire : ${formName}` : `New form submission: ${formName}`;
     const html = buildHtmlEmail(formName, data);
     const text = buildTextEmail(formName, data);
-    const replyTo = typeof data.email === "string" && data.email.includes("@") ? data.email : undefined;
+    const replyToValue = getSingleValue(data.email);
+    const replyTo = typeof replyToValue === "string" && replyToValue.includes("@") ? replyToValue : undefined;
+
+    console.log(JSON.stringify({
+      message: "send-form-email received submission",
+      formName,
+      locale,
+      payloadKeys: Object.keys(data),
+      metaKeys: meta && typeof meta === "object" ? Object.keys(meta) : [],
+      replyTo,
+    }));
 
     await sendEmail({
       apiKey,
@@ -337,8 +385,20 @@ exports.handler = async (event) => {
       replyTo,
     });
 
+    console.log(JSON.stringify({
+      message: "send-form-email send attempted",
+      status: "ok",
+      formName,
+      locale,
+    }));
+
     return { statusCode: 200, body: "Email sent" };
   } catch (error) {
+    console.error(JSON.stringify({
+      message: "send-form-email failed",
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    }));
     return {
       statusCode: 500,
       body: `Failed to send email: ${error.message}`,
