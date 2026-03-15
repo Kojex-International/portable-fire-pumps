@@ -11,6 +11,20 @@ Distributor website for **Shibaura portable fire pumps**, operated by **Kojex In
 
 Built with **Astro, React, Tailwind CSS, and TypeScript**.
 
+## Screenshots
+
+### Homepage
+![Homepage](docs/screenshots/homepage.png)
+
+### Product Listing
+![Product Listing](docs/screenshots/product-listing.png)
+
+### Product Detail (FT510)
+![Product Detail](docs/screenshots/product-detail-ft510.png)
+
+### Resources & Documentation
+![Resources](docs/screenshots/resources-search.png)
+
 ## Repository Purpose
 
 This repository powers the Portable Fire Pumps website for a distributor-focused product and technical information platform.
