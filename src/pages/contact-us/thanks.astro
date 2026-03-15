@@ -21,7 +21,21 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         explicit === 'fr' ||
         currentPath.startsWith('/fr/') ||
         referrerPath.startsWith('/fr/');
-      const target = isFrench ? '/fr/contact-us/thanks' : '/en/contact-us/thanks';
+      const target = isFrench ? '/fr/contact-us/thanks/' : '/en/contact-us/thanks/';
+
+      const heading = document.getElementById('thanks-redirect-heading');
+      const body = document.getElementById('thanks-redirect-body');
+      const enLink = document.getElementById('thanks-redirect-en');
+      const frLink = document.getElementById('thanks-redirect-fr');
+
+      if (isFrench) {
+        document.documentElement.lang = 'fr';
+        if (heading) heading.textContent = 'Redirection vers votre page de confirmation…';
+        if (body) body.textContent = 'Si la redirection ne fonctionne pas, choisissez votre langue :';
+      }
+
+      if (enLink) enLink.setAttribute('href', '/en/contact-us/thanks/');
+      if (frLink) frLink.setAttribute('href', '/fr/contact-us/thanks/');
 
       if (window.location.pathname !== target) {
         window.location.replace(target);
@@ -30,12 +44,12 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   </script>
   <main class="min-h-[40vh] flex items-center justify-center px-6 text-center">
     <div class="space-y-3">
-      <p class="text-slate-700">Redirecting to your confirmation page…</p>
-      <p class="text-sm text-slate-500">
-        If you are not redirected, choose:
-        <a href="/en/contact-us/thanks" class="ml-1 text-[var(--brand-1)] hover:underline">EN</a>
+      <p id="thanks-redirect-heading" class="text-slate-700">Redirecting to your confirmation page…</p>
+      <p id="thanks-redirect-body" class="text-sm text-slate-500">
+        If you are not redirected, choose your language:
+        <a id="thanks-redirect-en" href="/en/contact-us/thanks/" class="ml-1 text-[var(--brand-1)] hover:underline">EN</a>
         /
-        <a href="/fr/contact-us/thanks" class="ml-1 text-[var(--brand-1)] hover:underline">FR</a>
+        <a id="thanks-redirect-fr" href="/fr/contact-us/thanks/" class="ml-1 text-[var(--brand-1)] hover:underline">FR</a>
       </p>
     </div>
   </main>

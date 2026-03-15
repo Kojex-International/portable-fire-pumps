@@ -9,7 +9,7 @@ interface RFQFormProps {
 export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
   const isFrench = locale === 'fr';
   const iconStroke = 1.75;
-  const formAction = action ?? (isFrench ? '/fr/contact-us/thanks' : '/en/contact-us/thanks');
+  const formAction = action ?? (isFrench ? '/fr/contact-us/thanks/' : '/en/contact-us/thanks/');
   const t = {
     contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
     firstName: isFrench ? 'Prénom' : 'First Name',
