@@ -5,47 +5,89 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-UI-38B2AC)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Type%20Safe-3178C6)
 
-Distributor website for **Shibaura portable fire pumps**, operated by **Kojex International**.
+This repository documents a live production distributor website for **Shibaura portable fire pumps**, built for **Kojex International** to deliver product information, technical documentation, and inquiry workflows for North American buyers and partners.
 
-🌐 Live site: *coming soon*
+🌐 Live site: [https://www.portable-fire-pumps.com](https://www.portable-fire-pumps.com)
 
-Built with **Astro, React, Tailwind CSS, and TypeScript**.
+It is built with **Astro, React, Tailwind CSS, and TypeScript** using an Astro-first, low-JavaScript architecture.
+
+## My Role
+
+Although this repository is hosted under the **Kojex International** organization, the site architecture and implementation were developed by **Nicholas Matsumoto**.
+
+- Migrated the legacy Wix site to a modern Astro static architecture
+- Designed the modular fire pump product data system
+- Implemented bilingual routing across the entire site (`/en/` and `/fr/`)
+- Built product detail pages and technical documentation resources
+- Structured the Resources section for manuals, catalogs, and parts references
+- Implemented SEO metadata, sitemap generation, and environment-aware indexing behavior
+- Deployed and maintained the production site on Netlify
+- Preserved a low-JavaScript, Astro-first rendering model across the site
 
 ## Screenshots
 
 ### Homepage
-![Homepage](docs/screenshots/homepage.png)
+Shows the bilingual marketing homepage, product positioning, and primary entry points into the catalog.
+![Homepage](./docs/screenshots/homepage.png)
 
 ### Product Listing
-![Product Listing](docs/screenshots/product-listing.png)
+Highlights the product family overview and category-driven navigation used to guide buyers to the right pump line.
+![Product Listing](./docs/screenshots/product-listing.png)
 
 ### Product Detail (FT510)
-![Product Detail](docs/screenshots/product-detail-ft510.png)
+Demonstrates the product detail architecture, including specifications, supporting media, and conversion-oriented content blocks.
+![Product Detail](./docs/screenshots/product-detail-ft510.png)
 
 ### Resources & Documentation
-![Resources](docs/screenshots/resources-search.png)
+Shows the documentation experience for manuals, catalogs, and technical resources that support evaluation and after-sales use.
+![Resources](./docs/screenshots/resources-search.png)
+
+## Architecture Highlights
+
+- Astro-first architecture keeps most pages fully static and minimizes client-side JavaScript
+- React islands are used only where interaction is required, such as forms and navigation
+- Modular fire pump data files support scalable product detail rendering across models
+- Bilingual route structure is maintained consistently under `/en/` and `/fr/`
+- Static site generation supports fast delivery, crawlability, and SEO control
+- The Resources section is structured as a documentation system for distributors and operators
+
+## Project Background
+
+Kojex International distributes Shibaura portable fire pumps and needed a production website that could communicate product information and technical resources more effectively than the previous Wix implementation. The platform is designed to support distributors, procurement teams, and emergency response organizations evaluating pump models and documentation.
+
+This project replaces that legacy Wix-based site with a modern static architecture focused on maintainability, performance, bilingual publishing, and documentation delivery. The result is a business-facing platform that supports both product discovery and technical follow-up.
+
+## Portfolio Note
+
+- Real production business website serving a live distributor brand
+- Bilingual site architecture with aligned EN/FR route structure
+- Modular product data rendering for scalable product detail pages
+- Static site performance and SEO optimization in a production deployment
+- Documentation and resource management for manuals, catalogs, and parts content
 
 ## Repository Purpose
 
-This repository powers the Portable Fire Pumps website for a distributor-focused product and technical information platform.
+This repository powers the Portable Fire Pumps website as a distributor-focused product information and technical documentation platform.
 
-It is not an ecommerce storefront. The primary purpose is to:
-- Showcase fire pump product lines and detail pages
-- Publish technical manuals, catalogs, and parts resources
-- Support distributor discovery and engagement
-- Capture contact and RFQ inquiries
+It is not an ecommerce storefront. The site is designed to:
+- Present portable fire pump product lines and detailed model pages
+- Publish technical manuals, catalogs, parts lists, and supporting resources
+- Support distributor discovery, credibility, and engagement
+- Capture contact and RFQ inquiries for sales follow-up
 
 ## Project Status
 
-The project is under active development.
+The project is under active development, with ongoing work focused on commercial clarity and technical depth.
 
 Current priorities:
-- Expanding pump product pages
-- Improving technical documentation and resources
-- Strengthening distributor visibility
-- Improving performance, SEO, and content quality
+- Expanding model-specific product pages across the pump lineup
+- Strengthening technical documentation, manuals, and resource coverage
+- Improving distributor visibility and lead-generation pathways
+- Refining performance, SEO, and content quality across EN/FR routes
 
 ## 🖼️ Preview
+
+This preview shows the current homepage presentation and overall visual direction of the site.
 
 ### Website Screenshot
 <img alt="Portable Fire Pumps Website Preview" src="./public/hero-firepump-loop-poster.png" />
@@ -59,22 +101,21 @@ npm run build
 
 ## ✨ Features
 
-- 🚀 **Built with Astro** - Fast, modern static site generation
-- ⚛️ **React Components** - Interactive components with React
-- 🎨 **Tailwind CSS 4** - Modern utility-first styling
-- 📱 **Fully Responsive** - Mobile-first design
-- ♿ **Accessible** - Built with accessibility in mind
-- 🎯 **SEO Optimized** - Meta tags and semantic HTML
-- 🎭 **Smooth Animations** - Powered by Motion library
-- 🎨 **Modern UI** - Beautiful gradient designs and components
+- **Bilingual EN/FR routing** across marketing, product, and documentation pages
+- **Technical product detail pages** with structured specifications, media, and supporting resources
+- **Documentation and resources system** for catalogs, manuals, and parts references
+- **RFQ and contact workflow** using Netlify Forms and serverless email notifications
+- **SEO-friendly static architecture** with canonical URLs, hreflang, sitemap, and structured data
+- **Responsive design** for desktop, tablet, and mobile use
+- **Low-JS Astro-first architecture** with interactive behavior isolated to React islands
 
 ## 🧱 Tech Stack
 
-- **Astro 5** for routing, static page rendering, and layout composition
-- **React 19** for interactive islands
-- **Tailwind CSS 4** for styling and utility classes
-- **TypeScript** for type safety in page, component, and data layers
-- **Lucide React** for iconography
+- **Astro 5** for routing and static page generation
+- **React 19** for interactive UI islands
+- **Tailwind CSS 4** for styling and responsive layouts
+- **TypeScript** for type-safe components and structured data models
+- **Lucide React** for interface iconography
 
 ## Component Conventions
 
@@ -101,19 +142,19 @@ Minimize client-side JavaScript whenever possible. If a section can render stati
 
 ## 📦 Pages Included
 
-- **Home** - Brand and product entry point
-- **Products** - Product family pages and individual pump detail pages
-- **Features** - Auto relay and core pump feature content
-- **Distributors** - Distributor network and partner details
-- **Resources** - Catalogs, manuals, parts lists, and storage notes
-- **Contact / RFQ** - Inquiry and request-for-quote workflow
+- **Home** - Brand overview and primary entry point into the site
+- **Products** - Category listings and detailed pump model pages
+- **Features** - Capability-focused pages for key pump systems and product advantages
+- **Distributors** - Distributor network information and partner-facing content
+- **Resources** - Catalogs, manuals, parts lists, and technical documentation
+- **Contact / RFQ** - Inquiry capture and request-for-quote workflow
 
 ## 🌐 Bilingual Routing Structure
 
 - English pages are served under `/en/...`
 - French pages are served under `/fr/...`
-- Route pairs should be maintained for all user-facing pages (EN/FR)
-- Navigation entries should map to both locales consistently
+- User-facing pages should be maintained as EN/FR route pairs
+- Navigation and internal linking should stay aligned across both locales
 
 ## Route Naming Conventions
 
@@ -129,7 +170,7 @@ French routes:
 - `/fr/features/`
 - `/fr/distributors/`
 
-EN and FR routes should remain structurally aligned to preserve maintainability and predictable navigation behavior.
+EN and FR routes should remain structurally aligned to support maintainability, localization consistency, and predictable navigation.
 
 ## 🚀 Quick Start
 
@@ -141,7 +182,7 @@ EN and FR routes should remain structurally aligned to preserve maintainability 
 
 1. Clone this repository:
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/Kojex-International/portable-fire-pumps.git
 cd portable-fire-pumps
 ```
 
@@ -161,7 +202,7 @@ npm run dev
 
 ### Site Configuration
 
-Update `src/config/site.ts` with your information:
+Core site metadata, canonical URL handling, and social profile links are defined in `src/config/site.ts`:
 
 ```typescript
 export const SITE = {
@@ -181,15 +222,15 @@ export const SOCIAL_LINKS = {
 
 ### Form Integration
 
-The RFQ form (`src/components/forms/RFQForm.tsx`) currently logs form data to the console. To integrate with a backend:
+The RFQ form (`src/components/forms/RFQForm.tsx`) is currently integrated with Netlify Forms and a serverless email workflow. If you need to adapt it for another backend or hosted form service:
 
 1. **Option 1: Form Service** (Recommended for static sites)
    - Use [Formspree](https://formspree.io/), [Netlify Forms](https://www.netlify.com/products/forms/), or similar
-   - Update the `handleSubmit` function in `RFQForm.tsx`
+   - Update the submission flow in `RFQForm.tsx`
 
 2. **Option 2: Custom API**
-   - Create an API endpoint
-   - Update the form submission handler
+   - Create an API endpoint or serverless function
+   - Update the form submission handler accordingly
 
 Example with Formspree:
 ```typescript
