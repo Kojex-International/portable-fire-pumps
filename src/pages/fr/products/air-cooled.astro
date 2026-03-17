@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/layout/Section.astro';
 import MobilePumpCards from '../../../components/products/MobilePumpCards';
 import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
+import CategoryIntro from '../../../components/products/CategoryIntro.astro';
 import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
@@ -22,6 +23,18 @@ const firepumps = getFirepumps('fr');
 
 const AIR_COOLED_SLUGS = new Set(['ft510-a', 'ft300-400-a', 'tf516mh-ab']);
 const airCooledPumps = firepumps.filter((pump) => AIR_COOLED_SLUGS.has(pump.slug));
+const categoryIntro = {
+  badge: 'Catégorie refroidie à l’air',
+  title: 'Conçues pour les prises d’eau variables',
+  subtitle: 'Refroidissement moteur autonome pour des prises d’eau plus variables.',
+  description:
+    'Les pompes incendie portatives refroidies à l’air conviennent bien lorsque la qualité de l’eau aspirée est variable ou que des débris peuvent compliquer l’exploitation. Comme le refroidissement moteur ne dépend pas de l’eau pompée, elles offrent une mise en oeuvre plus simple sur le terrain et une exploitation plus sereine dans des conditions moins idéales. Elles sont souvent retenues pour les interventions rapides, les accès éloignés et les configurations où la simplicité prime.',
+  advantages: [
+    'Refroidissement moteur indépendant de l’eau pompée',
+    'Adaptées aux sources plus chargées ou irrégulières',
+    'Déploiement simple pour les opérations terrain',
+  ],
+};
 const metadata = getNonProductMetadata({
   pageKey: 'productsAirCooled',
   locale: 'fr',
@@ -63,12 +76,14 @@ const structuredData = buildItemListSchema({
       </span>
     </Fragment>
     <Fragment slot="description">
-      Pompes légères à intervention rapide, conçues pour un déploiement rapide et un débit fiable.
+      Refroidissement autonome pour une exploitation fiable lorsque la qualité d’eau est moins prévisible.
     </Fragment>
   </PageHero>
 
   <!-- Main Capabilities -->
   <Section background="white">
+    <CategoryIntro {...categoryIntro} />
+
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <MobilePumpCards capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" />

@@ -1,0 +1,43 @@
+---
+import SectionHeader from '../layout/SectionHeading.astro';
+
+interface Props {
+  badge: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  advantages: string[];
+}
+
+const { badge, title, subtitle, description, advantages } = Astro.props;
+---
+
+<div class="mb-10 lg:mb-12">
+  <SectionHeader
+    badge={badge}
+    title={title}
+    description={subtitle}
+    class="mb-6"
+  />
+
+  <div class="max-w-3xl mx-auto">
+    <p class="text-sm text-gray-600 leading-relaxed">
+      {description}
+    </p>
+  </div>
+
+  <div class="mt-5 max-w-3xl mx-auto">
+    <ul class="space-y-4">
+      {advantages.map((advantage) => (
+        <li class="flex items-start gap-4">
+          <div class="flex items-center justify-center w-6 h-6 text-green-600 shrink-0 mt-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed">{advantage}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

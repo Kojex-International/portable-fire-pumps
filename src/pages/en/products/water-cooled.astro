@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/layout/Section.astro';
 import MobilePumpCards from '../../../components/products/MobilePumpCards';
 import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
+import CategoryIntro from '../../../components/products/CategoryIntro.astro';
 import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
@@ -25,6 +26,18 @@ const waterCooledPumps = firepumps.filter((pump) =>
     (spec) => spec.key === 'coolingSystem' && spec.value.toLowerCase().includes('water')
   )
 );
+const categoryIntro = {
+  badge: 'Water-Cooled Category',
+  title: 'Built for Sustained Operation',
+  subtitle: 'Stable cooling for relay pumping and longer-duty use.',
+  description:
+    'Water-cooled portable fire pumps are typically chosen for applications that demand steady performance over longer operating periods. Their cooling system supports sustained output during relay pumping, extended water transfer, and other high-duty scenarios where run time matters. These pumps are best matched with relatively clean water sources so the cooling circuit can continue to perform as intended throughout the operation.',
+  advantages: [
+    'Supports sustained performance under continuous load',
+    'Well suited to long-duration relay and transfer pumping',
+    'Requires relatively clean water for effective cooling',
+  ],
+};
 const metadata = getNonProductMetadata({
   pageKey: 'productsWaterCooled',
   locale: 'en',
@@ -66,12 +79,14 @@ const structuredData = buildItemListSchema({
       </span>
     </Fragment>
     <Fragment slot="description">
-      High-output, duty-ready pumps built for sustained flow and extended operations.
+      Sustained cooling performance for relay pumping, long transfers, and extended-duty operation.
     </Fragment>
   </PageHero>
 
   <!-- Main Capabilities -->
   <Section background="white">
+    <CategoryIntro {...categoryIntro} />
+
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <MobilePumpCards capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} locale="en" />

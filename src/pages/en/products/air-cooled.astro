@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/layout/Section.astro';
 import MobilePumpCards from '../../../components/products/MobilePumpCards';
 import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
+import CategoryIntro from '../../../components/products/CategoryIntro.astro';
 import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
@@ -25,6 +26,18 @@ const airCooledPumps = firepumps.filter((pump) =>
     (spec) => spec.key === 'coolingSystem' && spec.value.toLowerCase().includes('air')
   )
 );
+const categoryIntro = {
+  badge: 'Air-Cooled Category',
+  title: 'Built for Variable Water Conditions',
+  subtitle: 'Independent engine cooling for variable water conditions.',
+  description:
+    'Air-cooled portable fire pumps are a practical choice when suction water quality is uncertain or debris levels are higher than ideal. Because engine cooling does not depend on the pumped water circuit, these units are easier to deploy in field conditions where setup simplicity and operating reliability matter. They are commonly selected for rapid response, remote access, and applications where a straightforward pump package is preferred.',
+  advantages: [
+    'No reliance on pumped water for engine cooling',
+    'Well suited to debris-heavy or inconsistent water sources',
+    'Simple, field-friendly setup and operation',
+  ],
+};
 const metadata = getNonProductMetadata({
   pageKey: 'productsAirCooled',
   locale: 'en',
@@ -66,12 +79,14 @@ const structuredData = buildItemListSchema({
       </span>
     </Fragment>
     <Fragment slot="description">
-      Lightweight, rapid-response pumps built for fast deployment and dependable output.
+      Independent cooling for dependable operation where water quality is less predictable.
     </Fragment>
   </PageHero>
 
   <!-- Main Capabilities -->
   <Section background="white">
+    <CategoryIntro {...categoryIntro} />
+
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <MobilePumpCards capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="en" />

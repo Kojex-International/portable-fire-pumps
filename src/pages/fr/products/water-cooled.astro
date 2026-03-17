@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/layout/Section.astro';
 import MobilePumpCards from '../../../components/products/MobilePumpCards';
 import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
+import CategoryIntro from '../../../components/products/CategoryIntro.astro';
 import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
@@ -22,6 +23,18 @@ const firepumps = getFirepumps('fr');
 
 const WATER_COOLED_SLUGS = new Set(['p572s-a', 'p572sw-a', 'fk500-a', 'ff500ar-a']);
 const waterCooledPumps = firepumps.filter((pump) => WATER_COOLED_SLUGS.has(pump.slug));
+const categoryIntro = {
+  badge: 'Catégorie refroidie à l’eau',
+  title: 'Conçues pour les opérations soutenues',
+  subtitle: 'Refroidissement stable pour le relais et les usages prolongés.',
+  description:
+    'Les pompes incendie portatives refroidies à l’eau sont généralement choisies pour les opérations qui exigent un débit stable sur une durée prolongée. Leur système de refroidissement convient bien au pompage en relais, aux transferts longue distance et aux missions soutenues où l’endurance de fonctionnement est déterminante. Elles donnent leur meilleur rendement avec une eau relativement propre afin de préserver l’efficacité du circuit de refroidissement.',
+  advantages: [
+    'Bon maintien des performances sous charge continue',
+    'Adaptées au pompage en relais et aux transferts prolongés',
+    'Demandent une eau relativement propre pour le refroidissement',
+  ],
+};
 const metadata = getNonProductMetadata({
   pageKey: 'productsWaterCooled',
   locale: 'fr',
@@ -63,12 +76,14 @@ const structuredData = buildItemListSchema({
       </span>
     </Fragment>
     <Fragment slot="description">
-      Pompes à haut débit conçues pour un fonctionnement continu et des opérations prolongées.
+      Refroidissement maîtrisé pour les relais, les transferts longue distance et les opérations prolongées.
     </Fragment>
   </PageHero>
 
   <!-- Main Capabilities -->
   <Section background="white">
+    <CategoryIntro {...categoryIntro} />
+
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <MobilePumpCards capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" />
