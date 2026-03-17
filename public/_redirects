@@ -1,4 +1,32 @@
 http://portable-fire-pumps.com/* https://www.portable-fire-pumps.com/:splat 301!
 https://portable-fire-pumps.com/* https://www.portable-fire-pumps.com/:splat 301!
 http://www.portable-fire-pumps.com/* https://www.portable-fire-pumps.com/:splat 301!
+# Legacy category / hub pages
+/products                 /en/products/                 301
+/products/                /en/products/                 301
+/air-cooled               /en/products/air-cooled/      301
+/air-cooled/              /en/products/air-cooled/      301
+/water-cooled             /en/products/water-cooled/    301
+/water-cooled/            /en/products/water-cooled/    301
+/about-us                 /en/about-us/                 301
+/about-us/                /en/about-us/                 301
+/contact                  /en/contact-us/               301
+/contact/                 /en/contact-us/               301
+
+# Legacy product pages
+/ft510                    /en/products/ft510-a/         301
+/ft510/                   /en/products/ft510-a/         301
+/ft500                    /en/products/ff500ar-a/       301
+/ft500/                   /en/products/ff500ar-a/       301
+/ft450                    /en/products/ft300-400-a/     301
+/ft450/                   /en/products/ft300-400-a/     301
+/ft300                    /en/products/ft300-400-a/     301
+/ft300/                   /en/products/ft300-400-a/     301
+/fk500                    /en/products/fk500-a/         301
+/fk500/                   /en/products/fk500-a/         301
+/p572                     /en/products/p572s-a/         301
+/p572/                    /en/products/p572s-a/         301
+/ff500                    /en/products/ff500ar-a/       301
+/ff500/                   /en/products/ff500ar-a/       301
+
 / /en/ 301!
