@@ -1,0 +1,102 @@
+---
+import { Image, type ImageMetadata } from 'astro:assets';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+
+interface CapabilityFeature {
+  label: string;
+  icon: string;
+}
+
+interface Capability {
+  slug: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: ImageMetadata;
+  features: CapabilityFeature[];
+}
+
+interface Props {
+  capabilities: Capability[];
+  detailsBaseHref?: string;
+  locale?: 'en' | 'fr';
+}
+
+const { capabilities, detailsBaseHref = '/en/products', locale = 'en' } = Astro.props;
+const isFrench = locale === 'fr';
+---
+
+<div class="space-y-4">
+  {capabilities.map((capability) => (
+    <article class="mx-px border border-slate-200/70 rounded-xl overflow-hidden bg-white shadow-md hover:shadow-lg transition-shadow">
+      <div class="px-6 py-5">
+        <div class="flex items-center space-x-4">
+          <div class="flex-1 pr-2">
+            <a href={`${detailsBaseHref}/${capability.slug}`} class="inline-flex items-center gap-2">
+              <h3 class="flex items-center gap-2 text-xl font-extrabold">
+                <span
+                  aria-hidden="true"
+                  class="w-7 h-7 shrink-0 brand-gradient-bg"
+                  style={`-webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+                />
+                <span class="inline-block brand-gradient-text-fill">{capability.title}</span>
+              </h3>
+            </a>
+            <h4 class="text-sm font-semibold text-slate-700 mt-1">
+              {capability.subtitle}
+            </h4>
+            <p class="text-sm text-slate-600 mt-1.5">
+              {capability.description}
+            </p>
+            <a href={`${detailsBaseHref}/${capability.slug}`} class="mt-4 block overflow-hidden bg-gradient-to-b from-white to-slate-50/30">
+              <Image
+                src={capability.image}
+                alt={capability.title}
+                class="h-56 w-full object-contain bg-white"
+                width={640}
+                height={360}
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="bg-slate-50/60 -mx-6 px-6 pt-3 pb-0">
+          <ul class="space-y-1">
+            {capability.features.map((feature, idx) => (
+              <li class="flex items-center space-x-2">
+                <div class="flex items-center justify-center shrink-0 w-4 h-4">
+                  <img
+                    src={feature.icon}
+                    alt=""
+                    class="block object-contain w-4 h-4 opacity-80"
+                    aria-hidden="true"
+                  />
+                </div>
+                <span class={`text-sm text-slate-700 leading-snug whitespace-pre-line ${idx === 0 ? 'font-semibold' : ''}`}>
+                  {feature.label}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="-mx-6 px-6 pt-4 pb-0 flex justify-center bg-white">
+          <a
+            href={`${detailsBaseHref}/${capability.slug}`}
+            class="brand-link-cta group"
+          >
+            {isFrench ? 'Voir les détails' : 'View Details'}
+            <svg
+              class="w-4 h-4 transition-transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

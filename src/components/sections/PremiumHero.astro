@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import logoMark from '@assets/shibaura-logo-mark.svg';
+import heroPoster from '@assets/hero-firepump-loop-poster.webp';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsHref = localizePath('/products', locale);
@@ -13,24 +14,27 @@ const isFrench = locale === 'fr';
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
     <video
-      class="w-full h-full object-cover object-center sm:object-center motion-reduce:hidden"
+      class="hidden md:block w-full h-full object-cover object-center sm:object-center motion-reduce:hidden"
       autoplay
       muted
       loop
       playsinline
       preload="metadata"
-      poster="/hero-firepump-loop-poster.png"
+      poster={heroPoster.src}
       aria-hidden="true"
       tabindex="-1"
     >
       <source src="/hero-firepump-loop.mp4" type="video/mp4" />
     </video>
-    <img
-      src="/hero-firepump-loop-poster.png"
+    <Image
+      src={heroPoster}
       alt=""
-      class="hidden w-full h-full object-cover object-center sm:object-center motion-reduce:block"
+      class="block w-full h-full object-cover object-center sm:object-center md:hidden motion-reduce:block md:motion-reduce:block"
       loading="eager"
       decoding="async"
+      fetchpriority="high"
+      width={1280}
+      height={720}
     />
     <div class="absolute inset-0 bg-linear-to-r from-black/46 via-black/30 to-black/14 sm:from-black/58 sm:via-black/38 sm:to-black/18"></div>
   </div>

@@ -8,18 +8,19 @@ import { localizePath } from '@config/site';
 import { getFirepumps, type Firepump } from '../../data/firepumps';
 import catalogPdf from '../../data/Shibaura_Catalog2024_9.pdf';
 import ft500CurveImg from '@assets/graphs/ft500-performance-curve.jpg';
-import ft500DimensionsImg from '@assets/graphs/ft500-dimensions-diagram.jpg';
+import ft500DimensionsImg from '@assets/graphs/ft500-dimensions-diagram.webp';
 import ft300CurveImg from '@assets/graphs/ft300-performance-curve.jpg';
-import ft300DimensionsImg from '@assets/graphs/ft300-dimensions-diagram.jpg';
+import ft300DimensionsImg from '@assets/graphs/ft300-dimensions-diagram.webp';
 import fk500CurveImg from '@assets/graphs/fk500-performance-curve.jpg';
-import fk500DimensionsImg from '@assets/graphs/fk500-dimensions-diagram.png';
+import fk500DimensionsImg from '@assets/graphs/fk500-dimensions-diagram.webp';
 import ff500CurveImg from '@assets/graphs/ff500-performance-curve.jpg';
-import ff500DimensionsImg from '@assets/graphs/ff500-dimensions-diagram.jpg';
+import ff500DimensionsImg from '@assets/graphs/ff500-dimensions-diagram.webp';
 import p572sCurveImg from '@assets/graphs/p572s-performance-curve.jpg';
-import p572sDimensionsImg from '@assets/graphs/p572s-dimensions-diagram.jpg';
+import p572sDimensionsImg from '@assets/graphs/p572s-dimensions-diagram.webp';
 import tfCurveImg from '@assets/graphs/tf516mh-performance-curve.jpg';
-import tfDimensionsImg from '@assets/graphs/tf516mh-dimensions-diagram.jpg';
+import tfDimensionsImg from '@assets/graphs/tf516mh-dimensions-diagram.webp';
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import ff500PosterImg from '@assets/videos/1kmFF500relay-poster.webp';
 
 interface Props {
   pump: Firepump;
@@ -90,7 +91,7 @@ const operationVideo =
                 : 'Watch the FF500-AR running through a complete pump operation demo.',
               desktopUrl: '/videos/products/1kmFF500relay-desktop.mp4',
               mobileUrl: '/videos/products/1kmFF500relay-mobile.mp4',
-              posterUrl: '/videos/products/1kmFF500relay-poster.jpg'
+              posterUrl: ff500PosterImg.src
             }
           : pump.slug === 'p572s-a'
             ? {
