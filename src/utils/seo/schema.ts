@@ -150,11 +150,7 @@ export const buildItemListSchema = ({
   itemListElement: items.map((item, index) => ({
     '@type': 'ListItem',
     position: index + 1,
-    item: {
-      '@type': 'Product',
-      name: item.name,
-      url: item.url,
-      ...(item.image ? { image: item.image } : {}),
-    },
+    name: item.name,
+    url: item.url,
   })),
 });
