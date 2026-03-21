@@ -241,7 +241,7 @@ function buildUnknownRows(data, locale) {
 }
 
 function buildHtmlEmail(formName, data) {
-  const siteUrl = process.env.PUBLIC_SITE_URL || "https://portable-fire-pumps.netlify.app";
+  const siteUrl = process.env.PUBLIC_SITE_URL || "https://www.portable-fire-pumps.com";
   const markLogoUrl = `${siteUrl}/email/shibaura-logo-mark.png`;
   const wordmarkLogoUrl = `${siteUrl}/email/SHIBAURA-wordmark.png`;
   const locale = detectLocale(data);
@@ -268,12 +268,12 @@ function buildHtmlEmail(formName, data) {
   return `
     <div style="background:#ffffff;padding:12px;font-family:Arial,sans-serif;color:#111827;">
       <div style="max-width:1000px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
-        <div style="padding:14px 20px;background:linear-gradient(90deg,#b91c1c,#ef4444);color:#ffffff;">
+        <div style="padding:14px 20px;background:#b91c1c;color:#ffffff;">
           <table role="presentation" style="width:100%;border-collapse:collapse;">
             <tr>
               <td style="width:1%;white-space:nowrap;vertical-align:middle;">
-                <img src="${markLogoUrl}" alt="Shibaura" style="height:34px;width:auto;vertical-align:middle;display:inline-block;" />
-                <img src="${wordmarkLogoUrl}" alt="SHIBAURA" style="height:22px;width:auto;vertical-align:middle;display:inline-block;margin-left:10px;" />
+                <img src="${markLogoUrl}" alt="Shibaura" width="60" height="34" style="width:60px;height:34px;vertical-align:middle;display:inline-block;" />
+                <img src="${wordmarkLogoUrl}" alt="SHIBAURA" width="140" height="22" style="width:140px;height:22px;vertical-align:middle;display:inline-block;margin-left:10px;" />
               </td>
               <td style="padding-left:14px;vertical-align:middle;">
                 <h2 style="margin:0;font-size:20px;line-height:28px;color:#ffffff;">${locale === "fr" ? "Demande de pompe incendie portative" : "Portable Fire Pump Inquiry"}</h2>
