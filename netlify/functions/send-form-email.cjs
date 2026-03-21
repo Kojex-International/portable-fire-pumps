@@ -272,8 +272,16 @@ function buildHtmlEmail(formName, data) {
           <table role="presentation" style="width:100%;border-collapse:collapse;">
             <tr>
               <td style="width:1%;white-space:nowrap;vertical-align:middle;">
-                <img src="${markLogoUrl}" alt="Shibaura" width="60" height="34" style="width:60px;height:34px;vertical-align:middle;display:inline-block;" />
-                <img src="${wordmarkLogoUrl}" alt="SHIBAURA" width="140" height="22" style="width:140px;height:22px;vertical-align:middle;display:inline-block;margin-left:10px;" />
+                <table role="presentation" style="border-collapse:collapse;">
+                  <tr>
+                    <td style="vertical-align:middle;padding:0;">
+                      <img src="${markLogoUrl}" alt="Shibaura" width="60" height="34" style="width:60px;height:34px;display:block;border:0;" />
+                    </td>
+                    <td style="vertical-align:middle;padding:0 0 0 10px;">
+                      <img src="${wordmarkLogoUrl}" alt="SHIBAURA" width="140" height="22" style="width:140px;height:22px;display:block;border:0;" />
+                    </td>
+                  </tr>
+                </table>
               </td>
               <td style="padding-left:14px;vertical-align:middle;">
                 <h2 style="margin:0;font-size:20px;line-height:28px;color:#ffffff;">${locale === "fr" ? "Demande de pompe incendie portative" : "Portable Fire Pump Inquiry"}</h2>
