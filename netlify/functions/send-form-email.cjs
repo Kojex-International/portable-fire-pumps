@@ -187,6 +187,18 @@ function detectLocale(data) {
   return localeValue.startsWith("fr") ? "fr" : "en";
 }
 
+function buildSubmissionSubject(formName, data) {
+  const locale = detectLocale(data);
+  const firstName = String(getSingleValue(data.firstName) || "").trim();
+  const lastName = String(getSingleValue(data.lastName) || "").trim();
+  const fullName = [firstName, lastName].filter(Boolean).join(" ").trim();
+  const email = String(getSingleValue(data.email) || "").trim();
+
+  return locale === "fr"
+    ? `${fullName} (${email}) a envoyé une demande sur portable-fire-pumps.com`
+    : `${fullName} (${email}) sent an inquiry from portable-fire-pumps.com`;
+}
+
 function buildRowsForKeys(data, keys, locale) {
   return keys
     .filter((key) => Object.prototype.hasOwnProperty.call(data, key))
@@ -290,7 +302,7 @@ function buildHtmlEmail(formName, data) {
 
 function buildTextEmail(formName, data) {
   const locale = detectLocale(data);
-  const lines = [locale === "fr" ? `Nouvelle soumission de formulaire : ${formName}` : `New form submission: ${formName}`, ""];
+  const lines = [buildSubmissionSubject(formName, data), ""];
   for (const section of getSections(locale)) {
     const visible = section.keys.filter((key) => Object.prototype.hasOwnProperty.call(data, key));
     if (!visible.length) continue;
@@ -338,6 +350,24 @@ async function sendEmail({ apiKey, from, toList, subject, html, text, replyTo })
   }
 }
 
+function getHeaderValue(headers, name) {
+  if (!headers || typeof headers !== "object") return "";
+  const direct = headers[name];
+  if (typeof direct === "string") return direct;
+  const matchedKey = Object.keys(headers).find((key) => key.toLowerCase() === name.toLowerCase());
+  return matchedKey && typeof headers[matchedKey] === "string" ? headers[matchedKey] : "";
+}
+
+function isEnhancedRequest(event) {
+  const requestedWith = getHeaderValue(event.headers, "x-requested-with").toLowerCase();
+  const accept = getHeaderValue(event.headers, "accept").toLowerCase();
+  return requestedWith === "fetch" || accept.includes("application/json");
+}
+
+function getThankYouPath(locale) {
+  return locale === "fr" ? "/fr/contact-us/thanks/" : "/en/contact-us/thanks/";
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -360,7 +390,7 @@ exports.handler = async (event) => {
 
     const { formName, data, meta } = normalizePayload(event);
     const locale = detectLocale(data);
-    const subject = locale === "fr" ? `Nouvelle soumission de formulaire : ${formName}` : `New form submission: ${formName}`;
+    const subject = buildSubmissionSubject(formName, data);
     const html = buildHtmlEmail(formName, data);
     const text = buildTextEmail(formName, data);
     const replyToValue = getSingleValue(data.email);
@@ -392,16 +422,50 @@ exports.handler = async (event) => {
       locale,
     }));
 
-    return { statusCode: 200, body: "Email sent" };
+    const redirectTo = getThankYouPath(locale);
+
+    if (isEnhancedRequest(event)) {
+      return {
+        statusCode: 200,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ok: true, redirectTo }),
+      };
+    }
+
+    return {
+      statusCode: 303,
+      headers: {
+        Location: redirectTo,
+      },
+      body: "",
+    };
   } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
     console.error(JSON.stringify({
       message: "send-form-email failed",
-      error: error instanceof Error ? error.message : String(error),
+      error: message,
       stack: error instanceof Error ? error.stack : undefined,
     }));
+
+    if (isEnhancedRequest(event)) {
+      return {
+        statusCode: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ok: false,
+          error: "Failed to send inquiry. Please try again.",
+          detail: message,
+        }),
+      };
+    }
+
     return {
       statusCode: 500,
-      body: `Failed to send email: ${error.message}`,
+      body: `Failed to send email: ${message}`,
     };
   }
 };

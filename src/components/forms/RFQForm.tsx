@@ -9,7 +9,7 @@ interface RFQFormProps {
 export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
   const isFrench = locale === 'fr';
   const iconStroke = 1.75;
-  const formAction = action ?? '/contact-us/thanks/';
+  const formAction = action ?? '/.netlify/functions/send-form-email';
   const t = {
     contactInfo: isFrench ? 'Coordonnées' : 'Contact Information',
     firstName: isFrench ? 'Prénom' : 'First Name',
@@ -37,6 +37,9 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
     detailsInvalid: isFrench ? 'Veuillez décrire brièvement votre demande.' : 'Please briefly describe your inquiry.',
     submit: isFrench ? 'Envoyer la demande' : 'Submit Request',
     industryInvalid: isFrench ? "Veuillez sélectionner un type d'organisation." : 'Please select an organization type.',
+    submitError: isFrench
+      ? "La demande n'a pas pu être envoyée. Veuillez réessayer."
+      : 'We could not send your inquiry. Please try again.',
   };
   return (
     <form
@@ -44,16 +47,14 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
       id="rfq-form"
       name="pump-inquiry"
       method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
       data-industry-invalid={t.industryInvalid}
       data-email-invalid={t.emailInvalid}
       data-phone-invalid={t.phoneInvalid}
       data-details-invalid={t.detailsInvalid}
+      data-submit-error={t.submitError}
       action={formAction}
     >
       <input type="hidden" name="form-name" value="pump-inquiry" />
-      <input type="hidden" name="bot-field" />
       <input type="hidden" name="locale" value={locale} />
       {/* Contact Information */}
       <div>
@@ -336,6 +337,9 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
         </button>
+        <p id="rfq-submit-error" className="mt-3 text-sm text-rose-600 hidden" role="alert" aria-live="polite">
+          {t.submitError}
+        </p>
       </div>
       <script
         dangerouslySetInnerHTML={{
@@ -353,12 +357,16 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               const phoneError = form.querySelector('#phone-conditional-error');
               const detailsError = form.querySelector('#details-conditional-error');
               const error = form.querySelector('#industry-conditional-error');
+              const submitError = form.querySelector('#rfq-submit-error');
+              const submitButton = form.querySelector('button[type="submit"]');
+              const localeInput = form.querySelector('input[name="locale"]');
               if (!(org instanceof HTMLInputElement) || !(industry instanceof HTMLSelectElement) || !(email instanceof HTMLInputElement) || !(phone instanceof HTMLInputElement) || !(details instanceof HTMLTextAreaElement)) return;
 
               const invalidMsg = form.getAttribute('data-industry-invalid') || 'Please select an organization type.';
               const emailInvalidMsg = form.getAttribute('data-email-invalid') || 'Please enter a valid email address.';
               const phoneInvalidMsg = form.getAttribute('data-phone-invalid') || 'At least 10 digits.';
               const detailsInvalidMsg = form.getAttribute('data-details-invalid') || 'Please briefly describe your inquiry.';
+              const submitErrorMsg = form.getAttribute('data-submit-error') || 'We could not send your inquiry. Please try again.';
               let submitted = false;
               const controls = Array.from(form.querySelectorAll('input, select, textarea')).filter((field) => {
                 if (!(field instanceof HTMLElement)) return false;
@@ -371,6 +379,13 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               const setVisible = (el, visible) => {
                 if (!el) return;
                 el.classList.toggle('hidden', !visible);
+              };
+              const setSubmitting = (isSubmitting) => {
+                if (!(submitButton instanceof HTMLButtonElement)) return;
+                submitButton.disabled = isSubmitting;
+                submitButton.setAttribute('aria-busy', isSubmitting ? 'true' : 'false');
+                submitButton.style.opacity = isSubmitting ? '0.75' : '';
+                submitButton.style.cursor = isSubmitting ? 'wait' : '';
               };
               const setInvalidBorder = (field, invalid) => {
                 if (!(field instanceof HTMLInputElement) && !(field instanceof HTMLSelectElement) && !(field instanceof HTMLTextAreaElement)) return;
@@ -385,6 +400,18 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
                 setInvalidBorder(industry, false);
                 setVisible(error, false);
                 industry.setCustomValidity('');
+              };
+              const hideSubmitError = () => {
+                if (submitError instanceof HTMLElement) {
+                  submitError.textContent = submitErrorMsg;
+                }
+                setVisible(submitError, false);
+              };
+              const showSubmitError = (message) => {
+                if (submitError instanceof HTMLElement) {
+                  submitError.textContent = message || submitErrorMsg;
+                }
+                setVisible(submitError, true);
               };
               const needsIndustry = () => org.value.trim().length > 0;
               const syncRequirement = (checkError = false) => {
@@ -513,10 +540,49 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
                   event.preventDefault();
                   const firstInvalid = form.querySelector(':invalid');
                   if (firstInvalid instanceof HTMLElement) firstInvalid.focus();
+                  return;
                 }
+                event.preventDefault();
+                hideSubmitError();
+                setSubmitting(true);
+
+                const body = new URLSearchParams(new FormData(form)).toString();
+                fetch(form.action, {
+                  method: form.method || 'POST',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'fetch'
+                  },
+                  body
+                })
+                  .then(async (response) => {
+                    let payload = null;
+                    try {
+                      payload = await response.json();
+                    } catch {
+                      payload = null;
+                    }
+
+                    if (!response.ok) {
+                      const message = payload && typeof payload.error === 'string' ? payload.error : submitErrorMsg;
+                      throw new Error(message);
+                    }
+
+                    const localeValue = localeInput instanceof HTMLInputElement ? localeInput.value : '';
+                    const redirectTo = payload && typeof payload.redirectTo === 'string'
+                      ? payload.redirectTo
+                      : (localeValue === 'fr' ? '/fr/contact-us/thanks/' : '/en/contact-us/thanks/');
+                    window.location.assign(redirectTo);
+                  })
+                  .catch((err) => {
+                    showSubmitError(err instanceof Error && err.message ? err.message : submitErrorMsg);
+                    setSubmitting(false);
+                  });
               });
 
               syncRequirement();
+              hideSubmitError();
             })();
           `,
         }}

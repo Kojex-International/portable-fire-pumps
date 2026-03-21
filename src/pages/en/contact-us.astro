@@ -32,29 +32,6 @@ const structuredData = buildContactPageSchema(metadata.canonicalUrl, 'en');
   locale="en"
   structuredData={structuredData}
 >
-  <form
-    name="pump-inquiry"
-    method="POST"
-    data-netlify="true"
-    netlify-honeypot="bot-field"
-    action="/contact-us/thanks/"
-    hidden
-  >
-    <input type="hidden" name="form-name" value="pump-inquiry" />
-    <input type="hidden" name="bot-field" />
-    <input type="hidden" name="locale" value="en" />
-    <input type="text" name="firstName" />
-    <input type="text" name="lastName" />
-    <input type="email" name="email" />
-    <input type="tel" name="phone" />
-    <input type="text" name="organization" />
-    <input type="text" name="industry" />
-    <input type="text" name="services" />
-    <input type="text" name="timeline" />
-    <input type="text" name="volume" />
-    <textarea name="details"></textarea>
-  </form>
-
   <PageHero
     backgroundImage={rfqBgImg}
     backgroundAlt="Portable fire pump sales and support consultation"
@@ -131,7 +108,7 @@ const structuredData = buildContactPageSchema(metadata.canonicalUrl, 'en');
               </div>
               <div>
                 <div class="font-semibold text-gray-900">Email</div>
-                <div class="text-gray-600 font-medium">info@kojex.com</div>
+                <div class="text-gray-600 font-medium">info@portable-fire-pumps.com</div>
                 <div class="text-gray-500 text-xs">24-hour response time</div>
               </div>
             </div>

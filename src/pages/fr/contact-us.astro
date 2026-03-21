@@ -32,29 +32,6 @@ const structuredData = buildContactPageSchema(metadata.canonicalUrl, 'fr');
   locale="fr"
   structuredData={structuredData}
 >
-  <form
-    name="pump-inquiry"
-    method="POST"
-    data-netlify="true"
-    netlify-honeypot="bot-field"
-    action="/contact-us/thanks/"
-    hidden
-  >
-    <input type="hidden" name="form-name" value="pump-inquiry" />
-    <input type="hidden" name="bot-field" />
-    <input type="hidden" name="locale" value="fr" />
-    <input type="text" name="firstName" />
-    <input type="text" name="lastName" />
-    <input type="email" name="email" />
-    <input type="tel" name="phone" />
-    <input type="text" name="organization" />
-    <input type="text" name="industry" />
-    <input type="text" name="services" />
-    <input type="text" name="timeline" />
-    <input type="text" name="volume" />
-    <textarea name="details"></textarea>
-  </form>
-
   <PageHero
     backgroundImage={rfqBgImg}
     backgroundAlt="Consultation en vente et support pour pompes incendie portables"
@@ -131,7 +108,7 @@ const structuredData = buildContactPageSchema(metadata.canonicalUrl, 'fr');
               </div>
               <div>
                 <div class="font-semibold text-gray-900">Courriel</div>
-                <div class="text-gray-600 font-medium">info@kojex.com</div>
+                <div class="text-gray-600 font-medium">info@portable-fire-pumps.com</div>
                 <div class="text-gray-500 text-xs">Réponse sous 24 h</div>
               </div>
             </div>
