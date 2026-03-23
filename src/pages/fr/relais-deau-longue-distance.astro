@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/layout/PageHero.astro';
+import Section from '../../components/layout/Section.astro';
+import SectionHeader from '../../components/layout/SectionHeading.astro';
+import ProductsCTA from '../../components/products/ProductsCTA.astro';
+import Button from '../../components/ui/Button.astro';
+import { Gauge, Workflow } from 'lucide-react';
+
+import heroBgImg from '@assets/product-features-hero.webp';
+import relayDiagramImg from '@assets/portable-fire-pump-relay-pumping-diagram.webp';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { localizePath } from '@config/site';
+
+const metadata = getNonProductMetadata({
+  pageKey: 'relayPumping',
+  locale: 'fr',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
+
+const waterCooledHref = localizePath('/products/water-cooled', 'fr');
+const ff500Href = localizePath('/products/ff500ar-a', 'fr');
+const p572Href = localizePath('/products/p572s-a', 'fr');
+const fk500Href = localizePath('/products/fk500-a', 'fr');
+const featuresHref = localizePath('/features#water-relay-system', 'fr');
+const contactHref = localizePath('/contact-us', 'fr');
+const distributorsHref = localizePath('/distributors', 'fr');
+---
+
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="fr"
+  alternates={{
+    en: 'https://www.portable-fire-pumps.com/en/long-distance-relay-pumping/',
+    fr: 'https://www.portable-fire-pumps.com/fr/relais-deau-longue-distance/',
+    xDefault: 'https://www.portable-fire-pumps.com/en/long-distance-relay-pumping/',
+  }}
+>
+  <PageHero
+    backgroundImage={heroBgImg}
+    backgroundAlt="Pompage en relais sur longue distance avec pompes incendie portatives"
+    badge="Cas d’usage"
+    badgeIconComponent={Workflow}
+    titleClass="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
+    descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
+    descriptionStyle="animation-delay: 0.1s"
+  >
+    <Fragment slot="title">
+      <span class="brand-gradient-text-fill">Relais d’eau sur longue distance</span>
+    </Fragment>
+    <Fragment slot="description">
+      Les pompes incendie portatives déployées en relais permettent d’acheminer l’eau sur de longues distances lorsque la source est éloignée de la zone d’intervention.
+    </Fragment>
+  </PageHero>
+
+  <Section background="white">
+    <SectionHeader
+      badge="Usage opérationnel"
+      badgeIconComponent={Gauge}
+      title="Quand le pompage"
+      highlight="en relais s’impose"
+      description="Le pompage en relais devient nécessaire lorsque la distance à couvrir dépasse ce qu’une seule pompe peut alimenter efficacement. Chaque étape maintient le débit et la pression vers la zone de travail."
+      class="mb-12"
+    />
+
+    <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+      <div class="space-y-6 text-lg leading-relaxed text-slate-700">
+        <p>
+          Cette configuration est particulièrement utile pour les feux de forêt, les prises d’eau éloignées, l’alimentation de sites isolés et les transferts prolongés. Le relais limite les pertes de charge dans les longues lignes de tuyaux et aide à maintenir une alimentation exploitable au dernier étage de pompage.
+        </p>
+        <ul class="space-y-3 text-base">
+          <li class="flex items-start gap-3">
+            <span class="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--brand-1)]"></span>
+            <span>Permet l’acheminement de l’eau sur de longues lignes de tuyaux.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--brand-1)]"></span>
+            <span>Convient aux sources éloignées lorsque l’alimentation directe n’est pas réaliste.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--brand-1)]"></span>
+            <span>Demande une pompe stable sous charge, facile à amorcer et adaptée aux usages soutenus.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <img src={relayDiagramImg.src} alt="Schéma de pompage en relais avec plusieurs étages de pompe" class="w-full rounded-xl border border-slate-200 bg-white p-3" />
+        <p class="mt-4 text-sm leading-relaxed text-slate-600">
+          Pour les relais de longue durée, les pompes refroidies à l’eau constituent généralement le meilleur point de départ lorsque l’eau disponible est relativement propre.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <Section background="gray">
+    <div class="grid gap-6 lg:grid-cols-2">
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Catégorie</div>
+        <h2 class="mt-2 text-2xl font-bold text-slate-900">Commencer par les modèles refroidis à l’eau</h2>
+        <p class="mt-3 text-slate-600">
+          Les pompes refroidies à l’eau conviennent mieux aux opérations qui exigent un débit stable sur une longue durée et plusieurs étages de relais.
+        </p>
+        <div class="mt-5">
+          <Button href={waterCooledHref} variant="light">Voir la catégorie refroidie à l’eau</Button>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Modèles concernés</div>
+        <h2 class="mt-2 text-2xl font-bold text-slate-900">Pompes adaptées au relais</h2>
+        <ul class="mt-4 space-y-3 text-slate-700">
+          <li><a href={ff500Href} class="font-semibold text-[var(--brand-1)] hover:underline">FF500AR-A</a> pour le pompage en relais automatique et l’acheminement sur longue distance.</li>
+          <li><a href={p572Href} class="font-semibold text-[var(--brand-1)] hover:underline">P572S-A</a> pour les transferts soutenus à haut débit.</li>
+          <li><a href={fk500Href} class="font-semibold text-[var(--brand-1)] hover:underline">FK500-A</a> pour les configurations relais avec fonctionnement stable.</li>
+        </ul>
+        <p class="mt-4 text-sm text-slate-600">
+          Consultez aussi la section technique dédiée sur la <a href={featuresHref} class="font-semibold text-[var(--brand-1)] hover:underline">page Caractéristiques</a>.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <ProductsCTA
+    locale="fr"
+    backgroundImage={heroBgImg}
+    contactHref={contactHref}
+    distributorsHref={distributorsHref}
+  />
+</BaseLayout>

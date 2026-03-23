@@ -4,6 +4,10 @@ http://www.portable-fire-pumps.com/* https://www.portable-fire-pumps.com/:splat 
 # Legacy category / hub pages
 /products                 /en/products/                 301
 /products/                /en/products/                 301
+/products/air-cooled      /en/products/air-cooled/      301
+/products/air-cooled/     /en/products/air-cooled/      301
+/products/water-cooled    /en/products/water-cooled/    301
+/products/water-cooled/   /en/products/water-cooled/    301
 /air-cooled               /en/products/air-cooled/      301
 /air-cooled/              /en/products/air-cooled/      301
 /water-cooled             /en/products/water-cooled/    301
@@ -12,6 +16,10 @@ http://www.portable-fire-pumps.com/* https://www.portable-fire-pumps.com/:splat 
 /about-us/                /en/about-us/                 301
 /contact                  /en/contact-us/               301
 /contact/                 /en/contact-us/               301
+/document                 /en/resources/                301
+/document/                /en/resources/                301
+/document-1               /en/resources/                301
+/document-1/              /en/resources/                301
 
 # Legacy product pages
 /ft510                    /en/products/ft510-a/         301

@@ -3,7 +3,6 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/layout/Section.astro';
 import MobilePumpCards from '../../../components/products/MobilePumpCards.astro';
 import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
-import CategoryIntro from '../../../components/products/CategoryIntro.astro';
 import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
@@ -19,6 +18,8 @@ const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const useCasesHref = localizePath('/use-cases', locale);
+const remoteFirefightingHref = `${useCasesHref}#remote-firefighting`;
 
 const firepumps = getFirepumps('en');
 const airCooledPumps = firepumps.filter((pump) =>
@@ -26,18 +27,6 @@ const airCooledPumps = firepumps.filter((pump) =>
     (spec) => spec.key === 'coolingSystem' && spec.value.toLowerCase().includes('air')
   )
 );
-const categoryIntro = {
-  badge: 'Air-Cooled Category',
-  title: 'Built for Variable Water Conditions',
-  subtitle: 'Independent engine cooling for variable water conditions.',
-  description:
-    'Air-cooled portable fire pumps are a practical choice when suction water quality is uncertain or debris levels are higher than ideal. Because engine cooling does not depend on the pumped water circuit, these units are easier to deploy in field conditions where setup simplicity and operating reliability matter. They are commonly selected for rapid response, remote access, and applications where a straightforward pump package is preferred.',
-  advantages: [
-    'No reliance on pumped water for engine cooling',
-    'Well suited to debris-heavy or inconsistent water sources',
-    'Simple, field-friendly setup and operation',
-  ],
-};
 const metadata = getNonProductMetadata({
   pageKey: 'productsAirCooled',
   locale: 'en',
@@ -66,27 +55,37 @@ const structuredData = buildItemListSchema({
   <PageHero
     backgroundImage={heroBgImg}
     backgroundAlt="Air-cooled portable fire pumps"
-    badge="Products"
+    badge="Air-Cooled"
     badgeIconComponent={Gauge}
+    contentClass="max-w-4xl mx-auto text-center min-h-[360px] flex flex-col items-center"
     titleClass="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
     descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="brand-gradient-text-fill">
-        Air-Cooled<br />
-        Portable Fire Pumps
-      </span>
+      <span class="brand-gradient-text-fill">Built for Variable Water Conditions</span>
     </Fragment>
     <Fragment slot="description">
-      Independent cooling for dependable operation where water quality is less predictable.
+      Air-cooled portable fire pumps are a practical choice when water quality is less predictable and crews need simpler field deployment.
     </Fragment>
+    <ul class="mt-auto mb-14 inline-flex flex-col items-start space-y-2 text-left text-sm text-slate-200 sm:text-base">
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Independent engine cooling</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Stronger fit for variable water sources</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Simple setup for field deployment</span>
+      </li>
+    </ul>
   </PageHero>
 
   <!-- Main Capabilities -->
   <Section background="white">
-    <CategoryIntro {...categoryIntro} />
-
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <MobilePumpCards capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="en" />
@@ -94,6 +93,7 @@ const structuredData = buildItemListSchema({
 
     <!-- Grid View for Desktop -->
     <DesktopPumpCards capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="en" />
+
   </Section>
 
   <ProductsCTA
@@ -101,5 +101,12 @@ const structuredData = buildItemListSchema({
     backgroundImage={heroBgImg}
     contactHref={requestQuoteHref}
     distributorsHref={distributorsHref}
+    badge="Related Use Case"
+    titleLine1="Need more context for"
+    titleLine2="Air-Cooled Selection?"
+    description="For remote access, rural firefighting, and variable water-source conditions, see how air-cooled portable fire pumps fit remote and off-grid deployment."
+    primaryCta="View Remote Firefighting"
+    primaryHref={remoteFirefightingHref}
+    secondaryCta="Find a Distributor"
   />
 </BaseLayout>

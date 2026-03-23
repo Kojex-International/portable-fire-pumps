@@ -7,6 +7,13 @@ import SectionHeader from '../../components/layout/SectionHeading.astro';
 import logoMark from '@assets/shibaura-logo-mark.svg';
 import heroOgImage from '@assets/portable-fire-pumps-hero.jpg';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { localizePath } from '@config/site';
+
+const featuresHref = localizePath('/features', 'en');
+const useCasesHref = localizePath('/use-cases', 'en');
+const resourcesHref = localizePath('/resources', 'en');
+const distributorsHref = localizePath('/distributors', 'en');
+const aboutHref = localizePath('/about-us', 'en');
 const metadata = getNonProductMetadata({
   pageKey: 'home',
   locale: 'en',
@@ -47,5 +54,14 @@ const metadata = getNonProductMetadata({
     </div>
   </section>
   <ServiceHighlights />
-  <PremiumCTA />
+  <PremiumCTA
+    description="Need more context before selecting a pump? Compare engineering features, browse manuals and parts documents, review distributor coverage, or learn more about Kojex support."
+    supportLinks={[
+      { href: featuresHref, label: 'Fire Pump Features' },
+      { href: useCasesHref, label: 'Use Cases' },
+      { href: resourcesHref, label: 'Resources' },
+      { href: distributorsHref, label: 'Distributors' },
+      { href: aboutHref, label: 'About Kojex' },
+    ]}
+  />
 </BaseLayout>

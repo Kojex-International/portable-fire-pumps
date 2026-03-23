@@ -34,6 +34,13 @@ export default defineConfig({
     }
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      entries: ['src/pages/**/*.astro'],
+      exclude: [
+        '@radix-ui/react-tabs',
+        '@radix-ui/react-accordion',
+      ],
+    },
   }
 });

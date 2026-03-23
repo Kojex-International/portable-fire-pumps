@@ -9,9 +9,32 @@ interface Props {
   backgroundImage: ImageMetadata;
   contactHref: string;
   distributorsHref: string;
+  badge?: string;
+  titleLine1?: string;
+  titleLine2?: string;
+  description?: string;
+  primaryCta?: string;
+  primaryHref?: string;
+  secondaryCta?: string;
+  secondaryHref?: string;
+  backgroundAlt?: string;
 }
 
-const { locale, backgroundImage, contactHref, distributorsHref } = Astro.props;
+const {
+  locale,
+  backgroundImage,
+  contactHref,
+  distributorsHref,
+  badge,
+  titleLine1,
+  titleLine2,
+  description,
+  primaryCta,
+  primaryHref,
+  secondaryCta,
+  secondaryHref,
+  backgroundAlt,
+} = Astro.props;
 
 const copy = {
   en: {
@@ -37,13 +60,24 @@ const copy = {
 } as const;
 
 const cta = copy[locale];
+const resolvedCta = {
+  bgAlt: backgroundAlt ?? cta.bgAlt,
+  badge: badge ?? cta.badge,
+  titleLine1: titleLine1 ?? cta.titleLine1,
+  titleLine2: titleLine2 ?? cta.titleLine2,
+  description: description ?? cta.description,
+  primaryCta: primaryCta ?? cta.primaryCta,
+  primaryHref: primaryHref ?? contactHref,
+  secondaryCta: secondaryCta ?? cta.secondaryCta,
+  secondaryHref: secondaryHref ?? distributorsHref,
+};
 ---
 
 <section class="relative py-24 md:py-28 overflow-hidden">
   <div class="absolute inset-0">
     <Image
       src={backgroundImage}
-      alt={cta.bgAlt}
+      alt={resolvedCta.bgAlt}
       class="w-full h-full object-cover"
       width={2070}
       height={1380}
@@ -55,25 +89,25 @@ const cta = copy[locale];
     <div class="max-w-4xl mx-auto text-center text-white">
       <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
         <Flame className="w-4 h-4 mr-2" />
-        {cta.badge}
+        {resolvedCta.badge}
       </div>
       <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-        {cta.titleLine1}
-        <span class="block sm:whitespace-nowrap text-[var(--brand-400)]">{cta.titleLine2}</span>
+        {resolvedCta.titleLine1}
+        <span class="block sm:whitespace-nowrap text-[var(--brand-400)]">{resolvedCta.titleLine2}</span>
       </h2>
       <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-        {cta.description}
+        {resolvedCta.description}
       </p>
 
       <div class="flex flex-col sm:flex-row gap-6 justify-center">
-        <Button href={contactHref} size="lg" class="brand-cta group">
-          {cta.primaryCta}
+        <Button href={resolvedCta.primaryHref} size="lg" class="brand-cta group">
+          {resolvedCta.primaryCta}
           <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </Button>
-        <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl! group">
-          {cta.secondaryCta}
+        <Button href={resolvedCta.secondaryHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl! group">
+          {resolvedCta.secondaryCta}
           <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>

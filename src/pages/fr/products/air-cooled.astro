@@ -3,7 +3,6 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/layout/Section.astro';
 import MobilePumpCards from '../../../components/products/MobilePumpCards.astro';
 import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
-import CategoryIntro from '../../../components/products/CategoryIntro.astro';
 import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
@@ -19,22 +18,12 @@ const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const useCasesHref = localizePath('/use-cases', locale);
+const remoteFirefightingHref = `${useCasesHref}#remote-firefighting`;
 const firepumps = getFirepumps('fr');
 
 const AIR_COOLED_SLUGS = new Set(['ft510-a', 'ft300-400-a', 'tf516mh-ab']);
 const airCooledPumps = firepumps.filter((pump) => AIR_COOLED_SLUGS.has(pump.slug));
-const categoryIntro = {
-  badge: 'Catégorie refroidie à l’air',
-  title: 'Conçues pour les prises d’eau variables',
-  subtitle: 'Refroidissement moteur autonome pour des prises d’eau plus variables.',
-  description:
-    'Les pompes incendie portatives refroidies à l’air conviennent bien lorsque la qualité de l’eau aspirée est variable ou que des débris peuvent compliquer l’exploitation. Comme le refroidissement moteur ne dépend pas de l’eau pompée, elles offrent une mise en oeuvre plus simple sur le terrain et une exploitation plus sereine dans des conditions moins idéales. Elles sont souvent retenues pour les interventions rapides, les accès éloignés et les configurations où la simplicité prime.',
-  advantages: [
-    'Refroidissement moteur indépendant de l’eau pompée',
-    'Adaptées aux sources plus chargées ou irrégulières',
-    'Déploiement simple pour les opérations terrain',
-  ],
-};
 const metadata = getNonProductMetadata({
   pageKey: 'productsAirCooled',
   locale: 'fr',
@@ -63,27 +52,37 @@ const structuredData = buildItemListSchema({
   <PageHero
     backgroundImage={heroBgImg}
     backgroundAlt="Pompes incendie portatives refroidies à l’air"
-    badge="Produits"
+    badge="Refroidies à l’air"
     badgeIconComponent={Gauge}
+    contentClass="max-w-4xl mx-auto text-center min-h-[360px] flex flex-col items-center"
     titleClass="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
     descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="brand-gradient-text-fill">
-        <span class="sm:whitespace-nowrap">Pompes incendie portatives</span><br />
-        Refroidies à l’air
-      </span>
+      <span class="brand-gradient-text-fill">Conçues pour les prises d’eau variables</span>
     </Fragment>
     <Fragment slot="description">
-      Refroidissement autonome pour une exploitation fiable lorsque la qualité d’eau est moins prévisible.
+      Les pompes incendie portatives refroidies à l’air conviennent bien lorsque la qualité d’eau est moins prévisible et qu’une mise en oeuvre simple est recherchée.
     </Fragment>
+    <ul class="mt-auto mb-14 inline-flex flex-col items-start space-y-2 text-left text-sm text-slate-200 sm:text-base">
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Refroidissement moteur autonome</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Adaptées aux prises d’eau variables</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Déploiement simple sur le terrain</span>
+      </li>
+    </ul>
   </PageHero>
 
   <!-- Main Capabilities -->
   <Section background="white">
-    <CategoryIntro {...categoryIntro} />
-
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <MobilePumpCards capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" />
@@ -91,6 +90,7 @@ const structuredData = buildItemListSchema({
 
     <!-- Grid View for Desktop -->
     <DesktopPumpCards capabilities={airCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" />
+
   </Section>
 
   <ProductsCTA
@@ -98,5 +98,12 @@ const structuredData = buildItemListSchema({
     backgroundImage={heroBgImg}
     contactHref={requestQuoteHref}
     distributorsHref={distributorsHref}
+    badge="Cas d’usage lié"
+    titleLine1="Besoin de plus de contexte pour"
+    titleLine2="les pompes refroidies à l’air?"
+    description="Pour les interventions rurales, les accès éloignés et les prises d’eau variables, voyez comment les pompes refroidies à l’air s’intègrent aux scénarios d’intervention éloignée."
+    primaryCta="Voir les interventions éloignées"
+    primaryHref={remoteFirefightingHref}
+    secondaryCta="Trouver un distributeur"
   />
 </BaseLayout>

@@ -5,10 +5,61 @@ import wildernessImg from '@assets/portable-fire-pump-wildfire-operation.webp';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import { Flame } from 'lucide-react';
 
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  titleLine1?: string;
+  titleLine2?: string;
+  description?: string;
+  badge?: string;
+  primaryCta?: string;
+  primaryHref?: string;
+  secondaryCta?: string;
+  secondaryHref?: string;
+  supportLinks?: LinkItem[];
+}
+
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 const isFrench = locale === 'fr';
+const {
+  titleLine1,
+  titleLine2,
+  description,
+  badge,
+  primaryCta,
+  primaryHref,
+  secondaryCta,
+  secondaryHref,
+  supportLinks = [],
+} = Astro.props as Props;
+
+const copy = {
+  en: {
+    badge: 'Fire Pump Readiness',
+    titleLine1: 'Protect Your Site with ',
+    titleLine2: 'Portable Fire Pumps',
+    description:
+      'High-flow, rapid-deploy pumps engineered for emergency response, remote sites, and rugged field use.',
+    primaryCta: 'Get a Fire Pump Quote',
+    secondaryCta: 'Find a Distributor',
+  },
+  fr: {
+    badge: 'Préparation aux interventions incendie',
+    titleLine1: 'Protégez votre site avec ',
+    titleLine2: 'des pompes incendie portatives',
+    description:
+      'Pompes à haut débit et à déploiement rapide, conçues pour les interventions d’urgence, les sites isolés et les environnements exigeants.',
+    primaryCta: 'Demander une soumission',
+    secondaryCta: 'Trouver un distributeur',
+  },
+} as const;
+
+const content = copy[isFrench ? 'fr' : 'en'];
 ---
 
 <section class="relative py-24 md:py-28 overflow-hidden">
@@ -29,33 +80,40 @@ const isFrench = locale === 'fr';
     <div class="max-w-4xl mx-auto text-center text-white">
       <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
         <Flame className="w-4 h-4 mr-2" />
-        {isFrench ? 'Préparation aux interventions incendie' : 'Fire Pump Readiness'}
+        {badge ?? content.badge}
       </div>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-        {isFrench ? 'Protégez votre site avec ' : 'Protect Your Site with '}
-        <span class="block text-[var(--brand-400)]">{isFrench ? 'des pompes incendie portatives' : 'Portable Fire Pumps'}</span>
+        {titleLine1 ?? content.titleLine1}
+        <span class="block text-[var(--brand-400)]">{titleLine2 ?? content.titleLine2}</span>
       </h2>
       <p class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-        {isFrench
-          ? 'Pompes à haut débit et à déploiement rapide, conçues pour les interventions d’urgence, les sites isolés et les environnements exigeants.'
-          : 'High-flow, rapid-deploy pumps engineered for emergency response, remote sites, and rugged field use.'}
+        {description ?? content.description}
       </p>
-      
-      <div class="flex flex-col sm:flex-row gap-6 justify-center">
-        <Button href={requestQuoteHref} size="lg" class="brand-cta group">
-          {isFrench ? 'Demander une soumission' : 'Get a Fire Pump Quote'}
-          <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </Button>
-        <Button href={distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl! group">
-          {isFrench ? 'Trouver un distributeur' : 'Find a Distributor'}
-          <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </Button>
-      </div>
 
+      {supportLinks.length > 0 ? (
+        <div class="flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm font-semibold">
+          {supportLinks.map((link) => (
+            <a href={link.href} class="text-white transition-colors hover:text-[var(--brand-400)] hover:underline">
+              {link.label}
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <Button href={primaryHref ?? requestQuoteHref} size="lg" class="brand-cta group">
+            {primaryCta ?? content.primaryCta}
+            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Button>
+          <Button href={secondaryHref ?? distributorsHref} size="lg" variant="outline" class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl! group">
+            {secondaryCta ?? content.secondaryCta}
+            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Button>
+        </div>
+      )}
     </div>
   </div>
 </section>

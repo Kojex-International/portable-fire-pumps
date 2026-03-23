@@ -1,16 +1,62 @@
 ---
 import { Image } from 'astro:assets';
-import Button from '../ui/Button.astro';
 import { getLocaleFromPathname, localizePath } from '@config/site';
+import HeroQuickLinks from '../react/HeroQuickLinks';
 import logoMark from '@assets/shibaura-logo-mark.svg';
 import heroPoster from '@assets/hero-firepump-loop-poster.webp';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsHref = localizePath('/products', locale);
+const airCooledHref = localizePath('/products/air-cooled', locale);
+const waterCooledHref = localizePath('/products/water-cooled', locale);
+const useCasesHref = localizePath('/use-cases', locale);
+const relayHref = localizePath(locale === 'fr' ? '/relais-deau-longue-distance' : '/long-distance-relay-pumping', locale);
+const remoteFirefightingHref = `${useCasesHref}#remote-firefighting`;
+const wildfireFirefightingHref = `${useCasesHref}#wildfire-firefighting`;
 const isFrench = locale === 'fr';
+const quickLinkItems = [
+  {
+    label: isFrench ? 'Vue d’ensemble' : 'Overview',
+    title: isFrench ? 'Voir toutes les pompes' : 'Browse All Pumps',
+    href: productsHref,
+    showArrow: true,
+  },
+  {
+    label: isFrench ? 'Catégories' : 'Categories',
+    title: '',
+    links: [
+      {
+        label: isFrench ? 'Pompes refroidies à l’air' : 'Air-Cooled Pumps',
+        href: airCooledHref,
+      },
+      {
+        label: isFrench ? 'Pompes refroidies à l’eau' : 'Water-Cooled Pumps',
+        href: waterCooledHref,
+      },
+    ],
+  },
+  {
+    label: isFrench ? 'Cas d’usage' : 'Use Cases',
+    title: '',
+    links: [
+      {
+        label: isFrench ? 'Relais d’eau longue distance' : 'Long-Distance Relay Pumping',
+        href: relayHref,
+      },
+      {
+        label: isFrench ? 'Interventions éloignées' : 'Remote Firefighting',
+        href: remoteFirefightingHref,
+      },
+      {
+        label: isFrench ? 'Feux de forêt' : 'Wildfire Firefighting',
+        href: wildfireFirefightingHref,
+      },
+    ],
+  },
+];
 ---
 
-<section class="relative h-[72vh] min-h-[460px] sm:h-screen sm:min-h-[600px] flex items-center overflow-hidden safari-hero-offset">
+<section class="relative h-[72vh] min-h-[560px] sm:h-screen sm:min-h-[680px] flex items-center overflow-hidden safari-hero-offset">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
     <video
@@ -40,8 +86,8 @@ const isFrench = locale === 'fr';
   </div>
 
   <!-- Content -->
-  <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl relative">
+  <div class="container mx-auto relative z-10 px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-24">
+    <div class="max-w-5xl relative">
       <div class="relative z-10">
         <div class="relative inline-flex items-center px-3.5 py-1.5 sm:px-4 sm:py-2 mb-4 sm:mb-6 bg-white/10 backdrop-blur-[6px] text-white text-xs sm:text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
           <span class="absolute left-3 inset-y-0.5 flex items-center pointer-events-none" aria-hidden="true">
@@ -65,22 +111,15 @@ const isFrench = locale === 'fr';
         </span>
       </h1>
       
-      <p class="text-base sm:text-lg md:text-xl text-slate-200 mb-6 sm:mb-8 max-w-2xl leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
+      <p class="text-base sm:text-lg md:text-xl text-slate-200 mb-8 sm:mb-10 max-w-2xl leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
         {isFrench
           ? 'Depuis 1952, Shibaura conçoit et fabrique des pompes incendie portatives reconnues pour leur fiabilité sur le terrain.'
           : 'Since 1952, Shibaura has delivered proven portable fire pump performance.'}
       </p>
 
-      
-      <div class="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 mb-8 sm:mb-12 animate-fadeInUp" style="animation-delay: 0.2s">
-        <Button href={productsHref} size="lg" class="group !bg-transparent !border-0 !shadow-none hover:!bg-transparent !px-0">
-          {isFrench ? 'Voir les produits' : 'View Products'}
-          <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </Button>
+      <div class="inline-block max-w-full animate-fadeInUp" style="animation-delay: 0.3s">
+        <HeroQuickLinks client:load items={quickLinkItems} />
       </div>
-
       </div>
     </div>
   </div>

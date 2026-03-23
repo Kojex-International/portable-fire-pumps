@@ -1,0 +1,240 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import PageHero from '../../components/layout/PageHero.astro';
+import ImageReveal from '../../components/react/ImageReveal';
+import Section from '../../components/layout/Section.astro';
+import SectionHeader from '../../components/layout/SectionHeading.astro';
+import ProductsCTA from '../../components/products/ProductsCTA.astro';
+import ProductRelatedPumps from '../../components/products/ProductRelatedPumps.astro';
+import { Check, Flame, Gauge, Workflow } from 'lucide-react';
+
+import heroBgImg from '@assets/portable-fire-pump-wildfire-operation.webp';
+import remoteFirefightingImg from '@assets/portable-fire-pump-remote-firefighting-water-source.png';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import wildfireWaterSourceImg from '@assets/portable-fire-pump-wildland-water-source.png';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { localizePath } from '@config/site';
+import { getFirepumps } from '../../data/firepumps';
+
+const metadata = getNonProductMetadata({
+  pageKey: 'useCases',
+  locale: 'fr',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
+
+const airCooledHref = localizePath('/products/air-cooled', 'fr');
+const waterCooledHref = localizePath('/products/water-cooled', 'fr');
+const productsBaseHref = localizePath('/products', 'fr');
+const relayHref = localizePath('/relais-deau-longue-distance', 'fr');
+const contactHref = localizePath('/contact-us', 'fr');
+const distributorsHref = localizePath('/distributors', 'fr');
+const recommendedPumps = getFirepumps('fr').filter((pump) =>
+  ['ft510-a', 'ft300-400-a', 'tf516mh-ab'].includes(pump.slug)
+);
+---
+
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="fr"
+  alternates={{
+    en: 'https://www.portable-fire-pumps.com/en/use-cases/',
+    fr: 'https://www.portable-fire-pumps.com/fr/use-cases/',
+    xDefault: 'https://www.portable-fire-pumps.com/en/use-cases/',
+  }}
+>
+  <PageHero
+    backgroundImage={heroBgImg}
+    backgroundAlt="Cas d’usage des pompes incendie portatives"
+    badge="Cas d’usage"
+    badgeIconComponent={Flame}
+    titleClass="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
+    descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
+    descriptionStyle="animation-delay: 0.1s"
+  >
+    <Fragment slot="title">
+      <span class="brand-gradient-text-fill">Cas d’usage des pompes incendie portatives</span>
+    </Fragment>
+    <Fragment slot="description">
+      Les pompes incendie portatives soutiennent les interventions là où le réseau d’hydrants est limité, où les prises d’eau sont moins contrôlées et où les équipes ont besoin d’un acheminement d’eau souple en conditions exigeantes.
+    </Fragment>
+  </PageHero>
+
+  <Section background="white">
+    <div id="remote-firefighting" class="scroll-mt-32">
+      <ImageReveal client:load delay={0}>
+        <div class="group mb-12 overflow-hidden rounded-2xl shadow-lg">
+          <div class="relative h-64">
+            <Image
+              src={remoteFirefightingImg}
+              alt="Source d’eau rurale près de bâtiments isolés pour l’aspiration d’une pompe incendie portative"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              widths={[900, 1440, 1800]}
+              sizes="100vw"
+            />
+            <div class="absolute inset-0 bg-linear-to-r from-slate-900/25 via-slate-900/35 to-slate-900/55"></div>
+            <div class="absolute inset-0 flex items-center justify-center px-8 text-center text-white">
+              <div class="max-w-4xl">
+                <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
+                  <Gauge className="h-4 w-4" />
+                  <span>Scénario principal</span>
+                </div>
+                <h2 class="mt-3 text-4xl font-bold md:text-5xl">Interventions éloignées et hors réseau</h2>
+                <p class="mt-4 text-lg leading-relaxed text-white/90 md:text-xl">
+                  Les pompes incendie portatives sont utilisées pour les interventions éloignées et hors réseau lorsque l’infrastructure hydrant est limitée ou indisponible.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ImageReveal>
+
+      <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-5 text-slate-700">
+          <p class="text-lg leading-relaxed">
+            Dans les zones rurales, les sites isolés et les secteurs d’intervention éloignés, les pompes incendie portatives servent souvent à aspirer l’eau depuis des sources naturelles ou temporaires puis à l’acheminer vers le point d’utilisation. Dans ces conditions, la simplicité de mise en œuvre, l’amorçage fiable et la portabilité terrain comptent autant que la performance maximale.
+          </p>
+          <p class="text-lg leading-relaxed">
+            Ces situations se rencontrent fréquemment dans les interventions rurales, les feux de forêt et les opérations temporaires d’alimentation en eau.
+          </p>
+          <ul class="space-y-3 text-base">
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Couverture hydrant limitée, obligeant les équipes à aspirer depuis des étangs, rivières, réservoirs ou réserves mobiles.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Accès éloigné où les pompes doivent être transportées, repositionnées ou installées loin des accès routiers.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Sources d’eau variables avec sédiments, débris, points d’aspiration peu aménagés et dispositifs d’alimentation improvisés.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Déploiement rapide avec amorçage fiable et exploitation terrain simple.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="mt-5 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Catégorie adaptée pour les pompes incendie portatives</div>
+          <h2 class="mt-2 text-2xl font-bold text-slate-900">Les pompes refroidies à l’air sont souvent le meilleur point de départ</h2>
+          <p class="mt-3 text-slate-600">
+            Pour la plupart des interventions éloignées et hors réseau, les <a href={airCooledHref} class="font-semibold text-[var(--brand-1)] hover:underline">pompes incendie portatives refroidies à l’air</a> constituent le choix le plus pratique. Comme le refroidissement moteur ne dépend pas du circuit d’eau pompée, elles restent fiables même lorsque la qualité d’eau est irrégulière.
+          </p>
+          <p class="mt-3 text-slate-600">
+            Elles conviennent particulièrement aux opérations rurales, aux services volontaires et aux environnements où la simplicité et la fiabilité sont déterminantes.
+          </p>
+          <div class="mt-5">
+            <a href={airCooledHref} class="brand-link-cta">Voir les pompes refroidies à l’air</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section background="gray">
+    <div id="wildfire-firefighting" class="scroll-mt-32">
+      <ImageReveal client:load delay={0.1}>
+        <div class="group mb-12 overflow-hidden rounded-2xl shadow-lg">
+          <div class="relative h-64">
+            <Image
+              src={wildfireWaterSourceImg}
+              alt="Source d’eau naturelle en terrain forestier pour le déploiement d’une pompe incendie portative en feu de forêt"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              widths={[900, 1440, 1800]}
+              sizes="100vw"
+            />
+            <div class="absolute inset-0 bg-linear-to-r from-slate-900/25 via-slate-900/35 to-slate-900/60"></div>
+            <div class="absolute inset-0 flex items-center justify-center px-8 text-center text-white">
+              <div class="max-w-4xl">
+                <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
+                  <Flame className="h-4 w-4" />
+                  <span>Scénario associé</span>
+                </div>
+                <h2 class="mt-3 text-4xl font-bold md:text-5xl">Lutte contre les feux de forêt</h2>
+                <p class="mt-4 text-lg leading-relaxed text-white/90 md:text-xl">
+                  La lutte contre les feux de forêt est l’une des applications les plus courantes des pompes incendie portatives, en particulier lorsque les équipes doivent acheminer l’eau vers des zones difficiles d’accès.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ImageReveal>
+
+      <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-5 text-slate-700">
+          <p class="text-lg leading-relaxed">
+            Ces déploiements exigent souvent un matériel léger, une mise en œuvre rapide et une exploitation fiable près de prises d’eau naturelles ou improvisées.
+          </p>
+          <ul class="space-y-3 text-base">
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Loin des routes accessibles aux engins.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Près d’étangs, de cours d’eau, de citernes et de réserves temporaires.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Dans des environnements où l’accès à l’eau et ses conditions sont imprévisibles.</span>
+            </li>
+          </ul>
+          <p class="text-lg leading-relaxed">
+            Dans ces situations, les pompes refroidies à l’air restent un choix solide grâce à leur simplicité et à leur adaptabilité sur le terrain.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="mt-5 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Quand le relais devient utile</div>
+          <h2 class="mt-2 text-2xl font-bold text-slate-900">Acheminement d’eau sur longue distance</h2>
+          <p class="mt-3 text-slate-600">
+            Dans certaines configurations forestières ou isolées, l’eau doit être déplacée sur une plus longue distance entre la source et la zone de travail.
+          </p>
+          <p class="mt-3 text-slate-600">
+            Dans ces cas, les <a href={relayHref} class="font-semibold text-[var(--brand-1)] hover:underline">systèmes de pompage en relais</a> deviennent nécessaires. Les <a href={waterCooledHref} class="font-semibold text-[var(--brand-1)] hover:underline">pompes refroidies à l’eau</a> et les configurations relais soutenues sont généralement mieux adaptées au transfert longue distance et à l’exploitation continue.
+          </p>
+          <div class="mt-5 flex flex-col gap-3">
+            <a href={relayHref} class="brand-link-cta">Voir le pompage en relais</a>
+            <a href={waterCooledHref} class="brand-link-cta">Voir les pompes refroidies à l’eau</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section background="white">
+    <SectionHeader
+      badge="Pompes recommandées"
+      badgeIconComponent={Gauge}
+      title="Modèles à examiner"
+      highlight="pour ces cas d’usage"
+      description="Ces modèles refroidis à l’air constituent un bon point de départ pour les interventions éloignées et les usages terrain où la portabilité, la mise en œuvre et la variabilité de la prise d’eau sont déterminantes."
+      class="mb-10"
+    />
+
+    <ProductRelatedPumps
+      relatedPumps={recommendedPumps}
+      productsHref={productsBaseHref}
+      titleLeading="Pompes"
+      titleHighlight="recommandées"
+      shibauraLogoMark={shibauraLogoMark}
+      locale="fr"
+      showHeading={false}
+      embedded={true}
+    />
+  </Section>
+
+  <ProductsCTA
+    locale="fr"
+    backgroundImage={heroBgImg}
+    contactHref={contactHref}
+    distributorsHref={distributorsHref}
+  />
+</BaseLayout>

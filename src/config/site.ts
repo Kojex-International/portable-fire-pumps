@@ -31,6 +31,15 @@ const NAV_ITEMS = [
       { name: { en: 'Pump Features', fr: 'Caractéristiques des pompes' }, path: '/features#pump-features' },
     ],
   },
+  {
+    name: { en: 'Use Cases', fr: 'Cas d’usage' },
+    path: '/use-cases',
+    children: [
+      { name: { en: 'Remote Firefighting', fr: 'Interventions éloignées' }, path: '/use-cases#remote-firefighting' },
+      { name: { en: 'Wildfire Firefighting', fr: 'Feux de forêt' }, path: '/use-cases#wildfire-firefighting' },
+      { name: { en: 'Long-Distance Relay Pumping', fr: 'Relais d’eau sur longue distance' }, path: '/long-distance-relay-pumping' },
+    ],
+  },
   { name: { en: 'Distributors', fr: 'Distributeurs' }, path: '/distributors' },
   {
     name: { en: 'Resources', fr: 'Ressources' },

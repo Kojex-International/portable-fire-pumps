@@ -1,0 +1,62 @@
+---
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  badge?: string;
+  title?: string;
+  description: string;
+  links: LinkItem[];
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const {
+  badge,
+  title,
+  description,
+  links,
+  align = 'left',
+  class: className = '',
+} = Astro.props;
+
+const isCentered = align === 'center';
+---
+
+<div class:list={[
+  'max-w-4xl',
+  isCentered ? 'mx-auto text-center' : '',
+  className,
+]}>
+  {badge && (
+    <div class:list={[
+      'text-xs font-semibold uppercase tracking-[0.14em] text-slate-500',
+      isCentered ? 'justify-center' : '',
+    ]}>
+      {badge}
+    </div>
+  )}
+  {title && (
+    <h2 class="mt-2 text-xl font-bold text-slate-900 sm:text-2xl">
+      {title}
+    </h2>
+  )}
+  <p class:list={[
+    'text-sm leading-relaxed text-slate-600',
+    badge || title ? 'mt-3' : '',
+  ]}>
+    {description}
+  </p>
+  <div class:list={[
+    'mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold',
+    isCentered ? 'justify-center' : '',
+  ]}>
+    {links.map((link) => (
+      <a href={link.href} class="text-[var(--brand-1)] transition-colors hover:text-[var(--brand-2)] hover:underline">
+        {link.label}
+      </a>
+    ))}
+  </div>
+</div>

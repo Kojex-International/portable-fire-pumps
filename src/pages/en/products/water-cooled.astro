@@ -3,7 +3,6 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/layout/Section.astro';
 import MobilePumpCards from '../../../components/products/MobilePumpCards.astro';
 import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
-import CategoryIntro from '../../../components/products/CategoryIntro.astro';
 import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
@@ -19,6 +18,7 @@ const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const relayHref = localizePath('/long-distance-relay-pumping', locale);
 
 const firepumps = getFirepumps('en');
 const waterCooledPumps = firepumps.filter((pump) =>
@@ -26,18 +26,6 @@ const waterCooledPumps = firepumps.filter((pump) =>
     (spec) => spec.key === 'coolingSystem' && spec.value.toLowerCase().includes('water')
   )
 );
-const categoryIntro = {
-  badge: 'Water-Cooled Category',
-  title: 'Built for Sustained Operation',
-  subtitle: 'Stable cooling for relay pumping and longer-duty use.',
-  description:
-    'Water-cooled portable fire pumps are typically chosen for applications that demand steady performance over longer operating periods. Their cooling system supports sustained output during relay pumping, extended water transfer, and other high-duty scenarios where run time matters. These pumps are best matched with relatively clean water sources so the cooling circuit can continue to perform as intended throughout the operation.',
-  advantages: [
-    'Supports sustained performance under continuous load',
-    'Well suited to long-duration relay and transfer pumping',
-    'Requires relatively clean water for effective cooling',
-  ],
-};
 const metadata = getNonProductMetadata({
   pageKey: 'productsWaterCooled',
   locale: 'en',
@@ -66,27 +54,37 @@ const structuredData = buildItemListSchema({
   <PageHero
     backgroundImage={heroBgImg}
     backgroundAlt="Water-cooled portable fire pumps"
-    badge="Products"
+    badge="Water-Cooled"
     badgeIconComponent={Gauge}
+    contentClass="max-w-4xl mx-auto text-center min-h-[360px] flex flex-col items-center"
     titleClass="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
     descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="brand-gradient-text-fill">
-        Water-Cooled<br />
-        Portable Fire Pumps
-      </span>
+      <span class="brand-gradient-text-fill">Built for Sustained Operation</span>
     </Fragment>
     <Fragment slot="description">
-      Sustained cooling performance for relay pumping, long transfers, and extended-duty operation.
+      Water-cooled portable fire pumps are better suited to relay pumping, long transfers, and extended-duty operation with relatively clean water.
     </Fragment>
+    <ul class="mt-auto mb-14 inline-flex flex-col items-start space-y-2 text-left text-sm text-slate-200 sm:text-base">
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Stable cooling under load</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Strong fit for relay pumping</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Best with cleaner water sources</span>
+      </li>
+    </ul>
   </PageHero>
 
   <!-- Main Capabilities -->
   <Section background="white">
-    <CategoryIntro {...categoryIntro} />
-
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <MobilePumpCards capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} locale="en" />
@@ -94,6 +92,7 @@ const structuredData = buildItemListSchema({
 
     <!-- Grid View for Desktop -->
     <DesktopPumpCards capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} locale="en" />
+
   </Section>
 
   <ProductsCTA
@@ -101,5 +100,13 @@ const structuredData = buildItemListSchema({
     backgroundImage={heroBgImg}
     contactHref={requestQuoteHref}
     distributorsHref={distributorsHref}
+    badge="Related Use Case"
+    titleLine1="Working on"
+    titleLine2="Relay Pumping?"
+    description="For long hose lays, sustained transfer work, and multi-stage relay setups, review the long-distance relay pumping page and compare water-cooled pumps built for sustained-duty operation."
+    primaryCta="View Relay Pumping"
+    primaryHref={relayHref}
+    secondaryCta="View Water-Cooled Pumps"
+    secondaryHref={Astro.url.pathname}
   />
 </BaseLayout>

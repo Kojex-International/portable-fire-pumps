@@ -3,7 +3,6 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Section from '../../../components/layout/Section.astro';
 import MobilePumpCards from '../../../components/products/MobilePumpCards.astro';
 import DesktopPumpCards from '../../../components/products/DesktopPumpCards.astro';
-import CategoryIntro from '../../../components/products/CategoryIntro.astro';
 import ProductsCTA from '../../../components/products/ProductsCTA.astro';
 import PageHero from '../../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
@@ -19,22 +18,11 @@ const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const relayHref = localizePath('/relais-deau-longue-distance', locale);
 const firepumps = getFirepumps('fr');
 
 const WATER_COOLED_SLUGS = new Set(['p572s-a', 'p572sw-a', 'fk500-a', 'ff500ar-a']);
 const waterCooledPumps = firepumps.filter((pump) => WATER_COOLED_SLUGS.has(pump.slug));
-const categoryIntro = {
-  badge: 'Catégorie refroidie à l’eau',
-  title: 'Conçues pour les opérations soutenues',
-  subtitle: 'Refroidissement stable pour le relais et les usages prolongés.',
-  description:
-    'Les pompes incendie portatives refroidies à l’eau sont généralement choisies pour les opérations qui exigent un débit stable sur une durée prolongée. Leur système de refroidissement convient bien au pompage en relais, aux transferts longue distance et aux missions soutenues où l’endurance de fonctionnement est déterminante. Elles donnent leur meilleur rendement avec une eau relativement propre afin de préserver l’efficacité du circuit de refroidissement.',
-  advantages: [
-    'Bon maintien des performances sous charge continue',
-    'Adaptées au pompage en relais et aux transferts prolongés',
-    'Demandent une eau relativement propre pour le refroidissement',
-  ],
-};
 const metadata = getNonProductMetadata({
   pageKey: 'productsWaterCooled',
   locale: 'fr',
@@ -63,27 +51,37 @@ const structuredData = buildItemListSchema({
   <PageHero
     backgroundImage={heroBgImg}
     backgroundAlt="Pompes incendie portatives refroidies à l’eau"
-    badge="Produits"
+    badge="Refroidies à l’eau"
     badgeIconComponent={Gauge}
+    contentClass="max-w-4xl mx-auto text-center min-h-[360px] flex flex-col items-center"
     titleClass="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
     descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="brand-gradient-text-fill">
-        <span class="sm:whitespace-nowrap">Pompes incendie portatives</span><br />
-        Refroidies à l’eau
-      </span>
+      <span class="brand-gradient-text-fill">Conçues pour les opérations soutenues</span>
     </Fragment>
     <Fragment slot="description">
-      Refroidissement maîtrisé pour les relais, les transferts longue distance et les opérations prolongées.
+      Les pompes incendie portatives refroidies à l’eau conviennent mieux au pompage en relais, aux transferts longue distance et aux opérations prolongées avec une eau relativement propre.
     </Fragment>
+    <ul class="mt-auto mb-14 inline-flex flex-col items-start space-y-2 text-left text-sm text-slate-200 sm:text-base">
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Refroidissement stable sous charge</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Bien adaptées au pompage en relais</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-2 inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--brand-400)]"></span>
+        <span>Meilleur rendement avec une eau plus propre</span>
+      </li>
+    </ul>
   </PageHero>
 
   <!-- Main Capabilities -->
   <Section background="white">
-    <CategoryIntro {...categoryIntro} />
-
     <!-- Accordion View for Mobile/Compact -->
     <div class="lg:hidden mb-12">
       <MobilePumpCards capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" />
@@ -91,6 +89,7 @@ const structuredData = buildItemListSchema({
 
     <!-- Grid View for Desktop -->
     <DesktopPumpCards capabilities={waterCooledPumps} detailsBaseHref={productsBaseHref} locale="fr" />
+
   </Section>
 
   <ProductsCTA
@@ -98,5 +97,13 @@ const structuredData = buildItemListSchema({
     backgroundImage={heroBgImg}
     contactHref={requestQuoteHref}
     distributorsHref={distributorsHref}
+    badge="Cas d’usage lié"
+    titleLine1="Vous travaillez sur un"
+    titleLine2="relais d’eau?"
+    description="Pour les longues lignes de tuyaux, les transferts soutenus et les configurations à plusieurs étages, consultez la page sur le relais d’eau longue distance et comparez les pompes refroidies à l’eau adaptées aux opérations soutenues."
+    primaryCta="Voir le relais d’eau longue distance"
+    primaryHref={relayHref}
+    secondaryCta="Voir les pompes refroidies à l’eau"
+    secondaryHref={Astro.url.pathname}
   />
 </BaseLayout>

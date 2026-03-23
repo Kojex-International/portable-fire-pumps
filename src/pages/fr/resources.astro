@@ -4,6 +4,7 @@ import Section from '../../components/layout/Section.astro';
 import Card from '../../components/ui/Card.astro';
 import SectionHeader from '../../components/layout/SectionHeading.astro';
 import PageHero from '../../components/layout/PageHero.astro';
+import SupportStrip from '../../components/content/SupportStrip.astro';
 import ImageReveal from '../../components/react/ImageReveal';
 import { Image } from 'astro:assets';
 import { HelpCircle, Library } from 'lucide-react';
@@ -37,6 +38,7 @@ import ft510PartsPdf from '../../data/parts/ft510partslist.pdf';
 import p555PartsPdf from '../../data/parts/p555partslist.pdf';
 import p572PartsPdf from '../../data/parts/p572partslist.pdf';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { localizePath } from '@config/site';
 
 // Icon SVG paths
 const iconPaths = {
@@ -116,6 +118,16 @@ const metadata = getNonProductMetadata({
   pathname: Astro.url.pathname,
   ogImageSrc: heroBgImg.src,
 });
+const productsHref = localizePath('/products', 'fr');
+const airCooledHref = localizePath('/products/air-cooled', 'fr');
+const waterCooledHref = localizePath('/products/water-cooled', 'fr');
+const featuresHref = localizePath('/features', 'fr');
+const relayHref = localizePath('/relais-deau-longue-distance', 'fr');
+const useCasesHref = localizePath('/use-cases', 'fr');
+const remoteFirefightingHref = `${useCasesHref}#remote-firefighting`;
+const wildfireFirefightingHref = `${useCasesHref}#wildfire-firefighting`;
+const distributorsHref = localizePath('/distributors', 'fr');
+const contactHref = localizePath('/contact-us', 'fr');
 ---
 
 <BaseLayout
@@ -414,6 +426,25 @@ const metadata = getNonProductMetadata({
           </ul>
         </div>
       </Card>
+    </div>
+
+    <div class="mt-16 border-t border-slate-200 pt-10">
+      <SupportStrip
+        badge="Étape suivante"
+        title="Vous cherchez la bonne pompe, pas seulement la documentation?"
+        description="Commencez par la vue d’ensemble des pompes, comparez les catégories refroidies à l’air et à l’eau, puis poursuivez avec les caractéristiques ou les cas d’usage pour le relais, les interventions éloignées et les feux de forêt."
+        links={[
+          { href: productsHref, label: 'Voir toutes les pompes' },
+          { href: airCooledHref, label: 'Pompes refroidies à l’air' },
+          { href: waterCooledHref, label: 'Pompes refroidies à l’eau' },
+          { href: featuresHref, label: 'Caractéristiques' },
+          { href: relayHref, label: 'Guide du relais d’eau' },
+          { href: remoteFirefightingHref, label: 'Interventions éloignées' },
+          { href: wildfireFirefightingHref, label: 'Feux de forêt' },
+          { href: distributorsHref, label: 'Trouver un distributeur' },
+          { href: contactHref, label: 'Contacter Kojex' },
+        ]}
+      />
     </div>
   </Section>
 

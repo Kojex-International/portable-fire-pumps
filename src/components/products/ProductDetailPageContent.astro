@@ -126,6 +126,26 @@ const performanceImagesBySlug: Record<string, { curve: ImageMetadata; dimensions
 
 const performanceImages = performanceImagesBySlug[pump.slug];
 
+const relayUseCaseSlugs = new Set(['ff500ar-a', 'p572s-a', 'fk500-a']);
+const wildlandUseCaseSlugs = new Set(['ft510-a', 'ft300-400-a', 'tf516mh-ab']);
+const useCaseLink = relayUseCaseSlugs.has(pump.slug)
+  ? {
+      href: locale === 'fr' ? '/fr/relais-deau-longue-distance' : '/en/long-distance-relay-pumping',
+      label: isFrench ? 'Voir le cas d’usage relais d’eau longue distance' : 'View the long-distance relay pumping page',
+      text: isFrench
+        ? 'Ce modèle convient particulièrement aux configurations relais et aux transferts d’eau soutenus.'
+        : 'This model is especially relevant for relay layouts and sustained water-transfer operations.',
+    }
+  : wildlandUseCaseSlugs.has(pump.slug)
+    ? {
+        href: locale === 'fr' ? '/fr/use-cases#remote-firefighting' : '/en/use-cases#remote-firefighting',
+        label: isFrench ? 'Voir le cas d’usage interventions éloignées' : 'View the remote firefighting section',
+        text: isFrench
+          ? 'Ce modèle mérite aussi d’être comparé pour les interventions rurales, les sites isolés et les accès éloignés.'
+          : 'This model is also worth comparing for rural response, remote sites, and limited-infrastructure deployment.',
+      }
+    : null;
+
 const text = {
   specButton: isFrench ? 'Spécifications' : 'Specifications',
   performanceCurve: isFrench ? 'Courbe de performance' : 'Performance Curve',
@@ -157,6 +177,19 @@ const text = {
 />
 
 <ProductSpecsTable pump={pump} locale={locale} />
+
+{useCaseLink && (
+  <section class="bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+      <div class="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <p class="text-sm leading-relaxed text-slate-600">{useCaseLink.text}</p>
+        <a href={useCaseLink.href} class="mt-4 inline-flex text-sm font-semibold text-[var(--brand-1)] hover:underline">
+          {useCaseLink.label}
+        </a>
+      </div>
+    </div>
+  </section>
+)}
 
 <ProductRelatedPumps
   relatedPumps={relatedPumps}

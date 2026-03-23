@@ -10,6 +10,9 @@ type NonProductPageKey =
   | 'products'
   | 'productsAirCooled'
   | 'productsWaterCooled'
+  | 'useCases'
+  | 'relayPumping'
+  | 'wildlandPumps'
   | 'features'
   | 'resources'
   | 'distributors'
@@ -64,6 +67,42 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
       title: 'Pompes refroidies à l’eau | Portable Fire Pumps',
       description:
         'Découvrez les pompes incendie portatives Shibaura refroidies à l’eau, conçues pour des opérations soutenues à haut débit.',
+    },
+  },
+  useCases: {
+    en: {
+      title: 'Portable Fire Pump Use Cases | Portable Fire Pumps',
+      description:
+        'Explore portable fire pump use cases for remote firefighting, wildfire response, limited-hydrant operations, and long-distance water delivery.',
+    },
+    fr: {
+      title: 'Cas d’usage des pompes incendie portatives | Portable Fire Pumps',
+      description:
+        'Découvrez les cas d’usage des pompes incendie portatives pour les interventions éloignées, les feux de forêt, les zones peu équipées en hydrants et l’acheminement d’eau sur longue distance.',
+    },
+  },
+  relayPumping: {
+    en: {
+      title: 'Long-Distance Relay Pumping | Portable Fire Pumps',
+      description:
+        'Learn how relay pumping supports long-distance water delivery and which portable fire pumps fit sustained relay operations.',
+    },
+    fr: {
+      title: 'Relais d’eau sur longue distance | Portable Fire Pumps',
+      description:
+        'Découvrez comment le pompage en relais soutient l’acheminement d’eau sur longue distance et quelles pompes conviennent aux opérations soutenues.',
+    },
+  },
+  wildlandPumps: {
+    en: {
+      title: 'Portable Fire Pumps for Rural and Remote Firefighting | Portable Fire Pumps',
+      description:
+        'Explore portable fire pumps for rural and remote firefighting, including wildland response, limited-hydrant areas, and variable water source conditions.',
+    },
+    fr: {
+      title: 'Pompes portatives pour la lutte incendie en milieu rural et isolé | Portable Fire Pumps',
+      description:
+        'Découvrez les pompes incendie portatives adaptées aux interventions rurales, aux sites isolés, aux zones peu équipées en hydrants et aux prises d’eau variables.',
     },
   },
   features: {

@@ -4,6 +4,7 @@ import Section from '../../components/layout/Section.astro';
 import Card from '../../components/ui/Card.astro';
 import SectionHeader from '../../components/layout/SectionHeading.astro';
 import PageHero from '../../components/layout/PageHero.astro';
+import SupportStrip from '../../components/content/SupportStrip.astro';
 import ImageReveal from '../../components/react/ImageReveal';
 import { Image } from 'astro:assets';
 import { HelpCircle, Library } from 'lucide-react';
@@ -37,6 +38,7 @@ import ft510PartsPdf from '../../data/parts/ft510partslist.pdf';
 import p555PartsPdf from '../../data/parts/p555partslist.pdf';
 import p572PartsPdf from '../../data/parts/p572partslist.pdf';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { localizePath } from '@config/site';
 
 // Icon SVG paths
 const iconPaths = {
@@ -116,6 +118,16 @@ const metadata = getNonProductMetadata({
   pathname: Astro.url.pathname,
   ogImageSrc: heroBgImg.src,
 });
+const productsHref = localizePath('/products', 'en');
+const airCooledHref = localizePath('/products/air-cooled', 'en');
+const waterCooledHref = localizePath('/products/water-cooled', 'en');
+const featuresHref = localizePath('/features', 'en');
+const relayHref = localizePath('/long-distance-relay-pumping', 'en');
+const useCasesHref = localizePath('/use-cases', 'en');
+const remoteFirefightingHref = `${useCasesHref}#remote-firefighting`;
+const wildfireFirefightingHref = `${useCasesHref}#wildfire-firefighting`;
+const distributorsHref = localizePath('/distributors', 'en');
+const contactHref = localizePath('/contact-us', 'en');
 
 ---
 
@@ -415,6 +427,25 @@ const metadata = getNonProductMetadata({
           </ul>
         </div>
       </Card>
+    </div>
+
+    <div class="mt-16 border-t border-slate-200 pt-10">
+      <SupportStrip
+        badge="Next Step"
+        title="Looking for the right pump, not just documents?"
+        description="Start with the full product overview, compare air-cooled and water-cooled categories, then move into features or use-case pages for relay pumping, remote firefighting, and wildfire deployment."
+        links={[
+          { href: productsHref, label: 'Browse All Pumps' },
+          { href: airCooledHref, label: 'Air-Cooled Pumps' },
+          { href: waterCooledHref, label: 'Water-Cooled Pumps' },
+          { href: featuresHref, label: 'Pump Features' },
+          { href: relayHref, label: 'Relay Pumping Guide' },
+          { href: remoteFirefightingHref, label: 'Remote Firefighting' },
+          { href: wildfireFirefightingHref, label: 'Wildfire Firefighting' },
+          { href: distributorsHref, label: 'Find Distributors' },
+          { href: contactHref, label: 'Contact Kojex' },
+        ]}
+      />
     </div>
   </Section>
 

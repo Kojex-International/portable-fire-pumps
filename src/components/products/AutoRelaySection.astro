@@ -165,12 +165,8 @@ const content = copy[locale][variant];
   {showVideo && (
     <div class={`${sharedContentWidthClass} mx-auto mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white`}>
       <video
-        data-auto-relay-video
         class="w-full h-auto block"
-        autoplay
-        muted
-        playsinline
-        loop
+        controls
         preload="metadata"
         poster={posterSrc}
       >
@@ -217,32 +213,3 @@ const content = copy[locale][variant];
     </ul>
   </div>
 </div>
-
-<script>
-  const videos = document.querySelectorAll('[data-auto-relay-video]');
-
-  videos.forEach((video) => {
-    if (!(video instanceof HTMLVideoElement)) return;
-
-    video.addEventListener('pointerenter', async () => {
-      video.controls = true;
-      video.loop = false;
-      try {
-        await video.play();
-      } catch {
-        // Playback can be blocked by browser policies until user interaction.
-      }
-    });
-
-    video.addEventListener('pointerleave', async () => {
-      video.controls = false;
-      video.muted = true;
-      video.loop = true;
-      try {
-        await video.play();
-      } catch {
-        // Ignore replay issues; user can restart with controls.
-      }
-    });
-  });
-</script>

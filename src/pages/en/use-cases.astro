@@ -1,0 +1,240 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import PageHero from '../../components/layout/PageHero.astro';
+import ImageReveal from '../../components/react/ImageReveal';
+import Section from '../../components/layout/Section.astro';
+import SectionHeader from '../../components/layout/SectionHeading.astro';
+import ProductsCTA from '../../components/products/ProductsCTA.astro';
+import ProductRelatedPumps from '../../components/products/ProductRelatedPumps.astro';
+import { Check, Flame, Gauge, Workflow } from 'lucide-react';
+
+import heroBgImg from '@assets/portable-fire-pump-wildfire-operation.webp';
+import remoteFirefightingImg from '@assets/portable-fire-pump-remote-firefighting-water-source.png';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import wildfireWaterSourceImg from '@assets/portable-fire-pump-wildland-water-source.png';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import { localizePath } from '@config/site';
+import { getFirepumps } from '../../data/firepumps';
+
+const metadata = getNonProductMetadata({
+  pageKey: 'useCases',
+  locale: 'en',
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
+
+const airCooledHref = localizePath('/products/air-cooled', 'en');
+const waterCooledHref = localizePath('/products/water-cooled', 'en');
+const productsBaseHref = localizePath('/products', 'en');
+const relayHref = localizePath('/long-distance-relay-pumping', 'en');
+const contactHref = localizePath('/contact-us', 'en');
+const distributorsHref = localizePath('/distributors', 'en');
+const recommendedPumps = getFirepumps('en').filter((pump) =>
+  ['ft510-a', 'ft300-400-a', 'tf516mh-ab'].includes(pump.slug)
+);
+---
+
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="en"
+  alternates={{
+    en: 'https://www.portable-fire-pumps.com/en/use-cases/',
+    fr: 'https://www.portable-fire-pumps.com/fr/use-cases/',
+    xDefault: 'https://www.portable-fire-pumps.com/en/use-cases/',
+  }}
+>
+  <PageHero
+    backgroundImage={heroBgImg}
+    backgroundAlt="Portable fire pump use cases"
+    badge="Use Cases"
+    badgeIconComponent={Flame}
+    titleClass="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
+    descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
+    descriptionStyle="animation-delay: 0.1s"
+  >
+    <Fragment slot="title">
+      <span class="brand-gradient-text-fill">Portable Fire Pump Use Cases</span>
+    </Fragment>
+    <Fragment slot="description">
+      Portable fire pumps support firefighting where hydrant coverage is limited, water sources are less controlled, and crews need flexible water movement in remote or high-demand operating conditions.
+    </Fragment>
+  </PageHero>
+
+  <Section background="white">
+    <div id="remote-firefighting" class="scroll-mt-32">
+      <ImageReveal client:load delay={0}>
+        <div class="group mb-12 overflow-hidden rounded-2xl shadow-lg">
+          <div class="relative h-64">
+            <Image
+              src={remoteFirefightingImg}
+              alt="Rural lake water source near remote structures for portable fire pump drafting"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              widths={[900, 1440, 1800]}
+              sizes="100vw"
+            />
+            <div class="absolute inset-0 bg-linear-to-r from-slate-900/25 via-slate-900/35 to-slate-900/55"></div>
+            <div class="absolute inset-0 flex items-center justify-center px-8 text-center text-white">
+              <div class="max-w-4xl">
+                <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
+                  <Gauge className="h-4 w-4" />
+                  <span>Primary Scenario</span>
+                </div>
+                <h2 class="mt-3 text-4xl font-bold md:text-5xl">Remote and off-grid firefighting</h2>
+                <p class="mt-4 text-lg leading-relaxed text-white/90 md:text-xl">
+                  Portable fire pumps are used for remote and off-grid firefighting where hydrant infrastructure is limited or unavailable.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ImageReveal>
+
+      <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-5 text-slate-700">
+          <p class="text-lg leading-relaxed">
+            In rural districts, remote facilities, and isolated response areas, portable fire pumps are often used to draft water from natural or temporary sources and move it to the point of use. In these conditions, setup simplicity, reliable priming, and field portability are just as important as maximum output.
+          </p>
+          <p class="text-lg leading-relaxed">
+            These scenarios are common in rural firefighting, wildfire response, and temporary water supply operations.
+          </p>
+          <ul class="space-y-3 text-base">
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Limited hydrant coverage requiring drafting from ponds, rivers, tanks, or portable reservoirs.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Remote access where pumps may need to be carried, repositioned, or staged away from road access.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Variable water conditions including sediment, debris, shallow drafting points, and improvised supply setups.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Fast deployment requirements with dependable priming and straightforward field operation.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="mt-5 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Category Fit for Portable Fire Pumps</div>
+          <h2 class="mt-2 text-2xl font-bold text-slate-900">Air-cooled pumps are often the best starting point</h2>
+          <p class="mt-3 text-slate-600">
+            For most remote and off-grid firefighting scenarios, <a href={airCooledHref} class="font-semibold text-[var(--brand-1)] hover:underline">air-cooled portable fire pumps</a> are the most practical choice. Because engine cooling is independent of the pumped water circuit, they remain reliable even when water quality is inconsistent.
+          </p>
+          <p class="mt-3 text-slate-600">
+            That makes them especially suitable for rural operations, volunteer departments, and environments where simplicity and reliability are critical.
+          </p>
+          <div class="mt-5">
+            <a href={airCooledHref} class="brand-link-cta">View Air-Cooled Pumps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section background="gray">
+    <div id="wildfire-firefighting" class="scroll-mt-32">
+      <ImageReveal client:load delay={0.1}>
+        <div class="group mb-12 overflow-hidden rounded-2xl shadow-lg">
+          <div class="relative h-64">
+            <Image
+              src={wildfireWaterSourceImg}
+              alt="Natural lake water source in forest terrain for wildland portable fire pump deployment"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              widths={[900, 1440, 1800]}
+              sizes="100vw"
+            />
+            <div class="absolute inset-0 bg-linear-to-r from-slate-900/25 via-slate-900/35 to-slate-900/60"></div>
+            <div class="absolute inset-0 flex items-center justify-center px-8 text-center text-white">
+              <div class="max-w-4xl">
+                <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
+                  <Flame className="h-4 w-4" />
+                  <span>Related Scenario</span>
+                </div>
+                <h2 class="mt-3 text-4xl font-bold md:text-5xl">Wildland and wildfire firefighting</h2>
+                <p class="mt-4 text-lg leading-relaxed text-white/90 md:text-xl">
+                  Wildland firefighting is one of the most common applications for portable fire pumps, particularly when crews must move water into difficult terrain.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ImageReveal>
+
+      <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-5 text-slate-700">
+          <p class="text-lg leading-relaxed">
+            These deployments often require lightweight equipment, rapid setup, and reliable operation near natural or improvised water sources.
+          </p>
+          <ul class="space-y-3 text-base">
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Away from apparatus-accessible roads.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>Near ponds, creeks, tanks, and temporary reservoirs.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
+              <span>In environments where water access and conditions are unpredictable.</span>
+            </li>
+          </ul>
+          <p class="text-lg leading-relaxed">
+            In these situations, air-cooled pumps remain a strong fit due to their simplicity and adaptability in the field.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="mt-5 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">When Relay Matters</div>
+          <h2 class="mt-2 text-2xl font-bold text-slate-900">Long-distance water delivery</h2>
+          <p class="mt-3 text-slate-600">
+            In some wildfire and remote layouts, water must be moved over longer distances from the source to the working area.
+          </p>
+          <p class="mt-3 text-slate-600">
+            In these cases, <a href={relayHref} class="font-semibold text-[var(--brand-1)] hover:underline">relay pumping systems</a> become necessary. <a href={waterCooledHref} class="font-semibold text-[var(--brand-1)] hover:underline">Water-cooled pumps</a> and sustained-duty relay configurations are typically better suited for long-distance water transfer and continuous operation.
+          </p>
+          <div class="mt-5 flex flex-col gap-3">
+            <a href={relayHref} class="brand-link-cta">View Relay Pumping</a>
+            <a href={waterCooledHref} class="brand-link-cta">View Water-Cooled Pumps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section background="white">
+    <SectionHeader
+      badge="Recommended Pumps"
+      badgeIconComponent={Gauge}
+      title="Models worth reviewing"
+      highlight="for these use cases"
+      description="These air-cooled models are a practical starting point for remote and wildland deployment where portability, field setup, and less-controlled water access matter."
+      class="mb-10"
+    />
+
+    <ProductRelatedPumps
+      relatedPumps={recommendedPumps}
+      productsHref={productsBaseHref}
+      titleLeading="Recommended"
+      titleHighlight="Pumps"
+      shibauraLogoMark={shibauraLogoMark}
+      locale="en"
+      showHeading={false}
+      embedded={true}
+    />
+  </Section>
+
+  <ProductsCTA
+    locale="en"
+    backgroundImage={heroBgImg}
+    contactHref={contactHref}
+    distributorsHref={distributorsHref}
+  />
+</BaseLayout>
