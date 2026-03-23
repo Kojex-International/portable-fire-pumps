@@ -30,7 +30,7 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'Portable Fire Pumps | Shibaura par Kojex',
       description:
-        'Distributeur exclusif en Amérique du Nord des pompes incendie portatives Shibaura avec ressources techniques et accompagnement.',
+        'Distributeur exclusif en Amérique du Nord des pompes à incendie portatives Shibaura avec ressources techniques et accompagnement.',
     },
   },
   products: {
@@ -42,7 +42,7 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'Produits | Portable Fire Pumps',
       description:
-        'Consultez la gamme de pompes incendie portatives Shibaura pour la lutte contre les feux de forêt et les interventions d’urgence.',
+        'Consultez la gamme de pompes à incendie portatives Shibaura pour la lutte contre les feux de forêt et les interventions d’urgence.',
     },
   },
   productsAirCooled: {
@@ -54,7 +54,7 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'Pompes refroidies à l’air | Portable Fire Pumps',
       description:
-        'Découvrez les pompes incendie portatives Shibaura refroidies à l’air, légères et conçues pour un déploiement rapide.',
+        'Découvrez les pompes à incendie portatives Shibaura refroidies à l’air, légères et conçues pour un déploiement rapide.',
     },
   },
   productsWaterCooled: {
@@ -66,7 +66,7 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'Pompes refroidies à l’eau | Portable Fire Pumps',
       description:
-        'Découvrez les pompes incendie portatives Shibaura refroidies à l’eau, conçues pour des opérations soutenues à haut débit.',
+        'Découvrez les pompes à incendie portatives Shibaura refroidies à l’eau, conçues pour des opérations soutenues à haut débit.',
     },
   },
   useCases: {
@@ -76,9 +76,9 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
         'Explore portable fire pump use cases for remote firefighting, wildfire response, limited-hydrant operations, and long-distance water delivery.',
     },
     fr: {
-      title: 'Cas d’usage des pompes incendie portatives | Portable Fire Pumps',
+      title: 'Cas d’usage des pompes à incendie portatives | Portable Fire Pumps',
       description:
-        'Découvrez les cas d’usage des pompes incendie portatives pour les interventions éloignées, les feux de forêt, les zones peu équipées en hydrants et l’acheminement d’eau sur longue distance.',
+        'Découvrez les cas d’usage des pompes à incendie portatives pour les interventions éloignées, les feux de forêt, les zones peu équipées en hydrants et l’acheminement d’eau sur longue distance.',
     },
   },
   relayPumping: {
@@ -102,7 +102,7 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'Pompes portatives pour la lutte incendie en milieu rural et isolé | Portable Fire Pumps',
       description:
-        'Découvrez les pompes incendie portatives adaptées aux interventions rurales, aux sites isolés, aux zones peu équipées en hydrants et aux prises d’eau variables.',
+        'Découvrez les pompes à incendie portatives adaptées aux interventions rurales, aux sites isolés, aux zones peu équipées en hydrants et aux prises d’eau variables.',
     },
   },
   features: {
@@ -114,7 +114,7 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'Caractéristiques | Portable Fire Pumps',
       description:
-        'Découvrez le système Auto Relay et les principales caractéristiques techniques des pompes incendie portatives Shibaura.',
+        'Découvrez le système Auto Relay et les principales caractéristiques techniques des pompes à incendie portatives Shibaura.',
     },
   },
   resources: {
@@ -138,7 +138,7 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'Distributeurs | Portable Fire Pumps',
       description:
-        'Trouvez des partenaires distributeurs vérifiés des pompes incendie portatives Shibaura avec leurs coordonnées régionales.',
+        'Trouvez des partenaires distributeurs vérifiés des pompes à incendie portatives Shibaura avec leurs coordonnées régionales.',
     },
   },
   contact: {
@@ -172,7 +172,7 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'À propos | Portable Fire Pumps',
       description:
-        'Découvrez Kojex International et son rôle de distributeur exclusif nord-américain des pompes incendie portatives Shibaura.',
+        'Découvrez Kojex International et son rôle de distributeur exclusif nord-américain des pompes à incendie portatives Shibaura.',
     },
   },
 };

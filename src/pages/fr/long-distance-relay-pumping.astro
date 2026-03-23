@@ -47,7 +47,7 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
 >
   <PageHero
     backgroundImage={heroBgImg}
-    backgroundAlt="Pompage en relais sur longue distance avec pompes incendie portatives"
+    backgroundAlt="Pompage en relais sur longue distance avec pompes à incendie portatives"
     badge="Cas d’usage"
     badgeIconComponent={Workflow}
     titleClass="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
@@ -58,37 +58,37 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
       <span class="brand-gradient-text-fill">Relais d’eau sur longue distance</span>
     </Fragment>
     <Fragment slot="description">
-      Les pompes incendie portatives déployées en relais permettent d’acheminer l’eau sur de longues distances lorsque la source est éloignée de la zone d’intervention.
+      Les pompes à incendie portatives utilisées en relais permettent d’acheminer l’eau sur de longues distances lorsque la source est éloignée de la zone d’intervention.
     </Fragment>
   </PageHero>
 
   <Section background="white">
     <SectionHeader
-      badge="Usage opérationnel"
+      badge="Contexte opérationnel"
       badgeIconComponent={Gauge}
       title="Quand le pompage"
       highlight="en relais s’impose"
-      description="Le pompage en relais devient nécessaire lorsque la distance à couvrir dépasse ce qu’une seule pompe peut alimenter efficacement. Chaque étape maintient le débit et la pression vers la zone de travail."
+      description="Le pompage en relais devient nécessaire lorsque la distance à couvrir dépasse ce qu’une seule pompe peut alimenter efficacement. Chaque étape maintient le débit et la pression vers la zone d’intervention."
       class="mb-12"
     />
 
     <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
       <div class="space-y-6 text-lg leading-relaxed text-slate-700">
         <p>
-          Cette configuration est particulièrement utile pour les feux de forêt, les prises d’eau éloignées, l’alimentation de sites isolés et les transferts prolongés. Le relais limite les pertes de charge dans les longues lignes de tuyaux et aide à maintenir une alimentation exploitable au dernier étage de pompage.
+          Cette configuration est particulièrement utile pour les feux de forêt, les points de prise d’eau éloignés, l’alimentation de sites isolés et les transferts prolongés. Le relais limite les pertes de charge dans les longues lignes de tuyaux et aide à maintenir une alimentation efficace au dernier point de pompage.
         </p>
         <ul class="space-y-3 text-base">
           <li class="flex items-start gap-3">
             <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
-            <span>Permet l’acheminement de l’eau sur de longues lignes de tuyaux.</span>
+            <span>Permet l’acheminement de l’eau sur de longues distances.</span>
           </li>
           <li class="flex items-start gap-3">
             <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
-            <span>Convient aux sources éloignées lorsque l’alimentation directe n’est pas réaliste.</span>
+            <span>Convient aux sources éloignées lorsque l’alimentation directe n’est pas possible.</span>
           </li>
           <li class="flex items-start gap-3">
             <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
-            <span>Demande une pompe stable sous charge, facile à amorcer et adaptée aux usages soutenus.</span>
+            <span>Demande une pompe stable sous charge, facile à amorcer et adaptée à une utilisation soutenue.</span>
           </li>
         </ul>
       </div>
@@ -98,7 +98,7 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
           <img src={relayDiagramImg.src} alt="Schéma de pompage en relais avec plusieurs étages de pompe" class="w-full block" />
         </div>
         <figcaption class="mt-4 text-sm leading-relaxed text-slate-600">
-          Les configurations de relais privilégient souvent les pompes refroidies à l’eau pour les transferts soutenus lorsque l’eau disponible est relativement propre.
+          Les configurations de pompage en relais privilégient souvent les pompes refroidies à l’eau pour les transferts soutenus lorsque l’eau disponible est relativement propre.
         </figcaption>
       </figure>
     </div>
@@ -110,7 +110,7 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
       badgeIconComponent={Gauge}
       title="Modèles à examiner"
       highlight="pour le pompage en relais"
-      description="Ces modèles refroidis à l’eau constituent un bon point de départ pour les relais soutenus, l’acheminement sur longue distance et les transferts d’eau stables."
+      description="Ces modèles refroidis à l’eau constituent un bon point de départ pour les relais soutenus, l’acheminement sur longue distance et les transferts d’eau continus."
       class="mb-10"
     />
 
@@ -134,7 +134,7 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
     badge="Catégorie adaptée"
     titleLine1="Commencer par"
     titleLine2="les pompes refroidies à l’eau"
-    description="Les pompes incendie portatives refroidies à l’eau conviennent généralement mieux aux relais prolongés et aux transferts d’eau soutenus lorsque l’eau disponible est relativement propre."
+    description="Les pompes à incendie portatives refroidies à l’eau conviennent généralement mieux aux relais prolongés et aux transferts d’eau soutenus lorsque l’eau disponible est relativement propre."
     primaryCta="Voir les pompes refroidies à l’eau"
     primaryHref={waterCooledHref}
     secondaryCta="Trouver un distributeur"
