@@ -4,13 +4,15 @@ import PageHero from '../../components/layout/PageHero.astro';
 import Section from '../../components/layout/Section.astro';
 import SectionHeader from '../../components/layout/SectionHeading.astro';
 import ProductsCTA from '../../components/products/ProductsCTA.astro';
-import Button from '../../components/ui/Button.astro';
-import { Gauge, Workflow } from 'lucide-react';
+import ProductRelatedPumps from '../../components/products/ProductRelatedPumps.astro';
+import { Check, Gauge, Workflow } from 'lucide-react';
 
 import heroBgImg from '@assets/product-features-hero.webp';
 import relayDiagramImg from '@assets/portable-fire-pump-relay-pumping-diagram.webp';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
 import { localizePath } from '@config/site';
+import { getFirepumps } from '../../data/firepumps';
 
 const metadata = getNonProductMetadata({
   pageKey: 'relayPumping',
@@ -20,12 +22,15 @@ const metadata = getNonProductMetadata({
 });
 
 const waterCooledHref = localizePath('/products/water-cooled', 'en');
+const productsBaseHref = localizePath('/products', 'en');
 const ff500Href = localizePath('/products/ff500ar-a', 'en');
 const p572Href = localizePath('/products/p572s-a', 'en');
 const fk500Href = localizePath('/products/fk500-a', 'en');
-const featuresHref = localizePath('/features#water-relay-system', 'en');
 const contactHref = localizePath('/contact-us', 'en');
 const distributorsHref = localizePath('/distributors', 'en');
+const recommendedPumps = getFirepumps('en').filter((pump) =>
+  ['ff500ar-a', 'p572s-a', 'fk500-a'].includes(pump.slug)
+);
 ---
 
 <BaseLayout
@@ -74,55 +79,51 @@ const distributorsHref = localizePath('/distributors', 'en');
         </p>
         <ul class="space-y-3 text-base">
           <li class="flex items-start gap-3">
-            <span class="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--brand-1)]"></span>
+            <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
             <span>Maintains water delivery over long hose distances.</span>
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--brand-1)]"></span>
+            <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
             <span>Supports remote water sources where direct attack supply is not practical.</span>
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--brand-1)]"></span>
+            <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
             <span>Rewards stable cooling, reliable priming, and sustained-duty pump performance.</span>
           </li>
         </ul>
       </div>
 
-      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-        <img src={relayDiagramImg.src} alt="Relay pumping diagram showing multiple pump stages" class="w-full rounded-xl border border-slate-200 bg-white p-3" />
-        <p class="mt-4 text-sm leading-relaxed text-slate-600">
-          For longer-duration relay layouts, water-cooled pumps are typically the better starting point because they are better suited to sustained operation when relatively clean water is available.
-        </p>
-      </div>
+      <figure class="lg:pt-1">
+        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white">
+          <img src={relayDiagramImg.src} alt="Relay pumping diagram showing multiple pump stages" class="w-full block" />
+        </div>
+        <figcaption class="mt-4 text-sm leading-relaxed text-slate-600">
+          Relay layouts often favor water-cooled pumps for sustained transfer when relatively clean water is available.
+        </figcaption>
+      </figure>
     </div>
   </Section>
 
   <Section background="gray">
-    <div class="grid gap-6 lg:grid-cols-2">
-      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div class="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Category</div>
-        <h2 class="mt-2 text-2xl font-bold text-slate-900">Start with water-cooled pumps</h2>
-        <p class="mt-3 text-slate-600">
-          Water-cooled portable fire pumps are the best fit when the operation requires steady output through extended relay and transfer work.
-        </p>
-        <div class="mt-5">
-          <Button href={waterCooledHref} variant="light">View Water-Cooled Category</Button>
-        </div>
-      </div>
+    <SectionHeader
+      badge="Recommended Pumps"
+      badgeIconComponent={Gauge}
+      title="Models worth reviewing"
+      highlight="for relay pumping"
+      description="These water-cooled models are a strong starting point for sustained relay layouts, long-distance water delivery, and stable transfer performance."
+      class="mb-10"
+    />
 
-      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div class="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Related Models</div>
-        <h2 class="mt-2 text-2xl font-bold text-slate-900">Relevant relay-capable models</h2>
-        <ul class="mt-4 space-y-3 text-slate-700">
-          <li><a href={ff500Href} class="font-semibold text-[var(--brand-1)] hover:underline">FF500AR-A</a> for automatic relay pumping and long-distance water delivery.</li>
-          <li><a href={p572Href} class="font-semibold text-[var(--brand-1)] hover:underline">P572S-A</a> for high-output sustained transfer work.</li>
-          <li><a href={fk500Href} class="font-semibold text-[var(--brand-1)] hover:underline">FK500-A</a> for stable relay-duty deployment in supported water conditions.</li>
-        </ul>
-        <p class="mt-4 text-sm text-slate-600">
-          See the related engineering background on the <a href={featuresHref} class="font-semibold text-[var(--brand-1)] hover:underline">features page</a>.
-        </p>
-      </div>
-    </div>
+    <ProductRelatedPumps
+      relatedPumps={recommendedPumps}
+      productsHref={productsBaseHref}
+      titleLeading="Recommended"
+      titleHighlight="Pumps"
+      shibauraLogoMark={shibauraLogoMark}
+      locale="en"
+      showHeading={false}
+      embedded={true}
+    />
   </Section>
 
   <ProductsCTA
@@ -130,5 +131,13 @@ const distributorsHref = localizePath('/distributors', 'en');
     backgroundImage={heroBgImg}
     contactHref={contactHref}
     distributorsHref={distributorsHref}
+    badge="Category Fit"
+    titleLine1="Start with"
+    titleLine2="Water-Cooled Pumps"
+    description="Water-cooled portable fire pumps are typically the better fit for extended relay layouts and sustained long-distance water transfer when relatively clean water is available."
+    primaryCta="View Water-Cooled Pumps"
+    primaryHref={waterCooledHref}
+    secondaryCta="Find a Distributor"
+    secondaryHref={distributorsHref}
   />
 </BaseLayout>

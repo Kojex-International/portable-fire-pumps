@@ -2,6 +2,7 @@
 import SectionHeader from '../layout/SectionHeading.astro';
 import { Image } from 'astro:assets';
 import relayPumpingDiagramImg from '@assets/portable-fire-pump-relay-pumping-diagram.webp';
+import relayPumpingPosterImg from '@assets/videos/1kmFF500relay-poster.webp';
 
 interface Props {
   locale: 'en' | 'fr';
@@ -21,7 +22,7 @@ const {
   videoSrc,
   desktopVideoSrc = '/videos/products/1kmFF500relay-desktop.mp4',
   mobileVideoSrc = '/videos/products/1kmFF500relay-mobile.mp4',
-  posterSrc = '/videos/products/1kmFF500relay-poster.jpg',
+  posterSrc = relayPumpingPosterImg.src,
   badgeIconComponent
 } = Astro.props;
 const resolvedDesktopVideoSrc = videoSrc ?? desktopVideoSrc;
@@ -164,15 +165,17 @@ const content = copy[locale][variant];
 
   {showVideo && (
     <div class={`${sharedContentWidthClass} mx-auto mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white`}>
-      <video
-        class="w-full h-auto block"
-        controls
-        preload="metadata"
-        poster={posterSrc}
-      >
-        <source media="(max-width: 767px)" src={mobileVideoSrc} type="video/mp4" />
-        <source src={resolvedDesktopVideoSrc} type="video/mp4" />
-      </video>
+      <div class="aspect-video bg-slate-950">
+        <video
+          class="block h-full w-full object-cover"
+          controls
+          preload="metadata"
+          poster={posterSrc}
+        >
+          <source media="(max-width: 767px)" src={mobileVideoSrc} type="video/mp4" />
+          <source src={resolvedDesktopVideoSrc} type="video/mp4" />
+        </video>
+      </div>
     </div>
   )}
 

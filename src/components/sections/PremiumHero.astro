@@ -16,12 +16,6 @@ const wildfireFirefightingHref = `${useCasesHref}#wildfire-firefighting`;
 const isFrench = locale === 'fr';
 const quickLinkItems = [
   {
-    label: isFrench ? 'Vue d’ensemble' : 'Overview',
-    title: isFrench ? 'Voir toutes les pompes' : 'Browse All Pumps',
-    href: productsHref,
-    showArrow: true,
-  },
-  {
     label: isFrench ? 'Catégories' : 'Categories',
     title: '',
     links: [
@@ -40,10 +34,6 @@ const quickLinkItems = [
     title: '',
     links: [
       {
-        label: isFrench ? 'Relais d’eau longue distance' : 'Long-Distance Relay Pumping',
-        href: relayHref,
-      },
-      {
         label: isFrench ? 'Interventions éloignées' : 'Remote Firefighting',
         href: remoteFirefightingHref,
       },
@@ -51,7 +41,17 @@ const quickLinkItems = [
         label: isFrench ? 'Feux de forêt' : 'Wildfire Firefighting',
         href: wildfireFirefightingHref,
       },
+      {
+        label: isFrench ? 'Relais d’eau longue distance' : 'Long-Distance Relay Pumping',
+        href: relayHref,
+      },
     ],
+  },
+  {
+    label: isFrench ? 'Vue d’ensemble' : 'Overview',
+    title: isFrench ? 'Voir toutes les pompes' : 'Browse All Pumps',
+    href: productsHref,
+    showArrow: true,
   },
 ];
 ---

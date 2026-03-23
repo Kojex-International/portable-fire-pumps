@@ -62,13 +62,13 @@ const structuredData = buildItemListSchema({
     <Fragment slot="description">
       Choose the right pump based on water conditions and duty cycle.
     </Fragment>
-    <div class="mt-auto mb-14 grid w-full max-w-3xl gap-2 text-left sm:grid-cols-2">
-      <a href={airCooledHref} class="group rounded-2xl bg-transparent px-0 py-3 text-white transition-all duration-300 hover:-translate-y-0.5">
+    <div class="mt-auto mb-14 flex w-full max-w-full flex-col items-center gap-3 text-left sm:flex-row sm:justify-center sm:gap-6">
+      <a href={airCooledHref} class="group w-full max-w-[18rem] rounded-2xl bg-transparent px-0 py-3 text-white transition-all duration-300 hover:-translate-y-0.5 sm:w-[18rem]">
         <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">Category</div>
         <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-xl">Air-Cooled Pumps</div>
         <div class="mt-2 text-sm leading-relaxed text-slate-200">Best for variable water sources and simpler field deployment.</div>
       </a>
-      <a href={waterCooledHref} class="group rounded-2xl bg-transparent px-0 py-3 text-white transition-all duration-300 hover:-translate-y-0.5">
+      <a href={waterCooledHref} class="group w-full max-w-[18rem] rounded-2xl bg-transparent px-0 py-3 text-white transition-all duration-300 hover:-translate-y-0.5 sm:w-[18rem]">
         <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">Category</div>
         <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-xl">Water-Cooled Pumps</div>
         <div class="mt-2 text-sm leading-relaxed text-slate-200">Best for sustained relay pumping and longer-duty water transfer.</div>
