@@ -26,7 +26,7 @@ const isCentered = align === 'center';
 ---
 
 <div class:list={[
-  'max-w-4xl',
+  'max-w-4xl px-3 sm:px-0',
   isCentered ? 'mx-auto text-center' : '',
   className,
 ]}>
@@ -50,8 +50,8 @@ const isCentered = align === 'center';
     {description}
   </p>
   <div class:list={[
-    'mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold',
-    isCentered ? 'justify-center' : '',
+    'mt-4 grid grid-cols-2 gap-x-6 gap-y-2 text-sm font-semibold sm:flex sm:flex-wrap sm:gap-x-5',
+    isCentered ? 'justify-items-center sm:justify-center' : '',
   ]}>
     {links.map((link) => (
       <a href={link.href} class="text-[var(--brand-1)] transition-colors hover:text-[var(--brand-2)] hover:underline">

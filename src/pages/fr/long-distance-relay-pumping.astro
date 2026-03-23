@@ -16,19 +16,19 @@ import { getFirepumps } from '../../data/firepumps';
 
 const metadata = getNonProductMetadata({
   pageKey: 'relayPumping',
-  locale: 'en',
+  locale: 'fr',
   pathname: Astro.url.pathname,
   ogImageSrc: heroBgImg.src,
 });
 
-const waterCooledHref = localizePath('/products/water-cooled', 'en');
-const productsBaseHref = localizePath('/products', 'en');
-const ff500Href = localizePath('/products/ff500ar-a', 'en');
-const p572Href = localizePath('/products/p572s-a', 'en');
-const fk500Href = localizePath('/products/fk500-a', 'en');
-const contactHref = localizePath('/contact-us', 'en');
-const distributorsHref = localizePath('/distributors', 'en');
-const recommendedPumps = getFirepumps('en').filter((pump) =>
+const waterCooledHref = localizePath('/products/water-cooled', 'fr');
+const productsBaseHref = localizePath('/products', 'fr');
+const ff500Href = localizePath('/products/ff500ar-a', 'fr');
+const p572Href = localizePath('/products/p572s-a', 'fr');
+const fk500Href = localizePath('/products/fk500-a', 'fr');
+const contactHref = localizePath('/contact-us', 'fr');
+const distributorsHref = localizePath('/distributors', 'fr');
+const recommendedPumps = getFirepumps('fr').filter((pump) =>
   ['ff500ar-a', 'p572s-a', 'fk500-a'].includes(pump.slug)
 );
 ---
@@ -38,7 +38,7 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
   description={metadata.description}
   canonicalUrl={metadata.canonicalUrl}
   ogImage={metadata.ogImageUrl}
-  locale="en"
+  locale="fr"
   alternates={{
     en: 'https://www.portable-fire-pumps.com/en/long-distance-relay-pumping/',
     fr: 'https://www.portable-fire-pumps.com/fr/long-distance-relay-pumping/',
@@ -47,58 +47,58 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
 >
   <PageHero
     backgroundImage={heroBgImg}
-    backgroundAlt="Long-distance relay pumping with portable fire pumps"
-    badge="Use Case"
+    backgroundAlt="Pompage en relais sur longue distance avec pompes incendie portatives"
+    badge="Cas d’usage"
     badgeIconComponent={Workflow}
     titleClass="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
     descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="brand-gradient-text-fill">Long-Distance Relay Pumping</span>
+      <span class="brand-gradient-text-fill">Relais d’eau sur longue distance</span>
     </Fragment>
     <Fragment slot="description">
-      Portable fire pumps configured for relay pumping help move water over extended hose lays when the source is remote from the incident.
+      Les pompes incendie portatives déployées en relais permettent d’acheminer l’eau sur de longues distances lorsque la source est éloignée de la zone d’intervention.
     </Fragment>
   </PageHero>
 
   <Section background="white">
     <SectionHeader
-      badge="Operational Fit"
+      badge="Usage opérationnel"
       badgeIconComponent={Gauge}
-      title="When relay pumping"
-      highlight="matters"
-      description="Relay pumping is used when water must be moved farther than a single pump can efficiently support. Each stage maintains pressure and flow so water can continue moving toward the fireground or target site."
+      title="Quand le pompage"
+      highlight="en relais s’impose"
+      description="Le pompage en relais devient nécessaire lorsque la distance à couvrir dépasse ce qu’une seule pompe peut alimenter efficacement. Chaque étape maintient le débit et la pression vers la zone de travail."
       class="mb-12"
     />
 
     <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
       <div class="space-y-6 text-lg leading-relaxed text-slate-700">
         <p>
-          This setup is commonly used for wildfire response, rural water supply, and long transfer operations where a pond, river, or tank source is well removed from the working area. The relay layout reduces pressure loss across long hose lines and helps sustain usable discharge at the final pump.
+          Cette configuration est particulièrement utile pour les feux de forêt, les prises d’eau éloignées, l’alimentation de sites isolés et les transferts prolongés. Le relais limite les pertes de charge dans les longues lignes de tuyaux et aide à maintenir une alimentation exploitable au dernier étage de pompage.
         </p>
         <ul class="space-y-3 text-base">
           <li class="flex items-start gap-3">
             <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
-            <span>Maintains water delivery over long hose distances.</span>
+            <span>Permet l’acheminement de l’eau sur de longues lignes de tuyaux.</span>
           </li>
           <li class="flex items-start gap-3">
             <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
-            <span>Supports remote water sources where direct attack supply is not practical.</span>
+            <span>Convient aux sources éloignées lorsque l’alimentation directe n’est pas réaliste.</span>
           </li>
           <li class="flex items-start gap-3">
             <Check className="mt-1 h-5 w-5 shrink-0 text-green-600" />
-            <span>Rewards stable cooling, reliable priming, and sustained-duty pump performance.</span>
+            <span>Demande une pompe stable sous charge, facile à amorcer et adaptée aux usages soutenus.</span>
           </li>
         </ul>
       </div>
 
       <figure class="lg:pt-1">
         <div class="overflow-hidden rounded-xl border border-slate-200 bg-white">
-          <img src={relayDiagramImg.src} alt="Relay pumping diagram showing multiple pump stages" class="w-full block" />
+          <img src={relayDiagramImg.src} alt="Schéma de pompage en relais avec plusieurs étages de pompe" class="w-full block" />
         </div>
         <figcaption class="mt-4 text-sm leading-relaxed text-slate-600">
-          Relay layouts often favor water-cooled pumps for sustained transfer when relatively clean water is available.
+          Les configurations de relais privilégient souvent les pompes refroidies à l’eau pour les transferts soutenus lorsque l’eau disponible est relativement propre.
         </figcaption>
       </figure>
     </div>
@@ -106,38 +106,38 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
 
   <Section background="gray">
     <SectionHeader
-      badge="Recommended Pumps"
+      badge="Pompes recommandées"
       badgeIconComponent={Gauge}
-      title="Models worth reviewing"
-      highlight="for relay pumping"
-      description="These water-cooled models are a strong starting point for sustained relay layouts, long-distance water delivery, and stable transfer performance."
+      title="Modèles à examiner"
+      highlight="pour le pompage en relais"
+      description="Ces modèles refroidis à l’eau constituent un bon point de départ pour les relais soutenus, l’acheminement sur longue distance et les transferts d’eau stables."
       class="mb-10"
     />
 
     <ProductRelatedPumps
       relatedPumps={recommendedPumps}
       productsHref={productsBaseHref}
-      titleLeading="Recommended"
-      titleHighlight="Pumps"
+      titleLeading="Pompes"
+      titleHighlight="recommandées"
       shibauraLogoMark={shibauraLogoMark}
-      locale="en"
+      locale="fr"
       showHeading={false}
       embedded={true}
     />
   </Section>
 
   <ProductsCTA
-    locale="en"
+    locale="fr"
     backgroundImage={heroBgImg}
     contactHref={contactHref}
     distributorsHref={distributorsHref}
-    badge="Category Fit"
-    titleLine1="Start with"
-    titleLine2="Water-Cooled Pumps"
-    description="Water-cooled portable fire pumps are typically the better fit for extended relay layouts and sustained long-distance water transfer when relatively clean water is available."
-    primaryCta="View Water-Cooled Pumps"
+    badge="Catégorie adaptée"
+    titleLine1="Commencer par"
+    titleLine2="les pompes refroidies à l’eau"
+    description="Les pompes incendie portatives refroidies à l’eau conviennent généralement mieux aux relais prolongés et aux transferts d’eau soutenus lorsque l’eau disponible est relativement propre."
+    primaryCta="Voir les pompes refroidies à l’eau"
     primaryHref={waterCooledHref}
-    secondaryCta="Find a Distributor"
+    secondaryCta="Trouver un distributeur"
     secondaryHref={distributorsHref}
   />
 </BaseLayout>

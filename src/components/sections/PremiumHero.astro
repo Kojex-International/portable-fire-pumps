@@ -10,7 +10,7 @@ const productsHref = localizePath('/products', locale);
 const airCooledHref = localizePath('/products/air-cooled', locale);
 const waterCooledHref = localizePath('/products/water-cooled', locale);
 const useCasesHref = localizePath('/use-cases', locale);
-const relayHref = localizePath(locale === 'fr' ? '/relais-deau-longue-distance' : '/long-distance-relay-pumping', locale);
+const relayHref = localizePath('/long-distance-relay-pumping', locale);
 const remoteFirefightingHref = `${useCasesHref}#remote-firefighting`;
 const wildfireFirefightingHref = `${useCasesHref}#wildfire-firefighting`;
 const isFrench = locale === 'fr';
@@ -56,11 +56,11 @@ const quickLinkItems = [
 ];
 ---
 
-<section class="relative h-[72vh] min-h-[560px] sm:h-screen sm:min-h-[680px] flex items-center overflow-hidden safari-hero-offset">
+<section class="relative h-[72vh] min-h-[560px] sm:h-screen sm:min-h-[680px] flex items-start sm:items-center overflow-hidden safari-hero-offset">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
     <video
-      class="hidden md:block w-full h-full object-cover object-center sm:object-center motion-reduce:hidden"
+      class="block w-full h-full object-cover object-center sm:object-center motion-reduce:hidden"
       autoplay
       muted
       loop
@@ -70,12 +70,13 @@ const quickLinkItems = [
       aria-hidden="true"
       tabindex="-1"
     >
+      <source media="(max-width: 767px)" src="/hero-firepump-loop-mobile.mp4" type="video/mp4" />
       <source src="/hero-firepump-loop.mp4" type="video/mp4" />
     </video>
     <Image
       src={heroPoster}
       alt=""
-      class="block w-full h-full object-cover object-center sm:object-center md:hidden motion-reduce:block md:motion-reduce:block"
+      class="hidden w-full h-full object-cover object-center sm:object-center motion-reduce:block"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -86,10 +87,10 @@ const quickLinkItems = [
   </div>
 
   <!-- Content -->
-  <div class="container mx-auto relative z-10 px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-24">
-    <div class="max-w-5xl relative">
+  <div class="container mx-auto relative z-10 px-4 pt-20 pb-24 sm:px-6 sm:py-28 lg:px-8 lg:py-24">
+    <div class="max-w-5xl relative text-center sm:text-left">
       <div class="relative z-10">
-        <div class="relative inline-flex items-center px-3.5 py-1.5 sm:px-4 sm:py-2 mb-4 sm:mb-6 bg-white/10 backdrop-blur-[6px] text-white text-xs sm:text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
+        <div class="relative mx-auto inline-flex items-center px-3.5 py-1.5 sm:mx-0 sm:px-4 sm:py-2 mb-4 sm:mb-6 bg-white/10 backdrop-blur-[6px] text-white text-xs sm:text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
           <span class="absolute left-3 inset-y-0.5 flex items-center pointer-events-none" aria-hidden="true">
             <span
               class="h-full aspect-square inline-block"
@@ -102,22 +103,22 @@ const quickLinkItems = [
       <h1 class:list={[
         'font-bold text-white mb-4 sm:mb-6 animate-fadeInUp',
         isFrench
-          ? 'text-[2.1rem] leading-[1.05] sm:text-4xl md:text-6xl lg:text-7xl'
+          ? 'text-[1.85rem] leading-[1.05] sm:text-4xl md:text-5xl lg:text-6xl'
           : 'text-3xl leading-tight sm:text-4xl md:text-6xl lg:text-7xl',
       ]}>
-        {isFrench ? <span class="sm:whitespace-nowrap">Pompes incendie portatives</span> : 'High-Performance'}
+        {isFrench ? <span class="whitespace-nowrap">Pompes incendie portatives</span> : 'High-Performance'}
         <span class="block brand-gradient-text-fill mt-2">
           {isFrench ? 'haute performance' : 'Portable Fire Pumps'}
         </span>
       </h1>
       
-      <p class="text-base sm:text-lg md:text-xl text-slate-200 mb-8 sm:mb-10 max-w-2xl leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
+      <p class="text-base sm:text-lg md:text-xl text-slate-200 mb-10 sm:mb-10 max-w-2xl leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
         {isFrench
           ? 'Depuis 1952, Shibaura conçoit et fabrique des pompes incendie portatives reconnues pour leur fiabilité sur le terrain.'
           : 'Since 1952, Shibaura has delivered proven portable fire pump performance.'}
       </p>
 
-      <div class="inline-block max-w-full animate-fadeInUp" style="animation-delay: 0.3s">
+      <div class="mt-1 inline-block max-w-full animate-fadeInUp text-left" style="animation-delay: 0.3s">
         <HeroQuickLinks client:load items={quickLinkItems} />
       </div>
       </div>

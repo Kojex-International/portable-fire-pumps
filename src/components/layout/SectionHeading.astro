@@ -27,7 +27,7 @@ const alignClasses = align === 'left' ? 'text-left' : 'text-center';
 const maxWidthClasses = align === 'left' ? 'max-w-4xl' : 'max-w-5xl mx-auto';
 ---
 
-<div class={`${alignClasses} ${maxWidthClasses} ${className}`}>
+<div class={`px-3 sm:px-0 ${alignClasses} ${maxWidthClasses} ${className}`}>
   {badge && (
     <div class="relative inline-flex items-center px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm leading-none font-semibold rounded-full">
       {badgeIcon && (

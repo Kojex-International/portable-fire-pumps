@@ -179,7 +179,7 @@ const content = copy[locale][variant];
     </div>
   )}
 
-  <div class={`${hasMediaBlock ? 'mt-6' : 'mt-2'} ${sharedContentWidthClass} mx-auto`}>
+  <div class={`${hasMediaBlock ? 'mt-6' : 'mt-2'} ${sharedContentWidthClass} mx-auto px-3 sm:px-0`}>
     <div class="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
       {'paragraph' in content ? (
         <p>{content.paragraph}</p>
@@ -192,7 +192,7 @@ const content = copy[locale][variant];
     </div>
   </div>
 
-  <div class={`mt-6 ${sharedContentWidthClass} mx-auto`}>
+  <div class={`mt-6 ${sharedContentWidthClass} mx-auto px-3 sm:px-0`}>
     <ul class="space-y-5">
       {content.points.map((point) => (
         <li class="flex items-start gap-4">

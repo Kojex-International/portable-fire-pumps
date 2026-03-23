@@ -52,17 +52,17 @@ const structuredData = buildItemListSchema({
     badge="Produits"
     badgeIconComponent={Gauge}
     contentClass="max-w-4xl mx-auto text-center min-h-[360px] flex flex-col items-center"
-    titleClass="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
+    titleClass="text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
     descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="brand-gradient-text-fill">Pompes incendie portatives</span>
+      <span class="brand-gradient-text-fill whitespace-nowrap">Pompes incendie portatives</span>
     </Fragment>
     <Fragment slot="description">
       Choisissez la bonne pompe selon les conditions d’eau et le niveau d’utilisation requis.
     </Fragment>
-    <div class="mt-auto mb-14 flex w-full max-w-full flex-col items-center gap-3 text-left sm:flex-row sm:justify-center sm:gap-6">
+    <div class="mt-auto mb-14 flex w-full max-w-full flex-col items-center gap-3 text-left sm:flex-row sm:justify-center sm:gap-6 md:translate-x-8 lg:translate-x-10">
       <a href={airCooledHref} class="group w-full max-w-[18rem] rounded-2xl bg-transparent px-0 py-3 text-white transition-all duration-300 hover:-translate-y-0.5 sm:w-[18rem]">
         <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">Catégorie</div>
         <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-xl">Pompes refroidies à l’air</div>

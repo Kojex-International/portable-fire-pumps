@@ -16,23 +16,23 @@ const aboutHref = localizePath('/about-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 ---
 
-<footer class="bg-[var(--brand-ink)] text-slate-300">
+<footer class="bg-[var(--brand-ink)] pb-[max(1.5rem,env(safe-area-inset-bottom))] text-slate-300 sm:pb-0">
   <div class="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 gap-12 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)_minmax(0,0.75fr)_minmax(0,0.75fr)] lg:gap-8">
       <!-- Company Info -->
-      <div class="lg:col-span-1 space-y-6">
-        <div class="w-full max-w-xs">
-          <a href={localizePath('/', locale)} class="group flex h-8 w-full items-center gap-3">
+      <div class="lg:col-span-1 space-y-6 text-center lg:text-left">
+        <div class="mx-auto w-full max-w-[17rem] lg:mx-0 lg:max-w-xs">
+          <a href={localizePath('/', locale)} class="group mx-auto flex h-8 w-fit items-center justify-center gap-1 lg:mx-0 lg:w-full lg:justify-start">
             <img src={logoMark.src} alt="Shibaura" class="h-full w-auto shrink-0 object-contain py-[4px]" />
-            <img src={shibauraWordmark.src} alt="" class="h-full w-0 min-w-0 grow object-contain object-left" />
+            <img src={shibauraWordmark.src} alt="" class="h-full w-auto shrink-0 object-contain object-left" />
           </a>
-          <p class="mt-6 text-sm text-slate-400 leading-relaxed">
+          <p class="mx-auto mt-6 max-w-[17rem] text-sm leading-relaxed text-slate-400 lg:mx-0 lg:max-w-xs">
             {isFrench
               ? 'Pompes incendie portatives haute performance destinées à la prévention des incendies et aux interventions d’urgence.'
               : SITE.description}
           </p>
         </div>
-        <div class="flex space-x-4">
+        <div class="flex justify-center gap-3 lg:justify-start">
           <a
             href={SOCIAL_LINKS.twitter}
             class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-black hover:text-white transition-all"
@@ -74,87 +74,86 @@ const distributorsHref = localizePath('/distributors', locale);
         </div>
       </div>
 
-      <!-- Quick Links -->
-      <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
-          {isFrench ? 'Liens rapides' : 'Quick Links'}
-        </h3>
-        <ul class="space-y-3">
-          {footerLinks.map((item) => (
+      <div class="grid grid-cols-3 gap-6 text-center lg:contents lg:text-left">
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
+            {isFrench ? 'Liens rapides' : 'Quick Links'}
+          </h3>
+          <ul class="space-y-3">
+            {footerLinks.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group"
+                >
+                  <span class="hidden lg:block w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
+            {isFrench ? 'Soutien' : 'Services'}
+          </h3>
+          <ul class="space-y-3">
             <li>
-              <a
-                href={item.href}
-                class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group"
-              >
-                <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
-                {item.name}
+              <a href={distributorsHref} class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+                <span class="hidden lg:block w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+                {isFrench ? 'Distributeurs' : 'Distributors'}
               </a>
             </li>
-          ))}
-        </ul>
-      </div>
+            <li>
+              <a href={localizePath('/resources', locale)} class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+                <span class="hidden lg:block w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+                {isFrench ? 'Ressources' : 'Resources'}
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      <!-- Services -->
-      <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
-          {isFrench ? 'Soutien' : 'Services'}
-        </h3>
-        <ul class="space-y-3">
-          <li>
-            <a href={distributorsHref} class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
-              {isFrench ? 'Distributeurs' : 'Distributors'}
-            </a>
-          </li>
-          <li>
-            <a href={localizePath('/resources', locale)} class="text-sm text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
-              {isFrench ? 'Ressources' : 'Resources'}
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Company -->
-      <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
-          {isFrench ? 'Entreprise' : 'Company'}
-        </h3>
-        <ul class="space-y-3 text-sm">
-          <li>
-            <a href={aboutHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
-              {isFrench ? 'À propos' : 'About Us'}
-            </a>
-          </li>
-          <li>
-            <a href={requestQuoteHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
-              <span class="w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
-              {isFrench ? 'Nous joindre' : 'Contact Us'}
-            </a>
-          </li>
-        </ul>
-        
-        <div class="mt-8">
+        <!-- Company -->
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-6">
+            {isFrench ? 'Entreprise' : 'Company'}
+          </h3>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <a href={aboutHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+                <span class="hidden lg:block w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+                {isFrench ? 'À propos' : 'About Us'}
+              </a>
+            </li>
+            <li>
+              <a href={requestQuoteHref} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors inline-flex items-center group">
+                <span class="hidden lg:block w-0 group-hover:w-2 h-0.5 bg-[var(--brand-400)] transition-all mr-0 group-hover:mr-2"></span>
+                {isFrench ? 'Nous joindre' : 'Contact Us'}
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
 
     <!-- Bottom Bar -->
-    <div class="mt-16 pt-8 border-t border-slate-800">
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-        <p class="text-sm text-slate-400">
+    <div class="mt-8 border-t border-slate-800 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 sm:mt-16 sm:pb-0 sm:pt-8">
+      <div class="flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0">
+        <p class="text-center text-sm text-slate-400">
           &copy; {new Date().getFullYear()} Kojex international. {isFrench ? 'Tous droits réservés.' : 'All rights reserved.'}
         </p>
-        <div class="flex items-center space-x-6 text-sm">
+        <div class="grid w-full max-w-xs grid-cols-3 items-start gap-x-3 text-center text-xs leading-snug sm:flex sm:w-auto sm:max-w-none sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-5 sm:gap-y-2 sm:text-sm md:flex-nowrap md:justify-start">
           <a href={localizePath('/', locale)} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors">
             {isFrench ? 'Politique de confidentialite' : 'Privacy Policy'}
           </a>
-          <span class="text-slate-700">•</span>
+          <span class="hidden text-slate-700 sm:inline">•</span>
           <a href={localizePath('/', locale)} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors">
             {isFrench ? "Conditions d'utilisation" : 'Terms of Service'}
           </a>
-          <span class="text-slate-700">•</span>
+          <span class="hidden text-slate-700 sm:inline">•</span>
           <a href={localizePath('/', locale)} class="text-slate-400 hover:text-[var(--brand-400)] transition-colors">
             {isFrench ? 'Politique de cookies' : 'Cookie Policy'}
           </a>

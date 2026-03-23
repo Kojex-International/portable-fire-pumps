@@ -18,7 +18,7 @@ const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
-const relayHref = localizePath('/relais-deau-longue-distance', locale);
+const relayHref = localizePath('/long-distance-relay-pumping', locale);
 const firepumps = getFirepumps('fr');
 
 const WATER_COOLED_SLUGS = new Set(['p572s-a', 'p572sw-a', 'fk500-a', 'ff500ar-a']);
@@ -54,15 +54,15 @@ const structuredData = buildItemListSchema({
     badge="Refroidies à l’eau"
     badgeIconComponent={Gauge}
     contentClass="max-w-4xl mx-auto text-center min-h-[360px] flex flex-col items-center"
-    titleClass="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
-    descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
+    titleClass="text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight animate-fadeInUp"
+    descriptionClass="text-lg md:text-xl text-slate-200 mb-6 max-w-2xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
       <span class="brand-gradient-text-fill">Conçues pour les opérations soutenues</span>
     </Fragment>
     <Fragment slot="description">
-      Les pompes incendie portatives refroidies à l’eau conviennent mieux au pompage en relais, aux transferts longue distance et aux opérations prolongées avec une eau relativement propre.
+      Mieux adaptées au pompage en relais et aux opérations soutenues avec une eau relativement propre.
     </Fragment>
     <ul class="mt-auto mb-14 inline-flex flex-col items-start space-y-2 text-left text-sm text-slate-200 sm:text-base">
       <li class="flex items-start gap-3">

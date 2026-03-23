@@ -69,23 +69,23 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
     <div id="remote-firefighting" class="scroll-mt-32">
       <ImageReveal client:load delay={0}>
         <div class="group mb-12 overflow-hidden rounded-2xl shadow-lg">
-          <div class="relative h-64">
+          <div class="relative min-h-[21.5rem] sm:h-72 md:h-64">
             <Image
               src={remoteFirefightingImg}
               alt="Rural lake water source near remote structures for portable fire pump drafting"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               widths={[900, 1440, 1800]}
               sizes="100vw"
             />
             <div class="absolute inset-0 bg-linear-to-r from-slate-900/25 via-slate-900/35 to-slate-900/55"></div>
-            <div class="absolute inset-0 flex items-center justify-center px-8 text-center text-white">
-              <div class="max-w-4xl">
+            <div class="absolute inset-0 flex items-center justify-center px-6 py-6 text-center text-white md:px-8 md:py-0">
+              <div class="max-w-4xl px-2 sm:px-4">
                 <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
                   <Gauge className="h-4 w-4" />
                   <span>Primary Scenario</span>
                 </div>
-                <h2 class="mt-3 text-4xl font-bold md:text-5xl">Remote and off-grid firefighting</h2>
-                <p class="mt-4 text-lg leading-relaxed text-white/90 md:text-xl">
+                <h2 class="mt-3 text-[2.35rem] font-bold leading-[1.05] sm:text-4xl md:text-5xl">Remote and off-grid firefighting</h2>
+                <p class="mt-3 text-base leading-[1.35] text-white/90 sm:text-lg sm:leading-snug md:mt-4 md:text-xl md:leading-relaxed">
                   Portable fire pumps are used for remote and off-grid firefighting where hydrant infrastructure is limited or unavailable.
                 </p>
               </div>
@@ -95,7 +95,7 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
       </ImageReveal>
 
       <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div class="space-y-5 text-slate-700">
+        <div class="space-y-5 px-3 text-slate-700 sm:px-0">
           <p class="text-lg leading-relaxed">
             In rural districts, remote facilities, and isolated response areas, portable fire pumps are often used to draft water from natural or temporary sources and move it to the point of use. In these conditions, setup simplicity, reliable priming, and field portability are just as important as maximum output.
           </p>
@@ -143,23 +143,23 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
     <div id="wildfire-firefighting" class="scroll-mt-32">
       <ImageReveal client:load delay={0.1}>
         <div class="group mb-12 overflow-hidden rounded-2xl shadow-lg">
-          <div class="relative h-64">
+          <div class="relative min-h-[21.5rem] sm:h-72 md:h-64">
             <Image
               src={wildfireWaterSourceImg}
               alt="Natural lake water source in forest terrain for wildland portable fire pump deployment"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               widths={[900, 1440, 1800]}
               sizes="100vw"
             />
             <div class="absolute inset-0 bg-linear-to-r from-slate-900/25 via-slate-900/35 to-slate-900/60"></div>
-            <div class="absolute inset-0 flex items-center justify-center px-8 text-center text-white">
-              <div class="max-w-4xl">
+            <div class="absolute inset-0 flex items-center justify-center px-6 py-6 text-center text-white md:px-8 md:py-0">
+              <div class="max-w-4xl px-2 sm:px-4">
                 <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
                   <Flame className="h-4 w-4" />
                   <span>Related Scenario</span>
                 </div>
-                <h2 class="mt-3 text-4xl font-bold md:text-5xl">Wildland and wildfire firefighting</h2>
-                <p class="mt-4 text-lg leading-relaxed text-white/90 md:text-xl">
+                <h2 class="mt-3 text-[2.35rem] font-bold leading-[1.05] sm:text-4xl md:text-5xl">Wildland and wildfire firefighting</h2>
+                <p class="mt-3 text-base leading-[1.35] text-white/90 sm:text-lg sm:leading-snug md:mt-4 md:text-xl md:leading-relaxed">
                   Wildland firefighting is one of the most common applications for portable fire pumps, particularly when crews must move water into difficult terrain.
                 </p>
               </div>
@@ -169,7 +169,7 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
       </ImageReveal>
 
       <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div class="space-y-5 text-slate-700">
+        <div class="space-y-5 px-3 text-slate-700 sm:px-0">
           <p class="text-lg leading-relaxed">
             These deployments often require lightweight equipment, rapid setup, and reliable operation near natural or improvised water sources.
           </p>

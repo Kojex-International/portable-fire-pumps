@@ -27,7 +27,7 @@ const metadata = getNonProductMetadata({
 const airCooledHref = localizePath('/products/air-cooled', 'fr');
 const waterCooledHref = localizePath('/products/water-cooled', 'fr');
 const productsBaseHref = localizePath('/products', 'fr');
-const relayHref = localizePath('/relais-deau-longue-distance', 'fr');
+const relayHref = localizePath('/long-distance-relay-pumping', 'fr');
 const contactHref = localizePath('/contact-us', 'fr');
 const distributorsHref = localizePath('/distributors', 'fr');
 const recommendedPumps = getFirepumps('fr').filter((pump) =>
@@ -52,12 +52,12 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
     backgroundAlt="Cas d’usage des pompes incendie portatives"
     badge="Cas d’usage"
     badgeIconComponent={Flame}
-    titleClass="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
+    titleClass="text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-fadeInUp"
     descriptionClass="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
     descriptionStyle="animation-delay: 0.1s"
   >
     <Fragment slot="title">
-      <span class="text-white">Pompes incendie portatives</span>
+      <span class="text-white whitespace-nowrap">Pompes incendie portatives</span>
       <span class="brand-gradient-text-fill block mt-2">Scénarios d’usage</span>
     </Fragment>
     <Fragment slot="description">
@@ -69,23 +69,23 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
     <div id="remote-firefighting" class="scroll-mt-32">
       <ImageReveal client:load delay={0}>
         <div class="group mb-12 overflow-hidden rounded-2xl shadow-lg">
-          <div class="relative h-64">
+          <div class="relative min-h-[21.5rem] sm:h-72 md:h-64">
             <Image
               src={remoteFirefightingImg}
               alt="Source d’eau rurale près de bâtiments isolés pour l’aspiration d’une pompe incendie portative"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               widths={[900, 1440, 1800]}
               sizes="100vw"
             />
             <div class="absolute inset-0 bg-linear-to-r from-slate-900/25 via-slate-900/35 to-slate-900/55"></div>
-            <div class="absolute inset-0 flex items-center justify-center px-8 text-center text-white">
-              <div class="max-w-4xl">
+            <div class="absolute inset-0 flex items-center justify-center px-6 py-6 text-center text-white md:px-8 md:py-0">
+              <div class="max-w-4xl px-2 sm:px-4">
                 <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
                   <Gauge className="h-4 w-4" />
                   <span>Scénario principal</span>
                 </div>
-                <h2 class="mt-3 text-4xl font-bold md:text-5xl">Interventions éloignées et hors réseau</h2>
-                <p class="mt-4 text-lg leading-relaxed text-white/90 md:text-xl">
+                <h2 class="mt-3 text-[2.2rem] font-bold leading-[1.05] sm:text-4xl md:text-5xl">Interventions éloignées et hors réseau</h2>
+                <p class="mt-3 text-base leading-[1.35] text-white/90 sm:text-lg sm:leading-snug md:mt-4 md:text-xl md:leading-relaxed">
                   Les pompes incendie portatives sont utilisées pour les interventions éloignées et hors réseau lorsque l’infrastructure hydrant est limitée ou indisponible.
                 </p>
               </div>
@@ -95,7 +95,7 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
       </ImageReveal>
 
       <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div class="space-y-5 text-slate-700">
+        <div class="space-y-5 px-3 text-slate-700 sm:px-0">
           <p class="text-lg leading-relaxed">
             Dans les zones rurales, les sites isolés et les secteurs d’intervention éloignés, les pompes incendie portatives servent souvent à aspirer l’eau depuis des sources naturelles ou temporaires puis à l’acheminer vers le point d’utilisation. Dans ces conditions, la simplicité de mise en œuvre, l’amorçage fiable et la portabilité terrain comptent autant que la performance maximale.
           </p>
@@ -143,23 +143,23 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
     <div id="wildfire-firefighting" class="scroll-mt-32">
       <ImageReveal client:load delay={0.1}>
         <div class="group mb-12 overflow-hidden rounded-2xl shadow-lg">
-          <div class="relative h-64">
+          <div class="relative min-h-[21.5rem] sm:h-72 md:h-64">
             <Image
               src={wildfireWaterSourceImg}
               alt="Source d’eau naturelle en terrain forestier pour le déploiement d’une pompe incendie portative en feu de forêt"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               widths={[900, 1440, 1800]}
               sizes="100vw"
             />
             <div class="absolute inset-0 bg-linear-to-r from-slate-900/25 via-slate-900/35 to-slate-900/60"></div>
-            <div class="absolute inset-0 flex items-center justify-center px-8 text-center text-white">
-              <div class="max-w-4xl">
+            <div class="absolute inset-0 flex items-center justify-center px-6 py-6 text-center text-white md:px-8 md:py-0">
+              <div class="max-w-4xl px-2 sm:px-4">
                 <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
                   <Flame className="h-4 w-4" />
                   <span>Scénario associé</span>
                 </div>
-                <h2 class="mt-3 text-4xl font-bold md:text-5xl">Lutte contre les feux de forêt</h2>
-                <p class="mt-4 text-lg leading-relaxed text-white/90 md:text-xl">
+                <h2 class="mt-3 text-[2.2rem] font-bold leading-[1.05] sm:text-4xl md:text-5xl">Lutte contre les feux de forêt</h2>
+                <p class="mt-3 text-base leading-[1.35] text-white/90 sm:text-lg sm:leading-snug md:mt-4 md:text-xl md:leading-relaxed">
                   La lutte contre les feux de forêt est l’une des applications les plus courantes des pompes incendie portatives, en particulier lorsque les équipes doivent acheminer l’eau vers des zones difficiles d’accès.
                 </p>
               </div>
@@ -169,7 +169,7 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
       </ImageReveal>
 
       <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div class="space-y-5 text-slate-700">
+        <div class="space-y-5 px-3 text-slate-700 sm:px-0">
           <p class="text-lg leading-relaxed">
             Ces déploiements exigent souvent un matériel léger, une mise en œuvre rapide et une exploitation fiable près de prises d’eau naturelles ou improvisées.
           </p>
