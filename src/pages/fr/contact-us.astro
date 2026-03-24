@@ -15,6 +15,7 @@ const metadata = getNonProductMetadata({
   ogImageSrc: rfqBgImg.src,
 });
 const structuredData = buildContactPageSchema(metadata.canonicalUrl, 'fr');
+const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY || '';
 ---
 <style>
   .sidebar-icon-sub {
@@ -76,7 +77,7 @@ const structuredData = buildContactPageSchema(metadata.canonicalUrl, 'fr');
       <!-- Form -->
       <div class="lg:col-span-2">
         <Card>
-          <RFQForm locale="fr" />
+          <RFQForm locale="fr" turnstileSiteKey={turnstileSiteKey} />
         </Card>
       </div>
 

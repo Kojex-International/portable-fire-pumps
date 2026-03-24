@@ -1,5 +1,10 @@
 const RESEND_API_URL = "https://api.resend.com/emails";
-const HIDDEN_KEYS = new Set(["form-name", "bot-field", "locale"]);
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const HIDDEN_KEYS = new Set(["form-name", "bot-field", "companyWebsite", "submittedAt", "locale", "cf-turnstile-response"]);
+const MIN_SUBMISSION_AGE_MS = 4000;
+const MAX_LINK_COUNT = 2;
+const DUPLICATE_TTL_MS = 10 * 60 * 1000;
+const recentSubmissionFingerprints = new Map();
 
 const FIELD_LABELS = {
   en: {
@@ -185,6 +190,170 @@ function formatValue(fieldKey, value, locale) {
 function detectLocale(data) {
   const localeValue = String(getSingleValue(data.locale) || "").toLowerCase();
   return localeValue.startsWith("fr") ? "fr" : "en";
+}
+
+function getTurnstileErrorMessage(locale) {
+  return locale === "fr"
+    ? "La vérification a expiré ou a échoué. Veuillez réessayer."
+    : "Verification expired or failed. Please try again.";
+}
+
+function getStringValue(value) {
+  const single = getSingleValue(value);
+  return typeof single === "string" ? single.trim() : "";
+}
+
+function logSpamDecision({ reason, locale, data, extra }) {
+  console.log(JSON.stringify({
+    message: "send-form-email suppressed submission",
+    reason,
+    locale,
+    payloadKeys: Object.keys(data),
+    detailsLength: getStringValue(data.details).length,
+    extra,
+  }));
+}
+
+function buildSuccessResponse(event, locale) {
+  const redirectTo = getThankYouPath(locale);
+
+  if (isEnhancedRequest(event)) {
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ok: true, redirectTo }),
+    };
+  }
+
+  return {
+    statusCode: 303,
+    headers: {
+      Location: redirectTo,
+    },
+    body: "",
+  };
+}
+
+function buildTurnstileFailureResponse(event, locale, reason) {
+  const errorMessage = getTurnstileErrorMessage(locale);
+
+  console.log(JSON.stringify({
+    message: "send-form-email rejected turnstile verification",
+    reason,
+    locale,
+  }));
+
+  if (isEnhancedRequest(event)) {
+    return {
+      statusCode: 400,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ok: false,
+        error: errorMessage,
+        reason,
+      }),
+    };
+  }
+
+  return {
+    statusCode: 400,
+    body: errorMessage,
+  };
+}
+
+function countLinks(value) {
+  return (value.match(/https?:\/\/|www\./gi) || []).length;
+}
+
+function hasSuspiciousContent(value) {
+  return /\b(?:viagra|cialis|casino|betting|loan|debt relief|crypto(?:currency)?|forex|seo service|backlinks?)\b/i.test(value);
+}
+
+function hasRequiredFields(data) {
+  return [
+    getStringValue(data.firstName).length >= 2,
+    getStringValue(data.lastName).length >= 2,
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(getStringValue(data.email)),
+    getStringValue(data.details).length >= 12,
+  ].every(Boolean);
+}
+
+function classifySpamRisk(data) {
+  const details = getStringValue(data.details);
+  const organization = getStringValue(data.organization);
+  const fullName = `${getStringValue(data.firstName)} ${getStringValue(data.lastName)}`.trim();
+  const searchableText = [fullName, organization, details].filter(Boolean).join(" ");
+  const linkCount = [fullName, organization, details]
+    .reduce((total, field) => total + countLinks(field), 0);
+
+  if (linkCount > MAX_LINK_COUNT) {
+    return { reason: "too_many_links", extra: { linkCount } };
+  }
+
+  if (details && details.replace(/[\W_]+/g, "").length < 10) {
+    return { reason: "low_signal_message", extra: { strippedLength: details.replace(/[\W_]+/g, "").length } };
+  }
+
+  if (searchableText && hasSuspiciousContent(searchableText)) {
+    return { reason: "suspicious_content", extra: { linkCount } };
+  }
+
+  return null;
+}
+
+function cleanupRecentFingerprints(now) {
+  for (const [key, expiresAt] of recentSubmissionFingerprints.entries()) {
+    if (expiresAt <= now) {
+      recentSubmissionFingerprints.delete(key);
+    }
+  }
+}
+
+function getSubmissionFingerprint(data, locale) {
+  return JSON.stringify({
+    locale,
+    email: getStringValue(data.email).toLowerCase(),
+    details: getStringValue(data.details).toLowerCase().replace(/\s+/g, " "),
+  });
+}
+
+function getClientIp(event) {
+  const forwardedFor = getHeaderValue(event.headers, "x-forwarded-for");
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0].trim();
+  }
+
+  const netlifyIp = getHeaderValue(event.headers, "x-nf-client-connection-ip");
+  return netlifyIp.trim();
+}
+
+async function verifyTurnstileToken({ secretKey, token, ip }) {
+  const body = new URLSearchParams({
+    secret: secretKey,
+    response: token,
+  });
+
+  if (ip) {
+    body.set("remoteip", ip);
+  }
+
+  const response = await fetch(TURNSTILE_VERIFY_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: body.toString(),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Turnstile verify error (${response.status})`);
+  }
+
+  return response.json();
 }
 
 function buildSubmissionSubject(formName, data) {
@@ -384,20 +553,101 @@ exports.handler = async (event) => {
   try {
     const apiKey = process.env.RESEND_API_KEY;
     const from = process.env.RESEND_FROM_EMAIL;
+    const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY;
     const toList = (process.env.FORM_TO_EMAIL || "nk.matsumoto.dev@gmail.com")
       .split(",")
       .map((value) => value.trim())
       .filter(Boolean);
 
-    if (!apiKey || !from) {
+    if (!apiKey || !from || !turnstileSecretKey) {
       return {
         statusCode: 500,
-        body: "Missing RESEND_API_KEY or RESEND_FROM_EMAIL environment variable.",
+        body: "Missing RESEND_API_KEY, RESEND_FROM_EMAIL, or TURNSTILE_SECRET_KEY environment variable.",
       };
     }
 
     const { formName, data, meta } = normalizePayload(event);
     const locale = detectLocale(data);
+
+    if (formName !== "pump-inquiry") {
+      return {
+        statusCode: 400,
+        body: "Invalid form submission.",
+      };
+    }
+
+    if (!hasRequiredFields(data)) {
+      console.log(JSON.stringify({
+        message: "send-form-email rejected invalid submission",
+        reason: "missing_required_fields",
+        locale,
+        payloadKeys: Object.keys(data),
+      }));
+      return {
+        statusCode: 400,
+        body: "Invalid form submission.",
+      };
+    }
+
+    const turnstileToken = getStringValue(data["cf-turnstile-response"]);
+    if (!turnstileToken) {
+      return buildTurnstileFailureResponse(event, locale, "turnstile_missing");
+    }
+
+    let turnstileResult;
+    try {
+      turnstileResult = await verifyTurnstileToken({
+        secretKey: turnstileSecretKey,
+        token: turnstileToken,
+        ip: getClientIp(event),
+      });
+    } catch (error) {
+      console.error(JSON.stringify({
+        message: "send-form-email turnstile verification error",
+        locale,
+        error: error instanceof Error ? error.message : String(error),
+      }));
+      return buildTurnstileFailureResponse(event, locale, "turnstile_error");
+    }
+
+    if (!turnstileResult || turnstileResult.success !== true) {
+      return buildTurnstileFailureResponse(event, locale, "turnstile_failed");
+    }
+
+    const honeypotValue = getStringValue(data.companyWebsite) || getStringValue(data["bot-field"]);
+    if (honeypotValue) {
+      logSpamDecision({ reason: "honeypot", locale, data });
+      return buildSuccessResponse(event, locale);
+    }
+
+    const submittedAtRaw = getStringValue(data.submittedAt);
+    const submittedAt = Number.parseInt(submittedAtRaw, 10);
+    if (!Number.isFinite(submittedAt)) {
+      logSpamDecision({ reason: "missing_timestamp", locale, data });
+      return buildSuccessResponse(event, locale);
+    }
+
+    const elapsedMs = Date.now() - submittedAt;
+    if (elapsedMs < MIN_SUBMISSION_AGE_MS) {
+      logSpamDecision({ reason: "submitted_too_fast", locale, data, extra: { elapsedMs } });
+      return buildSuccessResponse(event, locale);
+    }
+
+    const spamRisk = classifySpamRisk(data);
+    if (spamRisk) {
+      logSpamDecision({ reason: spamRisk.reason, locale, data, extra: spamRisk.extra });
+      return buildSuccessResponse(event, locale);
+    }
+
+    const now = Date.now();
+    cleanupRecentFingerprints(now);
+    const fingerprint = getSubmissionFingerprint(data, locale);
+    if (recentSubmissionFingerprints.has(fingerprint)) {
+      logSpamDecision({ reason: "duplicate_submission", locale, data });
+      return buildSuccessResponse(event, locale);
+    }
+    recentSubmissionFingerprints.set(fingerprint, now + DUPLICATE_TTL_MS);
+
     const subject = buildSubmissionSubject(formName, data);
     const html = buildHtmlEmail(formName, data);
     const text = buildTextEmail(formName, data);
@@ -430,25 +680,7 @@ exports.handler = async (event) => {
       locale,
     }));
 
-    const redirectTo = getThankYouPath(locale);
-
-    if (isEnhancedRequest(event)) {
-      return {
-        statusCode: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ok: true, redirectTo }),
-      };
-    }
-
-    return {
-      statusCode: 303,
-      headers: {
-        Location: redirectTo,
-      },
-      body: "",
-    };
+    return buildSuccessResponse(event, locale);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(JSON.stringify({

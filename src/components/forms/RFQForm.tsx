@@ -4,9 +4,10 @@ import { User, Building2, Calendar, Package, Flame, Droplets, Wrench, MapPin, Us
 interface RFQFormProps {
   action?: string;
   locale?: 'en' | 'fr';
+  turnstileSiteKey?: string;
 }
 
-export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
+export default function RFQForm({ action, locale = 'en', turnstileSiteKey = '' }: RFQFormProps) {
   const isFrench = locale === 'fr';
   const iconStroke = 1.75;
   const formAction = action ?? '/.netlify/functions/send-form-email';
@@ -40,6 +41,12 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
     submitError: isFrench
       ? "La demande n'a pas pu être envoyée. Veuillez réessayer."
       : 'We could not send your inquiry. Please try again.',
+    verificationRequired: isFrench
+      ? 'Veuillez compléter la vérification avant d’envoyer la demande.'
+      : 'Please complete the verification before submitting.',
+    verificationRetry: isFrench
+      ? 'La vérification a expiré ou a échoué. Veuillez réessayer.'
+      : 'Verification expired or failed. Please try again.',
   };
   return (
     <form
@@ -52,10 +59,29 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
       data-phone-invalid={t.phoneInvalid}
       data-details-invalid={t.detailsInvalid}
       data-submit-error={t.submitError}
+      data-turnstile-required={t.verificationRequired}
+      data-turnstile-retry={t.verificationRetry}
+      data-turnstile-site-key={turnstileSiteKey}
       action={formAction}
     >
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
       <input type="hidden" name="form-name" value="pump-inquiry" />
       <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="submittedAt" id="submittedAt" value="" />
+      <input type="hidden" name="cf-turnstile-response" id="cf-turnstile-response" value="" />
+      <div
+        className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
+        aria-hidden="true"
+      >
+        <Label.Root htmlFor="companyWebsite">Company Website</Label.Root>
+        <input
+          type="text"
+          id="companyWebsite"
+          name="companyWebsite"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       {/* Contact Information */}
       <div>
         <div className="flex items-center mb-6">
@@ -327,7 +353,10 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
       </div>
 
       {/* Submit Button */}
-      <div className="pt-6">
+        <div>
+        <div className="mb-6 flex justify-center">
+          <div id="turnstile-widget" className="min-h-[65px]" />
+        </div>
         <button
           type="submit"
           className="w-full brand-cta px-8 py-4 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-95 flex items-center justify-center space-x-2"
@@ -353,6 +382,9 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               const email = form.querySelector('#email');
               const phone = form.querySelector('#phone');
               const details = form.querySelector('#details');
+              const submittedAt = form.querySelector('#submittedAt');
+              const turnstileToken = form.querySelector('#cf-turnstile-response');
+              const turnstileContainer = form.querySelector('#turnstile-widget');
               const emailError = form.querySelector('#email-conditional-error');
               const phoneError = form.querySelector('#phone-conditional-error');
               const detailsError = form.querySelector('#details-conditional-error');
@@ -367,7 +399,14 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
               const phoneInvalidMsg = form.getAttribute('data-phone-invalid') || 'At least 10 digits.';
               const detailsInvalidMsg = form.getAttribute('data-details-invalid') || 'Please briefly describe your inquiry.';
               const submitErrorMsg = form.getAttribute('data-submit-error') || 'We could not send your inquiry. Please try again.';
+              const turnstileRequiredMsg = form.getAttribute('data-turnstile-required') || 'Please complete the verification before submitting.';
+              const turnstileRetryMsg = form.getAttribute('data-turnstile-retry') || 'Verification expired or failed. Please try again.';
+              const turnstileSiteKey = form.getAttribute('data-turnstile-site-key') || '';
               let submitted = false;
+              let turnstileWidgetId = null;
+              if (submittedAt instanceof HTMLInputElement && !submittedAt.value) {
+                submittedAt.value = String(Date.now());
+              }
               const controls = Array.from(form.querySelectorAll('input, select, textarea')).filter((field) => {
                 if (!(field instanceof HTMLElement)) return false;
                 if (field instanceof HTMLInputElement) {
@@ -412,6 +451,59 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
                   submitError.textContent = message || submitErrorMsg;
                 }
                 setVisible(submitError, true);
+              };
+              const clearTurnstileToken = () => {
+                if (turnstileToken instanceof HTMLInputElement) {
+                  turnstileToken.value = '';
+                }
+              };
+              const getTurnstileToken = () => {
+                return turnstileToken instanceof HTMLInputElement ? turnstileToken.value.trim() : '';
+              };
+              const renderTurnstile = () => {
+                if (!turnstileSiteKey) {
+                  showSubmitError(turnstileRequiredMsg);
+                  return;
+                }
+                if (!(turnstileContainer instanceof HTMLElement)) return;
+                if (!window.turnstile || typeof window.turnstile.render !== 'function') return;
+                if (turnstileWidgetId !== null) return;
+                turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+                  sitekey: turnstileSiteKey,
+                  callback: (token) => {
+                    if (turnstileToken instanceof HTMLInputElement) {
+                      turnstileToken.value = token || '';
+                    }
+                    hideSubmitError();
+                  },
+                  'expired-callback': () => {
+                    clearTurnstileToken();
+                    showSubmitError(turnstileRetryMsg);
+                  },
+                  'error-callback': () => {
+                    clearTurnstileToken();
+                    showSubmitError(turnstileRetryMsg);
+                  }
+                });
+              };
+              const ensureTurnstile = () => {
+                if (window.turnstile && typeof window.turnstile.render === 'function') {
+                  renderTurnstile();
+                  return;
+                }
+                let attempts = 0;
+                const intervalId = window.setInterval(() => {
+                  attempts += 1;
+                  if (window.turnstile && typeof window.turnstile.render === 'function') {
+                    window.clearInterval(intervalId);
+                    renderTurnstile();
+                    return;
+                  }
+                  if (attempts >= 50) {
+                    window.clearInterval(intervalId);
+                    showSubmitError(turnstileRetryMsg);
+                  }
+                }, 200);
               };
               const needsIndustry = () => org.value.trim().length > 0;
               const syncRequirement = (checkError = false) => {
@@ -542,6 +634,11 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
                   if (firstInvalid instanceof HTMLElement) firstInvalid.focus();
                   return;
                 }
+                if (!getTurnstileToken()) {
+                  event.preventDefault();
+                  showSubmitError(turnstileRequiredMsg);
+                  return;
+                }
                 event.preventDefault();
                 hideSubmitError();
                 setSubmitting(true);
@@ -566,6 +663,10 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
 
                     if (!response.ok) {
                       const message = payload && typeof payload.error === 'string' ? payload.error : submitErrorMsg;
+                      if (window.turnstile && turnstileWidgetId !== null && typeof window.turnstile.reset === 'function') {
+                        clearTurnstileToken();
+                        window.turnstile.reset(turnstileWidgetId);
+                      }
                       throw new Error(message);
                     }
 
@@ -583,6 +684,7 @@ export default function RFQForm({ action, locale = 'en' }: RFQFormProps) {
 
               syncRequirement();
               hideSubmitError();
+              ensureTurnstile();
             })();
           `,
         }}
