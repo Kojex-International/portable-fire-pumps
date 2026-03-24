@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 const { pump, requestedSlug } = Astro.props as { pump: Firepump; requestedSlug: string };
 
 if (requestedSlug !== pump.slug) {
-  return Astro.redirect(`/en/products/${pump.slug}`);
+  return Astro.redirect(`/en/products/${pump.slug}/`);
 }
 
 const metadata = getProductMetadata({

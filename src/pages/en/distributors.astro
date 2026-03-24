@@ -70,6 +70,7 @@ const distributors = [
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const productsHref = localizePath('/products', locale);
 const metadata = getNonProductMetadata({
   pageKey: 'distributors',
   locale: 'en',
@@ -113,6 +114,9 @@ const metadata = getNonProductMetadata({
       description="Verified partners with proven expertise in emergency response and wildfire protection equipment."
       class="mb-16"
     />
+    <div class="mx-auto mb-10 max-w-4xl px-4 text-center text-base leading-relaxed text-slate-600">
+      Teams comparing regional support can review the full <a href={productsHref} class="font-semibold text-[var(--brand-1)] hover:underline">portable fire pump range</a> first, then contact the distributor best aligned with their operational territory.
+    </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 auto-rows-fr">
       {distributors.map((distributor, index) => (

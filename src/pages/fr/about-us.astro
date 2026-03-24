@@ -6,6 +6,7 @@ import PageHero from '../../components/layout/PageHero.astro';
 import { Building2 } from 'lucide-react';
 
 import heroBgImg from '@assets/about-us-hero.webp';
+import { localizePath } from '@config/site';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
 import { buildAboutPageSchema } from '@utils/seo/schema';
 const metadata = getNonProductMetadata({
@@ -15,6 +16,8 @@ const metadata = getNonProductMetadata({
   ogImageSrc: heroBgImg.src,
 });
 const structuredData = buildAboutPageSchema(metadata.canonicalUrl, 'fr');
+const productsHref = localizePath('/products', 'fr');
+const distributorsHref = localizePath('/distributors', 'fr');
 ---
 
 <BaseLayout
@@ -53,7 +56,7 @@ const structuredData = buildAboutPageSchema(metadata.canonicalUrl, 'fr');
         Fondée en 1990 et établie à Montréal, Kojex International fournit des produits et technologies répondant aux exigences des marchés modernes. L’entreprise distribue notamment des solutions d’habitation préfabriquée, des matériaux d’entretien routier ainsi que de l’équipement spécialisé de lutte contre l’incendie, auprès de clients situés en Amérique du Nord, en Amérique du Sud, en Europe et en Asie.
       </p>
       <p>
-        Notre engagement repose sur la qualité des produits et la rigueur du service offert. Cette approche sans compromis se reflète dans chacune de nos collaborations.
+        Notre engagement repose sur la qualité des produits et la rigueur du service offert. Cette approche sans compromis se reflète dans notre <a href={productsHref} class="text-[var(--brand-1)] hover:underline">gamme de pompes incendie portatives</a> et dans chacune de nos collaborations.
       </p>
       <p>
         L’écoute attentive des besoins de nos clients et la constance de notre service constituent les fondements de notre croissance et de nos relations à long terme.
@@ -82,7 +85,7 @@ const structuredData = buildAboutPageSchema(metadata.canonicalUrl, 'fr');
         Afin d’assurer un niveau de qualité constant, chaque pompe fait l’objet d’essais rigoureux avant expédition. Les pompes Shibaura Rabbit offrent une solution fiable pour les interventions d’urgence, notamment dans les régions éloignées où les infrastructures sont limitées.
       </p>
       <p>
-        Kojex International poursuit activement le développement de son réseau de distribution. Les entreprises intéressées à représenter les pompes incendie portatives Shibaura Rabbit sont invitées à communiquer avec nous pour plus d’information.
+        Kojex International poursuit activement le développement de son <a href={distributorsHref} class="text-[var(--brand-1)] hover:underline">réseau de distribution</a>. Les entreprises intéressées à représenter les pompes incendie portatives Shibaura Rabbit sont invitées à communiquer avec nous pour plus d’information.
       </p>
     </div>
   </Section>

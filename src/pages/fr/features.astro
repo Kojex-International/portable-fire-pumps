@@ -14,6 +14,8 @@ import { getNonProductMetadata } from '@utils/nonProductMetadata';
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const relayHref = localizePath('/long-distance-relay-pumping', locale);
+const waterCooledHref = localizePath('/products/water-cooled', locale);
 const metadata = getNonProductMetadata({
   pageKey: 'features',
   locale: 'fr',
@@ -46,6 +48,9 @@ const metadata = getNonProductMetadata({
   </PageHero>
 
   <Section background="white">
+    <div class="mx-auto max-w-4xl px-4 pb-8 text-center text-base leading-relaxed text-slate-600">
+      Ces caractéristiques techniques sont particulièrement utiles pour comparer les <a href={relayHref} class="font-semibold text-[var(--brand-1)] hover:underline">configurations de pompage en relais</a> et les <a href={waterCooledHref} class="font-semibold text-[var(--brand-1)] hover:underline">pompes refroidies à l’eau</a> adaptées à une utilisation soutenue.
+    </div>
     <div id="long-distance-water-delivery">
       <AutoRelaySection locale="fr" variant="longDistance" showVideo={true} badgeIconComponent={Gauge} />
     </div>

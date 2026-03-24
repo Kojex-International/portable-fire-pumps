@@ -1,0 +1,31 @@
+{
+  "snapshot_date": "2026-03-24",
+  "generated_at": "2026-03-24T02:56:46.860Z",
+  "source_files": [
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-24 (1).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-24 (2).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-24 (3).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-24.zip",
+    "portable-fire-pumps.com-Coverage-Valid-2026-03-24.zip"
+  ],
+  "totals": {
+    "rows": 66,
+    "valid": 32,
+    "excluded": 34,
+    "redirect_sources": 28
+  },
+  "by_issue": {
+    "Crawled - currently not indexed": 3,
+    "Discovered - currently not indexed": 17,
+    "Duplicate, Google chose different canonical than user": 3,
+    "Page with redirect": 11,
+    "Valid": 32
+  },
+  "by_classification": {
+    "legacy_hashbang": 3,
+    "legacy_or_nonlocalized_path": 22,
+    "localized_current_style": 31,
+    "noncanonical_host_or_protocol": 9,
+    "root_path": 1
+  }
+}

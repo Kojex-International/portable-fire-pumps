@@ -16,6 +16,14 @@ http://www.portable-fire-pumps.com/* https://www.portable-fire-pumps.com/:splat 
 /about-us/                /en/about-us/                 301
 /contact                  /en/contact-us/               301
 /contact/                 /en/contact-us/               301
+/dealers-finder           /en/distributors/             301
+/dealers-finder/          /en/distributors/             301
+/product-features         /en/features/                 301
+/product-features/        /en/features/                 301
+/news                     /en/resources/                301
+/news/                    /en/resources/                301
+/demo-video               /en/features/                 301
+/demo-video/              /en/features/                 301
 /document                 /en/resources/                301
 /document/                /en/resources/                301
 /document-1               /en/resources/                301
@@ -36,5 +44,10 @@ http://www.portable-fire-pumps.com/* https://www.portable-fire-pumps.com/:splat 
 /p572/                    /en/products/p572s-a/         301
 /ff500                    /en/products/ff500ar-a/       301
 /ff500/                   /en/products/ff500ar-a/       301
+/emergecywaterpurificationsystem              /410.html  410!
+/emergecywaterpurificationsystem/             /410.html  410!
+/複製-emergency-water-purification-sy         /410.html  410!
+/products/rabbit-diamond-fuji-series          /410.html  410!
+/products/rabbit-diamond-fuji-series/         /410.html  410!
 
 / /en/ 301!

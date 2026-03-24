@@ -70,6 +70,7 @@ const distributors = [
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const productsHref = localizePath('/products', locale);
 const metadata = getNonProductMetadata({
   pageKey: 'distributors',
   locale: 'fr',
@@ -113,6 +114,9 @@ const metadata = getNonProductMetadata({
       description="Partenaires vérifiés disposant d’une expertise reconnue en intervention d’urgence et en protection contre les incendies de forêt."
       class="mb-16"
     />
+    <div class="mx-auto mb-10 max-w-4xl px-4 text-center text-base leading-relaxed text-slate-600">
+      Les équipes qui évaluent leur soutien régional peuvent d’abord consulter la <a href={productsHref} class="font-semibold text-[var(--brand-1)] hover:underline">gamme complète de pompes incendie portatives</a>, puis communiquer avec le distributeur correspondant à leur territoire d’intervention.
+    </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 auto-rows-fr">
       {distributors.map((distributor, index) => (

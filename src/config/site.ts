@@ -65,9 +65,22 @@ export const getLocaleFromPathname = (pathname: string): Locale => {
 };
 
 export const localizePath = (path: string, locale: Locale): string => {
-  const stripped = stripLocalePrefix(path);
-  const normalized = stripped === '' ? '/' : stripped;
-  return normalized === '/' ? `/${locale}` : `/${locale}${normalized}`;
+  const [rawPathAndSearch, rawHash = ''] = path.split('#', 2);
+  const [rawPathname, rawSearch = ''] = rawPathAndSearch.split('?', 2);
+  const stripped = stripLocalePrefix(rawPathname);
+  const normalizedPathname = stripped === '' ? '/' : stripped;
+  const pathnameWithSlash =
+    normalizedPathname === '/'
+      ? '/'
+      : normalizedPathname.endsWith('/')
+        ? normalizedPathname
+        : `${normalizedPathname}/`;
+  const localizedPathname =
+    pathnameWithSlash === '/' ? `/${locale}/` : `/${locale}${pathnameWithSlash}`;
+  const search = rawSearch ? `?${rawSearch}` : '';
+  const hash = rawHash ? `#${rawHash}` : '';
+
+  return `${localizedPathname}${search}${hash}`;
 };
 
 export const getNavigation = (locale: Locale) =>

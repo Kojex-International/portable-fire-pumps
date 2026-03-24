@@ -31,6 +31,8 @@ const { pump, locale } = Astro.props;
 const isFrench = locale === 'fr';
 
 const productsHref = localizePath('/products', locale);
+const airCooledHref = localizePath('/products/air-cooled', locale);
+const waterCooledHref = localizePath('/products/water-cooled', locale);
 const manualPdf = pump.manualPdf ?? catalogPdf;
 const manualLabel = pump.manualPdf
   ? isFrench
@@ -128,9 +130,18 @@ const performanceImages = performanceImagesBySlug[pump.slug];
 
 const relayUseCaseSlugs = new Set(['ff500ar-a', 'p572s-a', 'fk500-a']);
 const wildlandUseCaseSlugs = new Set(['ft510-a', 'ft300-400-a', 'tf516mh-ab']);
+const categoryLink = relayUseCaseSlugs.has(pump.slug)
+  ? {
+      href: waterCooledHref,
+      label: isFrench ? 'pompes refroidies à l’eau' : 'water-cooled pumps',
+    }
+  : {
+      href: airCooledHref,
+      label: isFrench ? 'pompes refroidies à l’air' : 'air-cooled pumps',
+    };
 const useCaseLink = relayUseCaseSlugs.has(pump.slug)
   ? {
-      href: locale === 'fr' ? '/fr/long-distance-relay-pumping' : '/en/long-distance-relay-pumping',
+      href: localizePath('/long-distance-relay-pumping', locale),
       label: isFrench ? 'Voir le cas d’usage relais d’eau longue distance' : 'View the long-distance relay pumping page',
       text: isFrench
         ? 'Ce modèle convient particulièrement aux configurations relais et aux transferts d’eau soutenus.'
@@ -138,7 +149,7 @@ const useCaseLink = relayUseCaseSlugs.has(pump.slug)
     }
   : wildlandUseCaseSlugs.has(pump.slug)
     ? {
-        href: locale === 'fr' ? '/fr/use-cases#remote-firefighting' : '/en/use-cases#remote-firefighting',
+        href: localizePath('/use-cases#remote-firefighting', locale),
         label: isFrench ? 'Voir le cas d’usage interventions éloignées' : 'View the remote firefighting section',
         text: isFrench
           ? 'Ce modèle mérite aussi d’être comparé pour les interventions rurales, les sites isolés et les accès éloignés.'
@@ -165,6 +176,24 @@ const text = {
   specButtonLabel={text.specButton}
   shibauraLogoMark={shibauraLogoMark}
 />
+
+<section class="bg-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+    <div class="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-slate-50 p-6">
+      <p class="text-sm leading-relaxed text-slate-600">
+        {isFrench ? 'Comparez ce modèle dans la catégorie des ' : 'Compare this model within the '}
+        <a href={categoryLink.href} class="font-semibold text-[var(--brand-1)] hover:underline">{categoryLink.label}</a>
+        {useCaseLink
+          ? isFrench
+            ? ' et consultez aussi le contenu lié aux scénarios d’intervention correspondants.'
+            : ' and review the related operational scenario page as part of your selection process.'
+          : isFrench
+            ? ' lors de votre sélection.'
+            : ' as part of your selection process.'}
+      </p>
+    </div>
+  </div>
+</section>
 
 <ProductPerformanceMedia
   pumpTitle={pump.title}
