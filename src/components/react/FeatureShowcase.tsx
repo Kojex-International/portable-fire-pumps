@@ -93,12 +93,15 @@ type FeatureShowcaseProps = {
 
 export default function FeatureShowcase({ detailsBaseHref = '/products', locale = 'en' }: FeatureShowcaseProps) {
   const features = locale === 'fr' ? featuresFr : featuresEn;
+  const normalizedDetailsBaseHref = detailsBaseHref.endsWith('/')
+    ? detailsBaseHref.slice(0, -1)
+    : detailsBaseHref;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature, index) => (
         <motion.a
           key={feature.title}
-          href={`${detailsBaseHref}/${feature.slug}`}
+          href={`${normalizedDetailsBaseHref}/${feature.slug}/`}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
