@@ -18,6 +18,7 @@ interface Props {
 
 export default function MobilePumpCards({ capabilities, detailsBaseHref = '/en/products', locale = 'en' }: Props) {
   const isFrench = locale === 'fr';
+  const normalizedDetailsBaseHref = detailsBaseHref.endsWith('/') ? detailsBaseHref.slice(0, -1) : detailsBaseHref;
   return (
     <div className="space-y-4">
       {capabilities.map((capability, index) => (
@@ -28,7 +29,7 @@ export default function MobilePumpCards({ capabilities, detailsBaseHref = '/en/p
           <div className="px-6 py-5">
             <div className="flex items-center space-x-4">
               <div className="flex-1 pr-2">
-                <a href={`${detailsBaseHref}/${capability.slug}`} className="inline-flex items-center gap-2">
+                <a href={`${normalizedDetailsBaseHref}/${capability.slug}/`} className="inline-flex items-center gap-2">
                   <h3 className="flex items-center gap-2 text-xl font-extrabold">
                     <span
                       aria-hidden="true"
@@ -53,7 +54,7 @@ export default function MobilePumpCards({ capabilities, detailsBaseHref = '/en/p
                 <p className="text-sm text-slate-600 mt-1.5">
                   {capability.description}
                 </p>
-                <a href={`${detailsBaseHref}/${capability.slug}`} className="mt-4 block overflow-hidden bg-gradient-to-b from-white to-slate-50/30">
+                <a href={`${normalizedDetailsBaseHref}/${capability.slug}/`} className="mt-4 block overflow-hidden bg-gradient-to-b from-white to-slate-50/30">
                   <img
                     src={capability.image.src}
                     alt={capability.title}
@@ -84,7 +85,7 @@ export default function MobilePumpCards({ capabilities, detailsBaseHref = '/en/p
             </div>
             <div className="-mx-6 px-6 pt-4 pb-0 flex justify-center bg-white">
               <a
-                href={`${detailsBaseHref}/${capability.slug}`}
+                href={`${normalizedDetailsBaseHref}/${capability.slug}/`}
                 className="brand-link-cta group"
               >
                 {isFrench ? 'Voir les détails' : 'View Details'}

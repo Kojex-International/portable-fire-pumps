@@ -12,6 +12,7 @@ interface Props {
 
 const { capabilities, detailsBaseHref, locale = 'en' } = Astro.props as Props;
 const detailsAriaPrefix = locale === 'fr' ? 'Voir les détails pour' : 'View details for';
+const normalizedDetailsBaseHref = detailsBaseHref.endsWith('/') ? detailsBaseHref.slice(0, -1) : detailsBaseHref;
 ---
 
 <div class="hidden lg:block space-y-24">
@@ -21,8 +22,8 @@ const detailsAriaPrefix = locale === 'fr' ? 'Voir les détails pour' : 'View det
       role="link"
       tabindex="0"
       aria-label={`${detailsAriaPrefix} ${capability.title}`}
-      onclick={`if (event.target.closest('a,button')) return; window.location.href='${detailsBaseHref}/${capability.slug}';`}
-      onkeydown={`if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('a,button')) { event.preventDefault(); window.location.href='${detailsBaseHref}/${capability.slug}'; }`}
+      onclick={`if (event.target.closest('a,button')) return; window.location.href='${normalizedDetailsBaseHref}/${capability.slug}/';`}
+      onkeydown={`if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('a,button')) { event.preventDefault(); window.location.href='${normalizedDetailsBaseHref}/${capability.slug}/'; }`}
     >
       <div class={`${index % 2 === 1 ? 'lg:col-start-2' : ''} animate-fadeInUp`}>
         <div class="flex items-center gap-4 mb-5">
