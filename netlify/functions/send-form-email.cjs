@@ -6,6 +6,13 @@ const MAX_LINK_COUNT = 2;
 const DUPLICATE_TTL_MS = 10 * 60 * 1000;
 const recentSubmissionFingerprints = new Map();
 
+const ALLOWED_ORIGINS = new Set([
+  "https://www.portable-fire-pumps.com",
+  "https://portable-fire-pumps.com",
+  "http://localhost:4321",
+  "http://localhost:8888",
+]);
+
 const FIELD_LABELS = {
   en: {
     firstName: "First Name",
@@ -548,6 +555,21 @@ function getThankYouPath(locale) {
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
+  }
+
+  const origin = getHeaderValue(event.headers, "origin");
+  const referer = getHeaderValue(event.headers, "referer");
+  const requestOrigin = origin || (referer ? new URL(referer).origin : "");
+
+  if (requestOrigin && !ALLOWED_ORIGINS.has(requestOrigin)) {
+    const isNetlifyDeploy = requestOrigin.endsWith(".netlify.app");
+    if (!isNetlifyDeploy) {
+      console.log(JSON.stringify({
+        message: "send-form-email rejected cross-origin request",
+        origin: requestOrigin,
+      }));
+      return { statusCode: 403, body: "Forbidden" };
+    }
   }
 
   try {
