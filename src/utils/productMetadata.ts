@@ -24,10 +24,10 @@ export const getProductMetadata = ({
 }: ProductMetadataInput): ProductMetadata => {
   const title =
     locale === 'fr'
-      ? `${pump.title} Pompe incendie portative | Shibaura | Kojex`
-      : `${pump.title} Portable Fire Pump | Shibaura | Kojex`;
+      ? `${pump.title} | Pompe à incendie portative Shibaura`
+      : `${pump.title} Portable Fire Pump | Shibaura`;
 
-  const description = `${pump.subtitle}. ${pump.valueProp}`.replace(/\s+/g, ' ').trim();
+  const description = `${pump.title}: ${pump.subtitle}. ${pump.valueProp}`.replace(/\s+/g, ' ').trim();
   const canonicalUrl = new URL(normalizePath(pathname), siteUrl).toString();
   const ogImageUrl = new URL(pump.image.src, siteUrl).toString();
 
@@ -38,4 +38,3 @@ export const getProductMetadata = ({
     ogImageUrl,
   };
 };
-

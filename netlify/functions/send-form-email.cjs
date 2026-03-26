@@ -4,7 +4,14 @@ const HIDDEN_KEYS = new Set(["form-name", "bot-field", "companyWebsite", "submit
 const MIN_SUBMISSION_AGE_MS = 4000;
 const MAX_LINK_COUNT = 2;
 const DUPLICATE_TTL_MS = 10 * 60 * 1000;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_SHORT_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT_EMAIL_WINDOW_MS = 60 * 60 * 1000;
+const RATE_LIMIT_MAX_PER_IP = 10;
+const RATE_LIMIT_MAX_PER_IP_SHORT = 3;
+const RATE_LIMIT_MAX_PER_EMAIL = 5;
 const recentSubmissionFingerprints = new Map();
+const requestRateBuckets = new Map();
 
 const FIELD_LABELS = {
   en: {
@@ -265,6 +272,37 @@ function buildTurnstileFailureResponse(event, locale, reason) {
   };
 }
 
+function buildRateLimitFailureResponse(event, locale, reason) {
+  const errorMessage = locale === "fr"
+    ? "Trop de tentatives en peu de temps. Veuillez réessayer dans quelques minutes."
+    : "Too many requests in a short period. Please try again in a few minutes.";
+
+  console.log(JSON.stringify({
+    message: "send-form-email rate limit exceeded",
+    reason,
+    locale,
+  }));
+
+  if (isEnhancedRequest(event)) {
+    return {
+      statusCode: 429,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ok: false,
+        error: errorMessage,
+        reason,
+      }),
+    };
+  }
+
+  return {
+    statusCode: 429,
+    body: errorMessage,
+  };
+}
+
 function countLinks(value) {
   return (value.match(/https?:\/\/|www\./gi) || []).length;
 }
@@ -311,6 +349,32 @@ function cleanupRecentFingerprints(now) {
       recentSubmissionFingerprints.delete(key);
     }
   }
+}
+
+function cleanupRateBuckets(now) {
+  for (const [key, bucket] of requestRateBuckets.entries()) {
+    if (!bucket || bucket.expiresAt <= now) {
+      requestRateBuckets.delete(key);
+    }
+  }
+}
+
+function consumeRateBucket({ key, windowMs, maxCount, now }) {
+  const existing = requestRateBuckets.get(key);
+  if (!existing || existing.expiresAt <= now) {
+    requestRateBuckets.set(key, {
+      count: 1,
+      expiresAt: now + windowMs,
+    });
+    return { limited: false, count: 1 };
+  }
+
+  existing.count += 1;
+  requestRateBuckets.set(key, existing);
+  return {
+    limited: existing.count > maxCount,
+    count: existing.count,
+  };
 }
 
 function getSubmissionFingerprint(data, locale) {
@@ -568,6 +632,7 @@ exports.handler = async (event) => {
 
     const { formName, data, meta } = normalizePayload(event);
     const locale = detectLocale(data);
+    const clientIp = getClientIp(event);
 
     if (formName !== "pump-inquiry") {
       return {
@@ -589,6 +654,44 @@ exports.handler = async (event) => {
       };
     }
 
+    const now = Date.now();
+    cleanupRateBuckets(now);
+
+    if (clientIp) {
+      const ipWindow = consumeRateBucket({
+        key: `ip:${clientIp}:long`,
+        windowMs: RATE_LIMIT_WINDOW_MS,
+        maxCount: RATE_LIMIT_MAX_PER_IP,
+        now,
+      });
+      if (ipWindow.limited) {
+        return buildRateLimitFailureResponse(event, locale, "rate_limit_ip");
+      }
+
+      const ipShortWindow = consumeRateBucket({
+        key: `ip:${clientIp}:short`,
+        windowMs: RATE_LIMIT_SHORT_WINDOW_MS,
+        maxCount: RATE_LIMIT_MAX_PER_IP_SHORT,
+        now,
+      });
+      if (ipShortWindow.limited) {
+        return buildRateLimitFailureResponse(event, locale, "rate_limit_ip_burst");
+      }
+    }
+
+    const emailKey = getStringValue(data.email).toLowerCase();
+    if (emailKey) {
+      const emailWindow = consumeRateBucket({
+        key: `email:${emailKey}`,
+        windowMs: RATE_LIMIT_EMAIL_WINDOW_MS,
+        maxCount: RATE_LIMIT_MAX_PER_EMAIL,
+        now,
+      });
+      if (emailWindow.limited) {
+        return buildRateLimitFailureResponse(event, locale, "rate_limit_email");
+      }
+    }
+
     const turnstileToken = getStringValue(data["cf-turnstile-response"]);
     if (!turnstileToken) {
       return buildTurnstileFailureResponse(event, locale, "turnstile_missing");
@@ -599,7 +702,7 @@ exports.handler = async (event) => {
       turnstileResult = await verifyTurnstileToken({
         secretKey: turnstileSecretKey,
         token: turnstileToken,
-        ip: getClientIp(event),
+        ip: clientIp,
       });
     } catch (error) {
       console.error(JSON.stringify({
@@ -639,7 +742,6 @@ exports.handler = async (event) => {
       return buildSuccessResponse(event, locale);
     }
 
-    const now = Date.now();
     cleanupRecentFingerprints(now);
     const fingerprint = getSubmissionFingerprint(data, locale);
     if (recentSubmissionFingerprints.has(fingerprint)) {
