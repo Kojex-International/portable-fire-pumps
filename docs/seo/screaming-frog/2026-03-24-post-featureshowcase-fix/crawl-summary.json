@@ -1,0 +1,14 @@
+{
+  "snapshot_date": "2026-03-24-post-featureshowcase-fix",
+  "generated_at": "2026-03-24T05:10:22.740Z",
+  "input_file": "docs/seo/screaming-frog/2026-03-24-post-featureshowcase-fix/raw/internal-all.csv",
+  "totals": {
+    "rows": 34,
+    "html_rows": 34,
+    "indexable_html_rows": 34,
+    "redirect_rows": 0,
+    "localized_en_rows": 17,
+    "localized_fr_rows": 17,
+    "nonlocalized_html_rows": 0
+  }
+}

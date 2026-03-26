@@ -1,0 +1,41 @@
+{
+  "snapshot_date": "2026-03-26",
+  "generated_at": "2026-03-26T04:31:21.121Z",
+  "source_files": [
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26 (1).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26 (2).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26 (3).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26 (4).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26 (5).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26 (6).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26 (7).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26 (8).zip",
+    "portable-fire-pumps.com-Coverage-Drilldown-2026-03-26.zip",
+    "portable-fire-pumps.com-Coverage-Valid-2026-03-26.zip"
+  ],
+  "totals": {
+    "rows": 83,
+    "valid": 48,
+    "excluded": 35,
+    "redirect_sources": 39
+  },
+  "by_issue": {
+    "Alternate page with proper canonical tag": 3,
+    "Blocked due to other 4xx issue": 1,
+    "Crawled - currently not indexed": 3,
+    "Discovered - currently not indexed": 1,
+    "Duplicate, Google chose different canonical than user": 3,
+    "Excluded by ‘noindex’ tag": 10,
+    "Not found (404)": 1,
+    "Page with redirect": 11,
+    "Redirect error": 2,
+    "Valid": 48
+  },
+  "by_classification": {
+    "legacy_hashbang": 5,
+    "legacy_or_nonlocalized_path": 34,
+    "localized_current_style": 31,
+    "noncanonical_host_or_protocol": 12,
+    "root_path": 1
+  }
+}
