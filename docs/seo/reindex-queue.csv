@@ -1,0 +1,33 @@
+url,locale,reason,priority,changed_at,submitted_at,status,notes
+https://www.portable-fire-pumps.com/fr/features/,fr,indexation priority from GSC (discovered not indexed),P1,2026-03-26,,pending,Highest priority page from latest GSC snapshot
+https://www.portable-fire-pumps.com/en/,en,metadata update + root redirect normalization,P1,2026-03-26,,pending,Homepage
+https://www.portable-fire-pumps.com/fr/,fr,metadata update,P1,2026-03-26,,pending,Homepage
+https://www.portable-fire-pumps.com/en/products/,en,metadata update,P1,2026-03-26,,pending,Core index page
+https://www.portable-fire-pumps.com/fr/products/,fr,metadata update,P1,2026-03-26,,pending,Core index page
+https://www.portable-fire-pumps.com/en/distributors/,en,metadata update,P1,2026-03-26,,pending,Commercial intent page
+https://www.portable-fire-pumps.com/fr/distributors/,fr,metadata update + contextual link improvement,P1,2026-03-26,,pending,Includes new FR contextual internal link
+https://www.portable-fire-pumps.com/en/resources/,en,metadata update,P1,2026-03-26,,pending,Documentation intent page
+https://www.portable-fire-pumps.com/fr/resources/,fr,metadata update,P1,2026-03-26,,pending,Documentation intent page
+https://www.portable-fire-pumps.com/en/features/,en,metadata update,P2,2026-03-26,,pending,Topic page
+https://www.portable-fire-pumps.com/en/use-cases/,en,metadata update,P2,2026-03-26,,pending,Use-case intent page
+https://www.portable-fire-pumps.com/fr/use-cases/,fr,metadata update,P2,2026-03-26,,pending,Use-case intent page
+https://www.portable-fire-pumps.com/en/long-distance-relay-pumping/,en,metadata update,P2,2026-03-26,,pending,Operational scenario page
+https://www.portable-fire-pumps.com/fr/long-distance-relay-pumping/,fr,metadata update,P2,2026-03-26,,pending,Operational scenario page
+https://www.portable-fire-pumps.com/en/products/air-cooled/,en,metadata update,P2,2026-03-26,,pending,Category page
+https://www.portable-fire-pumps.com/fr/products/air-cooled/,fr,metadata update,P2,2026-03-26,,pending,Category page
+https://www.portable-fire-pumps.com/en/products/water-cooled/,en,metadata update,P2,2026-03-26,,pending,Category page
+https://www.portable-fire-pumps.com/fr/products/water-cooled/,fr,metadata update,P2,2026-03-26,,pending,Category page
+https://www.portable-fire-pumps.com/en/about-us/,en,metadata update,P3,2026-03-26,,pending,Brand page
+https://www.portable-fire-pumps.com/fr/about-us/,fr,metadata update,P3,2026-03-26,,pending,Brand page
+https://www.portable-fire-pumps.com/en/products/ft510-a/,en,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/fr/products/ft510-a/,fr,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/en/products/p572s-a/,en,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/fr/products/p572s-a/,fr,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/en/products/ff500ar-a/,en,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/fr/products/ff500ar-a/,fr,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/en/products/fk500-a/,en,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/fr/products/fk500-a/,fr,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/en/products/ft300-400-a/,en,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/fr/products/ft300-400-a/,fr,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/en/products/tf516mh-ab/,en,metadata template update,P3,2026-03-26,,pending,Product detail
+https://www.portable-fire-pumps.com/fr/products/tf516mh-ab/,fr,metadata template update,P3,2026-03-26,,pending,Product detail

@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "audit:images": "node scripts/audit-images.mjs",
-    "test:product-render": "npm run build && node scripts/test-product-render.mjs"
+    "test:product-render": "npm run build && node scripts/test-product-render.mjs",
+    "seo:queue:check": "node scripts/check-reindex-queue.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
