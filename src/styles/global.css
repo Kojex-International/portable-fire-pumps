@@ -258,11 +258,12 @@
   transition: background 0.3s ease;
 }
 
-@media (max-width: 767px) {
-  .container {
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-  }
+.mobile-container-gutter {
+  @apply px-2 sm:px-6 lg:px-8;
+}
+
+.mobile-body-gutter {
+  @apply px-3 sm:px-0;
 }
 
 .cta-overlay-gradient {

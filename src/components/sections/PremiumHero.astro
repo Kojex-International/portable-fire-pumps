@@ -56,7 +56,7 @@ const quickLinkItems = [
 ];
 ---
 
-<section class="relative h-[72vh] min-h-[560px] sm:h-screen sm:min-h-[680px] flex items-start sm:items-center overflow-hidden safari-hero-offset">
+<section class="relative min-h-[560px] sm:h-screen sm:min-h-[680px] flex items-start sm:items-center overflow-hidden safari-hero-offset">
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
     <video
@@ -87,7 +87,7 @@ const quickLinkItems = [
   </div>
 
   <!-- Content -->
-  <div class="container mx-auto relative z-10 px-4 pt-20 pb-24 sm:px-6 sm:py-28 lg:px-8 lg:py-24">
+  <div class="container mx-auto relative z-10 mobile-container-gutter pt-14 pb-16 sm:py-28 lg:py-24">
     <div class="max-w-5xl relative text-center sm:text-left">
       <div class="relative z-10">
         <div class="relative mx-auto inline-flex items-center px-3.5 py-1.5 sm:mx-0 sm:px-4 sm:py-2 mb-4 sm:mb-6 bg-white/10 backdrop-blur-[6px] text-white text-xs sm:text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
@@ -106,7 +106,7 @@ const quickLinkItems = [
           ? 'text-[1.85rem] leading-[1.05] sm:text-4xl md:text-5xl lg:text-6xl'
           : 'text-3xl leading-tight sm:text-4xl md:text-6xl lg:text-7xl',
       ]}>
-        {isFrench ? <span class="whitespace-nowrap">Pompes incendie portatives</span> : 'High-Performance'}
+        {isFrench ? <span>Pompes incendie portatives</span> : 'High-Performance'}
         <span class="block brand-gradient-text-fill mt-2">
           {isFrench ? 'haute performance' : 'Portable Fire Pumps'}
         </span>
