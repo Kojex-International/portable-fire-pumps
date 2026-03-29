@@ -12,6 +12,13 @@ const RATE_LIMIT_MAX_PER_IP_SHORT = 3;
 const RATE_LIMIT_MAX_PER_EMAIL = 5;
 const recentSubmissionFingerprints = new Map();
 const requestRateBuckets = new Map();
+const ALLOWED_ORIGINS = new Set([
+  "https://www.portable-fire-pumps.com",
+  "https://portable-fire-pumps.com",
+  "https://portablefirepumps.netlify.app",
+  "http://localhost:4321",
+  "http://localhost:8888",
+]);
 
 const FIELD_LABELS = {
   en: {
@@ -609,9 +616,35 @@ function getThankYouPath(locale) {
   return locale === "fr" ? "/fr/contact-us/thanks/" : "/en/contact-us/thanks/";
 }
 
+function resolveRequestOrigin(event) {
+  const origin = getHeaderValue(event.headers, "origin");
+  if (origin) return origin;
+
+  const referer = getHeaderValue(event.headers, "referer");
+  if (!referer) return "";
+
+  try {
+    return new URL(referer).origin;
+  } catch {
+    return "";
+  }
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
+  }
+
+  // Defense-in-depth only: requests without Origin/Referer are allowed and
+  // still evaluated by Turnstile + spam checks.
+  const requestOrigin = resolveRequestOrigin(event);
+  if (requestOrigin && !ALLOWED_ORIGINS.has(requestOrigin)) {
+    console.log(JSON.stringify({
+      message: "send-form-email rejected origin",
+      reason: "origin_not_allowed",
+      origin: requestOrigin,
+    }));
+    return { statusCode: 403, body: "Forbidden" };
   }
 
   try {
