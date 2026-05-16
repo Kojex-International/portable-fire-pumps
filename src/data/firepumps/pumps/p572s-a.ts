@@ -90,14 +90,14 @@ export const p572s_a: Firepump = {
               pressureMPa: '0.4',
               suctionHeightM: '1',
               performanceSource: 'distributor',
-              values: ['2,233 L/min', '590 gpm @ 58 psi']
+              values: ['2,385 L/min', '630 gpm @ 58 psi']
             },
             {
               key: 'maximumDischargePerformance',
               pressureMPa: '0.6',
               suctionHeightM: '1',
               performanceSource: 'distributor',
-              values: ['2,385 L/min', '630 gpm @ 87 psi']
+              values: ['2,233 L/min', '590 gpm @ 87 psi']
             },
             {
               key: 'maximumDischargePerformance',
