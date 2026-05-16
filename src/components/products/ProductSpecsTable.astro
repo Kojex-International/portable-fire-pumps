@@ -69,6 +69,10 @@ const normalizeImperialDisplay = (value: string): string => {
   return normalizedUnits.replace(/(\d),(\d{1,2})(?!\d)/g, '$1.$2');
 };
 
+const normalizePerformanceFlowUnit = (value: string): string => value.replace(/\bgpm\b/gi, 'US GPM');
+const normalizeGallonUnits = (value: string): string =>
+  value.replace(/\bgal\/h\b/gi, 'US gal/h').replace(/\bgal\b/gi, 'US gal');
+
 const IMPERIAL_FIRST_KEYS = new Set([
   'dimensions',
   'dryWeight',
@@ -86,7 +90,9 @@ const KEEP_SOURCE_ORDER_KEYS = new Set(['displacement', 'boreStroke', 'model', '
 
 const getDisplayValuePair = (row: SpecRow, modelIndex = 0) => {
   const pair = getValuePair(row, modelIndex);
-  const imperial = normalizeImperialDisplay(pair.imperial);
+  const imperialBase = normalizeImperialDisplay(pair.imperial);
+  const imperialWithFlow = isPerformanceRow(row) ? normalizePerformanceFlowUnit(imperialBase) : imperialBase;
+  const imperial = normalizeGallonUnits(imperialWithFlow);
   const shouldFlip = IMPERIAL_FIRST_KEYS.has(row.key) && !KEEP_SOURCE_ORDER_KEYS.has(row.key);
   const primary = shouldFlip ? imperial : pair.metric;
   const secondary = shouldFlip ? pair.metric : imperial;

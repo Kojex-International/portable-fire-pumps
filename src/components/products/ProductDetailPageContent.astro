@@ -50,7 +50,15 @@ const leftSpecKeys = ['coolingSystem', 'pumpModel', 'engineType'] as const;
 const rightSpecKeys = ['maxPressure', 'primingTime', 'flowRate'] as const;
 const leftSpecs = leftSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
 const rightSpecs = rightSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
-const heroSpecs = [...leftSpecs, ...rightSpecs];
+const normalizeHeroFlowUnits = (value: string): string => value.replace(/\bgpm\b/gi, 'US GPM');
+const heroSpecs = [...leftSpecs, ...rightSpecs].map((spec) =>
+  spec?.key === 'flowRate'
+    ? {
+        ...spec,
+        value: normalizeHeroFlowUnits(spec.value),
+      }
+    : spec
+);
 
 const operationVideo =
   pump.slug === 'ft300-400-a'
