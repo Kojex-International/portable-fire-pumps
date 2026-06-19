@@ -1,0 +1,290 @@
+---
+import promoPosterImg from '@assets/videos/shibaura-promo-no-text-poster.webp';
+import shibauraWordmark from '@assets/shibaura-wordmark.svg';
+import { localizePath } from '@config/site';
+
+interface Props {
+  locale: 'en' | 'fr';
+}
+
+const { locale } = Astro.props;
+const isFrench = locale === 'fr';
+const airCooledHref = localizePath('/products/air-cooled', locale);
+const waterCooledHref = localizePath('/products/water-cooled', locale);
+---
+
+<section data-products-video-hero class="relative min-h-[560px] sm:min-h-[680px] overflow-hidden safari-hero-offset bg-slate-950">
+  <video
+    class="js-products-hero-video block h-full w-full object-cover"
+    preload="metadata"
+    playsinline
+    poster={promoPosterImg.src}
+    aria-label={isFrench ? 'Vidéo promotionnelle Shibaura' : 'Shibaura promotional video'}
+  >
+    <source media="(max-width: 767px)" src="/videos/promo/shibaura-promo-no-text-mobile.mp4" type="video/mp4" />
+    <source src="/videos/promo/shibaura-promo-no-text-desktop.mp4" type="video/mp4" />
+  </video>
+
+  <div
+    class="js-products-hero-overlay pointer-events-none absolute inset-0 z-10 flex items-start sm:items-center bg-slate-950/35"
+    style={`background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.72)), url(${promoPosterImg.src}); background-size: cover; background-position: center;`}
+  >
+    <div class="js-products-hero-initial pointer-events-none mx-auto flex w-full max-w-[1440px] justify-center px-6 sm:px-8 lg:justify-end lg:pl-12">
+      <div class={isFrench ? 'pointer-events-auto mr-[20px] w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 pt-8 sm:pt-0 lg:max-w-[28rem] lg:items-center' : 'pointer-events-auto mr-[20px] w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 lg:max-w-[28rem]'}>
+        <div class={isFrench ? 'inline-flex items-center m-0 px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15' : 'inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15'}>
+          {isFrench ? 'Produits' : 'Products'}
+        </div>
+
+        <div
+          aria-hidden="true"
+          class="mt-3 h-8 w-[13rem] brand-gradient-bg sm:h-11 sm:w-[18rem] md:h-12 md:w-[21rem] lg:h-14 lg:w-[24rem]"
+          style={`-webkit-mask-image: url(${shibauraWordmark.src}); mask-image: url(${shibauraWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+        ></div>
+
+        <h1 class={isFrench ? 'text-[1.6rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white m-0 leading-tight' : 'text-2xl sm:text-3xl md:text-4xl lg:text-[3.25rem] font-bold text-white mb-4 leading-tight'}>
+          <span>{isFrench ? 'Pompes incendie portatives' : 'Portable Fire Pumps'}</span>
+        </h1>
+
+        <p class={isFrench ? 'text-lg md:text-xl text-slate-200 m-0 max-w-2xl mx-auto leading-relaxed' : 'text-lg md:text-xl text-slate-200 mb-5 max-w-2xl mx-auto leading-relaxed'}>
+          {isFrench
+            ? 'Choisissez la bonne pompe selon les conditions d’eau et le niveau d’utilisation requis.'
+            : 'Choose the right pump based on water conditions and duty cycle.'}
+        </p>
+
+        <div class={isFrench ? 'mt-6 mb-8 grid w-full max-w-[24rem] grid-cols-2 gap-3 text-left sm:mt-8' : 'mt-auto mb-10 grid w-full max-w-[24rem] grid-cols-2 gap-3 text-left'}>
+          <a href={airCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-0 py-2 text-white transition-all duration-300 hover:-translate-y-0.5">
+            <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
+            <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-[1.05rem]">
+              {isFrench ? 'Pompes refroidies à l’air' : 'Air-Cooled Pumps'}
+            </div>
+            <div class="mt-2 text-sm leading-relaxed text-slate-200">
+              {isFrench
+                ? 'Mieux adaptées aux prises d’eau variables et aux déploiements plus simples.'
+                : 'Best for variable water sources and simpler field deployment.'}
+            </div>
+          </a>
+
+          <a href={waterCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-0 py-2 text-white transition-all duration-300 hover:-translate-y-0.5">
+            <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
+            <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-[1.05rem]">
+              {isFrench ? 'Pompes refroidies à l’eau' : 'Water-Cooled Pumps'}
+            </div>
+            <div class="mt-2 text-sm leading-relaxed text-slate-200">
+              {isFrench
+                ? 'Mieux adaptées au relais et aux transferts d’eau soutenus.'
+                : 'Best for sustained relay pumping and longer-duty water transfer.'}
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div hidden class="js-products-hero-paused pointer-events-none absolute inset-0 flex items-center justify-center px-6 py-14 sm:px-8 sm:py-16">
+      <div class="pointer-events-auto mx-auto flex w-full max-w-[52rem] flex-col items-center text-center">
+        <div class="flex w-full max-w-[42rem] flex-col items-center gap-10 sm:gap-12">
+          <div class="flex flex-col items-center gap-4">
+          <div class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
+            {isFrench ? 'Produits' : 'Products'}
+          </div>
+
+          <div
+            aria-hidden="true"
+            class="h-8 w-[13rem] brand-gradient-bg sm:h-11 sm:w-[18rem] md:h-12 md:w-[21rem]"
+            style={`-webkit-mask-image: url(${shibauraWordmark.src}); mask-image: url(${shibauraWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+          ></div>
+
+          <h2 class="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
+            {isFrench ? 'Pompes incendie portatives' : 'Portable Fire Pumps'}
+          </h2>
+        </div>
+
+          <button
+            type="button"
+            class="js-products-hero-inline-play flex h-16 w-16 items-center justify-center self-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/55"
+            aria-label={isFrench ? 'Lire la vidéo promotionnelle Shibaura' : 'Play the Shibaura promotional video'}
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-7 w-7 fill-current">
+              <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.83-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z" />
+            </svg>
+          </button>
+
+          <div class="flex flex-col items-center gap-6 sm:gap-8">
+            <p class="max-w-3xl text-lg leading-relaxed text-slate-200 md:text-xl">
+              {isFrench
+                ? 'Choisissez la bonne pompe selon les conditions d’eau et le niveau d’utilisation requis.'
+                : 'Choose the right pump based on water conditions and duty cycle.'}
+            </p>
+
+            <div class="grid w-full max-w-[34rem] grid-cols-2 gap-4 pt-2 text-left">
+              <a href={airCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-4 py-4 text-white transition-all duration-300 hover:-translate-y-0.5">
+                <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
+                <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-lg">
+                  {isFrench ? 'Pompes refroidies à l’air' : 'Air-Cooled Pumps'}
+                </div>
+                <div class="mt-2 text-sm leading-relaxed text-slate-200">
+                  {isFrench
+                    ? 'Mieux adaptées aux prises d’eau variables et aux déploiements plus simples.'
+                    : 'Best for variable water sources and simpler field deployment.'}
+                </div>
+              </a>
+
+              <a href={waterCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-4 py-4 text-white transition-all duration-300 hover:-translate-y-0.5">
+                <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
+                <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-lg">
+                  {isFrench ? 'Pompes refroidies à l’eau' : 'Water-Cooled Pumps'}
+                </div>
+                <div class="mt-2 text-sm leading-relaxed text-slate-200">
+                  {isFrench
+                    ? 'Mieux adaptées au relais et aux transferts d’eau soutenus.'
+                    : 'Best for sustained relay pumping and longer-duty water transfer.'}
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <button
+    type="button"
+    class="js-products-hero-play absolute left-1/2 top-1/2 z-20 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/55"
+    aria-label={isFrench ? 'Lire la vidéo promotionnelle Shibaura' : 'Play the Shibaura promotional video'}
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" class="h-7 w-7 fill-current">
+      <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.83-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z" />
+    </svg>
+  </button>
+</section>
+
+<style>
+  @keyframes products-hero-overlay-fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const heroSections = document.querySelectorAll('[data-products-video-hero]');
+
+  heroSections.forEach((section) => {
+    const video = section.querySelector('.js-products-hero-video');
+    const overlay = section.querySelector('.js-products-hero-overlay');
+    const playButton = section.querySelector('.js-products-hero-play');
+    const inlinePlayButton = section.querySelector('.js-products-hero-inline-play');
+    const initialOverlay = section.querySelector('.js-products-hero-initial');
+    const pausedOverlay = section.querySelector('.js-products-hero-paused');
+
+    if (
+      !(video instanceof HTMLVideoElement) ||
+      !(overlay instanceof HTMLDivElement) ||
+      !(playButton instanceof HTMLButtonElement) ||
+      !(inlinePlayButton instanceof HTMLButtonElement) ||
+      !(initialOverlay instanceof HTMLDivElement) ||
+      !(pausedOverlay instanceof HTMLDivElement)
+    ) {
+      return;
+    }
+
+    let hasStartedPlayback = false;
+
+    const animateOverlayIn = (element) => {
+      element.style.animation = 'none';
+      void element.offsetHeight;
+      element.style.animation = 'products-hero-overlay-fade-in 320ms ease-out';
+    };
+
+    const setOverlayInitialState = () => {
+      overlay.style.backgroundImage = `linear-gradient(to bottom, rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.72)), url(${video.poster})`;
+      overlay.style.backgroundSize = 'cover';
+      overlay.style.backgroundPosition = 'center';
+    };
+
+    const setOverlayTransparentState = () => {
+      overlay.style.backgroundImage = 'linear-gradient(to bottom, rgba(2, 6, 23, 0.24), rgba(2, 6, 23, 0.56))';
+      overlay.style.backgroundSize = '';
+      overlay.style.backgroundPosition = '';
+    };
+
+    const showInitialOverlay = () => {
+      overlay.hidden = false;
+      initialOverlay.hidden = false;
+      pausedOverlay.hidden = true;
+      playButton.hidden = false;
+      inlinePlayButton.hidden = true;
+      animateOverlayIn(overlay);
+      animateOverlayIn(initialOverlay);
+    };
+
+    const showPausedOverlay = () => {
+      overlay.hidden = false;
+      initialOverlay.hidden = true;
+      pausedOverlay.hidden = false;
+      playButton.hidden = true;
+      inlinePlayButton.hidden = false;
+      animateOverlayIn(overlay);
+      animateOverlayIn(pausedOverlay);
+    };
+
+    const hideOverlay = () => {
+      overlay.hidden = true;
+      playButton.hidden = true;
+      inlinePlayButton.hidden = true;
+      video.controls = true;
+    };
+
+    const playVideo = async () => {
+      hideOverlay();
+
+      try {
+        await video.play();
+      } catch {
+        if (hasStartedPlayback) {
+          showPausedOverlay();
+        } else {
+          showInitialOverlay();
+        }
+      }
+    };
+
+    playButton.addEventListener('click', () => {
+      void playVideo();
+    });
+
+    inlinePlayButton.addEventListener('click', () => {
+      void playVideo();
+    });
+
+    video.addEventListener('play', () => {
+      hasStartedPlayback = true;
+      setOverlayTransparentState();
+      hideOverlay();
+    });
+
+    video.addEventListener('pause', () => {
+      if (!hasStartedPlayback) {
+        return;
+      }
+
+      setOverlayTransparentState();
+      showPausedOverlay();
+      video.controls = true;
+    });
+
+    video.addEventListener('ended', () => {
+      setOverlayTransparentState();
+      showPausedOverlay();
+      video.controls = true;
+    });
+
+    setOverlayInitialState();
+    showInitialOverlay();
+    video.controls = false;
+  });
+</script>
