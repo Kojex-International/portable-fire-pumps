@@ -7,6 +7,7 @@ import relayPumpingPosterImg from '@assets/videos/1kmFF500relay-poster.webp';
 interface Props {
   locale: 'en' | 'fr';
   variant?: 'longDistance' | 'waterRelay';
+  showDiagram?: boolean;
   showVideo?: boolean;
   videoSrc?: string;
   desktopVideoSrc?: string;
@@ -18,6 +19,7 @@ interface Props {
 const {
   locale,
   variant = 'waterRelay',
+  showDiagram = variant === 'waterRelay',
   showVideo = true,
   videoSrc,
   desktopVideoSrc = '/videos/products/1kmFF500relay-desktop.mp4',
@@ -27,7 +29,7 @@ const {
 } = Astro.props;
 const resolvedDesktopVideoSrc = videoSrc ?? desktopVideoSrc;
 const sharedContentWidthClass = 'max-w-3xl';
-const hasMediaBlock = showVideo || variant === 'waterRelay';
+const hasMediaBlock = showVideo || showDiagram;
 
 const copy = {
   en: {
@@ -153,7 +155,7 @@ const content = copy[locale][variant];
     class="mb-8"
   />
 
-  {variant === 'waterRelay' && (
+  {showDiagram && (
     <div class={`w-full ${sharedContentWidthClass} mx-auto mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white`}>
       <Image
         src={relayPumpingDiagramImg}

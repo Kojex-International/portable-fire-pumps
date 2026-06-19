@@ -55,7 +55,16 @@ const metadata = getNonProductMetadata({
       <AutoRelaySection locale="fr" variant="longDistance" showVideo={true} badgeIconComponent={Gauge} />
     </div>
     <div id="water-relay-system" class="mt-16 lg:mt-24">
-      <AutoRelaySection locale="fr" variant="waterRelay" showVideo={false} badgeIconComponent={Gauge} />
+      <AutoRelaySection
+        locale="fr"
+        variant="waterRelay"
+        showDiagram={false}
+        showVideo={true}
+        desktopVideoSrc="/videos/products/auto-relay-ff500ar-desktop.mp4"
+        mobileVideoSrc="/videos/products/auto-relay-ff500ar-mobile.mp4"
+        posterSrc="/videos/products/auto-relay-ff500ar-poster.webp"
+        badgeIconComponent={Gauge}
+      />
     </div>
     <div id="pump-features" class="mt-16 lg:mt-24">
       <PumpFeaturesSection locale="fr" />
