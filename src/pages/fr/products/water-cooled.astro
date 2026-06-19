@@ -22,7 +22,12 @@ const relayHref = localizePath('/long-distance-relay-pumping', locale);
 const firepumps = getFirepumps('fr');
 
 const WATER_COOLED_SLUGS = new Set(['p572s-a', 'p572sw-a', 'fk500-a', 'ff500ar-a']);
-const waterCooledPumps = firepumps.filter((pump) => WATER_COOLED_SLUGS.has(pump.slug));
+const pumpPriority: Record<string, number> = {
+  'ff500ar-a': 0,
+};
+const waterCooledPumps = firepumps
+  .filter((pump) => WATER_COOLED_SLUGS.has(pump.slug))
+  .sort((a, b) => (pumpPriority[a.slug] ?? 99) - (pumpPriority[b.slug] ?? 99));
 const metadata = getNonProductMetadata({
   pageKey: 'productsWaterCooled',
   locale: 'fr',

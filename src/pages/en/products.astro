@@ -18,6 +18,26 @@ const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 const firepumps = getFirepumps('en');
+const coolingPriority: Record<string, number> = {
+  'Water-cooled': 0,
+  'Air-cooled': 1,
+};
+const pumpPriority: Record<string, number> = {
+  'ff500ar-a': 0,
+};
+const getCoolingSystem = (pump: (typeof firepumps)[number]) => {
+  const coolingSpec = pump.keySpecs.find((spec) => spec.key === 'coolingSystem');
+  return typeof coolingSpec?.value === 'string' ? coolingSpec.value : coolingSpec?.value?.en;
+};
+const orderedFirepumps = [...firepumps].sort((a, b) => {
+  const coolingDiff = (coolingPriority[getCoolingSystem(a) ?? ''] ?? 99) - (coolingPriority[getCoolingSystem(b) ?? ''] ?? 99);
+  if (coolingDiff !== 0) return coolingDiff;
+
+  const pumpDiff = (pumpPriority[a.slug] ?? 99) - (pumpPriority[b.slug] ?? 99);
+  if (pumpDiff !== 0) return pumpDiff;
+
+  return 0;
+});
 const metadata = getNonProductMetadata({
   pageKey: 'products',
   locale: 'en',
@@ -27,7 +47,7 @@ const metadata = getNonProductMetadata({
 const structuredData = buildItemListSchema({
   listName: 'Portable Fire Pumps',
   canonicalUrl: metadata.canonicalUrl,
-  items: firepumps.map((pump) => ({
+  items: orderedFirepumps.map((pump) => ({
     name: pump.title,
     url: new URL(localizePath(`/products/${pump.slug}`, 'en'), SITE.url).toString(),
     image: new URL(pump.image.src, SITE.url).toString(),
@@ -47,10 +67,10 @@ const structuredData = buildItemListSchema({
 
   <Section background="white">
     <div class="lg:hidden mb-12">
-      <MobilePumpCards capabilities={firepumps} detailsBaseHref={productsBaseHref} locale="en" />
+      <MobilePumpCards capabilities={orderedFirepumps} detailsBaseHref={productsBaseHref} locale="en" />
     </div>
 
-    <DesktopPumpCards capabilities={firepumps} detailsBaseHref={productsBaseHref} locale="en" />
+    <DesktopPumpCards capabilities={orderedFirepumps} detailsBaseHref={productsBaseHref} locale="en" />
   </Section>
 
   <ProductsCTA
