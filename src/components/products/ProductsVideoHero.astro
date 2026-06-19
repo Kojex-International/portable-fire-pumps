@@ -25,11 +25,49 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     <source src="/videos/promo/shibaura-promo-no-text-desktop.mp4" type="video/mp4" />
   </video>
 
-  <div
-    class="js-products-hero-overlay pointer-events-none absolute inset-0 z-10 flex items-start sm:items-center bg-slate-950/35"
-    style={`background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.72)), url(${promoPosterImg.src}); background-size: cover; background-position: center;`}
-  >
-    <div class="js-products-hero-initial pointer-events-none mx-auto flex w-full max-w-[1440px] justify-center px-6 sm:px-8 lg:justify-end lg:pl-12">
+  <div hidden class="js-products-hero-controls absolute inset-x-0 bottom-0 z-20 px-4 sm:px-6">
+    <div class="mx-auto flex w-full max-w-[52rem] items-center gap-4 px-2 py-1 text-white">
+      <input
+        class="js-products-hero-seek h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/20"
+        type="range"
+        min="0"
+        max="1000"
+        value="0"
+        step="1"
+        aria-label={isFrench ? 'Barre de progression vidéo' : 'Video progress slider'}
+      />
+
+      <div class="flex min-w-[5.5rem] items-center gap-2">
+        <button
+          type="button"
+          class="js-products-hero-mute flex h-10 w-10 shrink-0 items-center justify-center text-white/80 transition hover:text-white"
+          aria-label={isFrench ? 'Couper le son' : 'Mute audio'}
+        >
+          <svg class="js-products-hero-icon-volume h-5 w-5 fill-current" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M5 9v6h4l5 4V5l-5 4H5zm11.5 3a4.5 4.5 0 0 0-2.25-3.9v7.8A4.5 4.5 0 0 0 16.5 12zm0-8.5v2.06a8 8 0 0 1 0 12.88v2.06a10 10 0 0 0 0-17z" />
+          </svg>
+          <svg hidden class="js-products-hero-icon-muted h-5 w-5 fill-current" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M5 9v6h4l5 4V5l-5 4H5z" />
+            <path d="M16.5 8.5 20 12m0-3.5L16.5 12m0 0L20 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none" />
+          </svg>
+        </button>
+        <input
+          class="js-products-hero-volume h-1.5 w-[3.75rem] cursor-pointer appearance-none rounded-full bg-white/20"
+          type="range"
+          min="0"
+          max="1"
+          value="1"
+          step="0.05"
+          aria-label={isFrench ? 'Contrôle du volume' : 'Volume control'}
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="js-products-hero-overlay pointer-events-none absolute inset-0 z-10 flex items-start sm:items-center">
+    <div class="js-products-hero-scrim absolute inset-0 bg-slate-950/35 transition-opacity duration-700"></div>
+
+    <div class="js-products-hero-initial pointer-events-none relative z-10 mx-auto flex w-full max-w-[1440px] justify-center px-6 sm:px-8 lg:justify-end lg:pl-12 transition-opacity duration-300">
       <div class={isFrench ? 'pointer-events-auto mr-[20px] w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 pt-8 sm:pt-0 lg:max-w-[28rem] lg:items-center' : 'pointer-events-auto mr-[20px] w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 lg:max-w-[28rem]'}>
         <div class={isFrench ? 'inline-flex items-center m-0 px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15' : 'inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15'}>
           {isFrench ? 'Produits' : 'Products'}
@@ -79,7 +117,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       </div>
     </div>
 
-    <div hidden class="js-products-hero-paused pointer-events-none absolute inset-0 flex items-center justify-center px-6 py-14 sm:px-8 sm:py-16">
+    <div hidden class="js-products-hero-paused pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6 py-14 sm:px-8 sm:py-16">
       <div class="pointer-events-auto mx-auto flex w-full max-w-[52rem] flex-col items-center text-center">
         <div class="flex w-full max-w-[42rem] flex-col items-center gap-10 sm:gap-12">
           <div class="flex flex-col items-center gap-4">
@@ -147,13 +185,42 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
   </div>
   </div>
 
+  <div class="js-products-hero-play-chrome absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-3 text-center text-white transition opacity-100 duration-700">
+    <div class="text-xs font-bold uppercase tracking-[0.08em] text-white/80 sm:text-sm">
+      {isFrench ? 'Regardez notre vidéo de démonstration' : 'Watch our demo video'}
+    </div>
+
+    <button
+      type="button"
+      class="js-products-hero-play flex h-16 w-16 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/55"
+      aria-label={isFrench ? 'Lire la vidéo promotionnelle Shibaura' : 'Play the Shibaura promotional video'}
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24" class="h-7 w-7 fill-current">
+        <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.83-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z" />
+      </svg>
+    </button>
+  </div>
+
   <button
     type="button"
-    class="js-products-hero-play absolute left-1/2 top-1/2 z-20 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/55"
-    aria-label={isFrench ? 'Lire la vidéo promotionnelle Shibaura' : 'Play the Shibaura promotional video'}
+    class="js-products-hero-fullscreen absolute bottom-4 right-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white/80 transition hover:bg-black/50 hover:text-white"
+    aria-label={isFrench ? 'Passer en plein écran' : 'Enter fullscreen'}
   >
-    <svg aria-hidden="true" viewBox="0 0 24 24" class="h-7 w-7 fill-current">
-      <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.83-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z" />
+    <svg class="js-products-hero-icon-fullscreen-enter h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3H4v4" />
+      <path d="M16 3h4v4" />
+      <path d="M8 21H4v-4" />
+      <path d="M16 21h4v-4" />
+    </svg>
+    <svg hidden class="js-products-hero-icon-fullscreen-exit h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 3H4v5" />
+      <path d="M15 3h5v5" />
+      <path d="M9 21H4v-5" />
+      <path d="M15 21h5v-5" />
+      <path d="M8 8 4 4" />
+      <path d="m16 8 4-4" />
+      <path d="m8 16-4 4" />
+      <path d="m16 16 4 4" />
     </svg>
   </button>
 </section>
@@ -168,6 +235,26 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       opacity: 1;
     }
   }
+
+  .js-products-hero-seek::-webkit-slider-thumb,
+  .js-products-hero-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 9999px;
+    background: rgb(156 163 175);
+    border: 0;
+  }
+
+  .js-products-hero-seek::-moz-range-thumb,
+  .js-products-hero-volume::-moz-range-thumb {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 9999px;
+    background: rgb(156 163 175);
+    border: 0;
+  }
 </style>
 
 <script>
@@ -176,23 +263,50 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
   heroSections.forEach((section) => {
     const video = section.querySelector('.js-products-hero-video');
     const overlay = section.querySelector('.js-products-hero-overlay');
+    const scrim = section.querySelector('.js-products-hero-scrim');
+    const playChrome = section.querySelector('.js-products-hero-play-chrome');
     const playButton = section.querySelector('.js-products-hero-play');
+    const fullscreenButton = section.querySelector('.js-products-hero-fullscreen');
+    const fullscreenEnterIcon = section.querySelector('.js-products-hero-icon-fullscreen-enter');
+    const fullscreenExitIcon = section.querySelector('.js-products-hero-icon-fullscreen-exit');
     const inlinePlayButton = section.querySelector('.js-products-hero-inline-play');
+    const controls = section.querySelector('.js-products-hero-controls');
+    const controlSeek = section.querySelector('.js-products-hero-seek');
+    const controlVolume = section.querySelector('.js-products-hero-volume');
+    const muteButton = section.querySelector('.js-products-hero-mute');
+    const volumeIcon = section.querySelector('.js-products-hero-icon-volume');
+    const mutedIcon = section.querySelector('.js-products-hero-icon-muted');
     const initialOverlay = section.querySelector('.js-products-hero-initial');
     const pausedOverlay = section.querySelector('.js-products-hero-paused');
 
     if (
       !(video instanceof HTMLVideoElement) ||
       !(overlay instanceof HTMLDivElement) ||
+      !(scrim instanceof HTMLDivElement) ||
+      !(playChrome instanceof HTMLDivElement) ||
       !(playButton instanceof HTMLButtonElement) ||
+      !(fullscreenButton instanceof HTMLButtonElement) ||
+      !(fullscreenEnterIcon instanceof SVGElement) ||
+      !(fullscreenExitIcon instanceof SVGElement) ||
       !(inlinePlayButton instanceof HTMLButtonElement) ||
+      !(controls instanceof HTMLDivElement) ||
+      !(controlSeek instanceof HTMLInputElement) ||
+      !(controlVolume instanceof HTMLInputElement) ||
+      !(muteButton instanceof HTMLButtonElement) ||
+      !(volumeIcon instanceof SVGElement) ||
+      !(mutedIcon instanceof SVGElement) ||
       !(initialOverlay instanceof HTMLDivElement) ||
       !(pausedOverlay instanceof HTMLDivElement)
     ) {
       return;
     }
 
+    const initialOverlayFadeStartTime = 1;
+    const initialOverlayFadeEndTime = 2;
     let hasStartedPlayback = false;
+    let hasCompletedInitialOverlay = false;
+    let hasTriggeredInitialOverlayFade = false;
+    let initialOverlayFadeFrame = 0;
 
     const animateOverlayIn = (element) => {
       element.style.animation = 'none';
@@ -201,46 +315,169 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     };
 
     const setOverlayInitialState = () => {
-      overlay.style.backgroundImage = `linear-gradient(to bottom, rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.72)), url(${video.poster})`;
-      overlay.style.backgroundSize = 'cover';
-      overlay.style.backgroundPosition = 'center';
+      scrim.style.backgroundImage = 'linear-gradient(to bottom, rgba(2, 6, 23, 0.45), rgba(2, 6, 23, 0.72))';
+      scrim.style.opacity = '1';
     };
 
     const setOverlayTransparentState = () => {
-      overlay.style.backgroundImage = 'linear-gradient(to bottom, rgba(2, 6, 23, 0.24), rgba(2, 6, 23, 0.56))';
-      overlay.style.backgroundSize = '';
-      overlay.style.backgroundPosition = '';
+      scrim.style.backgroundImage = 'linear-gradient(to bottom, rgba(2, 6, 23, 0.24), rgba(2, 6, 23, 0.56))';
+      scrim.style.opacity = '1';
+    };
+
+    const resetInitialOverlayOpacity = () => {
+      hasTriggeredInitialOverlayFade = false;
+      initialOverlay.style.transition = '';
+      scrim.style.transition = '';
+      initialOverlay.style.opacity = '1';
+      scrim.style.opacity = '1';
+    };
+
+    const resetPlayButtonState = () => {
+      playChrome.hidden = false;
+      playChrome.style.opacity = '1';
+      playChrome.style.pointerEvents = 'auto';
     };
 
     const showInitialOverlay = () => {
       overlay.hidden = false;
+      overlay.style.pointerEvents = 'none';
+      setOverlayInitialState();
+      resetInitialOverlayOpacity();
+      resetPlayButtonState();
       initialOverlay.hidden = false;
       pausedOverlay.hidden = true;
-      playButton.hidden = false;
       inlinePlayButton.hidden = true;
+      controls.hidden = true;
       animateOverlayIn(overlay);
       animateOverlayIn(initialOverlay);
     };
 
+    const showInitialPlaybackOverlay = () => {
+      overlay.hidden = false;
+      overlay.style.pointerEvents = 'none';
+      initialOverlay.hidden = false;
+      pausedOverlay.hidden = true;
+      playChrome.hidden = false;
+      inlinePlayButton.hidden = true;
+      controls.hidden = true;
+    };
+
     const showPausedOverlay = () => {
       overlay.hidden = false;
+      overlay.style.pointerEvents = 'auto';
+      setOverlayTransparentState();
+      resetInitialOverlayOpacity();
       initialOverlay.hidden = true;
       pausedOverlay.hidden = false;
-      playButton.hidden = true;
+      playChrome.hidden = true;
       inlinePlayButton.hidden = false;
+      controls.hidden = false;
       animateOverlayIn(overlay);
       animateOverlayIn(pausedOverlay);
     };
 
     const hideOverlay = () => {
       overlay.hidden = true;
-      playButton.hidden = true;
+      overlay.style.pointerEvents = 'none';
+      resetInitialOverlayOpacity();
+      playChrome.hidden = true;
+      playChrome.style.opacity = '1';
+      playChrome.style.pointerEvents = 'auto';
       inlinePlayButton.hidden = true;
-      video.controls = true;
+      controls.hidden = true;
+    };
+
+    const fadeOutInitialPlayButton = () => {
+      playChrome.style.opacity = '0';
+      playChrome.style.pointerEvents = 'none';
+    };
+
+    const stopInitialOverlayFadeLoop = () => {
+      if (initialOverlayFadeFrame !== 0) {
+        cancelAnimationFrame(initialOverlayFadeFrame);
+        initialOverlayFadeFrame = 0;
+      }
+    };
+
+    const syncInitialPlaybackOverlay = () => {
+      if (hasCompletedInitialOverlay) {
+        return;
+      }
+
+      const currentTime = video.currentTime;
+
+      if (currentTime >= initialOverlayFadeEndTime) {
+        hasCompletedInitialOverlay = true;
+        stopInitialOverlayFadeLoop();
+        hideOverlay();
+        return;
+      }
+
+      showInitialPlaybackOverlay();
+
+      if (currentTime <= initialOverlayFadeStartTime) {
+        return;
+      }
+
+      if (!hasTriggeredInitialOverlayFade) {
+        hasTriggeredInitialOverlayFade = true;
+        const fadeDuration = initialOverlayFadeEndTime - initialOverlayFadeStartTime;
+        initialOverlay.style.transition = `opacity ${fadeDuration}s linear`;
+        scrim.style.transition = `opacity ${fadeDuration}s linear`;
+        initialOverlay.style.opacity = '0';
+        scrim.style.opacity = '0';
+      }
+    };
+
+    const startInitialOverlayFadeLoop = () => {
+      if (hasCompletedInitialOverlay) {
+        return;
+      }
+
+      stopInitialOverlayFadeLoop();
+
+      const tick = () => {
+        syncInitialPlaybackOverlay();
+
+        if (!video.paused && !video.ended && !hasCompletedInitialOverlay) {
+          initialOverlayFadeFrame = requestAnimationFrame(tick);
+          return;
+        }
+
+        initialOverlayFadeFrame = 0;
+      };
+
+      tick();
+    };
+
+    const syncSeekBar = () => {
+      if (!Number.isFinite(video.duration) || video.duration <= 0) {
+        controlSeek.value = '0';
+        return;
+      }
+
+      controlSeek.value = String(Math.round((video.currentTime / video.duration) * 1000));
+    };
+
+    const syncVolumeState = () => {
+      const muted = video.muted || video.volume === 0;
+      volumeIcon.hidden = muted;
+      mutedIcon.hidden = !muted;
+      controlVolume.value = String(muted ? 0 : video.volume);
+      muteButton.setAttribute('aria-label', muted ? (isFrench ? 'Activer le son' : 'Unmute audio') : (isFrench ? 'Couper le son' : 'Mute audio'));
+    };
+
+    const syncFullscreenState = () => {
+      const isFullscreen = document.fullscreenElement === section;
+      fullscreenEnterIcon.hidden = isFullscreen;
+      fullscreenExitIcon.hidden = !isFullscreen;
+      fullscreenButton.setAttribute('aria-label', isFullscreen ? (isFrench ? 'Quitter le plein écran' : 'Exit fullscreen') : (isFrench ? 'Passer en plein écran' : 'Enter fullscreen'));
     };
 
     const playVideo = async () => {
-      hideOverlay();
+      if (hasStartedPlayback && hasCompletedInitialOverlay) {
+        hideOverlay();
+      }
 
       try {
         await video.play();
@@ -261,30 +498,112 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       void playVideo();
     });
 
+    overlay.addEventListener('click', (event) => {
+      if (!hasStartedPlayback || (!video.paused && !video.ended)) {
+        return;
+      }
+
+      const target = event.target;
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      if (target.closest('a, button, input, label')) {
+        return;
+      }
+
+      void playVideo();
+    });
+
+    controlSeek.addEventListener('input', () => {
+      if (!Number.isFinite(video.duration) || video.duration <= 0) {
+        return;
+      }
+
+      video.currentTime = (Number(controlSeek.value) / 1000) * video.duration;
+    });
+
+    controlVolume.addEventListener('input', () => {
+      video.volume = Number(controlVolume.value);
+      video.muted = video.volume === 0;
+    });
+
+    muteButton.addEventListener('click', () => {
+      if (video.muted || video.volume === 0) {
+        video.muted = false;
+        video.volume = Number(controlVolume.dataset.previousVolume || '1');
+      } else {
+        controlVolume.dataset.previousVolume = String(video.volume || 1);
+        video.muted = true;
+      }
+      syncVolumeState();
+    });
+
+    fullscreenButton.addEventListener('click', async () => {
+      if (document.fullscreenElement === section) {
+        await document.exitFullscreen();
+        return;
+      }
+
+      await section.requestFullscreen();
+    });
+
+    video.addEventListener('click', async () => {
+      if (video.paused || video.ended) {
+        await playVideo();
+      } else {
+        video.pause();
+      }
+    });
+
     video.addEventListener('play', () => {
       hasStartedPlayback = true;
-      setOverlayTransparentState();
-      hideOverlay();
+
+      if (hasCompletedInitialOverlay) {
+        setOverlayTransparentState();
+        hideOverlay();
+        return;
+      }
+
+      fadeOutInitialPlayButton();
+      startInitialOverlayFadeLoop();
     });
 
     video.addEventListener('pause', () => {
+      stopInitialOverlayFadeLoop();
+
       if (!hasStartedPlayback) {
         return;
       }
 
       setOverlayTransparentState();
       showPausedOverlay();
-      video.controls = true;
     });
 
     video.addEventListener('ended', () => {
+      stopInitialOverlayFadeLoop();
       setOverlayTransparentState();
       showPausedOverlay();
-      video.controls = true;
     });
+
+    video.addEventListener('timeupdate', () => {
+      syncSeekBar();
+
+      if (hasStartedPlayback && !hasCompletedInitialOverlay) {
+        syncInitialPlaybackOverlay();
+      }
+    });
+    video.addEventListener('loadedmetadata', syncSeekBar);
+    video.addEventListener('volumechange', syncVolumeState);
+    document.addEventListener('fullscreenchange', syncFullscreenState);
 
     setOverlayInitialState();
     showInitialOverlay();
     video.controls = false;
+    video.volume = 1;
+    controlVolume.dataset.previousVolume = '1';
+    syncSeekBar();
+    syncVolumeState();
+    syncFullscreenState();
   });
 </script>
