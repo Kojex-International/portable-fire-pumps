@@ -4,6 +4,7 @@ import Section from '../../components/layout/Section.astro';
 import MobilePumpCards from '../../components/products/MobilePumpCards.astro';
 import DesktopPumpCards from '../../components/products/DesktopPumpCards.astro';
 import ProductsCTA from '../../components/products/ProductsCTA.astro';
+import PromoVideoSection from '../../components/products/PromoVideoSection.astro';
 import PageHero from '../../components/layout/PageHero.astro';
 import { Gauge } from 'lucide-react';
 
@@ -77,6 +78,8 @@ const structuredData = buildItemListSchema({
       </a>
     </div>
   </PageHero>
+
+  <PromoVideoSection locale="fr" />
 
   <Section background="white">
     <div class="lg:hidden mb-12">
