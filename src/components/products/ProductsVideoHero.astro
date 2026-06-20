@@ -27,8 +27,8 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     </video>
   </div>
 
-  <div hidden class="js-products-hero-controls absolute inset-x-0 bottom-0 z-20 px-4 sm:px-6">
-    <div class="mx-auto flex w-full max-w-[52rem] items-center gap-4 px-2 py-1 text-white">
+  <div hidden class="js-products-hero-controls absolute inset-x-0 bottom-[15px] z-20 px-4 sm:bottom-0 sm:px-6">
+    <div class="mx-auto flex h-10 w-full max-w-[52rem] items-center gap-4 px-2 py-0 text-white sm:h-auto sm:py-1">
       <input
         class="js-products-hero-seek h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/20"
         type="range"
@@ -42,15 +42,16 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       <div class="flex min-w-[2.5rem] items-center gap-2 sm:min-w-[5.5rem]">
         <button
           type="button"
-          class="js-products-hero-mute flex h-10 w-10 shrink-0 items-center justify-center text-white/80 transition hover:text-white"
+          class="js-products-hero-mute hidden h-10 w-10 shrink-0 items-center justify-center text-white/80 transition hover:text-white sm:flex"
           aria-label={isFrench ? 'Couper le son' : 'Mute audio'}
         >
-          <svg class="js-products-hero-icon-volume h-5 w-5 fill-current" aria-hidden="true" viewBox="0 0 24 24">
-            <path d="M5 9v6h4l5 4V5l-5 4H5zm11.5 3a4.5 4.5 0 0 0-2.25-3.9v7.8A4.5 4.5 0 0 0 16.5 12zm0-8.5v2.06a8 8 0 0 1 0 12.88v2.06a10 10 0 0 0 0-17z" />
-          </svg>
-          <svg hidden class="js-products-hero-icon-muted h-5 w-5 fill-current" aria-hidden="true" viewBox="0 0 24 24">
+          <svg class="js-products-hero-icon-volume block h-5 w-5 fill-current" aria-hidden="true" viewBox="0 0 24 24">
             <path d="M5 9v6h4l5 4V5l-5 4H5z" />
-            <path d="M16.5 8.5 20 12m0-3.5L16.5 12m0 0L20 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none" />
+            <path d="M16.5 12a4.5 4.5 0 0 0-2.25-3.9v7.8A4.5 4.5 0 0 0 16.5 12z" />
+          </svg>
+          <svg class="js-products-hero-icon-muted hidden h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+            <path d="M5 9v6h4l5 4V5l-5 4H5z" fill="currentColor" />
+            <path d="M4.5 4.5 19.5 19.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" />
           </svg>
         </button>
         <input
@@ -63,6 +64,25 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
           aria-label={isFrench ? 'Contrôle du volume' : 'Volume control'}
         />
       </div>
+    </div>
+  </div>
+
+  <div class="absolute inset-x-0 bottom-[15px] z-20 px-4 sm:hidden">
+    <div class="mx-auto flex h-10 w-full max-w-[52rem] items-center justify-end px-2 py-0 text-white">
+      <button
+        type="button"
+        class="js-products-hero-mute-mobile flex h-10 w-10 items-center justify-center text-white/80 transition hover:text-white"
+        aria-label={isFrench ? 'Couper le son' : 'Mute audio'}
+      >
+        <svg class="js-products-hero-icon-volume block h-5 w-5 fill-current" aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M5 9v6h4l5 4V5l-5 4H5z" />
+          <path d="M16.5 12a4.5 4.5 0 0 0-2.25-3.9v7.8A4.5 4.5 0 0 0 16.5 12z" />
+        </svg>
+        <svg class="js-products-hero-icon-muted hidden h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+          <path d="M5 9v6h4l5 4V5l-5 4H5z" fill="currentColor" />
+          <path d="M4.5 4.5 19.5 19.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" />
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -279,9 +299,9 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     const controls = section.querySelector('.js-products-hero-controls');
     const controlSeek = section.querySelector('.js-products-hero-seek');
     const controlVolume = section.querySelector('.js-products-hero-volume');
-    const muteButton = section.querySelector('.js-products-hero-mute');
-    const volumeIcon = section.querySelector('.js-products-hero-icon-volume');
-    const mutedIcon = section.querySelector('.js-products-hero-icon-muted');
+    const muteButtons = Array.from(section.querySelectorAll('.js-products-hero-mute, .js-products-hero-mute-mobile'));
+    const volumeIcons = Array.from(section.querySelectorAll('.js-products-hero-icon-volume'));
+    const mutedIcons = Array.from(section.querySelectorAll('.js-products-hero-icon-muted'));
     const initialOverlay = section.querySelector('.js-products-hero-initial');
     const pausedOverlay = section.querySelector('.js-products-hero-paused');
 
@@ -298,11 +318,19 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       !(controls instanceof HTMLDivElement) ||
       !(controlSeek instanceof HTMLInputElement) ||
       !(controlVolume instanceof HTMLInputElement) ||
-      !(muteButton instanceof HTMLButtonElement) ||
-      !(volumeIcon instanceof SVGElement) ||
-      !(mutedIcon instanceof SVGElement) ||
+      muteButtons.length === 0 ||
+      volumeIcons.length === 0 ||
+      mutedIcons.length === 0 ||
       !(initialOverlay instanceof HTMLDivElement) ||
       !(pausedOverlay instanceof HTMLDivElement)
+    ) {
+      return;
+    }
+
+    if (
+      muteButtons.some((button) => !(button instanceof HTMLButtonElement)) ||
+      volumeIcons.some((icon) => !(icon instanceof SVGElement)) ||
+      mutedIcons.some((icon) => !(icon instanceof SVGElement))
     ) {
       return;
     }
@@ -486,10 +514,19 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     const syncVolumeState = () => {
       const muted = video.muted || video.volume === 0;
-      volumeIcon.hidden = muted;
-      mutedIcon.hidden = !muted;
+      volumeIcons.forEach((icon) => {
+        icon.classList.toggle('hidden', muted);
+        icon.style.display = muted ? 'none' : 'block';
+      });
+      mutedIcons.forEach((icon) => {
+        icon.classList.toggle('hidden', !muted);
+        icon.style.display = muted ? 'block' : 'none';
+      });
       controlVolume.value = String(muted ? 0 : video.volume);
-      muteButton.setAttribute('aria-label', muted ? (isFrench ? 'Activer le son' : 'Unmute audio') : (isFrench ? 'Couper le son' : 'Mute audio'));
+      muteButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', muted ? 'true' : 'false');
+        button.setAttribute('aria-label', muted ? (isFrench ? 'Activer le son' : 'Unmute audio') : (isFrench ? 'Couper le son' : 'Mute audio'));
+      });
     };
 
     const syncFullscreenState = () => {
@@ -632,15 +669,17 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       video.muted = video.volume === 0;
     });
 
-    muteButton.addEventListener('click', () => {
-      if (video.muted || video.volume === 0) {
-        video.muted = false;
-        video.volume = Number(controlVolume.dataset.previousVolume || '1');
-      } else {
-        controlVolume.dataset.previousVolume = String(video.volume || 1);
-        video.muted = true;
-      }
-      syncVolumeState();
+    muteButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (video.muted || video.volume === 0) {
+          video.muted = false;
+          video.volume = Number(controlVolume.dataset.previousVolume || '1');
+        } else {
+          controlVolume.dataset.previousVolume = String(video.volume || 1);
+          video.muted = true;
+        }
+        syncVolumeState();
+      });
     });
 
     fullscreenButton.addEventListener('click', async () => {
