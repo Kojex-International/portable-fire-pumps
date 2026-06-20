@@ -18,21 +18,13 @@ const productsBaseHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
 const firepumps = getFirepumps('fr');
-const coolingPriority: Record<string, number> = {
-  'Water-cooled': 0,
-  'Air-cooled': 1,
-};
 const pumpPriority: Record<string, number> = {
   'ff500ar-a': 0,
-};
-const getCoolingSystem = (pump: (typeof firepumps)[number]) => {
-  const coolingSpec = pump.keySpecs.find((spec) => spec.key === 'coolingSystem');
-  return typeof coolingSpec?.value === 'string' ? coolingSpec.value : coolingSpec?.value?.en;
+  'ft510-a': 1,
+  'p572s-a': 2,
+  'fk500-a': 3,
 };
 const orderedFirepumps = [...firepumps].sort((a, b) => {
-  const coolingDiff = (coolingPriority[getCoolingSystem(a) ?? ''] ?? 99) - (coolingPriority[getCoolingSystem(b) ?? ''] ?? 99);
-  if (coolingDiff !== 0) return coolingDiff;
-
   const pumpDiff = (pumpPriority[a.slug] ?? 99) - (pumpPriority[b.slug] ?? 99);
   if (pumpDiff !== 0) return pumpDiff;
 

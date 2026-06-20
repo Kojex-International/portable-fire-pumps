@@ -13,17 +13,19 @@ const airCooledHref = localizePath('/products/air-cooled', locale);
 const waterCooledHref = localizePath('/products/water-cooled', locale);
 ---
 
-<section data-products-video-hero class="relative min-h-[560px] sm:min-h-[680px] overflow-hidden safari-hero-offset bg-slate-950">
-  <video
-    class="js-products-hero-video block h-full w-full object-cover"
-    preload="metadata"
-    playsinline
-    poster={promoPosterImg.src}
-    aria-label={isFrench ? 'Vidéo promotionnelle Shibaura' : 'Shibaura promotional video'}
-  >
-    <source media="(max-width: 767px)" src="/videos/promo/shibaura-promo-no-text-mobile.mp4" type="video/mp4" />
-    <source src="/videos/promo/shibaura-promo-no-text-desktop.mp4" type="video/mp4" />
-  </video>
+<section data-products-video-hero class="relative min-h-[560px] sm:min-h-[680px] flex items-start sm:items-center overflow-hidden safari-hero-offset bg-slate-950">
+  <div class="absolute inset-0">
+    <video
+      class="js-products-hero-video block h-full w-full object-cover object-center"
+      preload="metadata"
+      playsinline
+      poster={promoPosterImg.src}
+      aria-label={isFrench ? 'Vidéo promotionnelle Shibaura' : 'Shibaura promotional video'}
+    >
+      <source media="(max-width: 767px)" src="/videos/promo/shibaura-promo-no-text-mobile.mp4" type="video/mp4" />
+      <source src="/videos/promo/shibaura-promo-no-text-desktop.mp4" type="video/mp4" />
+    </video>
+  </div>
 
   <div hidden class="js-products-hero-controls absolute inset-x-0 bottom-0 z-20 px-4 sm:px-6">
     <div class="mx-auto flex w-full max-w-[52rem] items-center gap-4 px-2 py-1 text-white">
@@ -37,7 +39,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
         aria-label={isFrench ? 'Barre de progression vidéo' : 'Video progress slider'}
       />
 
-      <div class="flex min-w-[5.5rem] items-center gap-2">
+      <div class="flex min-w-[2.5rem] items-center gap-2 sm:min-w-[5.5rem]">
         <button
           type="button"
           class="js-products-hero-mute flex h-10 w-10 shrink-0 items-center justify-center text-white/80 transition hover:text-white"
@@ -52,7 +54,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
           </svg>
         </button>
         <input
-          class="js-products-hero-volume h-1.5 w-[3.75rem] cursor-pointer appearance-none rounded-full bg-white/20"
+          class="js-products-hero-volume hidden h-1.5 w-[3.75rem] cursor-pointer appearance-none rounded-full bg-white/20 sm:block"
           type="range"
           min="0"
           max="1"
@@ -68,8 +70,8 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     <div class="js-products-hero-scrim absolute inset-0 bg-slate-950/35 transition-opacity duration-700"></div>
 
     <div class="js-products-hero-initial pointer-events-none relative z-10 mx-auto flex w-full max-w-[1440px] justify-center px-6 sm:px-8 lg:justify-end lg:pl-12 transition-opacity duration-300">
-      <div class={isFrench ? 'pointer-events-auto mr-[20px] w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 pt-8 sm:pt-0 lg:max-w-[28rem] lg:items-center' : 'pointer-events-auto mr-[20px] w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 lg:max-w-[28rem]'}>
-        <div class={isFrench ? 'inline-flex items-center m-0 px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15' : 'inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15'}>
+      <div class={isFrench ? 'pointer-events-auto w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 pt-8 sm:pt-0 lg:max-w-[28rem] lg:items-center' : 'pointer-events-auto w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 lg:max-w-[28rem]'}>
+        <div class={isFrench ? 'mt-[10px] inline-flex items-center m-0 px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 sm:mt-0' : 'mt-[10px] inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 sm:mt-0'}>
           {isFrench ? 'Produits' : 'Products'}
         </div>
 
@@ -83,44 +85,64 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
           <span>{isFrench ? 'Pompes incendie portatives' : 'Portable Fire Pumps'}</span>
         </h1>
 
-        <p class={isFrench ? 'text-lg md:text-xl text-slate-200 m-0 max-w-2xl mx-auto leading-relaxed' : 'text-lg md:text-xl text-slate-200 mb-5 max-w-2xl mx-auto leading-relaxed'}>
-          {isFrench
-            ? 'Choisissez la bonne pompe selon les conditions d’eau et le niveau d’utilisation requis.'
-            : 'Choose the right pump based on water conditions and duty cycle.'}
-        </p>
+        <div class="relative flex w-full flex-col items-center gap-4 sm:block">
+          <div class="js-products-hero-play-chrome mt-6 flex flex-col items-center gap-3 text-center text-white transition opacity-100 duration-700 sm:absolute sm:left-1/2 sm:top-1/2 sm:z-20 sm:mt-0 sm:-translate-x-1/2 sm:-translate-y-1/2">
+            <div class="text-xs font-bold uppercase tracking-[0.08em] text-white/80 sm:text-sm">
+              {isFrench ? 'Vidéo de démonstration' : 'Watch our demo video'}
+            </div>
 
-        <div class={isFrench ? 'mt-6 mb-8 grid w-full max-w-[24rem] grid-cols-2 gap-3 text-left sm:mt-8' : 'mt-auto mb-10 grid w-full max-w-[24rem] grid-cols-2 gap-3 text-left'}>
-          <a href={airCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-0 py-2 text-white transition-all duration-300 hover:-translate-y-0.5">
-            <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
-            <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-[1.05rem]">
-              {isFrench ? 'Pompes refroidies à l’air' : 'Air-Cooled Pumps'}
-            </div>
-            <div class="mt-2 text-sm leading-relaxed text-slate-200">
-              {isFrench
-                ? 'Mieux adaptées aux prises d’eau variables et aux déploiements plus simples.'
-                : 'Best for variable water sources and simpler field deployment.'}
-            </div>
-          </a>
+            <button
+              type="button"
+              class="js-products-hero-play flex h-16 w-16 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/55"
+              aria-label={isFrench ? 'Lire la vidéo promotionnelle Shibaura' : 'Play the Shibaura promotional video'}
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="h-7 w-7 fill-current">
+                <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.83-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z" />
+              </svg>
+            </button>
+          </div>
 
-          <a href={waterCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-0 py-2 text-white transition-all duration-300 hover:-translate-y-0.5">
-            <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
-            <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-[1.05rem]">
-              {isFrench ? 'Pompes refroidies à l’eau' : 'Water-Cooled Pumps'}
-            </div>
-            <div class="mt-2 text-sm leading-relaxed text-slate-200">
+          <div class={isFrench ? 'flex w-full flex-col items-center gap-[10px] sm:gap-8' : 'flex w-full flex-col items-center gap-[10px] md:mt-auto'}>
+            <p class={isFrench ? 'text-lg md:mt-0 md:text-xl text-slate-200 m-0 max-w-2xl mx-auto leading-relaxed' : 'text-lg md:mt-0 md:text-xl text-slate-200 mb-0 max-w-2xl mx-auto leading-relaxed'}>
               {isFrench
-                ? 'Mieux adaptées au relais et aux transferts d’eau soutenus.'
-                : 'Best for sustained relay pumping and longer-duty water transfer.'}
+                ? 'Choisissez la bonne pompe selon les conditions d’eau et le niveau d’utilisation requis.'
+                : 'Choose the right pump based on water conditions and duty cycle.'}
+            </p>
+
+            <div class={isFrench ? 'mb-8 grid w-full max-w-[24rem] grid-cols-2 gap-3 text-left' : 'mb-10 grid w-full max-w-[24rem] grid-cols-2 gap-3 text-left'}>
+              <a href={airCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-0 py-2 text-white transition-all duration-300 hover:-translate-y-0.5">
+                <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
+                <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-[1.05rem]">
+                  {isFrench ? 'Pompes refroidies à l’air' : 'Air-Cooled Pumps'}
+                </div>
+                <div class="mt-2 text-sm leading-relaxed text-slate-200">
+                  {isFrench
+                    ? 'Mieux adaptées aux prises d’eau variables et aux déploiements plus simples.'
+                    : 'Best for variable water sources and simpler field deployment.'}
+                </div>
+              </a>
+
+              <a href={waterCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-0 py-2 text-white transition-all duration-300 hover:-translate-y-0.5">
+                <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
+                <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-[1.05rem]">
+                  {isFrench ? 'Pompes refroidies à l’eau' : 'Water-Cooled Pumps'}
+                </div>
+                <div class="mt-2 text-sm leading-relaxed text-slate-200">
+                  {isFrench
+                    ? 'Mieux adaptées au relais et aux transferts d’eau soutenus.'
+                    : 'Best for sustained relay pumping and longer-duty water transfer.'}
+                </div>
+              </a>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
 
-    <div hidden class="js-products-hero-paused pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6 py-14 sm:px-8 sm:py-16">
+    <div hidden class="js-products-hero-paused pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6 py-10 pb-20 sm:px-8 sm:py-16">
       <div class="pointer-events-auto mx-auto flex w-full max-w-[52rem] flex-col items-center text-center">
-        <div class="flex w-full max-w-[42rem] flex-col items-center gap-10 sm:gap-12">
-          <div class="flex flex-col items-center gap-4">
+        <div class="flex w-full max-w-[28rem] flex-col items-center gap-6 sm:max-w-[42rem] sm:gap-12">
+          <div class="flex flex-col items-center gap-3 sm:gap-4">
           <div class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
             {isFrench ? 'Produits' : 'Products'}
           </div>
@@ -146,15 +168,15 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
             </svg>
           </button>
 
-          <div class="flex flex-col items-center gap-6 sm:gap-8">
+          <div class="flex flex-col items-center gap-4 sm:gap-8">
             <p class="max-w-3xl text-lg leading-relaxed text-slate-200 md:text-xl">
               {isFrench
                 ? 'Choisissez la bonne pompe selon les conditions d’eau et le niveau d’utilisation requis.'
                 : 'Choose the right pump based on water conditions and duty cycle.'}
             </p>
 
-            <div class="grid w-full max-w-[34rem] grid-cols-2 gap-4 pt-2 text-left">
-              <a href={airCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-4 py-4 text-white transition-all duration-300 hover:-translate-y-0.5">
+            <div class="grid w-full max-w-[34rem] grid-cols-2 gap-4 pt-1 text-left sm:pt-2">
+              <a href={airCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-2 py-2 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4 sm:py-4">
                 <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
                 <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-lg">
                   {isFrench ? 'Pompes refroidies à l’air' : 'Air-Cooled Pumps'}
@@ -166,7 +188,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
                 </div>
               </a>
 
-              <a href={waterCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-4 py-4 text-white transition-all duration-300 hover:-translate-y-0.5">
+              <a href={waterCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-2 py-2 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4 sm:py-4">
                 <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
                 <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-lg">
                   {isFrench ? 'Pompes refroidies à l’eau' : 'Water-Cooled Pumps'}
@@ -185,25 +207,9 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
   </div>
   </div>
 
-  <div class="js-products-hero-play-chrome absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-3 text-center text-white transition opacity-100 duration-700">
-    <div class="text-xs font-bold uppercase tracking-[0.08em] text-white/80 sm:text-sm">
-      {isFrench ? 'Vidéo de démonstration' : 'Watch our demo video'}
-    </div>
-
-    <button
-      type="button"
-      class="js-products-hero-play flex h-16 w-16 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/55"
-      aria-label={isFrench ? 'Lire la vidéo promotionnelle Shibaura' : 'Play the Shibaura promotional video'}
-    >
-      <svg aria-hidden="true" viewBox="0 0 24 24" class="h-7 w-7 fill-current">
-        <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.83-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z" />
-      </svg>
-    </button>
-  </div>
-
   <button
     type="button"
-    class="js-products-hero-fullscreen absolute bottom-4 right-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white/80 transition hover:bg-black/50 hover:text-white"
+    class="js-products-hero-fullscreen absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white/80 transition hover:bg-black/50 hover:text-white sm:top-auto sm:bottom-4"
     aria-label={isFrench ? 'Passer en plein écran' : 'Enter fullscreen'}
   >
     <svg class="js-products-hero-icon-fullscreen-enter h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -303,10 +309,17 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     const initialOverlayFadeStartTime = 1;
     const initialOverlayFadeEndTime = 2;
+    const videoTimecodeFps = 30;
+    const timecodeToSeconds = (seconds, frames = 0) => seconds + frames / videoTimecodeFps;
+    const secondMobileCropStartTime = timecodeToSeconds(2, 18);
+    const secondMobileCropEndTime = timecodeToSeconds(4, 5);
+    const mobileVideoCropBreakpoint = window.matchMedia('(max-width: 767px)');
     let hasStartedPlayback = false;
     let hasCompletedInitialOverlay = false;
     let hasTriggeredInitialOverlayFade = false;
     let initialOverlayFadeFrame = 0;
+    let framingSyncFrame = 0;
+    let framingVideoFrameCallback = 0;
 
     const animateOverlayIn = (element) => {
       element.style.animation = 'none';
@@ -399,6 +412,18 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       }
     };
 
+    const stopFramingSyncLoop = () => {
+      if (framingSyncFrame !== 0) {
+        cancelAnimationFrame(framingSyncFrame);
+        framingSyncFrame = 0;
+      }
+
+      if (framingVideoFrameCallback !== 0 && 'cancelVideoFrameCallback' in video) {
+        video.cancelVideoFrameCallback(framingVideoFrameCallback);
+        framingVideoFrameCallback = 0;
+      }
+    };
+
     const syncInitialPlaybackOverlay = () => {
       if (hasCompletedInitialOverlay) {
         return;
@@ -474,6 +499,85 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       fullscreenButton.setAttribute('aria-label', isFullscreen ? (isFrench ? 'Quitter le plein écran' : 'Exit fullscreen') : (isFrench ? 'Passer en plein écran' : 'Enter fullscreen'));
     };
 
+    const lockLandscapeOrientation = async () => {
+      if (
+        !mobileVideoCropBreakpoint.matches ||
+        !('orientation' in screen) ||
+        typeof screen.orientation.lock !== 'function'
+      ) {
+        return;
+      }
+
+      try {
+        await screen.orientation.lock('landscape');
+      } catch {}
+    };
+
+    const unlockOrientation = () => {
+      if (
+        !('orientation' in screen) ||
+        typeof screen.orientation.unlock !== 'function'
+      ) {
+        return;
+      }
+
+      try {
+        screen.orientation.unlock();
+      } catch {}
+    };
+
+    const syncVideoFraming = () => {
+      if (!mobileVideoCropBreakpoint.matches) {
+        video.style.objectPosition = 'center';
+        return;
+      }
+
+      if (video.currentTime < secondMobileCropStartTime) {
+        video.style.objectPosition = '25% center';
+        return;
+      }
+
+      if (video.currentTime < secondMobileCropEndTime) {
+        video.style.objectPosition = '80% center';
+        return;
+      }
+
+      video.style.objectPosition = '50% center';
+    };
+
+    const startFramingSyncLoop = () => {
+      stopFramingSyncLoop();
+
+      if ('requestVideoFrameCallback' in video) {
+        const tick = () => {
+          syncVideoFraming();
+
+          if (!video.paused && !video.ended) {
+            framingVideoFrameCallback = video.requestVideoFrameCallback(() => tick());
+            return;
+          }
+
+          framingVideoFrameCallback = 0;
+        };
+
+        tick();
+        return;
+      }
+
+      const tick = () => {
+        syncVideoFraming();
+
+        if (!video.paused && !video.ended) {
+          framingSyncFrame = requestAnimationFrame(tick);
+          return;
+        }
+
+        framingSyncFrame = 0;
+      };
+
+      tick();
+    };
+
     const playVideo = async () => {
       if (hasStartedPlayback && hasCompletedInitialOverlay) {
         hideOverlay();
@@ -546,6 +650,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       }
 
       await section.requestFullscreen();
+      await lockLandscapeOrientation();
     });
 
     video.addEventListener('click', async () => {
@@ -558,6 +663,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     video.addEventListener('play', () => {
       hasStartedPlayback = true;
+      startFramingSyncLoop();
 
       if (hasCompletedInitialOverlay) {
         setOverlayTransparentState();
@@ -571,6 +677,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     video.addEventListener('pause', () => {
       stopInitialOverlayFadeLoop();
+      stopFramingSyncLoop();
 
       if (!hasStartedPlayback) {
         return;
@@ -582,6 +689,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     video.addEventListener('ended', () => {
       stopInitialOverlayFadeLoop();
+      stopFramingSyncLoop();
       setOverlayTransparentState();
       showPausedOverlay();
     });
@@ -594,8 +702,17 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       }
     });
     video.addEventListener('loadedmetadata', syncSeekBar);
+    video.addEventListener('loadedmetadata', syncVideoFraming);
+    video.addEventListener('seeked', syncVideoFraming);
     video.addEventListener('volumechange', syncVolumeState);
-    document.addEventListener('fullscreenchange', syncFullscreenState);
+    document.addEventListener('fullscreenchange', () => {
+      syncFullscreenState();
+
+      if (document.fullscreenElement !== section) {
+        unlockOrientation();
+      }
+    });
+    mobileVideoCropBreakpoint.addEventListener('change', syncVideoFraming);
 
     setOverlayInitialState();
     showInitialOverlay();
@@ -605,5 +722,6 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     syncSeekBar();
     syncVolumeState();
     syncFullscreenState();
+    syncVideoFraming();
   });
 </script>
