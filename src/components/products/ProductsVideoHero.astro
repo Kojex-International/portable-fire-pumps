@@ -16,7 +16,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 <section data-products-video-hero class="relative min-h-[560px] sm:min-h-[680px] flex items-start sm:items-center overflow-hidden safari-hero-offset bg-slate-950">
   <div class="absolute inset-0">
     <video
-      class="js-products-hero-video block h-full w-full object-cover object-center"
+      class="js-products-hero-video block h-full w-full object-cover object-[25%_center] sm:object-center"
       preload="metadata"
       playsinline
       poster={promoPosterImg.src}
@@ -85,7 +85,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
           <span>{isFrench ? 'Pompes incendie portatives' : 'Portable Fire Pumps'}</span>
         </h1>
 
-        <div class="relative flex w-full flex-col items-center gap-4 sm:block">
+        <div class="flex w-full flex-col items-center gap-4 sm:block">
           <div class="js-products-hero-play-chrome mt-6 flex flex-col items-center gap-3 text-center text-white transition opacity-100 duration-700 sm:absolute sm:left-1/2 sm:top-1/2 sm:z-20 sm:mt-0 sm:-translate-x-1/2 sm:-translate-y-1/2">
             <div class="text-xs font-bold uppercase tracking-[0.08em] text-white/80 sm:text-sm">
               {isFrench ? 'Vidéo de démonstration' : 'Watch our demo video'}
