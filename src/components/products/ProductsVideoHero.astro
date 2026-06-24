@@ -353,6 +353,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       /iP(ad|hone|od)/.test(userAgent) &&
       /WebKit/i.test(userAgent) &&
       !/CriOS|FxiOS|EdgiOS/i.test(userAgent);
+    const useNativeMobileControls = () => mobileVideoCropBreakpoint.matches;
     let hasStartedPlayback = false;
     let hasCompletedInitialOverlay = false;
     let hasTriggeredInitialOverlayFade = false;
@@ -417,16 +418,22 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     };
 
     const showPausedOverlay = () => {
-      if (isIOSSafari) {
+      if (useNativeMobileControls()) {
         overlay.hidden = false;
         overlay.style.pointerEvents = 'none';
         setOverlayTransparentState();
         resetInitialOverlayOpacity();
         initialOverlay.hidden = true;
         pausedOverlay.hidden = false;
+        pausedOverlay.style.pointerEvents = 'none';
+        pausedOverlay.style.bottom = '8rem';
+        const pausedOverlayContent = pausedOverlay.firstElementChild;
+        if (pausedOverlayContent instanceof HTMLElement) {
+          pausedOverlayContent.style.pointerEvents = 'none';
+        }
         pausedOverlay.style.justifyContent = 'flex-start';
         pausedOverlay.style.paddingTop = '3rem';
-        pausedOverlay.style.paddingBottom = '8rem';
+        pausedOverlay.style.paddingBottom = '1rem';
         playChrome.hidden = true;
         inlinePlayButton.hidden = true;
         controls.hidden = true;
@@ -441,6 +448,11 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       resetInitialOverlayOpacity();
       initialOverlay.hidden = true;
       pausedOverlay.hidden = false;
+      pausedOverlay.style.pointerEvents = '';
+      const pausedOverlayContent = pausedOverlay.firstElementChild;
+      if (pausedOverlayContent instanceof HTMLElement) {
+        pausedOverlayContent.style.pointerEvents = '';
+      }
       playChrome.hidden = true;
       inlinePlayButton.hidden = false;
       controls.hidden = false;
@@ -452,9 +464,15 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       overlay.hidden = true;
       overlay.style.pointerEvents = 'none';
       resetInitialOverlayOpacity();
+      pausedOverlay.style.bottom = '';
       pausedOverlay.style.justifyContent = '';
+      pausedOverlay.style.pointerEvents = '';
       pausedOverlay.style.paddingTop = '';
       pausedOverlay.style.paddingBottom = '';
+      const pausedOverlayContent = pausedOverlay.firstElementChild;
+      if (pausedOverlayContent instanceof HTMLElement) {
+        pausedOverlayContent.style.pointerEvents = '';
+      }
       playChrome.hidden = true;
       playChrome.style.opacity = '1';
       playChrome.style.pointerEvents = 'auto';
@@ -573,11 +591,12 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     };
 
     const syncFullscreenState = () => {
-      if (isIOSSafari) {
+      if (useNativeMobileControls()) {
         fullscreenButton.hidden = true;
         return;
       }
 
+      fullscreenButton.hidden = false;
       const isFullscreen = document.fullscreenElement === section;
       fullscreenEnterIcon.hidden = isFullscreen;
       fullscreenExitIcon.hidden = !isFullscreen;
@@ -632,7 +651,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     };
 
     const enterFullscreen = async () => {
-      if (isIOSSafari) {
+      if (useNativeMobileControls()) {
         if (typeof video.webkitEnterFullscreen === 'function') {
           video.webkitEnterFullscreen();
           return;
@@ -850,7 +869,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     fullscreenButton.addEventListener('touchstart', stopControlEvent, { passive: true });
 
     video.addEventListener('click', async () => {
-      if (isIOSSafari) {
+      if (useNativeMobileControls()) {
         return;
       }
 
@@ -911,20 +930,35 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
         unlockOrientation();
       }
     });
-    mobileVideoCropBreakpoint.addEventListener('change', syncVideoFraming);
+    const syncMobileNativeControlsState = () => {
+      const useNativeControls = useNativeMobileControls();
+      video.controls = useNativeControls;
+
+      if (useNativeControls) {
+        controls.hidden = true;
+        fullscreenButton.hidden = true;
+        muteButtons.forEach((button) => {
+          button.hidden = true;
+        });
+        return;
+      }
+
+      muteButtons.forEach((button) => {
+        button.hidden = false;
+      });
+      syncFullscreenState();
+    };
+
+    mobileVideoCropBreakpoint.addEventListener('change', () => {
+      syncVideoFraming();
+      syncMobileNativeControlsState();
+    });
 
     setOverlayInitialState();
     showInitialOverlay();
-    video.controls = isIOSSafari;
+    syncMobileNativeControlsState();
     video.volume = 1;
     controlVolume.dataset.previousVolume = '1';
-    if (isIOSSafari) {
-      controls.hidden = true;
-      fullscreenButton.hidden = true;
-      muteButtons.forEach((button) => {
-        button.hidden = true;
-      });
-    }
     syncSeekBar();
     syncVolumeState();
     syncFullscreenState();
