@@ -343,10 +343,6 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     const initialOverlayFadeStartTime = 1;
     const initialOverlayFadeEndTime = 1.3;
-    const videoTimecodeFps = 30;
-    const timecodeToSeconds = (seconds, frames = 0) => seconds + frames / videoTimecodeFps;
-    const secondMobileCropStartTime = timecodeToSeconds(2, 18);
-    const secondMobileCropEndTime = timecodeToSeconds(4, 5);
     const mobileVideoCropBreakpoint = window.matchMedia('(max-width: 767px)');
     const userAgent = navigator.userAgent;
     const isIOSSafari =
@@ -699,21 +695,6 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     };
 
     const syncVideoFraming = () => {
-      if (!mobileVideoCropBreakpoint.matches) {
-        video.style.objectPosition = 'center';
-        return;
-      }
-
-      if (video.currentTime < secondMobileCropStartTime) {
-        video.style.objectPosition = '25% center';
-        return;
-      }
-
-      if (video.currentTime < secondMobileCropEndTime) {
-        video.style.objectPosition = '80% center';
-        return;
-      }
-
       video.style.objectPosition = '50% center';
     };
 
