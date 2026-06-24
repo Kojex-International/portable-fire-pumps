@@ -13,7 +13,14 @@ const airCooledHref = localizePath('/products/air-cooled', locale);
 const waterCooledHref = localizePath('/products/water-cooled', locale);
 ---
 
-<section data-products-video-hero class="relative min-h-[560px] sm:min-h-[680px] flex items-start sm:items-center overflow-hidden safari-hero-offset bg-slate-950">
+<section
+  data-products-video-hero
+  data-mute-label={isFrench ? 'Couper le son' : 'Mute audio'}
+  data-unmute-label={isFrench ? 'Activer le son' : 'Unmute audio'}
+  data-enter-fullscreen-label={isFrench ? 'Passer en plein écran' : 'Enter fullscreen'}
+  data-exit-fullscreen-label={isFrench ? 'Quitter le plein écran' : 'Exit fullscreen'}
+  class="products-video-hero-mobile-height relative min-h-[440px] sm:min-h-[680px] flex items-start sm:items-center overflow-hidden safari-hero-offset bg-slate-950"
+>
   <div class="absolute inset-0">
     <video
       class="js-products-hero-video block h-full w-full object-cover object-[25%_center] sm:object-center"
@@ -27,17 +34,21 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     </video>
   </div>
 
-  <div hidden class="js-products-hero-controls absolute inset-x-0 bottom-[15px] z-20 px-4 sm:bottom-0 sm:px-6">
+  <div hidden class="js-products-hero-controls pointer-events-auto absolute inset-x-0 bottom-[15px] z-20 px-4 sm:bottom-0 sm:px-6">
     <div class="mx-auto flex h-10 w-full max-w-[52rem] items-center gap-4 px-2 py-0 text-white sm:h-auto sm:py-1">
-      <input
-        class="js-products-hero-seek h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/20"
-        type="range"
-        min="0"
-        max="1000"
-        value="0"
-        step="1"
+      <div
+        class="js-products-hero-seek relative flex h-6 w-full cursor-pointer items-center touch-none select-none"
+        role="slider"
+        tabindex="0"
         aria-label={isFrench ? 'Barre de progression vidéo' : 'Video progress slider'}
-      />
+        aria-valuemin="0"
+        aria-valuemax="1000"
+        aria-valuenow="0"
+      >
+        <span aria-hidden="true" class="absolute inset-x-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-white/20"></span>
+        <span aria-hidden="true" class="js-products-hero-seek-fill absolute left-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-white/50" style="width: 0%"></span>
+        <span aria-hidden="true" class="js-products-hero-seek-thumb absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgb(156_163_175)]" style="left: 0%"></span>
+      </div>
 
       <div class="flex min-w-[2.5rem] items-center gap-2 sm:min-w-[5.5rem]">
         <button
@@ -86,10 +97,10 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     </div>
   </div>
 
-  <div class="js-products-hero-overlay pointer-events-none absolute inset-0 z-10 flex items-start sm:items-center">
+  <div class="js-products-hero-overlay absolute inset-0 z-10 flex items-start sm:items-center">
     <div class="js-products-hero-scrim absolute inset-0 bg-slate-950/35 transition-opacity duration-700"></div>
 
-    <div class="js-products-hero-initial pointer-events-none relative z-10 mx-auto flex w-full max-w-[1440px] justify-center px-6 sm:px-8 lg:justify-end lg:pl-12 transition-opacity duration-300">
+    <div class="js-products-hero-initial relative z-10 mx-auto flex w-full max-w-[1440px] justify-center px-6 sm:px-8 lg:justify-end lg:pl-12 transition-opacity duration-300">
       <div class={isFrench ? 'pointer-events-auto w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 pt-8 sm:pt-0 lg:max-w-[28rem] lg:items-center' : 'pointer-events-auto w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 lg:max-w-[28rem]'}>
         <div class={isFrench ? 'mt-[10px] inline-flex items-center m-0 px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 sm:mt-0' : 'mt-[10px] inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 sm:mt-0'}>
           {isFrench ? 'Produits' : 'Products'}
@@ -149,8 +160,8 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
                 </div>
                 <div class="mt-2 text-sm leading-relaxed text-slate-200">
                   {isFrench
-                    ? 'Mieux adaptées au relais et aux transferts d’eau soutenus.'
-                    : 'Best for sustained relay pumping and longer-duty water transfer.'}
+                    ? 'Pompage soutenu.'
+                    : 'Best for sustained pumping.'}
                 </div>
               </a>
             </div>
@@ -159,9 +170,9 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       </div>
     </div>
 
-    <div hidden class="js-products-hero-paused pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6 py-10 pb-20 sm:px-8 sm:py-16">
-      <div class="pointer-events-auto mx-auto flex w-full max-w-[52rem] flex-col items-center text-center">
-        <div class="flex w-full max-w-[28rem] flex-col items-center gap-6 sm:max-w-[42rem] sm:gap-12">
+    <div hidden class="js-products-hero-paused pointer-events-none absolute inset-0 z-10 px-6 pt-10 pb-8 sm:flex sm:items-center sm:justify-center sm:px-8 sm:py-16">
+      <div class="pointer-events-auto mx-auto flex h-full w-full max-w-[52rem] flex-col items-center text-center">
+        <div class="flex h-full w-full max-w-[28rem] flex-col items-center gap-6 sm:max-w-[42rem] sm:gap-12">
           <div class="flex flex-col items-center gap-3 sm:gap-4">
           <div class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
             {isFrench ? 'Produits' : 'Products'}
@@ -188,13 +199,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
             </svg>
           </button>
 
-          <div class="flex flex-col items-center gap-4 sm:gap-8">
-            <p class="max-w-3xl text-lg leading-relaxed text-slate-200 md:text-xl">
-              {isFrench
-                ? 'Choisissez la bonne pompe selon les conditions d’eau et le niveau d’utilisation requis.'
-                : 'Choose the right pump based on water conditions and duty cycle.'}
-            </p>
-
+          <div class="mt-auto translate-x-[18px] translate-y-[68px] flex flex-col items-center gap-6 pb-2 sm:mt-0 sm:translate-x-0 sm:translate-y-0 sm:gap-8 sm:pb-0">
             <div class="grid w-full max-w-[34rem] grid-cols-2 gap-4 pt-1 text-left sm:pt-2">
               <a href={airCooledHref} class="group min-w-0 rounded-2xl bg-transparent px-2 py-2 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4 sm:py-4">
                 <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
@@ -215,8 +220,8 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
                 </div>
                 <div class="mt-2 text-sm leading-relaxed text-slate-200">
                   {isFrench
-                    ? 'Mieux adaptées au relais et aux transferts d’eau soutenus.'
-                    : 'Best for sustained relay pumping and longer-duty water transfer.'}
+                    ? 'Pompage soutenu.'
+                    : 'Best for sustained pumping.'}
                 </div>
               </a>
             </div>
@@ -262,7 +267,6 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     }
   }
 
-  .js-products-hero-seek::-webkit-slider-thumb,
   .js-products-hero-volume::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -273,7 +277,6 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     border: 0;
   }
 
-  .js-products-hero-seek::-moz-range-thumb,
   .js-products-hero-volume::-moz-range-thumb {
     width: 0.9rem;
     height: 0.9rem;
@@ -281,6 +284,7 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     background: rgb(156 163 175);
     border: 0;
   }
+
 </style>
 
 <script>
@@ -298,12 +302,18 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     const inlinePlayButton = section.querySelector('.js-products-hero-inline-play');
     const controls = section.querySelector('.js-products-hero-controls');
     const controlSeek = section.querySelector('.js-products-hero-seek');
+    const controlSeekFill = section.querySelector('.js-products-hero-seek-fill');
+    const controlSeekThumb = section.querySelector('.js-products-hero-seek-thumb');
     const controlVolume = section.querySelector('.js-products-hero-volume');
     const muteButtons = Array.from(section.querySelectorAll('.js-products-hero-mute, .js-products-hero-mute-mobile'));
     const volumeIcons = Array.from(section.querySelectorAll('.js-products-hero-icon-volume'));
     const mutedIcons = Array.from(section.querySelectorAll('.js-products-hero-icon-muted'));
     const initialOverlay = section.querySelector('.js-products-hero-initial');
     const pausedOverlay = section.querySelector('.js-products-hero-paused');
+    const muteLabel = section.dataset.muteLabel || 'Mute audio';
+    const unmuteLabel = section.dataset.unmuteLabel || 'Unmute audio';
+    const enterFullscreenLabel = section.dataset.enterFullscreenLabel || 'Enter fullscreen';
+    const exitFullscreenLabel = section.dataset.exitFullscreenLabel || 'Exit fullscreen';
 
     if (
       !(video instanceof HTMLVideoElement) ||
@@ -316,7 +326,9 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       !(fullscreenExitIcon instanceof SVGElement) ||
       !(inlinePlayButton instanceof HTMLButtonElement) ||
       !(controls instanceof HTMLDivElement) ||
-      !(controlSeek instanceof HTMLInputElement) ||
+      !(controlSeek instanceof HTMLDivElement) ||
+      !(controlSeekFill instanceof HTMLSpanElement) ||
+      !(controlSeekThumb instanceof HTMLSpanElement) ||
       !(controlVolume instanceof HTMLInputElement) ||
       muteButtons.length === 0 ||
       volumeIcons.length === 0 ||
@@ -342,6 +354,11 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     const secondMobileCropStartTime = timecodeToSeconds(2, 18);
     const secondMobileCropEndTime = timecodeToSeconds(4, 5);
     const mobileVideoCropBreakpoint = window.matchMedia('(max-width: 767px)');
+    const userAgent = navigator.userAgent;
+    const isIOSSafari =
+      /iP(ad|hone|od)/.test(userAgent) &&
+      /WebKit/i.test(userAgent) &&
+      !/CriOS|FxiOS|EdgiOS/i.test(userAgent);
     let hasStartedPlayback = false;
     let hasCompletedInitialOverlay = false;
     let hasTriggeredInitialOverlayFade = false;
@@ -404,8 +421,26 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     };
 
     const showPausedOverlay = () => {
+      if (isIOSSafari) {
+        overlay.hidden = false;
+        overlay.style.pointerEvents = 'none';
+        setOverlayTransparentState();
+        resetInitialOverlayOpacity();
+        initialOverlay.hidden = true;
+        pausedOverlay.hidden = false;
+        pausedOverlay.style.justifyContent = 'flex-start';
+        pausedOverlay.style.paddingTop = '3rem';
+        pausedOverlay.style.paddingBottom = '8rem';
+        playChrome.hidden = true;
+        inlinePlayButton.hidden = true;
+        controls.hidden = true;
+        animateOverlayIn(overlay);
+        animateOverlayIn(pausedOverlay);
+        return;
+      }
+
       overlay.hidden = false;
-      overlay.style.pointerEvents = 'auto';
+      overlay.style.pointerEvents = 'none';
       setOverlayTransparentState();
       resetInitialOverlayOpacity();
       initialOverlay.hidden = true;
@@ -421,6 +456,9 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       overlay.hidden = true;
       overlay.style.pointerEvents = 'none';
       resetInitialOverlayOpacity();
+      pausedOverlay.style.justifyContent = '';
+      pausedOverlay.style.paddingTop = '';
+      pausedOverlay.style.paddingBottom = '';
       playChrome.hidden = true;
       playChrome.style.opacity = '1';
       playChrome.style.pointerEvents = 'auto';
@@ -505,11 +543,17 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     const syncSeekBar = () => {
       if (!Number.isFinite(video.duration) || video.duration <= 0) {
-        controlSeek.value = '0';
+        controlSeek.setAttribute('aria-valuenow', '0');
+        controlSeekFill.style.width = '0%';
+        controlSeekThumb.style.left = '0%';
         return;
       }
 
-      controlSeek.value = String(Math.round((video.currentTime / video.duration) * 1000));
+      const value = Math.round((video.currentTime / video.duration) * 1000);
+      const percent = `${value / 10}%`;
+      controlSeek.setAttribute('aria-valuenow', String(value));
+      controlSeekFill.style.width = percent;
+      controlSeekThumb.style.left = percent;
     };
 
     const syncVolumeState = () => {
@@ -525,15 +569,20 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       controlVolume.value = String(muted ? 0 : video.volume);
       muteButtons.forEach((button) => {
         button.setAttribute('aria-pressed', muted ? 'true' : 'false');
-        button.setAttribute('aria-label', muted ? (isFrench ? 'Activer le son' : 'Unmute audio') : (isFrench ? 'Couper le son' : 'Mute audio'));
+        button.setAttribute('aria-label', muted ? unmuteLabel : muteLabel);
       });
     };
 
     const syncFullscreenState = () => {
+      if (isIOSSafari) {
+        fullscreenButton.hidden = true;
+        return;
+      }
+
       const isFullscreen = document.fullscreenElement === section;
       fullscreenEnterIcon.hidden = isFullscreen;
       fullscreenExitIcon.hidden = !isFullscreen;
-      fullscreenButton.setAttribute('aria-label', isFullscreen ? (isFrench ? 'Quitter le plein écran' : 'Exit fullscreen') : (isFrench ? 'Passer en plein écran' : 'Enter fullscreen'));
+      fullscreenButton.setAttribute('aria-label', isFullscreen ? exitFullscreenLabel : enterFullscreenLabel);
     };
 
     const lockLandscapeOrientation = async () => {
@@ -548,6 +597,74 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       try {
         await screen.orientation.lock('landscape');
       } catch {}
+    };
+
+    const stopControlEvent = (event) => {
+      event.stopPropagation();
+    };
+
+    const updateSeekFromValue = (value) => {
+      if (!Number.isFinite(video.duration) || video.duration <= 0) {
+        return;
+      }
+
+      const normalizedValue = Math.min(Math.max(value, 0), 1000);
+      const percent = `${normalizedValue / 10}%`;
+      controlSeek.setAttribute('aria-valuenow', String(normalizedValue));
+      controlSeekFill.style.width = percent;
+      controlSeekThumb.style.left = percent;
+      video.currentTime = (normalizedValue / 1000) * video.duration;
+    };
+
+    const getSeekValueFromClientX = (clientX) => {
+      const rect = controlSeek.getBoundingClientRect();
+      const ratio = rect.width > 0 ? (clientX - rect.left) / rect.width : 0;
+      return Math.round(Math.min(Math.max(ratio, 0), 1) * 1000);
+    };
+
+    let isDraggingSeek = false;
+
+    const updateSeekFromClientX = (clientX) => {
+      updateSeekFromValue(getSeekValueFromClientX(clientX));
+    };
+
+    const endSeekDrag = () => {
+      isDraggingSeek = false;
+    };
+
+    const enterFullscreen = async () => {
+      if (isIOSSafari) {
+        if (typeof video.webkitEnterFullscreen === 'function') {
+          video.webkitEnterFullscreen();
+          return;
+        }
+
+        if (typeof video.webkitEnterFullScreen === 'function') {
+          video.webkitEnterFullScreen();
+        }
+
+        return;
+      }
+
+      if (document.fullscreenElement === section) {
+        await document.exitFullscreen();
+        return;
+      }
+
+      if (typeof section.requestFullscreen === 'function') {
+        await section.requestFullscreen();
+        await lockLandscapeOrientation();
+        return;
+      }
+
+      if (typeof video.webkitEnterFullscreen === 'function') {
+        video.webkitEnterFullscreen();
+        return;
+      }
+
+      if (typeof video.webkitEnterFullScreen === 'function') {
+        video.webkitEnterFullScreen();
+      }
     };
 
     const unlockOrientation = () => {
@@ -656,18 +773,64 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       void playVideo();
     });
 
-    controlSeek.addEventListener('input', () => {
-      if (!Number.isFinite(video.duration) || video.duration <= 0) {
+    controlSeek.addEventListener('click', (event) => {
+      stopControlEvent(event);
+      updateSeekFromClientX(event.clientX);
+    });
+    controlSeek.addEventListener('keydown', (event) => {
+      const currentValue = Number(controlSeek.getAttribute('aria-valuenow') || '0');
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        updateSeekFromValue(currentValue - 20);
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        updateSeekFromValue(currentValue + 20);
+      }
+    });
+    controlSeek.addEventListener('pointerdown', (event) => {
+      stopControlEvent(event);
+      isDraggingSeek = true;
+      updateSeekFromClientX(event.clientX);
+    });
+    controlSeek.addEventListener('touchstart', (event) => {
+      const touch = event.touches[0];
+      if (!touch) {
         return;
       }
-
-      video.currentTime = (Number(controlSeek.value) / 1000) * video.duration;
+      event.preventDefault();
+      stopControlEvent(event);
+      isDraggingSeek = true;
+      updateSeekFromClientX(touch.clientX);
+    }, { passive: false });
+    window.addEventListener('pointermove', (event) => {
+      if (!isDraggingSeek) {
+        return;
+      }
+      updateSeekFromClientX(event.clientX);
     });
+    window.addEventListener('pointerup', endSeekDrag);
+    window.addEventListener('pointercancel', endSeekDrag);
+    window.addEventListener('touchmove', (event) => {
+      if (!isDraggingSeek) {
+        return;
+      }
+      const touch = event.touches[0];
+      if (!touch) {
+        return;
+      }
+      event.preventDefault();
+      updateSeekFromClientX(touch.clientX);
+    }, { passive: false });
+    window.addEventListener('touchend', endSeekDrag);
+    window.addEventListener('touchcancel', endSeekDrag);
 
     controlVolume.addEventListener('input', () => {
       video.volume = Number(controlVolume.value);
       video.muted = video.volume === 0;
     });
+    controlVolume.addEventListener('pointerdown', stopControlEvent);
+    controlVolume.addEventListener('touchstart', stopControlEvent, { passive: true });
 
     muteButtons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -683,16 +846,15 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
     });
 
     fullscreenButton.addEventListener('click', async () => {
-      if (document.fullscreenElement === section) {
-        await document.exitFullscreen();
+      await enterFullscreen();
+    });
+    fullscreenButton.addEventListener('touchstart', stopControlEvent, { passive: true });
+
+    video.addEventListener('click', async () => {
+      if (isIOSSafari) {
         return;
       }
 
-      await section.requestFullscreen();
-      await lockLandscapeOrientation();
-    });
-
-    video.addEventListener('click', async () => {
       if (video.paused || video.ended) {
         await playVideo();
       } else {
@@ -755,9 +917,16 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     setOverlayInitialState();
     showInitialOverlay();
-    video.controls = false;
+    video.controls = isIOSSafari;
     video.volume = 1;
     controlVolume.dataset.previousVolume = '1';
+    if (isIOSSafari) {
+      controls.hidden = true;
+      fullscreenButton.hidden = true;
+      muteButtons.forEach((button) => {
+        button.hidden = true;
+      });
+    }
     syncSeekBar();
     syncVolumeState();
     syncFullscreenState();

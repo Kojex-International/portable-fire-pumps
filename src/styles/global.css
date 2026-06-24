@@ -423,5 +423,9 @@ html {
       height: auto;
       min-height: calc(100vh + 4rem);
     }
+
+    .products-video-hero-mobile-height.safari-hero-offset {
+      min-height: 440px;
+    }
   }
 }

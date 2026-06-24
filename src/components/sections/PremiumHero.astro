@@ -3,7 +3,8 @@ import { Image } from 'astro:assets';
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import HeroQuickLinks from '../react/HeroQuickLinks';
 import logoMark from '@assets/shibaura-logo-mark.svg';
-import heroPoster from '@assets/hero-firepump-loop-poster.webp';
+import heroPosterDesktop from '@assets/hero-firepump-loop-v1-poster.jpg';
+import heroPosterMobile from '@assets/hero-firepump-loop-v1-mobile-poster.jpg';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
 const productsHref = localizePath('/products', locale);
@@ -14,6 +15,8 @@ const relayHref = localizePath('/long-distance-relay-pumping', locale);
 const remoteFirefightingHref = `${useCasesHref}#remote-firefighting`;
 const wildfireFirefightingHref = `${useCasesHref}#wildfire-firefighting`;
 const isFrench = locale === 'fr';
+const heroVideoDesktopSrc = '/hero-firepump-loop-v1.mp4';
+const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
 const quickLinkItems = [
   {
     label: isFrench ? 'Catégories' : 'Categories',
@@ -60,29 +63,35 @@ const quickLinkItems = [
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0">
     <video
+      data-premium-hero-video
+      data-poster-desktop={heroPosterDesktop.src}
+      data-poster-mobile={heroPosterMobile.src}
       class="block w-full h-full object-cover object-center sm:object-center motion-reduce:hidden"
       autoplay
       muted
       loop
       playsinline
       preload="metadata"
-      poster={heroPoster.src}
+      poster={heroPosterDesktop.src}
       aria-hidden="true"
       tabindex="-1"
     >
-      <source media="(max-width: 767px)" src="/hero-firepump-loop-mobile.mp4" type="video/mp4" />
-      <source src="/hero-firepump-loop.mp4" type="video/mp4" />
+      <source media="(max-width: 767px)" src={heroVideoMobileSrc} type="video/mp4" />
+      <source src={heroVideoDesktopSrc} type="video/mp4" />
     </video>
-    <Image
-      src={heroPoster}
-      alt=""
-      class="hidden w-full h-full object-cover object-center sm:object-center motion-reduce:block"
-      loading="eager"
-      decoding="async"
-      fetchpriority="high"
-      width={1280}
-      height={720}
-    />
+    <picture class="hidden h-full w-full motion-reduce:block">
+      <source media="(max-width: 767px)" srcset={heroPosterMobile.src} />
+      <Image
+        src={heroPosterDesktop}
+        alt=""
+        class="h-full w-full object-cover object-center sm:object-center"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        width={1280}
+        height={720}
+      />
+    </picture>
     <div class="absolute inset-0 bg-linear-to-r from-black/46 via-black/30 to-black/14 sm:from-black/58 sm:via-black/38 sm:to-black/18"></div>
   </div>
 
@@ -132,3 +141,21 @@ const quickLinkItems = [
     </svg>
   </div>
 </section>
+
+<script is:inline>
+  (() => {
+    const syncHeroPoster = () => {
+      document.querySelectorAll('[data-premium-hero-video]').forEach((video) => {
+        if (!(video instanceof HTMLVideoElement)) return;
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+        const nextPoster = isMobile ? video.dataset.posterMobile : video.dataset.posterDesktop;
+        if (nextPoster && video.poster !== nextPoster) {
+          video.poster = nextPoster;
+        }
+      });
+    };
+
+    syncHeroPoster();
+    window.addEventListener('resize', syncHeroPoster, { passive: true });
+  })();
+</script>
