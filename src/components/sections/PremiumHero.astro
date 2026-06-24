@@ -92,7 +92,8 @@ const quickLinkItems = [
         height={720}
       />
     </picture>
-    <div class="absolute inset-0 bg-linear-to-r from-black/46 via-black/30 to-black/14 sm:from-black/58 sm:via-black/38 sm:to-black/18"></div>
+    <div class="pointer-events-none absolute inset-0 bg-linear-to-r from-black/46 via-black/30 to-black/14 sm:from-black/58 sm:via-black/38 sm:to-black/18"></div>
+    <div class="pointer-events-none absolute inset-0 bg-black/20 sm:bg-black/[0.14]"></div>
   </div>
 
   <!-- Content -->
@@ -106,7 +107,7 @@ const quickLinkItems = [
               style={`background-color: currentColor; -webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
             />
           </span>
-          <span class="pl-7">{isFrench ? 'Conçues pour les services d’incendie' : 'Engineered for Firefighting & Rescue'}</span>
+          <span class="pl-7">{isFrench ? 'L’eau là où chaque seconde compte' : 'Delivering water where it’s needed most'}</span>
         </div>
       
       <h1 class:list={[
