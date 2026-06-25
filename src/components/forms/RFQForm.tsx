@@ -5,9 +5,10 @@ interface RFQFormProps {
   action?: string;
   locale?: 'en' | 'fr';
   turnstileSiteKey?: string;
+  leadSource?: string;
 }
 
-export default function RFQForm({ action, locale = 'en', turnstileSiteKey = '' }: RFQFormProps) {
+export default function RFQForm({ action, locale = 'en', turnstileSiteKey = '', leadSource = '' }: RFQFormProps) {
   const isFrench = locale === 'fr';
   const iconStroke = 1.75;
   const formAction = action ?? '/.netlify/functions/send-form-email';
@@ -67,6 +68,7 @@ export default function RFQForm({ action, locale = 'en', turnstileSiteKey = '' }
       <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
       <input type="hidden" name="form-name" value="pump-inquiry" />
       <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="leadSource" value={leadSource} />
       <input type="hidden" name="submittedAt" id="submittedAt" value="" />
       <input type="hidden" name="cf-turnstile-response" id="cf-turnstile-response" value="" />
       <div

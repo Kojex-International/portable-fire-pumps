@@ -1,0 +1,387 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/layout/PageHero.astro';
+import Section from '@components/layout/Section.astro';
+import SectionHeading from '@components/layout/SectionHeading.astro';
+import Card from '@components/ui/Card.astro';
+import Button from '@components/ui/Button.astro';
+import { CheckCircle2, Download, PhoneCall, PackageSearch, ShieldCheck, Wrench, Flame, Factory, PlayCircle, ArrowRight, FileText, Users, MapPinned } from 'lucide-react';
+import heroBgImg from '@assets/product-features-hero.webp';
+import catalogPdf from '../../../data/Shibaura_Catalog2024_9.pdf';
+import { getFirepumps } from '../../../data/firepumps';
+import { localizePath } from '@config/site';
+import { getNonProductMetadata } from '@utils/nonProductMetadata';
+
+const locale = 'en';
+const metadata = getNonProductMetadata({
+  pageKey: 'events',
+  locale,
+  pathname: Astro.url.pathname,
+  ogImageSrc: heroBgImg.src,
+});
+
+const firepumps = getFirepumps(locale);
+const featuredSlugs = ['ff500ar-a', 'p572s-a'] as const;
+const featuredPumps = featuredSlugs
+  .map((slug) => firepumps.find((pump) => pump.slug === slug))
+  .filter((pump): pump is NonNullable<typeof pump> => pump !== undefined);
+
+const productsHref = localizePath('/products', locale);
+const resourcesHref = localizePath('/resources', locale);
+const contactHref = localizePath('/contact-us', locale);
+const ff500Href = localizePath('/products/ff500ar-a', locale);
+const p572Href = localizePath('/products/p572s-a', locale);
+const contactTrackedHref = '/en/contact?source=trade-show-qr';
+const demoTrackedHref = '/en/contact?interest=demo&source=trade-show-qr';
+const dealerTrackedHref = '/en/contact?interest=dealer&source=trade-show-qr';
+
+const featuredProductContent = {
+  'ff500ar-a': {
+    positioning: 'Move water farther with fewer people.',
+    highlights: [
+      'Auto-relay pumping system',
+      'Built for long-distance water delivery',
+      'EFI engine control',
+      'Designed for demanding relay operations',
+    ],
+    detailHref: ff500Href,
+    videoLabel: 'Trade show product video coming soon',
+  },
+  'p572s-a': {
+    positioning: 'Maximum flow and value for high-output operations.',
+    highlights: [
+      'High discharge performance',
+      'Portable firefighting pump',
+      'Strong fit for municipal and emergency response',
+      'Reliable Shibaura Rabbit engineering',
+    ],
+    detailHref: p572Href,
+    videoLabel: 'Featured product video coming soon',
+  },
+} as const;
+
+const trustCards = [
+  {
+    title: 'Proven Japanese engineering',
+    description: 'Shibaura Rabbit pumps are built for repeatable field performance, durability, and dependable water movement under pressure.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'North American support through KOJEX',
+    description: 'KOJEX supports pump selection, evaluation, and deployment planning for departments, distributors, and operational teams.',
+    icon: MapPinned,
+  },
+  {
+    title: 'Parts, warranty, and technical assistance',
+    description: 'Access manuals, parts lists, and ongoing support after delivery rather than relying only on one-time product sales.',
+    icon: Wrench,
+  },
+  {
+    title: 'Pumps for municipal, wildland, industrial, and emergency use',
+    description: 'The lineup covers high-output municipal response, remote operations, relay pumping, and demanding field deployment.',
+    icon: Flame,
+  },
+] as const;
+
+const resourceCards = [
+  {
+    title: 'Download product overview',
+    description: 'Download the current Shibaura lineup overview used at events and product presentations.',
+    href: catalogPdf,
+    icon: Download,
+    cta: 'Download overview',
+  },
+  {
+    title: 'View full product lineup',
+    description: 'Browse all portable fire pump models and compare which platform best fits your water delivery requirements.',
+    href: productsHref,
+    icon: PackageSearch,
+    cta: 'View lineup',
+  },
+  {
+    title: 'View technical resources',
+    description: 'Access manuals, parts lists, and supporting technical documents from the main resource library.',
+    href: resourcesHref,
+    icon: FileText,
+    cta: 'Open resources',
+  },
+  {
+    title: 'Contact KOJEX',
+    description: 'Reach KOJEX for pricing, demonstration planning, dealer opportunities, or product guidance after the event.',
+    href: contactHref,
+    icon: PhoneCall,
+    cta: 'Contact KOJEX',
+  },
+] as const;
+---
+
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  canonicalUrl={metadata.canonicalUrl}
+  ogImage={metadata.ogImageUrl}
+  locale="en"
+  robots="noindex, nofollow"
+>
+  <PageHero
+    backgroundImage={heroBgImg}
+    backgroundAlt="Trade show portable fire pump resources"
+    badge="Current trade show resources"
+    badgeIconComponent={Factory}
+    sectionClass="relative min-h-[480px] sm:min-h-[560px] flex items-center overflow-hidden"
+    descriptionClass="text-lg md:text-xl text-slate-200 mb-6 max-w-3xl mx-auto leading-relaxed animate-fadeInUp"
+    descriptionStyle="animation-delay: 0.1s"
+    showScrollIndicator={false}
+  >
+    <Fragment slot="title">
+      <span class="brand-gradient-text-fill">Thanks for visiting KOJEX</span>
+    </Fragment>
+    <Fragment slot="description">
+      Portable water movement solutions for fire departments, emergency response, and demanding field operations.
+    </Fragment>
+
+    <div class="mx-auto max-w-3xl space-y-6 text-center animate-fadeInUp" style="animation-delay: 0.15s">
+      <p class="text-base leading-relaxed text-slate-200 md:text-lg">
+        This page brings together the pumps, videos, and resources featured at the current trade show so you can review the lineup and request follow-up information quickly.
+      </p>
+      <div class="flex flex-col justify-center gap-3 sm:flex-row">
+        <Button href={contactHref} size="lg" class="w-full sm:w-auto">
+          Request information
+        </Button>
+        <Button href={catalogPdf} variant="light" size="lg" class="w-full sm:w-auto">
+          Download overview
+        </Button>
+      </div>
+    </div>
+  </PageHero>
+
+  <Section background="white" id="featured-products">
+    <SectionHeading
+      badge="Featured Pumps"
+      title="See the models"
+      highlight="featured today"
+      description="Start with the two pumps highlighted at the current event, then jump into the full product pages for detailed specifications and performance data."
+    />
+
+    <div class="mt-12 space-y-8 lg:space-y-10">
+      {featuredPumps.map((pump, index) => {
+        const content = featuredProductContent[pump.slug as keyof typeof featuredProductContent];
+        const isPrimary = index === 0;
+
+        return (
+          <Card
+            class:list={[
+              'overflow-hidden border border-slate-200 p-0 shadow-xl',
+              isPrimary ? 'ring-1 ring-[var(--brand-1-15)]' : '',
+            ]}
+          >
+            <div class="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
+              <div class="bg-slate-50 p-6 sm:p-8">
+                <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-700">
+                  {isPrimary ? 'Primary featured pump' : 'Secondary featured pump'}
+                </div>
+                <div>
+                  <p class="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">{pump.title}</p>
+                  <h2 class="mt-2 text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">{content.positioning}</h2>
+                  <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">{pump.description}</p>
+                </div>
+                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                  {content.highlights.map((highlight) => (
+                    <div class="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-rose-600" />
+                      <span class="text-sm font-medium leading-relaxed text-slate-700">{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+                <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <Button href={content.detailHref}>
+                    View product details
+                  </Button>
+                  {pump.manualPdf && (
+                    <Button href={pump.manualPdf} variant="outline">
+                      Download manual
+                    </Button>
+                  )}
+                </div>
+              </div>
+
+              <div class="flex flex-col border-t border-slate-200 bg-white lg:border-t-0 lg:border-l">
+                <div class="border-b border-slate-200 p-6 sm:p-8">
+                  <div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+                    <Image
+                      src={pump.image}
+                      alt={pump.title}
+                      class="h-full w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                </div>
+                <div class="flex-1 p-6 sm:p-8">
+                  <div class="flex h-full flex-col justify-between rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5">
+                    <div>
+                      <div class="mb-3 flex items-center gap-2 text-slate-700">
+                        <PlayCircle className="h-5 w-5 text-rose-600" />
+                        <h3 class="font-semibold">Featured video</h3>
+                      </div>
+                      <p class="text-sm leading-relaxed text-slate-600">{content.videoLabel}</p>
+                      {/* TODO: Replace this placeholder with the finalized trade show product video when the file and destination are approved. */}
+                    </div>
+                    <div class="mt-6 rounded-xl bg-white p-4 text-sm text-slate-600 shadow-sm ring-1 ring-slate-200">
+                      Keep this section lightweight for QR visitors. Use click-to-play video only once the event-specific asset is finalized.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        );
+      })}
+    </div>
+  </Section>
+
+  <Section background="gray" id="why-shibaura-rabbit">
+    <SectionHeading
+      badge="Why Shibaura Rabbit"
+      title="Support beyond"
+      highlight="the booth"
+      description="The event may start the conversation, but the long-term value comes from proven equipment, North American support, and access to the right operating resources."
+    />
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      {trustCards.map((item) => {
+        const Icon = item.icon;
+        return (
+          <Card class="h-full border border-slate-200 bg-white p-6 shadow-lg">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-700 ring-1 ring-rose-100">
+              <Icon className="h-6 w-6" />
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">{item.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">{item.description}</p>
+          </Card>
+        );
+      })}
+    </div>
+  </Section>
+
+  <Section background="white" id="resources">
+    <SectionHeading
+      badge="Resources"
+      title="Take the next"
+      highlight="materials with you"
+      description="Use these quick links to download the main overview, review the lineup, open technical resources, or reach KOJEX directly after the event."
+    />
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
+      {resourceCards.map((item) => {
+        const Icon = item.icon;
+        return (
+          <Card class="flex h-full flex-col border border-slate-200 p-6 shadow-lg" hover>
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 ring-1 ring-slate-200">
+              <Icon className="h-6 w-6" />
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">{item.title}</h3>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{item.description}</p>
+            <div class="mt-6">
+              <Button href={item.href} variant="outline" class="w-full">
+                {item.cta}
+              </Button>
+            </div>
+          </Card>
+        );
+      })}
+    </div>
+  </Section>
+
+  <Section background="gradient" id="next-steps" class="overflow-hidden">
+    <Card class="border border-slate-200 bg-white/95 p-8 shadow-2xl sm:p-10">
+      <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-700">
+            Next steps
+          </div>
+          <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+            Interested in a demonstration, pricing, or dealer opportunities?
+          </h2>
+          <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
+            Continue the conversation with KOJEX for application guidance, product availability, pricing discussions, and distributor follow-up.
+          </p>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Button href={productsHref} variant="outline" size="lg">
+              Review all pumps
+            </Button>
+            <Button href={contactTrackedHref} size="lg">
+              Contact KOJEX
+            </Button>
+          </div>
+          <div class="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <Users className="h-6 w-6 text-rose-700" />
+            <h3 class="mt-3 font-semibold text-slate-900">Demo planning</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Coordinate live demonstrations and field evaluation conversations.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <FileText className="h-6 w-6 text-rose-700" />
+            <h3 class="mt-3 font-semibold text-slate-900">Pricing follow-up</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Move from trade show interest to budgetary or formal quoting.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <ArrowRight className="h-6 w-6 text-rose-700" />
+            <h3 class="mt-3 font-semibold text-slate-900">Dealer opportunities</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Start the right distributor or reseller conversation with context from the booth.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-4">
+          <Card class="border border-slate-200 bg-white p-6 shadow-lg">
+            <div class="flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-700 ring-1 ring-rose-100">
+                <Users className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-900">Request a demo conversation</h3>
+                <p class="mt-1 text-sm leading-relaxed text-slate-600">Route booth follow-up to the main contact form with demo intent attached.</p>
+              </div>
+            </div>
+            <div class="mt-6">
+              <Button href={demoTrackedHref} class="w-full">
+                Request information
+              </Button>
+            </div>
+          </Card>
+
+          <Card class="border border-slate-200 bg-white p-6 shadow-lg">
+            <div class="flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 ring-1 ring-slate-200">
+                <ArrowRight className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-900">Explore dealer opportunities</h3>
+                <p class="mt-1 text-sm leading-relaxed text-slate-600">Send distributor and reseller conversations through the shared RFQ flow.</p>
+              </div>
+            </div>
+            <div class="mt-6">
+              <Button href={dealerTrackedHref} variant="outline" class="w-full">
+                Dealer inquiry
+              </Button>
+            </div>
+          </Card>
+
+          <Card class="border border-slate-200 bg-slate-50 p-6 shadow-lg">
+            <h3 class="text-lg font-bold text-slate-900">General event follow-up</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Use the standard contact flow if you want pricing, product guidance, or post-show follow-up without a specific request type.
+            </p>
+            <div class="mt-5">
+              <Button href={contactTrackedHref} variant="outline" class="w-full">
+                General inquiry
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Card>
+  </Section>
+</BaseLayout>

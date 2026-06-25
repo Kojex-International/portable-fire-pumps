@@ -18,6 +18,7 @@
   const submitError = form.querySelector('#rfq-submit-error');
   const submitButton = form.querySelector('button[type="submit"]');
   const localeInput = form.querySelector('input[name="locale"]');
+  const leadSourceInput = form.querySelector('input[name="leadSource"]');
 
   if (
     !(org instanceof HTMLInputElement)
@@ -40,6 +41,17 @@
 
   let submitted = false;
   let turnstileWidgetId = null;
+  const urlParams = new URLSearchParams(window.location.search);
+  const sourceParam = urlParams.get('source') || '';
+  const interestParam = urlParams.get('interest') || '';
+
+  if (leadSourceInput instanceof HTMLInputElement && sourceParam) {
+    leadSourceInput.value = sourceParam.trim();
+  }
+
+  if (interestParam === 'dealer' && !industry.value) {
+    industry.value = 'dealer';
+  }
   if (submittedAt instanceof HTMLInputElement && !submittedAt.value) {
     submittedAt.value = String(Date.now());
   }

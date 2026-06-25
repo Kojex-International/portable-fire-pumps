@@ -1,6 +1,6 @@
 const RESEND_API_URL = "https://api.resend.com/emails";
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-const HIDDEN_KEYS = new Set(["form-name", "bot-field", "companyWebsite", "submittedAt", "locale", "cf-turnstile-response"]);
+const HIDDEN_KEYS = new Set(["form-name", "bot-field", "companyWebsite", "submittedAt", "locale", "leadSource", "cf-turnstile-response"]);
 const MIN_SUBMISSION_AGE_MS = 4000;
 const MAX_LINK_COUNT = 2;
 const DUPLICATE_TTL_MS = 10 * 60 * 1000;
@@ -32,6 +32,7 @@ const FIELD_LABELS = {
     timeline: "Purchase Timeline",
     volume: "Estimated Quantity",
     details: "Inquiry Comment",
+    leadSource: "Lead source",
   },
   fr: {
     firstName: "Prénom",
@@ -44,6 +45,7 @@ const FIELD_LABELS = {
     timeline: "Échéancier d’achat",
     volume: "Quantité estimée",
     details: "Commentaire sur la demande",
+    leadSource: "Source du lead",
   },
 };
 
@@ -480,11 +482,32 @@ function buildUnknownRows(data, locale) {
     .join("");
 }
 
+function buildLeadSourceRow(data, locale) {
+  const leadSource = getStringValue(data.leadSource);
+  if (!leadSource) return "";
+
+  return `
+    <div style="margin: 0 0 18px;">
+      <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;background:#ffffff;">
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:600;color:#111827;vertical-align:top;width:35%;font-size:15px;line-height:22px;">
+            ${escapeHtml(getFieldLabel("leadSource", locale))}
+          </td>
+          <td style="padding:10px 12px;border-bottom:1px solid #e5e7eb;color:#374151;font-weight:400;font-size:15px;line-height:22px;">
+            ${escapeHtml(leadSource)}
+          </td>
+        </tr>
+      </table>
+    </div>
+  `;
+}
+
 function buildHtmlEmail(formName, data) {
   const siteUrl = process.env.PUBLIC_SITE_URL || "https://www.portable-fire-pumps.com";
   const markLogoUrl = `${siteUrl}/email/shibaura-logo-mark.png`;
   const wordmarkLogoUrl = `${siteUrl}/email/SHIBAURA-wordmark.png`;
   const locale = detectLocale(data);
+  const leadSourceBlock = buildLeadSourceRow(data, locale);
   const sectionBlocks = getSections(locale).map((section) => {
     const rows = buildRowsForKeys(data, section.keys, locale);
     if (!rows) return "";
@@ -530,6 +553,7 @@ function buildHtmlEmail(formName, data) {
           </table>
         </div>
         <div style="padding:20px;">
+          ${leadSourceBlock}
           ${sectionBlocks}
           ${unknownRows ? `
             <details style="margin:0 0 4px;">
@@ -551,6 +575,11 @@ function buildHtmlEmail(formName, data) {
 function buildTextEmail(formName, data) {
   const locale = detectLocale(data);
   const lines = [buildSubmissionSubject(formName, data), ""];
+  const leadSource = getStringValue(data.leadSource);
+  if (leadSource) {
+    lines.push(`${getFieldLabel("leadSource", locale)}: ${leadSource}`);
+    lines.push("");
+  }
   for (const section of getSections(locale)) {
     const visible = section.keys.filter((key) => Object.prototype.hasOwnProperty.call(data, key));
     if (!visible.length) continue;

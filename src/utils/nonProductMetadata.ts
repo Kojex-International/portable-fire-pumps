@@ -18,7 +18,8 @@ type NonProductPageKey =
   | 'distributors'
   | 'contact'
   | 'contactThanks'
-  | 'about';
+  | 'about'
+  | 'events';
 
 const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, LocalizedMeta>> = {
   home: {
@@ -161,6 +162,18 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     fr: {
       title: 'Merci | Portable Fire Pumps',
       description: 'Page de confirmation des demandes envoyées à Portable Fire Pumps.',
+    },
+  },
+  events: {
+    en: {
+      title: 'Trade Show Resources | KOJEX Portable Fire Pumps',
+      description:
+        'Explore the Shibaura Rabbit portable fire pumps, videos, and resources featured by KOJEX at current trade shows and events.',
+    },
+    fr: {
+      title: 'Trade Show Resources | KOJEX Portable Fire Pumps',
+      description:
+        'Explore the Shibaura Rabbit portable fire pumps, videos, and resources featured by KOJEX at current trade shows and events.',
     },
   },
   about: {

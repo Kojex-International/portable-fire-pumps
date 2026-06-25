@@ -16,6 +16,8 @@ http://www.portable-fire-pumps.com/* https://www.portable-fire-pumps.com/:splat 
 /about-us/                /en/about-us/                 301
 /contact                  /en/contact-us/               301
 /contact/                 /en/contact-us/               301
+/en/contact               /en/contact-us/               301
+/en/contact/              /en/contact-us/               301
 /dealers-finder           /en/distributors/             301
 /dealers-finder/          /en/distributors/             301
 /product-features         /en/features/                 301
