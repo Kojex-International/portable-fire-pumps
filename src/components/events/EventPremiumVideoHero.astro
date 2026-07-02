@@ -1,0 +1,149 @@
+---
+import { Image } from 'astro:assets';
+import heroPosterDesktop from '@assets/hero-firepump-loop-v1-poster.jpg';
+import heroPosterMobile from '@assets/hero-firepump-loop-v1-mobile-poster.jpg';
+import kojexWordmarkMask from '@assets/Kojex_wordmark_eventmask.svg?url';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+
+interface Props {
+  badge: string;
+  title: string;
+  tagline: string;
+  description: string;
+}
+
+const {
+  badge,
+  title,
+  tagline,
+  description,
+} = Astro.props;
+
+const heroVideoDesktopSrc = '/hero-firepump-loop-v1.mp4';
+const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
+---
+
+<section
+  class="relative h-[82vh] min-h-[620px] overflow-hidden bg-[#151515]"
+  data-event-premium-hero
+>
+  <div class="absolute inset-0 md:hidden">
+    <video
+      data-event-premium-hero-video
+      data-poster-desktop={heroPosterDesktop.src}
+      data-poster-mobile={heroPosterMobile.src}
+      class="block h-full w-full object-cover object-center motion-reduce:hidden"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster={heroPosterMobile.src}
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      <source media="(max-width: 767px)" src={heroVideoMobileSrc} type="video/mp4" />
+      <source src={heroVideoDesktopSrc} type="video/mp4" />
+    </video>
+    <picture class="hidden h-full w-full motion-reduce:block">
+      <source media="(max-width: 767px)" srcset={heroPosterMobile.src} />
+      <Image
+        src={heroPosterDesktop}
+        alt=""
+        class="h-full w-full object-cover object-center"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        width={1280}
+        height={720}
+      />
+    </picture>
+    <div class="pointer-events-none absolute inset-0 bg-black/45"></div>
+    <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-black/20 via-black/35 to-black/60"></div>
+  </div>
+
+  <div class="relative z-10 flex h-full w-full flex-col px-6 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-7">
+    <div class="relative z-20 flex shrink-0 items-start justify-center text-center">
+      <div class="mx-auto max-w-2xl md:max-w-3xl">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-[6px] shadow-lg sm:px-4 sm:py-2 sm:text-xs">
+          <span
+            aria-hidden="true"
+            class="inline-block h-3.5 w-3.5 shrink-0 bg-white sm:h-4 sm:w-4"
+            style={`-webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+          />
+          <span>{badge}</span>
+        </div>
+
+        <h1 class="mt-3 text-xl font-bold tracking-tight sm:text-2xl lg:text-4xl">
+          <span class="brand-gradient-text-fill">{title}</span>
+        </h1>
+      </div>
+    </div>
+
+    <div
+      data-event-premium-hero-mask-row
+      class="pointer-events-none relative z-10 hidden flex-1 items-center justify-center overflow-hidden md:flex"
+    >
+      <div class="flex h-full w-full items-center justify-center py-3 lg:py-4">
+        <div
+          aria-hidden="true"
+          class="relative h-full max-h-[clamp(18rem,52vh,40rem)] w-[90%] overflow-hidden"
+          style={`-webkit-mask-image: url(${kojexWordmarkMask}); mask-image: url(${kojexWordmarkMask}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+        >
+          <img
+            src={heroPosterDesktop.src}
+            alt=""
+            class="absolute inset-0 block h-full w-full object-cover object-center"
+          />
+          <video
+            data-event-premium-hero-video
+            data-poster-desktop={heroPosterDesktop.src}
+            data-poster-mobile={heroPosterMobile.src}
+            class="absolute inset-0 block h-full w-full object-cover object-center motion-reduce:hidden"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster={heroPosterDesktop.src}
+            aria-hidden="true"
+            tabindex="-1"
+          >
+            <source src={heroVideoDesktopSrc} type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative z-20 flex shrink-0 justify-center pt-4 text-center sm:pt-5 lg:pt-6">
+      <div class="mx-auto max-w-2xl md:max-w-3xl">
+        <p class="text-base font-semibold uppercase tracking-[0.14em] text-slate-200 sm:text-lg">
+          {tagline}
+        </p>
+
+        <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
+          {description}
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const syncHeroPoster = () => {
+      document.querySelectorAll('[data-event-premium-hero-video]').forEach((video) => {
+        if (!(video instanceof HTMLVideoElement)) return;
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+        const nextPoster = isMobile ? video.dataset.posterMobile : video.dataset.posterDesktop;
+        if (nextPoster && video.poster !== nextPoster) {
+          video.poster = nextPoster;
+        }
+      });
+    };
+
+    syncHeroPoster();
+    window.addEventListener('resize', syncHeroPoster, { passive: true });
+  })();
+</script>

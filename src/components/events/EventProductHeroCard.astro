@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import Button from '@components/ui/Button.astro';
+import type { Firepump } from '../../data/firepumps';
+
+interface HeroSpecItem {
+  label: string;
+  value: string;
+  icon: string;
+}
+
+interface Props {
+  pump: Firepump;
+  locale: 'en' | 'fr';
+  positioning: string;
+  heroSpecs: HeroSpecItem[];
+  manualPdf: string;
+  manualLabel: string;
+  detailHref: string;
+  detailLabel: string;
+  shibauraLogoMark: string;
+}
+
+const {
+  pump,
+  locale,
+  positioning,
+  heroSpecs,
+  manualPdf,
+  manualLabel,
+  detailHref,
+  detailLabel,
+  shibauraLogoMark,
+} = Astro.props;
+
+const isFrench = locale === 'fr';
+---
+
+<article class="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+  <div class="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+    <div class="flex bg-white p-0">
+      <Image
+        src={pump.image}
+        alt={isFrench ? `Photo du modèle ${pump.title} de pompe incendie portable` : `${pump.title} portable fire pump product photo`}
+        class="h-full w-full object-contain bg-white transition-transform duration-700 group-hover:scale-105"
+        width={1200}
+        height={800}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <div class="p-5 sm:p-6">
+      <h3 class="flex items-center gap-3 text-2xl font-extrabold leading-tight text-slate-900 sm:text-3xl">
+        <span
+          aria-hidden="true"
+          class="h-[1.15em] w-[1.15em] shrink-0 brand-gradient-bg"
+          style={`-webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+        />
+        <span class="inline-block brand-gradient-bg bg-clip-text text-transparent" style="-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          {pump.title}
+        </span>
+      </h3>
+      <h4 class="mt-3 text-2xl font-bold leading-tight text-slate-900">{positioning}</h4>
+
+      <div class="mt-6 space-y-2 bg-white">
+        {heroSpecs.map((spec) => (
+          <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 shrink-0 items-center justify-center text-slate-900">
+              <img src={spec.icon} alt="" class="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-[11px] uppercase tracking-[0.12em] text-slate-500">{spec.label}</p>
+              <p class="whitespace-pre-line text-sm font-semibold text-slate-900 sm:text-base">{spec.value}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+        <a href={manualPdf} class="brand-cta w-full px-6 py-3 text-center text-sm sm:w-auto" download>{manualLabel}</a>
+        <Button href={detailHref} variant="light" size="md" class="w-full text-center leading-none sm:w-auto sm:min-w-[10rem]">
+          {detailLabel}
+        </Button>
+      </div>
+    </div>
+  </div>
+</article>

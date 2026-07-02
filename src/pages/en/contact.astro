@@ -1,0 +1,26 @@
+---
+const redirectTarget = '/en/contact-us/';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Redirecting…</title>
+    <script is:inline>
+      const target = '/en/contact-us/' + window.location.search + window.location.hash;
+      window.location.replace(target);
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content={`0;url=${redirectTarget}`} />
+    </noscript>
+  </head>
+  <body>
+    <p>
+      Redirecting to
+      <a href={redirectTarget}>{redirectTarget}</a>.
+    </p>
+  </body>
+</html>
