@@ -1,15 +1,24 @@
 ---
 import { Image } from 'astro:assets';
+import SiteBadge from '@components/ui/SiteBadge.astro';
 import heroPosterDesktop from '@assets/hero-firepump-loop-v1-poster.jpg';
 import heroPosterMobile from '@assets/hero-firepump-loop-v1-mobile-poster.jpg';
 import kojexWordmarkMask from '@assets/Kojex_wordmark_eventmask.svg?url';
-import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import { Download, FileText, Presentation } from 'lucide-react';
+
+interface QuickDownloadItem {
+  title: string;
+  subtitle: string;
+  href: string;
+  icon: 'download' | 'file-text';
+}
 
 interface Props {
   badge: string;
   title: string;
   tagline: string;
   description: string;
+  quickDownloads?: QuickDownloadItem[];
 }
 
 const {
@@ -17,6 +26,7 @@ const {
   title,
   tagline,
   description,
+  quickDownloads = [],
 } = Astro.props;
 
 const heroVideoDesktopSrc = '/hero-firepump-loop-v1.mp4';
@@ -65,14 +75,11 @@ const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
   <div class="relative z-10 flex h-full w-full flex-col px-6 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-7">
     <div class="relative z-20 flex shrink-0 items-start justify-center text-center">
       <div class="mx-auto max-w-2xl md:max-w-3xl">
-        <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-[6px] shadow-lg sm:px-4 sm:py-2 sm:text-xs">
-          <span
-            aria-hidden="true"
-            class="inline-block h-3.5 w-3.5 shrink-0 bg-white sm:h-4 sm:w-4"
-            style={`-webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
-          />
-          <span>{badge}</span>
-        </div>
+        <SiteBadge
+          label={badge}
+          iconComponent={Presentation}
+          variant="hero"
+        />
 
         <h1 class="mt-3 text-xl font-bold tracking-tight sm:text-2xl lg:text-4xl">
           <span class="brand-gradient-text-fill">{title}</span>
@@ -115,16 +122,40 @@ const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
       </div>
     </div>
 
-    <div class="relative z-20 flex shrink-0 justify-center pt-4 text-center sm:pt-5 lg:pt-6">
-      <div class="mx-auto max-w-2xl md:max-w-3xl">
-        <p class="text-base font-semibold uppercase tracking-[0.14em] text-slate-200 sm:text-lg">
+    <div class="relative z-20 flex shrink-0 justify-center text-center">
+      <div class="mx-auto w-[90%] max-w-[90%]">
+        <p class="mx-auto w-fit max-w-[67%] whitespace-nowrap pb-6 text-[clamp(1.1rem,2vw,2.35rem)] font-semibold uppercase tracking-[0.05em] text-slate-200">
           {tagline}
         </p>
 
-        <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
-          {description}
-        </p>
+        {description && (
+          <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
+            {description}
+          </p>
+        )}
 
+        {quickDownloads.length > 0 && (
+          <div class:list={['mx-auto grid max-w-3xl gap-3 sm:grid-cols-2', description ? 'mt-5' : 'mt-6']}>
+            {quickDownloads.map((item) => {
+              const Icon = item.icon === 'download' ? Download : FileText;
+              return (
+                <a
+                  href={item.href}
+                  download
+                  class="group flex items-center justify-center gap-3 rounded-2xl bg-transparent px-3 py-2.5 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4"
+                >
+                  <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-transparent text-white transition-colors duration-300 group-hover:text-red-300">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div class="min-w-0 text-left">
+                    <p class="text-sm font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-base">{item.title}</p>
+                    <p class="mt-1 text-xs leading-snug text-slate-300 sm:text-sm">{item.subtitle}</p>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   </div>

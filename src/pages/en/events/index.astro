@@ -3,13 +3,12 @@ import { Image } from 'astro:assets';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Section from '@components/layout/Section.astro';
 import Card from '@components/ui/Card.astro';
+import SiteBadge from '@components/ui/SiteBadge.astro';
 import Button from '@components/ui/Button.astro';
 import EventProductHeroCard from '@components/events/EventProductHeroCard.astro';
 import EventPremiumVideoHero from '@components/events/EventPremiumVideoHero.astro';
 import {
-  ArrowRight,
   CheckCircle2,
-  Download,
   Factory,
   Flame,
   Handshake,
@@ -19,13 +18,18 @@ import {
 } from 'lucide-react';
 import heroBgImg from '@assets/product-features-hero.webp';
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
+import shibauraWordmark from '@assets/shibaura-wordmark.svg';
+import kojexLogoVectorizedBlack from '@assets/kojex-logo-vectorized-black.svg?url';
+import kojexLogoVectorizedWhite from '@assets/kojex-logo-vectorized-white.svg?url';
 import easternCanadaDistributorImg from '@assets/distributors/larsenal-distributor-logo.svg';
 import westernCanadaDistributorImg from '@assets/distributors/flash-wildfire-services-logo.avif';
 import catalogPdf from '../../../data/Shibaura_Catalog2024_9.pdf';
+import brochurePdf from '../../../data/Kojex_Brochure2026_1.pdf';
 import { getFirepumps } from '../../../data/firepumps';
 import { getHeroFeatureLabel } from '../../../i18n/heroFeatureLabels';
 import { localizePath } from '@config/site';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
+import eventsContactCtaImg from '@assets/events-contact-cta.webp';
 
 const locale = 'en';
 const metadata = getNonProductMetadata({
@@ -54,28 +58,49 @@ const contactHref = '/en/contact-us?source=trade-show-qr';
 const dealerContactHref = '/en/contact-us?interest=dealer&source=trade-show-qr';
 const ff500Href = localizePath('/products/ff500ar-a', locale);
 const p572Href = localizePath('/products/p572s-a', locale);
-const resourcesHref = localizePath('/resources', locale);
 
-const shibauraReasons = [
+const credibilityPanels = [
   {
-    title: 'Leading Performance in Automatic Relay Pumping',
-    description: 'Industry-leading technology for long-distance water relay operations.',
-    icon: Flame,
-  },
-  {
-    title: '70+ Years of Japanese Engineering',
-    description: 'Trusted pump manufacturer since 1950.',
+    eyebrow: 'Manufacturer',
+    brand: 'SHIBAURA',
+    title: 'Trusted engineering for demanding water movement.',
+    description: 'Purpose-built portable pumps developed for fire service, emergency response, and long-duty field operations.',
     icon: Factory,
+    proofPoints: [
+      {
+        text: '70+ years supporting fire, rescue, and disaster response.',
+        icon: Flame,
+      },
+      {
+        text: 'Trusted in demanding operations worldwide.',
+        icon: ShieldCheck,
+      },
+      {
+        text: 'Built for reliability in demanding conditions.',
+        icon: Wrench,
+      },
+    ],
   },
   {
-    title: 'Nationwide KOJEX Support',
-    description: 'Direct technical support, warranty claims and parts processing, marketing resources, and joint sales support.',
-    icon: Wrench,
-  },
-  {
-    title: 'Proven Reliability',
-    description: 'Trusted by fire departments and emergency responders in demanding environments.',
-    icon: ShieldCheck,
+    eyebrow: 'Distributor',
+    brand: 'KOJEX',
+    title: 'Canadian support that stays close to the field.',
+    description: 'KOJEX helps departments, dealers, and procurement teams move quickly from product selection to support after delivery.',
+    icon: Handshake,
+    proofPoints: [
+      {
+        text: 'Official Canadian Distributor for Shibaura.',
+        icon: Handshake,
+      },
+      {
+        text: 'Local parts, warranty, and technical support.',
+        icon: Wrench,
+      },
+      {
+        text: 'Product expertise and responsive customer support.',
+        icon: LifeBuoy,
+      },
+    ],
   },
 ] as const;
 
@@ -84,28 +109,38 @@ const dealers = [
     name: "L'Arsenal",
     region: 'Quebec',
     image: easternCanadaDistributorImg,
+    href: '/en/distributors/#larsenal',
   },
   {
     name: 'Flash Wildfire',
     region: 'Alberta, Saskatchewan & British Columbia',
     image: westernCanadaDistributorImg,
+    href: '/en/distributors/#flash-wildfire-services',
   },
 ] as const;
 
-const resourceLinks = [
+const regionalSupportTags = ['Quebec', 'Ontario', 'Atlantic Canada', 'Western Canada'] as const;
+
+const canadaSupportCards = [
   {
-    title: 'Product Catalogue',
-    description: 'Download the current Shibaura portable fire pump catalogue used at the booth.',
-    href: catalogPdf,
-    cta: 'Download Catalogue',
-    icon: Download,
+    title: 'Technical Support',
+    description: 'Direct technical support (parts, troubleshooting).',
+    icon: Wrench,
   },
   {
-    title: 'One-Page Brochure',
-    description: 'A concise sales handout for post-show follow-up and pump selection conversations.',
-    href: resourcesHref,
-    cta: 'View Resource Library',
-    icon: ArrowRight,
+    title: 'Warranty Support',
+    description: 'Warranty claim support — Kojex backs you on parts and processing.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Marketing Materials',
+    description: 'Marketing materials, including product catalogues.',
+    icon: CheckCircle2,
+  },
+  {
+    title: 'Joint Sales Support',
+    description: 'Joint sales support — our team on calls and demos with your prospects.',
+    icon: Handshake,
   },
 ] as const;
 
@@ -160,14 +195,28 @@ const compareCards = [
   robots="noindex, nofollow"
 >
   <EventPremiumVideoHero
-    badge="FDIC Atlantic 2026"
+    badge="Atlantic Fire Leadership 2026"
     title="Thanks for Visiting"
     tagline="Delivering Water Where It’s Needed Most"
-    description="Explore the pumps, videos, and resources featured at our booth. Learn how Shibaura pumps deliver industry-leading performance with comprehensive North American support."
+    description=""
+    quickDownloads={[
+      {
+        title: 'Product Catalogue',
+        subtitle: 'Latest Shibaura lineup PDF',
+        href: catalogPdf,
+        icon: 'download',
+      },
+      {
+        title: 'One-Page Brochure',
+        subtitle: 'Trade show handout PDF',
+        href: brochurePdf,
+        icon: 'file-text',
+      },
+    ]}
   />
 
   {tradeShowEvent.isActive && (
-    <Section background="white" id="current-event">
+    <Section background="white" id="current-event" class="!py-8 lg:!py-12">
       <div class="mx-auto max-w-4xl">
         <Card class="border border-slate-200 bg-white p-6 shadow-lg sm:p-8">
           <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -185,12 +234,12 @@ const compareCards = [
     </Section>
   )}
 
-  <Section background="white" id="featured-products">
+  <Section background="white" id="featured-products" class="!pt-8 !pb-0 lg:!pt-12 lg:!pb-0">
     <div class="mx-auto max-w-6xl space-y-6 text-center">
       <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Featured Products</p>
-      <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">Revisit the featured pumps</h2>
-      <p class="mx-auto max-w-3xl text-base leading-relaxed text-slate-600">
-        Start with the models highlighted at the booth, then jump to the full product pages for detailed performance data and technical information.
+      <h2 class="text-4xl font-bold text-slate-900 md:text-5xl">Revisit our featured pumps</h2>
+      <p class="mx-auto max-w-3xl text-xl leading-relaxed text-slate-600">
+        Explore the pumps, videos, and resources featured at our booth. Learn how Shibaura pumps deliver industry-leading performance with comprehensive North American support.
       </p>
     </div>
 
@@ -209,102 +258,235 @@ const compareCards = [
         />
       ))}
     </div>
-  </Section>
 
-  <Section background="gray" id="why-choose-shibaura">
-    <div class="mx-auto max-w-6xl space-y-6 text-center">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Why Choose Shibaura</p>
-      <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">Why Shibaura and KOJEX stand apart</h2>
-    </div>
-
-    <div class="mt-10 grid gap-6 md:grid-cols-2">
-      {shibauraReasons.map((item) => {
-        const Icon = item.icon;
-        return (
-          <Card class="h-full border border-slate-200 bg-white p-6 shadow-lg">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-700 ring-1 ring-rose-100">
-              <Icon className="h-6 w-6" />
-            </div>
-            <h3 class="text-xl font-bold text-slate-900">{item.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-600">{item.description}</p>
-          </Card>
-        );
-      })}
+    <div class="my-8 text-center">
+      <a
+        href="/en/products/"
+        class="group inline-flex items-center justify-center bg-transparent !px-8 !py-4 text-base font-bold text-slate-900 transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-[var(--brand-1)] hover:shadow-none"
+      >
+        View All Pumps
+        <svg class="ml-2 h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--brand-1)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
     </div>
   </Section>
 
-  <Section background="white" id="dealer-network">
-    <div class="mx-auto max-w-5xl space-y-6 text-center">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Dealer Network</p>
-      <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">Trusted Across Canada</h2>
-      <p class="text-base leading-relaxed text-slate-600">Current dealer network includes:</p>
+  <Section background="gray" id="why-choose-shibaura" class="relative overflow-hidden !py-8 lg:!py-12">
+    <div class="pointer-events-none absolute inset-0">
+      <div class="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-gray-50 to-transparent"></div>
+      <div class="absolute left-1/2 top-16 h-64 w-64 -translate-x-1/2 rounded-full bg-[var(--brand-1)]/8 blur-3xl"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.04)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30"></div>
     </div>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-2">
-      {dealers.map((dealer) => (
-        <Card class="border border-slate-200 bg-white p-6 shadow-lg">
-          <div class="flex items-center gap-4">
-            <div class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
-              <Image src={dealer.image} alt={dealer.name} class="max-h-full max-w-full object-contain" loading="lazy" decoding="async" />
+    <div class="relative mx-auto max-w-6xl space-y-6 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Manufacturer + Distributor</p>
+      <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">Why Choose Shibaura &amp; KOJEX</h2>
+      <p class="mx-auto max-w-3xl text-base leading-relaxed text-slate-600">
+        Trade-show conversations move fast. This is the combination behind the pumps: proven Japanese manufacturing and responsive Canadian market support.
+      </p>
+    </div>
+
+    <div class="relative mt-12">
+      <div class="relative z-10 grid gap-6 lg:grid-cols-2">
+        {credibilityPanels.map((panel) => {
+          const Icon = panel.icon;
+          return (
+            <div class="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8">
+              <div class="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[var(--brand-1)] via-[var(--brand-2)] to-transparent"></div>
+              <div class="absolute right-0 top-0 h-40 w-40 rounded-full bg-[var(--brand-1)]/8 blur-3xl transition-transform duration-500 group-hover:scale-110"></div>
+
+              <div class="relative">
+                <div class="inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-700 shadow-sm">
+                  <span class="mr-2 inline-flex h-4 w-4 items-center justify-center text-current" aria-hidden="true">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span>{panel.eyebrow}</span>
+                </div>
+
+                <div class="mt-5">
+                  {panel.brand === 'SHIBAURA' ? (
+                    <div
+                      class="h-9 w-[15rem] bg-[var(--brand-1)] sm:h-10 sm:w-[17rem]"
+                      style={`-webkit-mask-image: url(${shibauraWordmark.src}); mask-image: url(${shibauraWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: left center; mask-position: left center; -webkit-mask-size: contain; mask-size: contain;`}
+                      aria-label="Shibaura"
+                      role="img"
+                    ></div>
+                  ) : (
+                    <img
+                      src={kojexLogoVectorizedBlack}
+                      alt="Kojex"
+                      class="h-[41px] w-auto object-contain sm:h-[45px]"
+                    />
+                  )}
+                </div>
+                <p class="mt-4 max-w-md text-xl font-bold leading-tight text-slate-900">{panel.title}</p>
+                <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-600 sm:text-base">{panel.description}</p>
+
+                <div class="mt-8 space-y-4">
+                  {panel.proofPoints.map((proofPoint) => {
+                    const ProofIcon = proofPoint.icon;
+                    return (
+                      <div class="flex items-start gap-3 text-left">
+                        <ProofIcon className="h-5 w-5 shrink-0 text-[var(--brand-1)]" />
+                        <p class="text-sm font-semibold leading-relaxed text-slate-800 sm:text-base">{proofPoint.text}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-            <div class="text-left">
-              <h3 class="text-xl font-bold text-slate-900">{dealer.name}</h3>
-              <p class="mt-1 text-sm font-medium text-slate-600">{dealer.region}</p>
+          );
+        })}
+      </div>
+    </div>
+  </Section>
+
+  <Section background="gray" id="dealer-network" class="relative overflow-hidden !py-8 lg:!py-12">
+    <div class="pointer-events-none absolute inset-0">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(185,19,19,0.08),transparent_32%),radial-gradient(circle_at_85%_35%,rgba(29,78,216,0.10),transparent_26%),linear-gradient(to_right,rgba(15,23,42,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.04)_1px,transparent_1px)] bg-[size:auto,auto,52px_52px,52px_52px]"></div>
+    </div>
+
+    <div class="relative grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+      <div>
+        <div class="max-w-3xl space-y-6 text-center lg:text-left">
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Dealer Network</p>
+          <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">Trusted Across Canada</h2>
+          <p class="text-base leading-relaxed text-slate-600">
+            As the Official Canadian Distributor for Shibaura, KOJEX provides local parts, warranty claim support, and technical assistance backed here in Canada while building a dealer network across key regions.
+          </p>
+        </div>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+          {regionalSupportTags.map((tag) => (
+            <span class="inline-flex items-center rounded-full border border-slate-200 bg-white/85 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {canadaSupportCards.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Card hover class="h-full border border-slate-200 bg-white p-6 shadow-lg">
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-rose-200 bg-rose-100 text-[var(--brand-1)] shadow-lg">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">{item.title}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">{item.description}</p>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <Card hover class="border border-slate-200/80 bg-white/90 p-5 shadow-xl ring-1 ring-white/70 backdrop-blur-sm sm:p-6">
+          <div class="flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl border border-rose-200 bg-rose-100 text-[var(--brand-1)] shadow-lg">
+              <Handshake className="h-5 w-5" />
+            </div>
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Current Dealer Coverage</p>
+              <p class="mt-1 text-sm text-slate-600">Current dealer network includes:</p>
             </div>
           </div>
+
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            {dealers.map((dealer) => (
+              <a
+                href={dealer.href}
+                class="group block h-full"
+              >
+                <Card hover class="h-full border border-slate-200 bg-white p-5 shadow-lg">
+                  <div class="flex h-full min-h-[10rem] items-center justify-center gap-4 text-center">
+                    <div class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-2">
+                      <Image
+                        src={dealer.image}
+                        alt={dealer.name}
+                        class:list={[
+                          'max-h-full max-w-full object-contain',
+                          dealer.name === 'Flash Wildfire' && 'scale-150',
+                        ]}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <div class="text-center">
+                      <h3 class="text-lg font-bold text-slate-900 transition-colors duration-300 group-hover:text-[var(--brand-1)]">
+                        {dealer.name}
+                      </h3>
+                      <p class="mt-1 text-sm font-medium leading-relaxed text-slate-600 transition-colors duration-300 group-hover:text-[var(--brand-1)]">
+                        {dealer.region}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </a>
+            ))}
+          </div>
         </Card>
-      ))}
-    </div>
 
-    <div class="mt-8 text-center">
-      <Button href={dealerContactHref} variant="outline" size="lg">
-        Become a Dealer
-      </Button>
-    </div>
-  </Section>
-
-  <Section background="gray" id="resources">
-    <div class="mx-auto max-w-5xl space-y-6 text-center">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Resources</p>
-      <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">Download the key sales materials</h2>
-    </div>
-
-    <div class="mt-10 grid gap-6 md:grid-cols-2">
-      {resourceLinks.map((item) => {
-        const Icon = item.icon;
-        return (
-          <Card class="flex h-full flex-col border border-slate-200 bg-white p-6 shadow-lg">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 ring-1 ring-slate-200">
-              <Icon className="h-6 w-6" />
-            </div>
-            <h3 class="text-xl font-bold text-slate-900">{item.title}</h3>
-            <p class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{item.description}</p>
-            <div class="mt-6">
-              <Button href={item.href} variant="outline" class="w-full">
-                {item.cta}
-              </Button>
-            </div>
-          </Card>
-        );
-      })}
-      {/* TODO: Replace the one-page brochure resource library link with the finalized brochure PDF once the approved file path exists in the repo. */}
+        <Card hover class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-xl sm:p-8">
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Dealer &amp; Integration Partner Program</p>
+          <h3 class="mt-3 text-2xl font-bold text-slate-900 sm:text-3xl">Interested in becoming a Kojex dealer or integration partner?</h3>
+          <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
+            Territory is open. Kojex supports partners with technical guidance, warranty claim support, marketing materials, and joint sales support as the Shibaura line expands across Canada.
+          </p>
+          <div class="mt-6">
+            <Button href={dealerContactHref} variant="outline" size="lg">
+              Start the Conversation
+            </Button>
+          </div>
+        </Card>
+      </div>
     </div>
   </Section>
 
-  <Section background="gradient" id="next-steps" class="overflow-hidden">
-    <Card class="border border-slate-200 bg-white/95 p-8 shadow-2xl sm:p-10">
-      <div class="mx-auto max-w-3xl text-center">
-        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Next Steps</p>
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Continue the conversation with KOJEX</h2>
-        <p class="mt-4 text-base leading-relaxed text-slate-600">
-          Reach the existing contact page for pricing, demonstration planning, pump selection guidance, or post-show follow-up.
+  <section id="next-steps" class="relative overflow-hidden py-32 md:py-36">
+    <div class="absolute inset-0">
+      <Image
+        src={eventsContactCtaImg}
+        alt="Shibaura portable fire pump ready for demonstration support and follow-up"
+        class="h-full w-full object-cover object-[60%_68%]"
+        width={1920}
+        height={1080}
+      />
+      <div class="absolute inset-0 cta-overlay-gradient"></div>
+    </div>
+
+    <div class="container mx-auto mobile-container-gutter relative z-10">
+      <div class="max-w-4xl mx-auto text-center text-white">
+        <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
+          Next Steps
+        </div>
+        <h2 class="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+          Continue the conversation with
+          <span class="mt-3 inline-flex justify-center align-middle">
+            <img
+              src={kojexLogoVectorizedWhite}
+              alt="Kojex"
+              class="h-[54px] w-auto object-contain md:h-[66px] lg:h-[72px]"
+            />
+          </span>
+        </h2>
+        <p class="text-xl md:text-2xl text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Reach out for pricing, demonstration planning, pump selection guidance, or a post-show follow-up.
         </p>
-        <div class="mt-6 flex justify-center">
-          <Button href={contactHref} size="lg">
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <Button href={contactHref} size="lg" class="brand-cta group">
             Contact Us
+            <svg
+              class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </Button>
         </div>
       </div>
-    </Card>
-  </Section>
+    </div>
+  </section>
 </BaseLayout>

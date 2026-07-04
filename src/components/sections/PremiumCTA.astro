@@ -1,9 +1,10 @@
 ---
 import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
+import SiteBadge from '@components/ui/SiteBadge.astro';
 import wildernessImg from '@assets/portable-fire-pump-wildfire-operation.webp';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
 import { getLocaleFromPathname, localizePath } from '@config/site';
-import { Flame } from 'lucide-react';
 
 interface LinkItem {
   label: string;
@@ -78,10 +79,12 @@ const content = copy[isFrench ? 'fr' : 'en'];
   <!-- Content -->
   <div class="container mx-auto mobile-container-gutter relative z-10">
     <div class="max-w-4xl mx-auto mobile-body-gutter text-center text-white">
-      <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
-        <Flame className="w-4 h-4 mr-2" />
-        {badge ?? content.badge}
-      </div>
+      <SiteBadge
+        label={badge ?? content.badge}
+        iconUrl={shibauraLogoMark}
+        variant="hero"
+        class="mb-6"
+      />
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
         {titleLine1 ?? content.titleLine1}
         <span class="block text-[var(--brand-400)]">{titleLine2 ?? content.titleLine2}</span>

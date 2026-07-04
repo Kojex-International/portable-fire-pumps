@@ -1,7 +1,9 @@
 ---
 import promoPosterImg from '@assets/videos/shibaura-promo-no-text-poster.webp';
+import shibauraLogoMark from '@assets/shibaura-logo-mark.svg';
 import shibauraWordmark from '@assets/shibaura-wordmark.svg';
 import { localizePath } from '@config/site';
+import SiteBadge from '@components/ui/SiteBadge.astro';
 
 interface Props {
   locale: 'en' | 'fr';
@@ -102,9 +104,12 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
 
     <div class="js-products-hero-initial relative z-10 mx-auto flex w-full max-w-[1440px] justify-center px-6 sm:px-8 lg:justify-end lg:pl-12 transition-opacity duration-300">
       <div class={isFrench ? 'pointer-events-auto w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 pt-8 sm:pt-0 lg:max-w-[28rem] lg:items-center' : 'pointer-events-auto w-full max-w-4xl text-center min-h-[320px] flex flex-col items-center gap-3 lg:max-w-[28rem]'}>
-        <div class={isFrench ? 'mt-[10px] inline-flex items-center m-0 px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 sm:mt-0' : 'mt-[10px] inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15 sm:mt-0'}>
-          {isFrench ? 'Produits' : 'Products'}
-        </div>
+        <SiteBadge
+          label={isFrench ? 'Produits' : 'Products'}
+          iconUrl={shibauraLogoMark.src}
+          variant="hero"
+          class={isFrench ? 'mt-[10px] m-0 sm:mt-0' : 'mt-[10px] sm:mt-0'}
+        />
 
         <div
           aria-hidden="true"
@@ -168,9 +173,11 @@ const waterCooledHref = localizePath('/products/water-cooled', locale);
       <div class="pointer-events-auto mx-auto flex h-full w-full max-w-[52rem] flex-col items-center text-center">
         <div class="flex h-full w-full max-w-[28rem] flex-col items-center gap-6 sm:max-w-[42rem] sm:gap-12">
           <div class="flex flex-col items-center gap-3 sm:gap-4">
-          <div class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15">
-            {isFrench ? 'Produits' : 'Products'}
-          </div>
+          <SiteBadge
+            label={isFrench ? 'Produits' : 'Products'}
+            iconUrl={shibauraLogoMark.src}
+            variant="hero"
+          />
 
           <div
             aria-hidden="true"

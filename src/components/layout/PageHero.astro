@@ -1,10 +1,12 @@
 ---
 import { Image, type ImageMetadata } from 'astro:assets';
+import SiteBadge from '@components/ui/SiteBadge.astro';
 
 interface Props {
   backgroundImage: ImageMetadata;
   backgroundAlt: string;
   badge?: string;
+  badgeIcon?: string;
   badgeIconComponent?: any;
   sectionClass?: string;
   backgroundClass?: string;
@@ -25,14 +27,15 @@ const {
   backgroundImage,
   backgroundAlt,
   badge,
-  badgeIconComponent: BadgeIcon,
+  badgeIcon,
+  badgeIconComponent,
   sectionClass = 'relative h-[70vh] min-h-[500px] flex items-center overflow-hidden',
   backgroundClass = 'absolute inset-0 bg-slate-900',
   imageClass = 'w-full h-full object-cover',
   overlayClass = 'absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50',
   containerClass = 'container mx-auto mobile-container-gutter relative z-10',
   contentClass = 'max-w-4xl mx-auto mobile-body-gutter text-center',
-  badgeClass = 'inline-flex items-center mt-6 mb-6 sm:mt-0 px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15',
+  badgeClass = 'mt-6 mb-6 sm:mt-0',
   titleClass = 'text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight',
   description,
   descriptionClass = 'text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed',
@@ -63,10 +66,13 @@ const hasDefaultSlot = Astro.slots.has('default');
   <div class={containerClass}>
     <div class={contentClass}>
       {badge && (
-        <div class={badgeClass}>
-          {BadgeIcon && <BadgeIcon className="w-4 h-4 mr-2" />}
-          {badge}
-        </div>
+        <SiteBadge
+          label={badge}
+          iconUrl={badgeIcon}
+          iconComponent={badgeIconComponent}
+          variant="hero"
+          class={badgeClass}
+        />
       )}
 
       <h1 class={titleClass}>

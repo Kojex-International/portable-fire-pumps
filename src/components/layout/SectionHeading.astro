@@ -1,8 +1,13 @@
 ---
+import SiteBadge from '@components/ui/SiteBadge.astro';
+
 interface Props {
   badge?: string;
   badgeIcon?: string;
   badgeIconComponent?: any;
+  badgeIconClass?: string;
+  badgeVariant?: 'hero' | 'brand' | 'neutral';
+  badgeTone?: 'red' | 'gray';
   title: string;
   highlight?: string;
   description?: string;
@@ -14,6 +19,9 @@ const {
   badge,
   badgeIcon,
   badgeIconComponent,
+  badgeIconClass = '',
+  badgeVariant,
+  badgeTone,
   title,
   highlight,
   description,
@@ -21,26 +29,23 @@ const {
   class: className = ''
 } = Astro.props;
 
-const BadgeIcon = badgeIconComponent;
-
 const alignClasses = align === 'left' ? 'text-left' : 'text-center';
 const maxWidthClasses = align === 'left' ? 'max-w-4xl' : 'max-w-5xl mx-auto';
+const resolvedBadgeVariant = badgeVariant ?? (badgeIcon ? 'brand' : 'neutral');
+const resolvedBadgeTone = badgeTone ?? (badgeIcon ? 'red' : 'gray');
 ---
 
 <div class={`mobile-body-gutter ${alignClasses} ${maxWidthClasses} ${className}`}>
   {badge && (
-    <div class="relative inline-flex items-center px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm leading-none font-semibold rounded-full">
-      {badgeIcon && (
-        <span class="absolute left-3 inset-y-0.5 flex items-center pointer-events-none" aria-hidden="true">
-          <span
-            class="h-full aspect-square inline-block"
-            style={`background-color: currentColor; -webkit-mask-image: url(${badgeIcon}); mask-image: url(${badgeIcon}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
-          />
-        </span>
-      )}
-      {!badgeIcon && BadgeIcon && <BadgeIcon className="w-4 h-4 mr-2" />}
-      <span class={badgeIcon ? 'pl-7' : ''}>{badge}</span>
-    </div>
+    <SiteBadge
+      label={badge}
+      iconUrl={badgeIcon}
+      iconComponent={badgeIconComponent}
+      iconClass={badgeIconClass}
+      variant={resolvedBadgeVariant}
+      tone={resolvedBadgeTone}
+      class="mb-4"
+    />
   )}
   <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
     {title}

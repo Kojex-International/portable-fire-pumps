@@ -1,0 +1,66 @@
+---
+interface Props {
+  label: string;
+  iconUrl?: string;
+  iconComponent?: any;
+  variant?: 'hero' | 'brand' | 'neutral';
+  tone?: 'red' | 'gray';
+  class?: string;
+  iconClass?: string;
+}
+
+const {
+  label,
+  iconUrl,
+  iconComponent,
+  variant = 'brand',
+  tone,
+  class: className = '',
+  iconClass = '',
+} = Astro.props;
+
+const IconComponent = iconComponent;
+
+const baseVariantClasses = {
+  hero: 'inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm leading-none font-semibold text-white shadow-lg backdrop-blur-[6px]',
+  brand: 'inline-flex items-center rounded-full px-4 py-2 text-sm leading-none font-semibold shadow-sm',
+  neutral: 'inline-flex items-center rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] shadow-sm',
+} as const;
+
+const defaultIconClasses = {
+  hero: 'w-4 h-4',
+  brand: 'h-4 w-4',
+  neutral: 'h-4 w-4',
+} as const;
+
+const toneClasses = {
+  red: 'bg-rose-100 text-[var(--brand-1)]',
+  gray: 'bg-slate-100 text-slate-700',
+} as const;
+
+const resolvedTone = variant === 'hero' ? undefined : (tone ?? (variant === 'brand' ? 'red' : 'gray'));
+const resolvedIconClass = iconClass || defaultIconClasses[variant];
+---
+
+<div class={`${baseVariantClasses[variant]} ${resolvedTone ? toneClasses[resolvedTone] : ''} ${className}`.trim()}>
+  {(iconUrl || IconComponent) && (
+    <>
+      {iconUrl ? (
+        <span
+          aria-hidden="true"
+          class={`mr-2 inline-block ${resolvedIconClass}`.trim()}
+          style={`background-color: currentColor; -webkit-mask-image: url(${iconUrl}); mask-image: url(${iconUrl}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+        />
+      ) : (
+        IconComponent && (
+          <IconComponent
+            class={`${resolvedIconClass} mr-2`}
+            className={`${resolvedIconClass} mr-2`}
+            aria-hidden="true"
+          />
+        )
+      )}
+    </>
+  )}
+  <span>{label}</span>
+</div>
