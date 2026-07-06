@@ -1,5 +1,5 @@
 import * as Label from '@radix-ui/react-label';
-import { User, Building2, Calendar, Package, Flame, Droplets, Wrench, MapPin, Users, FileText, Mail, Phone } from 'lucide-react';
+import { User, Building2, Calendar, Package, Flame, Droplets, Wrench, Handshake, CircleEllipsis, FileText, Mail, Phone } from 'lucide-react';
 
 interface RFQFormProps {
   action?: string;
@@ -254,12 +254,12 @@ export default function RFQForm({ action, locale = 'en', turnstileSiteKey = '', 
             </Label.Root>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
+                { id: 'request-quote', label: isFrench ? 'Demander un devis' : 'Request a quote', icon: FileText },
+                { id: 'deployment', label: isFrench ? 'Partenariat distributeur et OEM' : 'Dealer & OEM Partnership', icon: Handshake },
                 { id: 'pump-selection', label: isFrench ? 'Recommandation de pompe' : 'Pump recommendation', icon: Flame },
                 { id: 'accessories', label: isFrench ? 'Accessoires et raccords' : 'Accessories & fittings', icon: Droplets },
-                { id: 'deployment', label: isFrench ? "Conseils de déploiement" : 'Deployment advice', icon: MapPin },
                 { id: 'service-parts', label: isFrench ? 'Support pièces et service' : 'Parts & service support', icon: Wrench },
-                { id: 'training', label: isFrench ? 'Formation opérateur' : 'Operator training', icon: Users },
-                { id: 'request-quote', label: isFrench ? 'Demander un devis' : 'Request a quote', icon: FileText },
+                { id: 'other', label: isFrench ? 'Autre' : 'Other', icon: CircleEllipsis },
               ].map((service) => {
                 const IconComponent = service.icon;
                 return (

@@ -78,20 +78,20 @@ const FIELD_VALUE_LABELS = {
   },
   services: {
     en: {
+      "request-quote": "Request a quote",
       "pump-selection": "Pump recommendation",
       accessories: "Accessories & fittings",
-      deployment: "Deployment advice",
+      deployment: "Dealer & OEM Partnership",
       "service-parts": "Parts & service support",
-      training: "Operator training",
-      "request-quote": "Request a quote",
+      other: "Other",
     },
     fr: {
+      "request-quote": "Demander un devis",
       "pump-selection": "Recommandation de pompe",
       accessories: "Accessoires et raccords",
-      deployment: "Conseils de déploiement",
+      deployment: "Partenariat distributeur et OEM",
       "service-parts": "Support pièces et service",
-      training: "Formation opérateur",
-      "request-quote": "Demander un devis",
+      other: "Autre",
     },
   },
   timeline: {

@@ -4,13 +4,14 @@ import SiteBadge from '@components/ui/SiteBadge.astro';
 import heroPosterDesktop from '@assets/hero-firepump-loop-v1-poster.jpg';
 import heroPosterMobile from '@assets/hero-firepump-loop-v1-mobile-poster.jpg';
 import kojexWordmarkMask from '@assets/Kojex_wordmark_eventmask.svg?url';
-import { Download, FileText, Presentation } from 'lucide-react';
+import { Clapperboard, Download, FileText, Presentation } from 'lucide-react';
 
 interface QuickDownloadItem {
   title: string;
   subtitle: string;
   href: string;
-  icon: 'download' | 'file-text';
+  icon: 'download' | 'file-text' | 'video';
+  download?: boolean;
 }
 
 interface Props {
@@ -137,14 +138,19 @@ const heroVideoMobileSrc = heroVideoDesktopSrc;
         )}
 
         {quickDownloads.length > 0 && (
-          <div class:list={['mx-auto grid max-w-3xl gap-2 sm:grid-cols-2', description ? 'mt-4' : 'mt-3 md:mt-6']}>
+          <div class:list={['mx-auto flex w-fit flex-col items-center justify-center gap-2 md:flex-row md:flex-wrap', description ? 'mt-4' : 'mt-3 md:mt-6']}>
             {quickDownloads.map((item) => {
-              const Icon = item.icon === 'download' ? Download : FileText;
+              const Icon =
+                item.icon === 'download'
+                  ? Download
+                  : item.icon === 'video'
+                    ? Clapperboard
+                    : FileText;
               return (
                 <a
                   href={item.href}
-                  download
-                  class="group flex items-center justify-center gap-3 rounded-2xl bg-transparent px-3 py-2 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4 sm:py-2.5"
+                  download={item.download ? true : undefined}
+                  class="group inline-flex w-auto min-w-0 items-center justify-center gap-3 rounded-2xl bg-transparent px-3 py-2 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4 sm:py-2.5"
                 >
                   <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-transparent text-white transition-colors duration-300 group-hover:text-red-300">
                     <Icon className="h-5 w-5" />
