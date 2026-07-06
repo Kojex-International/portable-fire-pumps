@@ -30,14 +30,14 @@ const {
 } = Astro.props;
 
 const heroVideoDesktopSrc = '/hero-firepump-loop-v1.mp4';
-const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
+const heroVideoMobileSrc = heroVideoDesktopSrc;
 ---
 
 <section
-  class="relative h-[82vh] min-h-[620px] overflow-hidden bg-[#151515]"
+  class="relative min-h-[460px] overflow-hidden bg-[#151515] md:h-[82vh] md:min-h-[620px]"
   data-event-premium-hero
 >
-  <div class="absolute inset-0 md:hidden">
+  <div class="absolute inset-0 hidden">
     <video
       data-event-premium-hero-video
       data-poster-desktop={heroPosterDesktop.src}
@@ -72,7 +72,7 @@ const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
     <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-black/20 via-black/35 to-black/60"></div>
   </div>
 
-  <div class="relative z-10 flex h-full w-full flex-col px-6 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-7">
+  <div class="relative z-10 flex h-full w-full flex-col px-3 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-7">
     <div class="relative z-20 flex shrink-0 items-start justify-center text-center">
       <div class="mx-auto max-w-2xl md:max-w-3xl">
         <SiteBadge
@@ -89,24 +89,24 @@ const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
 
     <div
       data-event-premium-hero-mask-row
-      class="pointer-events-none relative z-10 hidden flex-1 items-center justify-center overflow-hidden md:flex"
+      class="pointer-events-none relative z-10 mt-3 flex flex-none items-center justify-center overflow-hidden md:mt-0 md:flex-1"
     >
-      <div class="flex h-full w-full items-center justify-center py-3 lg:py-4">
+      <div class="relative flex w-full items-center justify-center py-1 md:h-full md:py-3 lg:py-4">
         <div
           aria-hidden="true"
-          class="relative h-full max-h-[clamp(18rem,52vh,40rem)] w-[90%] overflow-hidden"
-          style={`-webkit-mask-image: url(${kojexWordmarkMask}); mask-image: url(${kojexWordmarkMask}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+          class="event-premium-hero-mask relative w-[95%] overflow-hidden md:h-full md:max-h-[clamp(18rem,52vh,40rem)] md:w-[90%]"
+          style={`-webkit-mask-image: url(${kojexWordmarkMask}); mask-image: url(${kojexWordmarkMask}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center;`}
         >
           <img
             src={heroPosterDesktop.src}
             alt=""
-            class="absolute inset-0 block h-full w-full object-cover object-center"
+            class="event-premium-hero-mask-media absolute -inset-y-px -left-px -right-px block h-[calc(100%+2px)] w-[calc(100%+2px)] max-w-none object-cover object-center"
           />
           <video
             data-event-premium-hero-video
             data-poster-desktop={heroPosterDesktop.src}
             data-poster-mobile={heroPosterMobile.src}
-            class="absolute inset-0 block h-full w-full object-cover object-center motion-reduce:hidden"
+            class="event-premium-hero-mask-media absolute -inset-y-px -left-px -right-px block h-[calc(100%+2px)] w-[calc(100%+2px)] max-w-none object-cover object-center motion-reduce:hidden"
             autoplay
             muted
             loop
@@ -116,15 +116,17 @@ const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
             aria-hidden="true"
             tabindex="-1"
           >
+            <source media="(max-width: 767px)" src={heroVideoMobileSrc} type="video/mp4" />
             <source src={heroVideoDesktopSrc} type="video/mp4" />
           </video>
+          <div aria-hidden="true" class="absolute inset-y-0 right-0 z-10 w-[4px] bg-[#151515] md:hidden"></div>
         </div>
       </div>
     </div>
 
     <div class="relative z-20 flex shrink-0 justify-center text-center">
       <div class="mx-auto w-[90%] max-w-[90%]">
-        <p class="mx-auto w-fit max-w-[67%] whitespace-nowrap pb-6 text-[clamp(1.1rem,2vw,2.35rem)] font-semibold uppercase tracking-[0.05em] text-slate-200">
+        <p class="mx-auto max-w-[84%] pb-4 text-center text-[clamp(1rem,4.2vw,2.35rem)] font-semibold uppercase leading-tight tracking-[0.05em] text-slate-200 md:max-w-[67%] md:whitespace-nowrap md:pb-6 md:text-[clamp(1.1rem,2vw,2.35rem)]">
           {tagline}
         </p>
 
@@ -135,14 +137,14 @@ const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
         )}
 
         {quickDownloads.length > 0 && (
-          <div class:list={['mx-auto grid max-w-3xl gap-3 sm:grid-cols-2', description ? 'mt-5' : 'mt-6']}>
+          <div class:list={['mx-auto grid max-w-3xl gap-2 sm:grid-cols-2', description ? 'mt-4' : 'mt-3 md:mt-6']}>
             {quickDownloads.map((item) => {
               const Icon = item.icon === 'download' ? Download : FileText;
               return (
                 <a
                   href={item.href}
                   download
-                  class="group flex items-center justify-center gap-3 rounded-2xl bg-transparent px-3 py-2.5 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4"
+                  class="group flex items-center justify-center gap-3 rounded-2xl bg-transparent px-3 py-2 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4 sm:py-2.5"
                 >
                   <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-transparent text-white transition-colors duration-300 group-hover:text-red-300">
                     <Icon className="h-5 w-5" />
@@ -160,6 +162,37 @@ const heroVideoMobileSrc = '/hero-firepump-loop-v1-mobile.mp4';
     </div>
   </div>
 </section>
+
+<style>
+  .event-premium-hero-mask {
+    aspect-ratio: 81.17343 / 33.403266;
+    height: auto;
+    background-color: #151515;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-mode: alpha;
+    mask-mode: alpha;
+  }
+
+  .event-premium-hero-mask-media {
+    transform: translateX(1.5%) scale(1.14);
+    transform-origin: center;
+  }
+
+  @media (min-width: 768px) {
+    .event-premium-hero-mask {
+      aspect-ratio: auto;
+      height: 100%;
+      background-color: transparent;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+    }
+
+    .event-premium-hero-mask-media {
+      transform: none;
+    }
+  }
+</style>
 
 <script is:inline>
   (() => {

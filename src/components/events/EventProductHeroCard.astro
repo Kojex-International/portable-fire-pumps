@@ -37,7 +37,80 @@ const isFrench = locale === 'fr';
 ---
 
 <article class="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-  <div class="grid grid-cols-2 gap-0">
+  <div class="md:hidden">
+    <div class="px-6 py-5">
+      <div class="flex items-center space-x-4">
+        <div class="flex-1 pr-2">
+          <a href={detailHref} class="inline-flex items-center gap-2">
+            <h3 class="flex items-center gap-2 text-xl font-extrabold">
+              <span
+                aria-hidden="true"
+                class="h-7 w-7 shrink-0 brand-gradient-bg"
+                style={`-webkit-mask-image: url(${shibauraLogoMark}); mask-image: url(${shibauraLogoMark}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+              />
+              <span class="inline-block brand-gradient-text-fill">{pump.title}</span>
+            </h3>
+          </a>
+          <h4 class="mt-1 text-sm font-semibold text-slate-700">
+            {positioning}
+          </h4>
+          <a href={detailHref} class="mt-4 block overflow-hidden bg-gradient-to-b from-white to-slate-50/30">
+            <Image
+              src={pump.image}
+              alt={isFrench ? `Photo du modèle ${pump.title} de pompe incendie portable` : `${pump.title} portable fire pump product photo`}
+              class="h-56 w-full object-contain bg-white transition-transform duration-700 group-hover:scale-105"
+              width={640}
+              height={360}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-slate-50/60 -mx-6 px-6 pt-3 pb-0">
+        <ul class="space-y-1">
+          {heroSpecs.map((spec, idx) => (
+            <li class="flex items-center space-x-2">
+              <div class="flex h-4 w-4 shrink-0 items-center justify-center">
+                <img src={spec.icon} alt="" class="block h-4 w-4 object-contain opacity-80" aria-hidden="true" />
+              </div>
+              <span class={`whitespace-pre-line text-sm leading-snug text-slate-700 ${idx === 0 ? 'font-semibold' : ''}`}>
+                {spec.value}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="-mx-6 grid grid-cols-1 gap-3 bg-white px-6 pt-4 pb-0">
+        <a
+          href={manualPdf}
+          class="brand-cta inline-flex min-h-[3.25rem] w-full items-center justify-center px-4 py-3 text-center text-sm leading-tight"
+          download
+        >
+          {manualLabel}
+        </a>
+        <a
+          href={detailHref}
+          class="brand-link-cta group inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2 text-center text-sm"
+        >
+          {detailLabel}
+          <svg
+            class="h-4 w-4 transition-transform group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden md:grid md:grid-cols-2 md:gap-0">
     <div class="flex min-w-0 bg-white p-0">
       <Image
         src={pump.image}
