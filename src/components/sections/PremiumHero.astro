@@ -62,25 +62,43 @@ const quickLinkItems = [
 
 <section class="relative min-h-[560px] sm:h-screen sm:min-h-[680px] flex items-start sm:items-center overflow-hidden safari-hero-offset">
   <!-- Background Image with Overlay -->
-  <div class="absolute inset-0">
+  <div
+    class="absolute inset-0 overflow-hidden bg-cover bg-center bg-no-repeat"
+    data-premium-hero-media
+    style={`background-image: url(${heroPosterDesktop.src})`}
+  >
+    <!--
+      Do NOT set the HTML autoplay attribute. Safari paints a native start-playback
+      button for autoplay / paused videos that CSS cannot reliably hide (Chrome does not).
+      Keep the <video> visibility:hidden until a real frame is painted.
+      CSS background-image above is the always-on fallback so the hero never flashes gray.
+    -->
     <video
       data-premium-hero-video
+      data-src-desktop={heroVideoDesktopSrc}
+      data-src-mobile={heroVideoMobileSrc}
       data-poster-desktop={heroPosterDesktop.src}
       data-poster-mobile={heroPosterMobile.src}
-      class="block w-full h-full object-cover object-center sm:object-center motion-reduce:hidden"
-      autoplay
+      class="premium-hero-video pointer-events-none absolute inset-0 h-full w-full object-cover object-center sm:object-center motion-reduce:hidden"
       muted
+      defaultMuted
       loop
       playsinline
+      webkit-playsinline
       preload="metadata"
-      poster={heroPosterDesktop.src}
+      disableRemotePlayback
       aria-hidden="true"
       tabindex="-1"
-    >
-      <source media="(max-width: 767px)" src={heroVideoMobileSrc} type="video/mp4" />
-      <source src={heroVideoDesktopSrc} type="video/mp4" />
-    </video>
-    <picture class="hidden h-full w-full motion-reduce:block">
+    ></video>
+    <img
+      data-premium-hero-poster
+      src={heroPosterDesktop.src}
+      alt=""
+      class="pointer-events-none absolute inset-0 z-[1] block h-full w-full object-cover object-center sm:object-center"
+      decoding="async"
+      fetchpriority="high"
+    />
+    <picture class="absolute inset-0 z-[1] hidden h-full w-full motion-reduce:block">
       <source media="(max-width: 767px)" srcset={heroPosterMobile.src} />
       <Image
         src={heroPosterDesktop}
@@ -93,8 +111,8 @@ const quickLinkItems = [
         height={720}
       />
     </picture>
-    <div class="pointer-events-none absolute inset-0 bg-linear-to-r from-black/46 via-black/30 to-black/14 sm:from-black/58 sm:via-black/38 sm:to-black/18"></div>
-    <div class="pointer-events-none absolute inset-0 bg-black/20 sm:bg-black/[0.14]"></div>
+    <div class="pointer-events-none absolute inset-0 z-[2] bg-linear-to-r from-black/46 via-black/30 to-black/14 sm:from-black/58 sm:via-black/38 sm:to-black/18"></div>
+    <div class="pointer-events-none absolute inset-0 z-[2] bg-black/20 sm:bg-black/[0.14]"></div>
   </div>
 
   <!-- Content -->
@@ -142,20 +160,181 @@ const quickLinkItems = [
   </div>
 </section>
 
+<style>
+  /*
+    Safari-only native play affordance: hide the video element until playback starts.
+    opacity:0 is insufficient — Safari still paints the control. visibility:hidden removes it.
+  */
+  .premium-hero-video {
+    visibility: hidden;
+  }
+  .premium-hero-video.is-playing {
+    visibility: visible;
+  }
+
+  .premium-hero-video::-webkit-media-controls,
+  .premium-hero-video::-webkit-media-controls-enclosure,
+  .premium-hero-video::-webkit-media-controls-panel,
+  .premium-hero-video::-webkit-media-controls-start-playback-button,
+  .premium-hero-video::-webkit-media-controls-play-button {
+    display: none !important;
+    -webkit-appearance: none !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none !important;
+  }
+</style>
+
 <script is:inline>
   (() => {
-    const syncHeroPoster = () => {
-      document.querySelectorAll('[data-premium-hero-video]').forEach((video) => {
-        if (!(video instanceof HTMLVideoElement)) return;
-        const isMobile = window.matchMedia('(max-width: 767px)').matches;
-        const nextPoster = isMobile ? video.dataset.posterMobile : video.dataset.posterDesktop;
-        if (nextPoster && video.poster !== nextPoster) {
-          video.poster = nextPoster;
+    const MOBILE_MQ = '(max-width: 767px)';
+    const isMobileViewport = () => window.matchMedia(MOBILE_MQ).matches;
+
+    const preferredSrc = (video) =>
+      isMobileViewport()
+        ? video.dataset.srcMobile || video.dataset.srcDesktop
+        : video.dataset.srcDesktop || video.dataset.srcMobile;
+
+    const preferredPoster = (video) =>
+      isMobileViewport() ? video.dataset.posterMobile : video.dataset.posterDesktop;
+
+    const forceMutedInline = (video) => {
+      // Safari checks the muted *state* at play() time; keep both attribute + properties.
+      video.defaultMuted = true;
+      video.muted = true;
+      video.volume = 0;
+      video.playsInline = true;
+      video.controls = false;
+      video.removeAttribute('controls');
+      video.removeAttribute('autoplay');
+      // Avoid Safari treating a poster+paused video as needing a start-playback control.
+      video.removeAttribute('poster');
+      video.poster = '';
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+    };
+
+    const ensureSource = (video) => {
+      const nextSrc = preferredSrc(video);
+      if (!nextSrc) return false;
+
+      const absolute = new URL(nextSrc, window.location.href).href;
+      const current = video.currentSrc || video.getAttribute('src') || '';
+      const currentAbs = current ? new URL(current, window.location.href).href : '';
+
+      if (video.dataset.activeSrc === nextSrc || currentAbs === absolute) {
+        video.dataset.activeSrc = nextSrc;
+        return false;
+      }
+
+      while (video.firstChild) {
+        video.removeChild(video.firstChild);
+      }
+      video.dataset.activeSrc = nextSrc;
+      // No HTML autoplay attr; set src and play() via JS only.
+      video.setAttribute('src', nextSrc);
+      return true;
+    };
+
+    const revealVideo = (video) => {
+      if (video.dataset.heroRevealed === 'true') return;
+      // Wait until a frame is actually painted before removing the poster,
+      // otherwise Safari briefly shows empty gray under the overlays.
+      const show = () => {
+        if (video.paused || video.readyState < 2) return;
+        video.dataset.heroRevealed = 'true';
+        video.classList.add('is-playing');
+        const root = video.closest('[data-premium-hero-media]');
+        const poster = root && root.querySelector('[data-premium-hero-poster]');
+        if (poster instanceof HTMLElement) poster.hidden = true;
+      };
+
+      if (typeof video.requestVideoFrameCallback === 'function') {
+        video.requestVideoFrameCallback(() => show());
+      } else {
+        requestAnimationFrame(() => requestAnimationFrame(show));
+      }
+    };
+
+    const tryPlay = (video) => {
+      forceMutedInline(video);
+      if (!video.paused && !video.ended && video.classList.contains('is-playing')) return;
+
+      const attempt = video.play();
+      if (attempt !== undefined && typeof attempt.then === 'function') {
+        attempt.catch(() => {
+          // Low Power Mode / blocked autoplay: keep poster visible; unlock on gesture.
+        });
+      }
+    };
+
+    const setupHeroVideo = (video) => {
+      if (!(video instanceof HTMLVideoElement)) return;
+      if (video.dataset.heroAutoplayBound === 'true') return;
+      video.dataset.heroAutoplayBound = 'true';
+
+      const root = video.closest('[data-premium-hero-media]');
+      const nextPoster = preferredPoster(video);
+      if (nextPoster && root instanceof HTMLElement) {
+        root.style.backgroundImage = `url(${nextPoster})`;
+        const poster = root.querySelector('[data-premium-hero-poster]');
+        if (poster instanceof HTMLImageElement) poster.src = nextPoster;
+      }
+
+      forceMutedInline(video);
+      ensureSource(video);
+
+      const onReady = () => tryPlay(video);
+      ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'].forEach((evt) => {
+        video.addEventListener(evt, onReady);
+      });
+      // Only reveal after playback is actually running (not merely when play() resolves).
+      video.addEventListener('playing', () => revealVideo(video));
+
+      let ticks = 0;
+      const poll = window.setInterval(() => {
+        ticks += 1;
+        if ((!video.paused && video.classList.contains('is-playing')) || ticks > 40) {
+          window.clearInterval(poll);
+          return;
         }
+        tryPlay(video);
+      }, 250);
+
+      tryPlay(video);
+
+      const onVisible = () => {
+        if (document.visibilityState === 'visible') tryPlay(video);
+      };
+      document.addEventListener('visibilitychange', onVisible);
+      window.addEventListener('pageshow', onVisible);
+
+      const unlock = () => tryPlay(video);
+      window.addEventListener('touchstart', unlock, { once: true, passive: true });
+      window.addEventListener('click', unlock, { once: true });
+      window.addEventListener('scroll', unlock, { once: true, passive: true });
+    };
+
+    const syncAll = () => {
+      document.querySelectorAll('[data-premium-hero-video]').forEach((el) => {
+        if (!(el instanceof HTMLVideoElement)) return;
+        const nextPoster = preferredPoster(el);
+        const root = el.closest('[data-premium-hero-media]');
+        if (nextPoster && root instanceof HTMLElement) {
+          root.style.backgroundImage = `url(${nextPoster})`;
+        }
+        const poster = root && root.querySelector('[data-premium-hero-poster]');
+        if (poster instanceof HTMLImageElement && nextPoster && poster.getAttribute('src') !== nextPoster) {
+          poster.src = nextPoster;
+        }
+        const changed = ensureSource(el);
+        if (changed || el.paused) tryPlay(el);
       });
     };
 
-    syncHeroPoster();
-    window.addEventListener('resize', syncHeroPoster, { passive: true });
+    document.querySelectorAll('[data-premium-hero-video]').forEach(setupHeroVideo);
+    window.addEventListener('resize', syncAll, { passive: true });
   })();
 </script>

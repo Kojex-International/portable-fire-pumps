@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import SiteBadge from '@components/ui/SiteBadge.astro';
 import heroPosterDesktop from '@assets/hero-firepump-loop-v1-poster.jpg';
 import heroPosterMobile from '@assets/hero-firepump-loop-v1-mobile-poster.jpg';
@@ -38,41 +37,6 @@ const heroVideoMobileSrc = heroVideoDesktopSrc;
   class="relative min-h-[460px] overflow-hidden bg-[#151515] md:h-[82vh] md:min-h-[620px]"
   data-event-premium-hero
 >
-  <div class="absolute inset-0 hidden">
-    <video
-      data-event-premium-hero-video
-      data-poster-desktop={heroPosterDesktop.src}
-      data-poster-mobile={heroPosterMobile.src}
-      class="block h-full w-full object-cover object-center motion-reduce:hidden"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      poster={heroPosterMobile.src}
-      aria-hidden="true"
-      tabindex="-1"
-    >
-      <source media="(max-width: 767px)" src={heroVideoMobileSrc} type="video/mp4" />
-      <source src={heroVideoDesktopSrc} type="video/mp4" />
-    </video>
-    <picture class="hidden h-full w-full motion-reduce:block">
-      <source media="(max-width: 767px)" srcset={heroPosterMobile.src} />
-      <Image
-        src={heroPosterDesktop}
-        alt=""
-        class="h-full w-full object-cover object-center"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-        width={1280}
-        height={720}
-      />
-    </picture>
-    <div class="pointer-events-none absolute inset-0 bg-black/45"></div>
-    <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-black/20 via-black/35 to-black/60"></div>
-  </div>
-
   <div class="relative z-10 flex h-full w-full flex-col px-3 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-7">
     <div class="relative z-20 flex shrink-0 items-start justify-center text-center">
       <div class="mx-auto max-w-2xl md:max-w-3xl">
@@ -99,27 +63,35 @@ const heroVideoMobileSrc = heroVideoDesktopSrc;
           style={`-webkit-mask-image: url(${kojexWordmarkMask}); mask-image: url(${kojexWordmarkMask}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center;`}
         >
           <img
+            data-event-premium-hero-poster
             src={heroPosterDesktop.src}
             alt=""
             class="event-premium-hero-mask-media absolute -inset-y-px -left-px -right-px block h-[calc(100%+2px)] w-[calc(100%+2px)] max-w-none object-cover object-center"
           />
+          <!--
+            Safari autoplay: set src on <video> (no <source> children), muted+playsinline
+            as attributes and JS properties. Avoid video.load() — it aborts the first play().
+          -->
           <video
             data-event-premium-hero-video
+            data-src-desktop={heroVideoDesktopSrc}
+            data-src-mobile={heroVideoMobileSrc}
             data-poster-desktop={heroPosterDesktop.src}
             data-poster-mobile={heroPosterMobile.src}
             class="event-premium-hero-mask-media absolute -inset-y-px -left-px -right-px block h-[calc(100%+2px)] w-[calc(100%+2px)] max-w-none object-cover object-center motion-reduce:hidden"
+            src={heroVideoDesktopSrc}
             autoplay
             muted
+            defaultMuted
             loop
             playsinline
-            preload="metadata"
+            webkit-playsinline
+            preload="auto"
             poster={heroPosterDesktop.src}
+            disableRemotePlayback
             aria-hidden="true"
             tabindex="-1"
-          >
-            <source media="(max-width: 767px)" src={heroVideoMobileSrc} type="video/mp4" />
-            <source src={heroVideoDesktopSrc} type="video/mp4" />
-          </video>
+          ></video>
           <div aria-hidden="true" class="absolute inset-y-0 right-0 z-10 w-[4px] bg-[#151515] md:hidden"></div>
         </div>
       </div>
@@ -170,19 +142,30 @@ const heroVideoMobileSrc = heroVideoDesktopSrc;
 </section>
 
 <style>
+  /*
+    Use contain on all breakpoints so letter proportions match desktop Safari.
+    100% 100% stretch + subpixel aspect rounding on iOS made the wordmark look
+    like a different font.
+  */
   .event-premium-hero-mask {
     aspect-ratio: 81.17343 / 33.403266;
     height: auto;
     background-color: #151515;
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
     -webkit-mask-mode: alpha;
     mask-mode: alpha;
   }
 
   .event-premium-hero-mask-media {
-    transform: translateX(1.5%) scale(1.14);
+    transform: translate3d(1.5%, 0, 0) scale(1.14);
     transform-origin: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   @media (min-width: 768px) {
@@ -190,30 +173,133 @@ const heroVideoMobileSrc = heroVideoDesktopSrc;
       aspect-ratio: auto;
       height: 100%;
       background-color: transparent;
-      -webkit-mask-size: contain;
-      mask-size: contain;
     }
 
     .event-premium-hero-mask-media {
-      transform: none;
+      transform: translateZ(0);
     }
   }
 </style>
 
 <script is:inline>
   (() => {
-    const syncHeroPoster = () => {
-      document.querySelectorAll('[data-event-premium-hero-video]').forEach((video) => {
-        if (!(video instanceof HTMLVideoElement)) return;
-        const isMobile = window.matchMedia('(max-width: 767px)').matches;
-        const nextPoster = isMobile ? video.dataset.posterMobile : video.dataset.posterDesktop;
-        if (nextPoster && video.poster !== nextPoster) {
-          video.poster = nextPoster;
+    const MOBILE_MQ = '(max-width: 767px)';
+    const isMobileViewport = () => window.matchMedia(MOBILE_MQ).matches;
+
+    const preferredSrc = (video) =>
+      isMobileViewport()
+        ? video.dataset.srcMobile || video.dataset.srcDesktop
+        : video.dataset.srcDesktop || video.dataset.srcMobile;
+
+    const preferredPoster = (video) =>
+      isMobileViewport() ? video.dataset.posterMobile : video.dataset.posterDesktop;
+
+    const forceMutedInline = (video) => {
+      // Safari checks the muted *state* at play() time; keep both attribute + properties.
+      video.defaultMuted = true;
+      video.muted = true;
+      video.volume = 0;
+      video.playsInline = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('autoplay', '');
+    };
+
+    const ensureSource = (video) => {
+      const nextSrc = preferredSrc(video);
+      if (!nextSrc) return false;
+
+      const absolute = new URL(nextSrc, window.location.href).href;
+      const current = video.currentSrc || video.getAttribute('src') || '';
+      const currentAbs = current ? new URL(current, window.location.href).href : '';
+
+      if (video.dataset.activeSrc === nextSrc || currentAbs === absolute) {
+        video.dataset.activeSrc = nextSrc;
+        return false;
+      }
+
+      // Avoid <source> children + .src/.load() races that abort Safari autoplay.
+      while (video.firstChild) {
+        video.removeChild(video.firstChild);
+      }
+      video.dataset.activeSrc = nextSrc;
+      video.setAttribute('src', nextSrc);
+      return true;
+    };
+
+    const tryPlay = (video) => {
+      forceMutedInline(video);
+      if (!video.paused && !video.ended && video.readyState >= 2) return;
+
+      const attempt = video.play();
+      if (attempt !== undefined && typeof attempt.then === 'function') {
+        attempt.catch(() => {
+          // Expected when media is not ready yet or Low Power Mode blocks autoplay.
+        });
+      }
+    };
+
+    const hidePoster = (video) => {
+      const mask = video.closest('.event-premium-hero-mask');
+      const poster = mask && mask.querySelector('[data-event-premium-hero-poster]');
+      if (poster instanceof HTMLElement) poster.hidden = true;
+    };
+
+    const setupHeroVideo = (video) => {
+      if (!(video instanceof HTMLVideoElement)) return;
+      if (video.dataset.heroAutoplayBound === 'true') return;
+      video.dataset.heroAutoplayBound = 'true';
+
+      const nextPoster = preferredPoster(video);
+      if (nextPoster) video.poster = nextPoster;
+
+      forceMutedInline(video);
+      ensureSource(video);
+
+      const onReady = () => tryPlay(video);
+      ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough', 'playing'].forEach((evt) => {
+        video.addEventListener(evt, onReady);
+      });
+      video.addEventListener('playing', () => hidePoster(video));
+
+      // Safari often misses the first play() if it races load; poll briefly.
+      let ticks = 0;
+      const poll = window.setInterval(() => {
+        ticks += 1;
+        if (!video.paused || ticks > 40) {
+          window.clearInterval(poll);
+          return;
         }
+        tryPlay(video);
+      }, 250);
+
+      tryPlay(video);
+
+      const onVisible = () => {
+        if (document.visibilityState === 'visible') tryPlay(video);
+      };
+      document.addEventListener('visibilitychange', onVisible);
+      window.addEventListener('pageshow', onVisible);
+
+      // Low Power Mode / strict autoplay: start on first gesture (still muted).
+      const unlock = () => tryPlay(video);
+      window.addEventListener('touchstart', unlock, { once: true, passive: true });
+      window.addEventListener('click', unlock, { once: true });
+      window.addEventListener('scroll', unlock, { once: true, passive: true });
+    };
+
+    const syncAll = () => {
+      document.querySelectorAll('[data-event-premium-hero-video]').forEach((el) => {
+        if (!(el instanceof HTMLVideoElement)) return;
+        const nextPoster = preferredPoster(el);
+        if (nextPoster && el.poster !== nextPoster) el.poster = nextPoster;
+        const changed = ensureSource(el);
+        if (changed || el.paused) tryPlay(el);
       });
     };
 
-    syncHeroPoster();
-    window.addEventListener('resize', syncHeroPoster, { passive: true });
+    document.querySelectorAll('[data-event-premium-hero-video]').forEach(setupHeroVideo);
+    window.addEventListener('resize', syncAll, { passive: true });
   })();
 </script>
