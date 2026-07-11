@@ -216,7 +216,7 @@ Key event-page assets:
 
 Trade-show resource files:
 - catalogue: `data/Shibaura_Catalog2024_9.pdf`
-- brochure: `data/Kojex_Brochure2026_1.pdf`
+- brochure: `src/data/kojex-flyer-2026.pdf`
 
 Important event-page design direction:
 - keep it premium but still consistent with the main site
