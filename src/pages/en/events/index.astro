@@ -25,6 +25,7 @@ import easternCanadaDistributorImg from '@assets/distributors/larsenal-distribut
 import westernCanadaDistributorImg from '@assets/distributors/flash-wildfire-services-logo.avif';
 import catalogPdf from '../../../data/Shibaura_Catalog2024_9.pdf';
 import brochurePdf from '../../../data/kojex-flyer-2026.pdf';
+import dealerPackagePdf from '../../../data/Kojex_Dealer_OEM_Package_FINAL.pdf';
 import { getFirepumps } from '../../../data/firepumps';
 import { getHeroFeatureLabel } from '../../../i18n/heroFeatureLabels';
 import { localizePath } from '@config/site';
@@ -200,17 +201,17 @@ const compareCards = [
     description=""
     quickDownloads={[
       {
-        title: 'Product Catalogue',
-        subtitle: 'Latest Shibaura lineup PDF',
-        href: catalogPdf,
-        icon: 'download',
-        download: true,
-      },
-      {
         title: 'One-Page Brochure',
         subtitle: 'Trade show handout PDF',
         href: brochurePdf,
         icon: 'file-text',
+        download: true,
+      },
+      {
+        title: 'Dealer/OEM Partnership',
+        subtitle: 'Partnership overview PDF',
+        href: dealerPackagePdf,
+        icon: 'download',
         download: true,
       },
       {

@@ -70,8 +70,10 @@ const quickLinkItems = [
     <!--
       Do NOT set the HTML autoplay attribute. Safari paints a native start-playback
       button for autoplay / paused videos that CSS cannot reliably hide (Chrome does not).
-      Keep the <video> visibility:hidden until a real frame is painted.
-      CSS background-image above is the always-on fallback so the hero never flashes gray.
+      Keep the <video> visibility:hidden until playback starts; the poster <img> covers
+      it until a real frame is painted. CSS background-image is the always-on fallback.
+      Start with desktop src so Safari begins fetching during HTML parse; JS may swap
+      to the mobile file on small viewports.
     -->
     <video
       data-premium-hero-video
@@ -80,12 +82,13 @@ const quickLinkItems = [
       data-poster-desktop={heroPosterDesktop.src}
       data-poster-mobile={heroPosterMobile.src}
       class="premium-hero-video pointer-events-none absolute inset-0 h-full w-full object-cover object-center sm:object-center motion-reduce:hidden"
+      src={heroVideoDesktopSrc}
       muted
       defaultMuted
       loop
       playsinline
       webkit-playsinline
-      preload="metadata"
+      preload="auto"
       disableRemotePlayback
       aria-hidden="true"
       tabindex="-1"
@@ -233,40 +236,51 @@ const quickLinkItems = [
         video.removeChild(video.firstChild);
       }
       video.dataset.activeSrc = nextSrc;
-      // No HTML autoplay attr; set src and play() via JS only.
+      // Property + attribute: Safari is more reliable when both match.
+      video.src = nextSrc;
       video.setAttribute('src', nextSrc);
       return true;
     };
 
-    const revealVideo = (video) => {
+    const hidePoster = (video) => {
       if (video.dataset.heroRevealed === 'true') return;
-      // Wait until a frame is actually painted before removing the poster,
-      // otherwise Safari briefly shows empty gray under the overlays.
-      const show = () => {
-        if (video.paused || video.readyState < 2) return;
-        video.dataset.heroRevealed = 'true';
-        video.classList.add('is-playing');
-        const root = video.closest('[data-premium-hero-media]');
-        const poster = root && root.querySelector('[data-premium-hero-poster]');
-        if (poster instanceof HTMLElement) poster.hidden = true;
-      };
+      if (video.paused || video.readyState < 2) return;
+      video.dataset.heroRevealed = 'true';
+      const root = video.closest('[data-premium-hero-media]');
+      const poster = root && root.querySelector('[data-premium-hero-poster]');
+      if (poster instanceof HTMLElement) poster.hidden = true;
+    };
+
+    const revealVideo = (video) => {
+      // Make the element visible as soon as playback starts. Safari often will not
+      // decode / fire requestVideoFrameCallback while visibility:hidden — that race
+      // left the hero stuck on the poster until a hard refresh.
+      video.classList.add('is-playing');
+
+      if (video.dataset.heroRevealed === 'true') return;
+
+      const tryHide = () => hidePoster(video);
 
       if (typeof video.requestVideoFrameCallback === 'function') {
-        video.requestVideoFrameCallback(() => show());
-      } else {
-        requestAnimationFrame(() => requestAnimationFrame(show));
+        video.requestVideoFrameCallback(() => tryHide());
       }
+      requestAnimationFrame(() => requestAnimationFrame(tryHide));
+      // Fallback if rVFC / readyState lag (common on first cold load in Safari).
+      window.setTimeout(tryHide, 400);
+      window.setTimeout(tryHide, 1200);
     };
 
     const tryPlay = (video) => {
       forceMutedInline(video);
-      if (!video.paused && !video.ended && video.classList.contains('is-playing')) return;
+      if (!video.paused && !video.ended && video.dataset.heroRevealed === 'true') return;
 
       const attempt = video.play();
       if (attempt !== undefined && typeof attempt.then === 'function') {
-        attempt.catch(() => {
-          // Low Power Mode / blocked autoplay: keep poster visible; unlock on gesture.
-        });
+        attempt
+          .then(() => revealVideo(video))
+          .catch(() => {
+            // Low Power Mode / blocked autoplay: keep poster visible; unlock on gesture.
+          });
       }
     };
 
@@ -287,16 +301,21 @@ const quickLinkItems = [
       ensureSource(video);
 
       const onReady = () => tryPlay(video);
-      ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'].forEach((evt) => {
+      ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough', 'playing'].forEach((evt) => {
         video.addEventListener(evt, onReady);
       });
-      // Only reveal after playback is actually running (not merely when play() resolves).
       video.addEventListener('playing', () => revealVideo(video));
+      video.addEventListener('error', () => {
+        // Rare first-load decode/network blip: re-apply src and retry.
+        video.dataset.activeSrc = '';
+        ensureSource(video);
+        tryPlay(video);
+      });
 
       let ticks = 0;
       const poll = window.setInterval(() => {
         ticks += 1;
-        if ((!video.paused && video.classList.contains('is-playing')) || ticks > 40) {
+        if (video.dataset.heroRevealed === 'true' || ticks > 80) {
           window.clearInterval(poll);
           return;
         }
