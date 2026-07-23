@@ -69,9 +69,11 @@ const normalizeImperialDisplay = (value: string): string => {
   return normalizedUnits.replace(/(\d),(\d{1,2})(?!\d)/g, '$1.$2');
 };
 
-const normalizePerformanceFlowUnit = (value: string): string => value.replace(/\bgpm\b/gi, 'US GPM');
+const normalizePerformanceFlowUnit = (value: string): string => value.replace(/\b(?:US\s+)?gpm\b/gi, 'US GPM');
 const normalizeGallonUnits = (value: string): string =>
-  value.replace(/\bgal\/h\b/gi, 'US gal/h').replace(/\bgal\b/gi, 'US gal');
+  value.replace(/\b(?:US\s+)?gal(?:\/h)?\b/gi, (unit) =>
+    unit.toLowerCase().endsWith('/h') ? 'US gal/h' : 'US gal'
+  );
 
 const IMPERIAL_FIRST_KEYS = new Set([
   'dimensions',

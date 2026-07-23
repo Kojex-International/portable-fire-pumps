@@ -319,6 +319,7 @@ pumps/<model>.ts
 - Store direct public files (favicons, static media, non-bundled assets) in `public/`
 - Keep product-related media grouped by model family where practical
 - Keep archived/deprecated template assets under `src/archive/`
+- Move inactive source media to the sibling `portable-fire-pumps-media` library, preserving its website-relative folder path
 
 ## Asset Naming Guidelines
 
@@ -340,8 +341,8 @@ Recommended naming patterns:
 Examples:
 - `shibaura-ff500ar-portable-fire-pump-side-view.jpg`
 - `ft510-performance-overview-graph.png`
-- `ff500-dimensions-diagram.jpg`
-- `distributors-network-hero.png`
+- `ff500-dimensions-diagram.webp`
+- `distributors-network-hero.webp`
 - `shibaura-wordmark.svg`
 
 ## Alt Text Standards

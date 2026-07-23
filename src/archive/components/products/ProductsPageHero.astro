@@ -1,0 +1,61 @@
+---
+import PageHero from '../layout/PageHero.astro';
+import { Gauge } from 'lucide-react';
+import heroBgImg from '@assets/portable-fire-pumps-hero.jpg';
+import { localizePath } from '@config/site';
+
+interface Props {
+  locale: 'en' | 'fr';
+}
+
+const { locale } = Astro.props;
+const isFrench = locale === 'fr';
+const airCooledHref = localizePath('/products/air-cooled', locale);
+const waterCooledHref = localizePath('/products/water-cooled', locale);
+---
+
+<PageHero
+  backgroundImage={heroBgImg}
+  backgroundAlt={isFrench ? 'Pompes à incendie portatives' : 'Shibaura portable fire pumps staged for rapid deployment'}
+  badge={isFrench ? 'Produits' : 'Products'}
+  badgeIconComponent={Gauge}
+  sectionClass={isFrench ? 'relative h-[72vh] min-h-[700px] sm:h-[70vh] sm:min-h-[500px] flex items-start sm:items-center overflow-hidden' : undefined}
+  contentClass={isFrench ? 'max-w-4xl mx-auto mobile-body-gutter text-center min-h-[360px] flex flex-col items-center gap-4 pt-8 sm:pt-0' : 'max-w-4xl mx-auto text-center min-h-[360px] flex flex-col items-center'}
+  badgeClass={isFrench ? 'inline-flex items-center m-0 px-4 py-2 bg-white/10 backdrop-blur-[6px] text-white text-sm leading-none font-semibold rounded-full shadow-lg border border-white/15' : undefined}
+  titleClass={isFrench ? 'text-[1.85rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white m-0 leading-tight animate-fadeInUp' : 'text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fadeInUp'}
+  descriptionClass={isFrench ? 'text-xl md:text-2xl text-slate-200 m-0 max-w-3xl mx-auto leading-relaxed animate-fadeInUp' : 'text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed animate-fadeInUp'}
+  descriptionStyle="animation-delay: 0.1s"
+>
+  <Fragment slot="title">
+    <span class="brand-gradient-text-fill">{isFrench ? 'Pompes incendie portatives' : 'Portable Fire Pumps'}</span>
+  </Fragment>
+  <Fragment slot="description">
+    {isFrench
+      ? 'Choisissez la bonne pompe selon les conditions d’eau et le niveau d’utilisation requis.'
+      : 'Choose the right pump based on water conditions and duty cycle.'}
+  </Fragment>
+  <div class={isFrench ? 'mt-8 mb-12 flex w-full max-w-full flex-col items-center gap-3 text-left sm:mt-10 sm:flex-row sm:justify-center sm:gap-6 md:translate-x-8 lg:translate-x-10' : 'mt-auto mb-14 flex w-full max-w-full flex-col items-center gap-3 text-left sm:flex-row sm:justify-center sm:gap-6 md:translate-x-8 lg:translate-x-10'}>
+    <a href={airCooledHref} class="group w-full max-w-[18rem] rounded-2xl bg-transparent px-0 py-3 text-white transition-all duration-300 hover:-translate-y-0.5 sm:w-[18rem]">
+      <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
+      <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-xl">
+        {isFrench ? 'Pompes refroidies à l’air' : 'Air-Cooled Pumps'}
+      </div>
+      <div class="mt-2 text-sm leading-relaxed text-slate-200">
+        {isFrench
+          ? 'Mieux adaptées aux prises d’eau variables et aux déploiements plus simples.'
+          : 'Best for variable water sources and simpler field deployment.'}
+      </div>
+    </a>
+    <a href={waterCooledHref} class="group w-full max-w-[18rem] rounded-2xl bg-transparent px-0 py-3 text-white transition-all duration-300 hover:-translate-y-0.5 sm:w-[18rem]">
+      <div class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/70 sm:text-xs">{isFrench ? 'Catégorie' : 'Category'}</div>
+      <div class="mt-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-xl">
+        {isFrench ? 'Pompes refroidies à l’eau' : 'Water-Cooled Pumps'}
+      </div>
+      <div class="mt-2 text-sm leading-relaxed text-slate-200">
+        {isFrench
+          ? 'Mieux adaptées au relais et aux transferts d’eau soutenus.'
+          : 'Best for sustained relay pumping and longer-duty water transfer.'}
+      </div>
+    </a>
+  </div>
+</PageHero>

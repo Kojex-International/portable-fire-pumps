@@ -50,7 +50,7 @@ const leftSpecKeys = ['coolingSystem', 'pumpModel', 'engineType'] as const;
 const rightSpecKeys = ['maxPressure', 'primingTime', 'flowRate'] as const;
 const leftSpecs = leftSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
 const rightSpecs = rightSpecKeys.map((key) => keySpecByKey.get(key)).filter(Boolean);
-const normalizeHeroFlowUnits = (value: string): string => value.replace(/\bgpm\b/gi, 'US GPM');
+const normalizeHeroFlowUnits = (value: string): string => value.replace(/\b(?:US\s+)?gpm\b/gi, 'US GPM');
 const heroSpecs = [...leftSpecs, ...rightSpecs].map((spec) =>
   spec?.key === 'flowRate'
     ? {
