@@ -9,10 +9,11 @@ import ProductsCTA from '../../components/products/ProductsCTA.astro';
 import ProductRelatedPumps from '../../components/products/ProductRelatedPumps.astro';
 import { Check, Flame, Gauge, Workflow } from 'lucide-react';
 
-import heroBgImg from '@assets/portable-fire-pump-wildfire-operation.webp';
-import remoteFirefightingImg from '@assets/portable-fire-pump-remote-firefighting-water-source.png';
+import heroBgImg from '@assets/portable-fire-pump-use-scenarios-hero.webp';
+import useScenariosCtaImg from '@assets/portable-fire-pump-use-scenarios-cta-action.webp';
+import remoteFirefightingImg from '@assets/portable-fire-pump-remote-firefighting-banner.webp';
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
-import wildfireWaterSourceImg from '@assets/portable-fire-pump-wildland-water-source.png';
+import wildfireWaterSourceImg from '@assets/portable-fire-pump-wildland-firefighting-banner.webp';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
 import { localizePath } from '@config/site';
 import { getFirepumps } from '../../data/firepumps';
@@ -72,8 +73,9 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
           <div class="relative min-h-[21.5rem] sm:h-72 md:h-64">
             <Image
               src={remoteFirefightingImg}
-              alt="Source d’eau rurale près de bâtiments isolés pour l’aspiration d’une pompe incendie portative"
+              alt="Pompier utilisant une pompe à incendie portable près d’un réservoir d’eau éloigné"
               class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              style="object-position: 65% center"
               widths={[900, 1440, 1800]}
               sizes="100vw"
             />
@@ -146,8 +148,9 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
           <div class="relative min-h-[21.5rem] sm:h-72 md:h-64">
             <Image
               src={wildfireWaterSourceImg}
-              alt="Source d’eau naturelle en terrain forestier pour le déploiement d’une pompe incendie portative en feu de forêt"
+              alt="Pompier utilisant une pompe à incendie portable pour arroser un feu de végétation"
               class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              style="object-position: 35% center"
               widths={[900, 1440, 1800]}
               sizes="100vw"
             />
@@ -234,7 +237,8 @@ const recommendedPumps = getFirepumps('fr').filter((pump) =>
 
   <ProductsCTA
     locale="fr"
-    backgroundImage={heroBgImg}
+    backgroundImage={useScenariosCtaImg}
+    backgroundPosition="35% center"
     contactHref={contactHref}
     distributorsHref={distributorsHref}
   />

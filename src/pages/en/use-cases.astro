@@ -9,10 +9,11 @@ import ProductsCTA from '../../components/products/ProductsCTA.astro';
 import ProductRelatedPumps from '../../components/products/ProductRelatedPumps.astro';
 import { Check, Flame, Gauge, Workflow } from 'lucide-react';
 
-import heroBgImg from '@assets/portable-fire-pump-wildfire-operation.webp';
-import remoteFirefightingImg from '@assets/portable-fire-pump-remote-firefighting-water-source.png';
+import heroBgImg from '@assets/portable-fire-pump-use-scenarios-hero.webp';
+import useScenariosCtaImg from '@assets/portable-fire-pump-use-scenarios-cta-action.webp';
+import remoteFirefightingImg from '@assets/portable-fire-pump-remote-firefighting-banner.webp';
 import shibauraLogoMark from '@assets/shibaura-logo-mark.svg?url';
-import wildfireWaterSourceImg from '@assets/portable-fire-pump-wildland-water-source.png';
+import wildfireWaterSourceImg from '@assets/portable-fire-pump-wildland-firefighting-banner.webp';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
 import { localizePath } from '@config/site';
 import { getFirepumps } from '../../data/firepumps';
@@ -72,8 +73,9 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
           <div class="relative min-h-[21.5rem] sm:h-72 md:h-64">
             <Image
               src={remoteFirefightingImg}
-              alt="Rural lake water source near remote structures for portable fire pump drafting"
+              alt="Firefighter operating a portable fire pump beside a remote water tank"
               class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              style="object-position: 65% center"
               widths={[900, 1440, 1800]}
               sizes="100vw"
             />
@@ -146,8 +148,9 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
           <div class="relative min-h-[21.5rem] sm:h-72 md:h-64">
             <Image
               src={wildfireWaterSourceImg}
-              alt="Natural lake water source in forest terrain for wildland portable fire pump deployment"
+              alt="Firefighter using a portable fire pump to spray water on a grass fire"
               class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              style="object-position: 35% center"
               widths={[900, 1440, 1800]}
               sizes="100vw"
             />
@@ -234,7 +237,8 @@ const recommendedPumps = getFirepumps('en').filter((pump) =>
 
   <ProductsCTA
     locale="en"
-    backgroundImage={heroBgImg}
+    backgroundImage={useScenariosCtaImg}
+    backgroundPosition="35% center"
     contactHref={contactHref}
     distributorsHref={distributorsHref}
   />
