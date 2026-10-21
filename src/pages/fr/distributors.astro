@@ -13,6 +13,8 @@ import { getNonProductMetadata } from '@utils/nonProductMetadata';
 
 import easternCanadaDistributorImg from '@assets/distributors/larsenal-distributor-logo.svg';
 import westernCanadaDistributorImg from '@assets/distributors/flash-wildfire-services-logo.avif';
+import safetySourceDistributorImg from '@assets/distributors/safety-source-fire-logo.png';
+import ppeSolutionsDistributorImg from '@assets/distributors/ppe-solutions-logo.png';
 
 import distributorsHeroImg from '@assets/distributors-network-hero.webp';
 import distributorsCtaImg from '@assets/distributors-support-cta.webp';
@@ -53,7 +55,7 @@ const distributors = [
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
     </svg>`,
     phone: '780 467 7234',
-    email: 'info@flashwildfireservices.ca',
+    email: 'info@flashws.ca',
     website: 'https://www.flashwildfireservices.ca/',
     description:
       'Fournisseur de pompes pour incendies de forêt, de systèmes de gicleurs, de composants WATERAX, ainsi que de tuyaux et raccords destinés à la protection contre les incendies.',
@@ -63,6 +65,55 @@ const distributors = [
       'Pompes pour incendies de forêt et composants WATERAX',
       'Systèmes de gicleurs et trousses de protection',
       'Tuyaux, raccords et quincaillerie'
+    ]
+  },
+  {
+    name: 'Safety Source Fire',
+    location: 'Dartmouth, Nouvelle-Écosse',
+    address: '121 Ilsley Avenue, Unit 4, Dartmouth (NS) B3B 1S4',
+    type: "Appareils et équipements d’intervention d’urgence",
+    region: 'Canada atlantique',
+    image: safetySourceDistributorImg,
+    imageBg: 'bg-white',
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5 19h14a2 2 0 001.75-2.97l-7-12a2 2 0 00-3.5 0l-7 12A2 2 0 005 19z" />
+    </svg>`,
+    phone: '902-468-6060',
+    phoneAlt: '1-800-667-3030',
+    email: 'sales@safetysourcefire.ca',
+    website: 'https://safetysourcefire.ca/',
+    description:
+      'Safety Source Fire fournit des appareils d’incendie, des outils de sauvetage, des pompes et de l’équipement d’intervention aux services d’incendie du Canada atlantique.',
+    focus:
+      'Siège à Dartmouth, en Nouvelle-Écosse, avec des bureaux desservant aussi le Nouveau-Brunswick et Terre-Neuve.',
+    services: [
+      'Appareils d’incendie et configuration de camions',
+      'Outils de sauvetage et équipements d’urgence',
+      'Pompes, tuyaux et soutien aux services'
+    ]
+  },
+  {
+    name: 'PPE Solutions',
+    location: 'Pickering, Ontario',
+    address: '905 Dillingham Rd, Unit #7, Pickering (ON) L1W 3X1',
+    type: 'Équipements de protection et d’intervention',
+    region: 'Ontario',
+    image: ppeSolutionsDistributorImg,
+    imageBg: 'bg-white',
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    </svg>`,
+    phone: '1-888-999-0316',
+    email: 'info@ppesolutions.ca',
+    website: 'https://www.ppes.ca/',
+    description:
+      'PPE Solutions accompagne les services d’incendie de l’Ontario en fournissant des équipements de protection individuelle, des tenues d’intervention et des produits connexes.',
+    focus:
+      'Basée à Pickering, en Ontario, au service des services d’incendie et des clients industriels de la province.',
+    services: [
+      'Tenues d’intervention et équipements de protection',
+      'Outils d’extrication et systèmes de décontamination',
+      'Soutien technique pour les services d’incendie'
     ]
   }
 ];
@@ -123,13 +174,13 @@ const metadata = getNonProductMetadata({
         <ImageReveal client:load delay={index * 0.1} className="h-full">
           <Card hover class="overflow-hidden animate-fadeInUp group h-full flex flex-col" style={`animation-delay: ${index * 0.1}s`}>
             <!-- Distributor Image -->
-            <div class="relative h-64 overflow-hidden bg-black">
+            <div class={`relative h-64 overflow-hidden ${distributor.imageBg ?? 'bg-black'}`}>
               <Image 
                 src={distributor.image}
                 alt={distributor.name}
                 class="w-full h-full object-contain p-6"
               />
-              <div class="absolute inset-0 bg-linear-to-t from-gray-900/80 via-gray-900/40 to-transparent"></div>
+              <div class="absolute inset-0 bg-linear-to-t from-gray-900/25 via-gray-900/10 to-transparent"></div>
             </div>
 
             <div class="p-6 space-y-5 flex-1 flex flex-col">

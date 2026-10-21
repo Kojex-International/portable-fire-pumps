@@ -26,12 +26,12 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     en: {
       title: 'Portable Fire Pumps in North America | Shibaura by Kojex',
       description:
-        'Kojex is the exclusive North American distributor for Shibaura portable fire pumps with product selection guidance, technical resources, and support.',
+        'Kojex is the Canadian distributor for Shibaura portable fire pumps with product selection guidance, technical resources, and support.',
     },
     fr: {
       title: 'Pompes à incendie portatives en Amérique du Nord | Shibaura par Kojex',
       description:
-        'Kojex est le distributeur exclusif nord-américain des pompes à incendie portatives Shibaura avec accompagnement, ressources techniques et soutien.',
+        'Kojex est le distributeur canadien des pompes à incendie portatives Shibaura avec accompagnement, ressources techniques et soutien.',
     },
   },
   products: {
@@ -180,12 +180,12 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
     en: {
       title: 'About Kojex International | Shibaura Distributor',
       description:
-        'Learn about Kojex International and its role as exclusive North American distributor for Shibaura portable fire pumps.',
+        'Learn about Kojex International and its role as Canadian distributor for Shibaura portable fire pumps.',
     },
     fr: {
       title: 'À propos de Kojex International | Distributeur Shibaura',
       description:
-        'Découvrez Kojex International et son rôle de distributeur exclusif nord-américain des pompes à incendie portatives Shibaura.',
+        'Découvrez Kojex International et son rôle de distributeur canadien des pompes à incendie portatives Shibaura.',
     },
   },
 };

@@ -2,7 +2,7 @@
 import { getLocaleFromPathname, localizePath } from '@config/site';
 import HeroQuickLinks from '../react/HeroQuickLinks';
 import SiteBadge from '@components/ui/SiteBadge.astro';
-import logoMark from '@assets/shibaura-logo-mark.svg';
+import { MapPin } from 'lucide-react';
 import heroPosterDesktop from '@assets/hero-firepump-loop-v1-poster.jpg';
 import heroPosterMobile from '@assets/hero-firepump-loop-v1-mobile-poster.jpg';
 
@@ -105,7 +105,7 @@ const quickLinkItems = [
       <div class="relative z-10">
         <SiteBadge
           label={isFrench ? 'L’eau là où chaque seconde compte' : 'Delivering water where it’s needed most'}
-          iconUrl={logoMark.src}
+          iconComponent={MapPin}
           variant="hero"
           class="mx-auto mb-4 px-3.5 py-1.5 text-xs sm:mx-0 sm:mb-6 sm:px-4 sm:py-2 sm:text-sm"
           iconClass="h-3.5 w-3.5 sm:h-4 sm:w-4"
@@ -125,8 +125,8 @@ const quickLinkItems = [
       
       <p class="text-base sm:text-lg md:text-xl text-slate-200 mb-10 sm:mb-10 max-w-2xl leading-relaxed animate-fadeInUp" style="animation-delay: 0.1s">
         {isFrench
-          ? 'Depuis 1952, Shibaura conçoit et fabrique des pompes à incendie portatives reconnues pour leur fiabilité sur le terrain.'
-          : 'Since 1952, Shibaura has delivered proven portable fire pump performance.'}
+          ? 'Kojex International est le distributeur canadien des pompes incendie portatives Shibaura — conçues et fabriquées par Shibaura depuis 1952.'
+          : 'Kojex International is the Canadian distributor of Shibaura portable fire pumps — engineered and manufactured by Shibaura since 1952.'}
       </p>
 
       <div class="mt-1 inline-block max-w-full animate-fadeInUp text-left" style="animation-delay: 0.3s">

@@ -31,9 +31,10 @@ const productsBaseHref = localizePath('/products', 'fr');
 const relayHref = localizePath('/long-distance-relay-pumping', 'fr');
 const contactHref = localizePath('/contact-us', 'fr');
 const distributorsHref = localizePath('/distributors', 'fr');
-const recommendedPumps = getFirepumps('fr').filter((pump) =>
-  ['ft510-a', 'ft300-400-a', 'tf516mh-ab'].includes(pump.slug)
-);
+const recommendedPumpOrder = ['p572s-a', 'ft510-a', 'ff500ar-a'];
+const recommendedPumps = recommendedPumpOrder
+  .map((slug) => getFirepumps('fr').find((pump) => pump.slug === slug))
+  .filter((pump): pump is NonNullable<typeof pump> => Boolean(pump));
 ---
 
 <BaseLayout

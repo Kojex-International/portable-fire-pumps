@@ -1,7 +1,7 @@
 ---
 import { getLocaleFromPathname, getNavigation, localizePath } from '@config/site';
-import logoMark from '@assets/shibaura-logo-mark.svg';
-import shibauraWordmark from '@assets/shibaura-wordmark.svg';
+import logoMark from '@assets/kojex-logo-flame-only.svg';
+import kojexWordmark from '@assets/kojex-wordmark-vectorized.svg';
 import MobileMenu from '@components/navigation/MobileMenu';
 import { Globe } from 'lucide-react';
 
@@ -42,21 +42,22 @@ const isActiveLink = (href: string): boolean => {
 
 <header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white shadow-sm pt-[env(safe-area-inset-top)]">
   <nav class="mx-auto flex h-20 items-center justify-between max-w-[1440px] px-4 sm:px-5 lg:px-6">
-    <!-- Logo -->
+    <!-- Logo: flame sized to its aspect (not Shibaura’s 84px mark slot); wordmark+subtitle 168×48 -->
     <div class="flex items-center">
       <a href={localizePath('/', locale)} class="flex items-center gap-3 group">
-        <div class="flex items-center justify-center w-[84px] h-12 group-hover:scale-110 transition-transform">
-          <span
+        <div class="flex h-12 w-[34px] shrink-0 items-center justify-center transition-transform group-hover:scale-110">
+          <img
+            src={logoMark.src}
+            alt=""
             aria-hidden="true"
-            class="w-full h-full brand-gradient-bg"
-            style={`-webkit-mask-image: url(${logoMark.src}); mask-image: url(${logoMark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
-          ></span>
+            class="h-full w-full object-contain object-center"
+          />
         </div>
-        <span class="flex h-12 w-[168px] flex-col justify-between leading-none">
+        <span class="flex w-[168px] flex-col gap-[5px] leading-none">
           <span
             aria-hidden="true"
-            class="h-8 w-[168px] brand-gradient-bg"
-            style={`-webkit-mask-image: url(${shibauraWordmark.src}); mask-image: url(${shibauraWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center left; mask-position: center left; -webkit-mask-size: contain; mask-size: contain;`}
+            class="w-[168px] shrink-0 brand-gradient-bg"
+            style={`aspect-ratio: 190.5892 / 39.8845; -webkit-mask-image: url(${kojexWordmark.src}); mask-image: url(${kojexWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: 100% 100%; mask-size: 100% 100%;`}
           ></span>
           <span class={`block w-full text-center font-bold uppercase text-black whitespace-nowrap ${subtitleClass}`}>
             {subtitleText}

@@ -22,7 +22,7 @@ const useCasesHref = localizePath('/use-cases', locale);
 const remoteFirefightingHref = `${useCasesHref}#remote-firefighting`;
 const firepumps = getFirepumps('fr');
 
-const AIR_COOLED_SLUGS = new Set(['ft510-a', 'ft300-400-a', 'tf516mh-ab']);
+const AIR_COOLED_SLUGS = new Set(['ft510-a', 'ft300-400-a']);
 const airCooledPumps = firepumps.filter((pump) => AIR_COOLED_SLUGS.has(pump.slug));
 const metadata = getNonProductMetadata({
   pageKey: 'productsAirCooled',

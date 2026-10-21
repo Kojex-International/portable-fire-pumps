@@ -2,7 +2,6 @@ import { motion } from 'motion/react';
 
 import ft510Img from '@assets/shibaura-ft510-portable-fire-pump-side-view.jpg';
 import ft400Img from '@assets/shibaura-ft400-portable-fire-pump-side-view.jpg';
-import tf516mhImg from '@assets/shibaura-tf516mh-portable-fire-pump-side-view.jpg';
 import p572sImg from '@assets/shibaura-p572s-portable-fire-pump-side-view.jpg';
 import fk500Img from '@assets/shibaura-fk500-portable-fire-pump-side-view.jpg';
 import ff500arImg from '@assets/shibaura-ff500ar-portable-fire-pump-side-view.jpg';
@@ -20,12 +19,6 @@ const featuresEn = [
     description: 'Compact, lightweight models for quick deployment and transport.',
     image: ft400Img,
     slug: 'ft300-400-a',
-  },
-  {
-    title: 'TF516MH-AB',
-    description: 'Smallest-in-class pump built for mobility and vehicle mounting.',
-    image: tf516mhImg,
-    slug: 'tf516mh-ab',
   },
   {
     title: 'P572S-A',
@@ -59,12 +52,6 @@ const featuresFr = [
     description: 'Modèles compacts et légers adaptés au déploiement rapide et au transport.',
     image: ft400Img,
     slug: 'ft300-400-a',
-  },
-  {
-    title: 'TF516MH-AB',
-    description: 'Pompe ultra-compacte conçue pour la mobilité et l’installation sur véhicule.',
-    image: tf516mhImg,
-    slug: 'tf516mh-ab',
   },
   {
     title: 'P572S-A',

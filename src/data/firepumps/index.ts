@@ -20,8 +20,19 @@ export const firepumps: Firepump[] = [
 validateHeroKeySpecs(firepumps);
 validateSpecTables(firepumps);
 
-export const getFirepumps = (locale: FirepumpLocale = 'en'): Firepump[] =>
-  firepumps.map((pump) => localizePump(pump, locale));
+type GetFirepumpsOptions = {
+  includeDiscontinued?: boolean;
+};
+
+export const getFirepumps = (
+  locale: FirepumpLocale = 'en',
+  options: GetFirepumpsOptions = {}
+): Firepump[] => {
+  const { includeDiscontinued = false } = options;
+  return firepumps
+    .filter((pump) => includeDiscontinued || !pump.discontinued)
+    .map((pump) => localizePump(pump, locale));
+};
 
 export type { Firepump, FirepumpFeature, FirepumpLocale, LocalizedValue } from './types';
 export type {

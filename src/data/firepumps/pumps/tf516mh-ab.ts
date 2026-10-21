@@ -41,6 +41,7 @@ export const tf516mh_ab: Firepump = {
     image: tf516mhImg,
     graphImage: tf516mhGraphImg,
     manualPdf: tf516mhManualPdf,
+    discontinued: true,
     features: [
       { label: 'Air-cooled Shibaura engine', icon: aircooledIcon },
       { label: '2-Stroke gasoline engine', icon: engineIcon },

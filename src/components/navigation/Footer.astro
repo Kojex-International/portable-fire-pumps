@@ -1,7 +1,7 @@
 ---
 import { getLocaleFromPathname, getNavigation, localizePath, SOCIAL_LINKS, SITE } from '@config/site';
 import { Facebook, Instagram, Youtube } from 'lucide-react';
-import logoMark from '@assets/shibaura-logo-mark.svg';
+import kojexWordmark from '@assets/kojex-wordmark-vectorized.svg';
 import shibauraWordmark from '@assets/shibaura-wordmark.svg';
 
 const locale = getLocaleFromPathname(Astro.url.pathname);
@@ -17,6 +17,9 @@ const productsHref = localizePath('/products', locale);
 const requestQuoteHref = localizePath('/contact-us', locale);
 const aboutHref = localizePath('/about-us', locale);
 const distributorsHref = localizePath('/distributors', locale);
+const companyBlurb = isFrench
+  ? 'Kojex International est le distributeur canadien des pompes incendie portatives Shibaura. Pompes incendie portatives haute performance destinées à la prévention des incendies et aux interventions d’urgence.'
+  : `Kojex International is the Canadian distributor of Shibaura portable fire pumps. ${SITE.description}`;
 ---
 
 <footer class="bg-[var(--brand-ink)] pb-[max(1.5rem,env(safe-area-inset-bottom))] text-slate-300 sm:pb-0">
@@ -24,15 +27,27 @@ const distributorsHref = localizePath('/distributors', locale);
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)_minmax(0,0.75fr)_minmax(0,0.75fr)] lg:gap-8">
       <!-- Company Info -->
       <div class="lg:col-span-1 space-y-6 text-center lg:text-left">
-        <div class="mx-auto w-full max-w-[17rem] lg:mx-0 lg:max-w-xs">
-          <a href={localizePath('/', locale)} class="group mx-auto flex h-8 w-fit items-center justify-center gap-1 lg:mx-0 lg:w-full lg:justify-start">
-            <img src={logoMark.src} alt="Shibaura" class="h-full w-auto shrink-0 object-contain py-[4px]" />
-            <img src={shibauraWordmark.src} alt="" class="h-full w-auto shrink-0 object-contain object-left" />
+        <div class="mx-auto w-full max-w-[20rem] lg:mx-0 lg:max-w-sm">
+          <a
+            href={localizePath('/', locale)}
+            class="group mx-auto flex h-8 w-fit items-center justify-center gap-2.5 lg:mx-0 lg:justify-start"
+          >
+            <span
+              role="img"
+              aria-label="Kojex"
+              class="h-5 shrink-0 bg-[var(--brand-1)] sm:h-6"
+              style={`aspect-ratio: 190.5892 / 39.8845; -webkit-mask-image: url(${kojexWordmark.src}); mask-image: url(${kojexWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+            ></span>
+            <span class="text-base font-semibold leading-none text-[var(--brand-1)] sm:text-lg" aria-hidden="true">&</span>
+            <span
+              role="img"
+              aria-label="Shibaura"
+              class="h-5 shrink-0 brand-gradient-bg sm:h-6"
+              style={`aspect-ratio: 190.714 / 30; -webkit-mask-image: url(${shibauraWordmark.src}); mask-image: url(${shibauraWordmark.src}); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;`}
+            ></span>
           </a>
-          <p class="mx-auto mt-6 max-w-[17rem] text-sm leading-relaxed text-slate-400 lg:mx-0 lg:max-w-xs">
-            {isFrench
-              ? 'Pompes incendie portatives haute performance destinées à la prévention des incendies et aux interventions d’urgence.'
-              : SITE.description}
+          <p class="mx-auto mt-6 max-w-[20rem] text-sm leading-relaxed text-slate-400 lg:mx-0 lg:max-w-sm">
+            {companyBlurb}
           </p>
         </div>
         <div class="flex justify-center gap-3 lg:justify-start">

@@ -7,7 +7,7 @@ import { getProductMetadata } from '../../../utils/productMetadata';
 import { buildProductBreadcrumbSchema, buildProductSchema } from '../../../utils/seo/schema';
 
 export async function getStaticPaths() {
-  const frFirepumps = getFirepumps('fr');
+  const frFirepumps = getFirepumps('fr', { includeDiscontinued: true });
   return frFirepumps.flatMap((pump) => {
     const slugs = [pump.slug, ...(pump.aliases ?? [])];
     return slugs.map((slug) => ({

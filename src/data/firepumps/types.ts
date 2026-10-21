@@ -25,6 +25,8 @@ export interface Firepump {
   graphImage: ImageMetadata;
   manualPdf?: string;
   aliases?: string[];
+  /** When true, excluded from default product listings/cards but data is retained. */
+  discontinued?: boolean;
   features: FirepumpFeature[];
   keySpecs: { key: HeroFeatureLabelKey; label?: string; value: string | LocalizedValue; icon: string }[];
   benefits: { title: string; description: string }[];

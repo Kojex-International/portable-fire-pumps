@@ -13,6 +13,8 @@ import { getNonProductMetadata } from '@utils/nonProductMetadata';
 
 import easternCanadaDistributorImg from '@assets/distributors/larsenal-distributor-logo.svg';
 import westernCanadaDistributorImg from '@assets/distributors/flash-wildfire-services-logo.avif';
+import safetySourceDistributorImg from '@assets/distributors/safety-source-fire-logo.png';
+import ppeSolutionsDistributorImg from '@assets/distributors/ppe-solutions-logo.png';
 
 import distributorsHeroImg from '@assets/distributors-network-hero.webp';
 import distributorsCtaImg from '@assets/distributors-support-cta.webp';
@@ -55,7 +57,7 @@ const distributors = [
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
     </svg>`,
     phone: '780 467 7234',
-    email: 'info@flashwildfireservices.ca',
+    email: 'info@flashws.ca',
     website: 'https://www.flashwildfireservices.ca/',
     description:
       'Supplier of wildfire pumps, sprinkler systems, WATERAX components, fire hose, and hardware for wildfire defense.',
@@ -65,6 +67,57 @@ const distributors = [
       'Wildfire pumps and WATERAX components',
       'Sprinkler systems and protection kits',
       'Fire hose, fittings, and hardware'
+    ]
+  },
+  {
+    id: 'safety-source-fire',
+    name: 'Safety Source Fire',
+    location: 'Dartmouth, Nova Scotia',
+    address: '121 Ilsley Avenue, Unit 4, Dartmouth, NS B3B 1S4',
+    type: 'Fire apparatus and emergency equipment',
+    region: 'Atlantic Canada',
+    image: safetySourceDistributorImg,
+    imageBg: 'bg-white',
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5 19h14a2 2 0 001.75-2.97l-7-12a2 2 0 00-3.5 0l-7 12A2 2 0 005 19z" />
+    </svg>`,
+    phone: '902-468-6060',
+    phoneAlt: '1-800-667-3030',
+    email: 'sales@safetysourcefire.ca',
+    website: 'https://safetysourcefire.ca/',
+    description:
+      'Safety Source Fire supplies fire apparatus, rescue tools, pumps, and emergency response equipment to departments across Atlantic Canada.',
+    focus:
+      'Headquartered in Dartmouth, Nova Scotia, with additional locations serving New Brunswick and Newfoundland.',
+    services: [
+      'Fire apparatus and custom truck configuration',
+      'Rescue tools and emergency equipment',
+      'Pumps, hose, and department support'
+    ]
+  },
+  {
+    id: 'ppe-solutions',
+    name: 'PPE Solutions',
+    location: 'Pickering, Ontario',
+    address: '905 Dillingham Rd, Unit #7, Pickering, ON L1W 3X1',
+    type: 'Firefighting PPE and emergency equipment',
+    region: 'Ontario',
+    image: ppeSolutionsDistributorImg,
+    imageBg: 'bg-white',
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    </svg>`,
+    phone: '1-888-999-0316',
+    email: 'info@ppesolutions.ca',
+    website: 'https://www.ppes.ca/',
+    description:
+      'PPE Solutions partners with Ontario fire services to supply personal protective equipment, turnout gear, and related emergency-response products.',
+    focus:
+      'Based in Pickering, Ontario, serving fire departments and industrial clients across the province.',
+    services: [
+      'Turnout gear and protective equipment',
+      'Extrication tools and decontamination systems',
+      'Hands-on technical support for departments'
     ]
   }
 ];
@@ -130,13 +183,13 @@ const metadata = getNonProductMetadata({
               style={`animation-delay: ${index * 0.1}s`}
             >
               <!-- Distributor Image -->
-              <div class="relative h-64 overflow-hidden bg-black">
+              <div class={`relative h-64 overflow-hidden ${distributor.imageBg ?? 'bg-black'}`}>
                 <Image 
                   src={distributor.image}
                   alt={distributor.name}
                   class="w-full h-full object-contain p-6"
                 />
-                <div class="absolute inset-0 bg-linear-to-t from-gray-900/80 via-gray-900/40 to-transparent"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-gray-900/25 via-gray-900/10 to-transparent"></div>
               </div>
 
               <div class="p-6 space-y-5 flex-1 flex flex-col">
