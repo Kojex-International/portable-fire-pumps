@@ -31,7 +31,7 @@ const inputClass = 'mt-1 w-full rounded-lg border border-slate-300 bg-white px-3
         <label>Interest *<select class={inputClass} name="interest" required><option value="">Select an interest</option><option value="portable_pump">Portable pump</option><option value="demo">Demonstration</option><option value="quote">Quote</option><option value="browsing">Browsing</option></select></label>
         <label>Preferred follow-up *<select class={inputClass} name="preferred_follow_up" required><option value="">Select a follow-up</option><option value="call">Call</option><option value="email">Email</option><option value="demo">Demonstration</option></select></label>
       </div>
-      <label class="block">Staff note<textarea class={inputClass} name="staff_note" rows="3" maxlength="2000"></textarea></label>
+      <label class="block">Staff note<textarea class={inputClass} name="staff_note" rows="3" maxlength="1000"></textarea></label>
       <label class="flex items-start gap-3"><input class="mt-1" type="checkbox" name="permission_to_contact" required /> <span>I give KOJEX permission to contact me about this inquiry. *</span></label>
       <div id="booth-turnstile"></div>
       <p id="booth-status" role="status" aria-live="polite" class="text-sm text-red-700"></p>
