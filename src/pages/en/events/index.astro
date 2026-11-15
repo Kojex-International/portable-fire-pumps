@@ -5,6 +5,7 @@ import Section from '@components/layout/Section.astro';
 import Card from '@components/ui/Card.astro';
 import SiteBadge from '@components/ui/SiteBadge.astro';
 import Button from '@components/ui/Button.astro';
+import BoothLeadForm from '@components/events/BoothLeadForm.astro';
 import EventProductHeroCard from '@components/events/EventProductHeroCard.astro';
 import EventPremiumVideoHero from '@components/events/EventPremiumVideoHero.astro';
 import {
@@ -41,10 +42,10 @@ const metadata = getNonProductMetadata({
 });
 
 const tradeShowEvent = {
-  isActive: false,
-  tradeShowName: '',
-  boothNumber: '',
-  eventDates: '',
+  isActive: true,
+  tradeShowName: 'OAFC 2026',
+  boothNumber: '60',
+  eventDates: 'November 19–21, 2026',
 } as const;
 
 const firepumps = getFirepumps(locale);
@@ -195,7 +196,7 @@ const compareCards = [
   locale="en"
 >
   <EventPremiumVideoHero
-    badge="Atlantic Fire Leadership 2026"
+    badge="OAFC 2026 · November 19–21 · Booth 60"
     title="Thanks for Visiting"
     tagline="Delivering Water Where It’s Needed Most"
     description=""
@@ -241,6 +242,8 @@ const compareCards = [
       </div>
     </Section>
   )}
+
+  <BoothLeadForm />
 
   <Section background="white" id="featured-products" class="!pt-8 !pb-0 lg:!pt-12 lg:!pb-0">
     <div class="mx-auto max-w-6xl space-y-6 text-center">
