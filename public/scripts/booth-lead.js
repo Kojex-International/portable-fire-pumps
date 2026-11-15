@@ -9,7 +9,7 @@
   document.querySelector('#add-pump').addEventListener('click', () => {
     const row = document.createElement('div');
     row.className = 'grid gap-3 rounded-lg border border-slate-200 p-3 sm:grid-cols-3';
-    row.innerHTML = '<label>Make / model<input name="make_model" maxlength="140" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"></label><label>Quantity<input name="quantity" type="number" min="1" max="10000" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"></label><label>Approximate age<input name="approximate_age" maxlength="80" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"></label><button type="button" class="text-left text-sm underline">Remove pump</button>';
+    row.innerHTML = '<label>Make / model<input name="make_model" required maxlength="140" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"></label><label>Quantity<input name="quantity" type="number" required min="1" max="999" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"></label><label>Approximate age<input name="approximate_age" required maxlength="80" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"></label><button type="button" class="text-left text-sm underline">Remove pump</button>';
     row.querySelector('button').addEventListener('click', () => row.remove());
     rows.append(row);
   });
