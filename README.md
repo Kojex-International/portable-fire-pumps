@@ -464,3 +464,9 @@ Contributions and issue reports are welcome. Please open an issue before making 
 ## 📧 Support
 
 For questions or support, please open an issue on GitHub.
+
+### OAFC booth lead capture
+
+The English events page collects OAFC 2026 booth inquiries through the Netlify `booth-lead` function. Configure `TURNSTILE_SITE_KEY` at build time and `TURNSTILE_SECRET_KEY`, `KOJEX_BOOTH_API_URL` (the HTTPS Frappe site origin), and `KOJEX_BOOTH_API_SECRET` in the Netlify function environment. The secret must match the Frappe site's `booth_capture_shared_secret`; never expose it to the browser. The proxy verifies Turnstile before sending the lead to the Frappe booth capture endpoint. Both services must be reachable for submissions to succeed.
+
+Optionally set `PUBLIC_OAFC_BOOKINGS_ENABLED=true` and `PUBLIC_OAFC_BOOKINGS_URL` to an HTTPS Microsoft Bookings URL on `outlook.office.com` or `outlook.office365.com` at build time. The booking page appears only after lead capture succeeds; the link below the embed is available if the embed cannot load. Booking through this fallback does not add an appointment slot to the captured lead.
