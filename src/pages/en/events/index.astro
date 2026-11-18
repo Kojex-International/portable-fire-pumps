@@ -31,6 +31,8 @@ import { getHeroFeatureLabel } from '../../../i18n/heroFeatureLabels';
 import { localizePath } from '@config/site';
 import { getNonProductMetadata } from '@utils/nonProductMetadata';
 import eventsContactCtaImg from '@assets/events-contact-cta.webp';
+import BoothBookingEmbed from '@components/events/BoothBookingEmbed.astro';
+import { crmBoothBookPageUrl } from '@config/crmBoothBooking';
 
 const locale = 'en';
 const metadata = getNonProductMetadata({
@@ -41,11 +43,13 @@ const metadata = getNonProductMetadata({
 });
 
 const tradeShowEvent = {
-  isActive: false,
-  tradeShowName: '',
-  boothNumber: '',
-  eventDates: '',
+  isActive: true,
+  tradeShowName: 'OAFC 2026 — Atlantic Fire Leadership Conference',
+  boothNumber: '60',
+  eventDates: 'November 19–21, 2026 · Niagara Falls Convention Centre',
 } as const;
+
+const boothBookHref = crmBoothBookPageUrl();
 
 const firepumps = getFirepumps(locale);
 const ff500 = firepumps.find((pump) => pump.slug === 'ff500ar-a');
@@ -222,6 +226,8 @@ const compareCards = [
       },
     ]}
   />
+
+  {tradeShowEvent.isActive && <BoothBookingEmbed />}
 
   {tradeShowEvent.isActive && (
     <Section background="white" id="current-event" class="!py-8 lg:!py-12">
@@ -481,7 +487,18 @@ const compareCards = [
           Reach out for pricing, demonstration planning, pump selection guidance, or a post-show follow-up.
         </p>
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <Button href={contactHref} size="lg" class="brand-cta group">
+          <Button href={boothBookHref} size="lg" class="brand-cta group" target="_blank" rel="noopener noreferrer">
+            Book a booth demo
+            <svg
+              class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Button>
+          <Button href={contactHref} size="lg" variant="outline" class="group">
             Contact Us
             <svg
               class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"

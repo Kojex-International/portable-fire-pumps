@@ -1,0 +1,41 @@
+---
+import { crmBoothBookEmbedUrl, crmBoothBookPageUrl } from '@config/crmBoothBooking';
+
+const embedUrl = crmBoothBookEmbedUrl();
+const pageUrl = crmBoothBookPageUrl();
+---
+
+<section id="book-booth-demo" class="scroll-mt-24 border-y border-slate-200 bg-slate-50 py-10 lg:py-14">
+  <div class="container mx-auto mobile-container-gutter max-w-5xl">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-1)]">Book a demo</p>
+      <h2 class="mt-2 text-3xl font-bold text-slate-900 md:text-4xl">Schedule your booth visit</h2>
+      <p class="mt-3 text-base leading-relaxed text-slate-600 md:text-lg">
+        Same calendar and booking flow as KOJEX CRM at the show — pick an open time, then confirm Zoom and Outlook invites.
+      </p>
+    </div>
+
+    <div class="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+      <iframe
+        title="OAFC booth booking"
+        src={embedUrl}
+        class="block min-h-[70vh] w-full border-0 bg-white"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+      />
+    </div>
+
+    <p class="mt-4 text-center text-sm text-slate-600">
+      Form not loading?
+      <a
+        href={pageUrl}
+        class="font-semibold text-[var(--brand-1)] underline-offset-2 hover:underline"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Open booth booking on CRM
+      </a>
+      (staff sign-in may be required).
+    </p>
+  </div>
+</section>
