@@ -110,7 +110,12 @@ const heroVideoMobileSrc = heroVideoDesktopSrc;
         )}
 
         {quickDownloads.length > 0 && (
-          <div class:list={['mx-auto flex w-fit flex-col items-center justify-center gap-2 md:flex-row md:flex-wrap', description ? 'mt-4' : 'mt-3 md:mt-6']}>
+          <div
+            class:list={[
+              'mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-3',
+              description ? 'mt-5' : 'mt-4 md:mt-7',
+            ]}
+          >
             {quickDownloads.map((item) => {
               const Icon =
                 item.icon === 'download'
@@ -122,14 +127,14 @@ const heroVideoMobileSrc = heroVideoDesktopSrc;
                 <a
                   href={item.href}
                   download={item.download ? true : undefined}
-                  class="group inline-flex w-auto min-w-0 items-center justify-center gap-3 rounded-xl border border-white/20 bg-transparent px-3 py-2 text-white transition-all duration-300 hover:-translate-y-0.5 sm:px-4 sm:py-2.5"
+                  class="event-premium-quick-download group flex w-full items-center gap-3 rounded-2xl border border-white/35 bg-white/12 px-4 py-3.5 text-white shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-[var(--brand-1)]/70 hover:bg-white/18 hover:shadow-[0_12px_28px_rgba(0,0,0,0.45)] sm:flex-col sm:px-3 sm:py-4 sm:text-center"
                 >
-                  <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-transparent text-white transition-colors duration-300 group-hover:text-red-300">
+                  <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/25 bg-[var(--brand-1)] text-white shadow-md transition-transform duration-300 group-hover:scale-105 sm:mx-auto">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <div class="min-w-0 text-left">
-                    <p class="text-sm font-bold leading-tight text-white transition-colors duration-300 group-hover:text-red-300 sm:text-base">{item.title}</p>
-                    <p class="mt-1 text-xs leading-snug text-slate-300 sm:text-sm">{item.subtitle}</p>
+                  <div class="min-w-0 flex-1 text-left sm:text-center">
+                    <p class="text-sm font-bold leading-tight text-white sm:text-base">{item.title}</p>
+                    <p class="mt-1 text-xs leading-snug text-slate-200 sm:text-sm">{item.subtitle}</p>
                   </div>
                 </a>
               );

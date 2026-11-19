@@ -166,14 +166,14 @@ const NON_PRODUCT_PAGE_METADATA: Record<NonProductPageKey, Record<Locale, Locali
   },
   events: {
     en: {
-      title: 'Trade Show Resources | KOJEX Portable Fire Pumps',
+      title: 'OAFC 2026 | KOJEX Portable Fire Pumps',
       description:
-        'Explore the Shibaura Rabbit portable fire pumps, videos, and resources featured by KOJEX at current trade shows and events.',
+        'OAFC 2026 trade show resources from KOJEX — booth 60, November 19–21, 2026. Explore Shibaura portable fire pumps, videos, and downloads.',
     },
     fr: {
-      title: 'Trade Show Resources | KOJEX Portable Fire Pumps',
+      title: 'OAFC 2026 | KOJEX Portable Fire Pumps',
       description:
-        'Explore the Shibaura Rabbit portable fire pumps, videos, and resources featured by KOJEX at current trade shows and events.',
+        'Ressources du salon OAFC 2026 par KOJEX — kiosque 60, 19–21 novembre 2026. Pompes à incendie portatives Shibaura, vidéos et téléchargements.',
     },
   },
   about: {
