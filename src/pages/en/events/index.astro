@@ -5,6 +5,7 @@ import Section from '@components/layout/Section.astro';
 import Card from '@components/ui/Card.astro';
 import SiteBadge from '@components/ui/SiteBadge.astro';
 import Button from '@components/ui/Button.astro';
+import BoothBookingEmbed from '@components/events/BoothBookingEmbed.astro';
 import EventProductHeroCard from '@components/events/EventProductHeroCard.astro';
 import EventPremiumVideoHero from '@components/events/EventPremiumVideoHero.astro';
 import {
@@ -271,6 +272,8 @@ const compareCards = [
             </div>
           </Card>
         </div>
+
+        <BoothBookingEmbed />
 
         <div class="mx-auto max-w-4xl">
           <Card class="overflow-hidden border border-slate-200 bg-white p-2 shadow-lg sm:p-3">
